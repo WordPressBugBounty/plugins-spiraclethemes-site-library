@@ -1,6 +1,9 @@
 
 == Changelog ==
 
+== 1.3.3 ==
+- Demo import dependency for mestore theme added
+
 == 1.3.2 ==
 - Minor changes regarding notices
 

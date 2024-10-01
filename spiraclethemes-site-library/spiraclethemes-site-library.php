@@ -3,7 +3,7 @@
  * Plugin Name:       Spiraclethemes Site Library
  * Plugin URI:        https://wordpress.org/plugins/spiraclethemes-site-library/
  * Description:       A plugin made by spiraclethemes.com to extends its free themes features by adding functionality to import demo data content in just a click.
- * Version:           1.3.2
+ * Version:           1.3.3
  * Author:            SpiracleThemes
  * Author URI:        https://spiraclethemes.com
  * License:           GPL-2.0+
@@ -110,7 +110,7 @@ class Spiraclethemes_Site_Library {
         $this->theme_slug    = $theme->get( 'TextDomain');
 
         $this->ocdi_slug    = 'one-click-demo-import';
-        $this->notification  =  '<p>' . sprintf( 'Begin with our demo starter templates designed for this theme. They will save you the time and effort of creating pages from scratch. After importing, you can easily edit the content to fit your needs.','spiraclethemes-site-library'). ' <a href="' . esc_url( admin_url( 'themes.php?page=' . $this->ocdi_slug) ) . '" class="button" style="text-decoration: none;">' . sprintf( 'Start Importing Templates','spiraclethemes-site-library' ) . '</a></p>';
+        $this->notification  =  '<p>' . sprintf( 'Kickstart your project with our demo starter templates, carefully crafted for this theme. Import, customize, and refine your content with ease, saving time and effort. A solid foundation for your website, tailored to your unique needs.','spiraclethemes-site-library'). ' <a href="' . esc_url( admin_url( 'themes.php?page=' . $this->ocdi_slug) ) . '" class="button" style="text-decoration: none;">' . sprintf( 'Start Importing Templates','spiraclethemes-site-library' ) . '</a></p>';
 
          if ( is_admin()) :
             add_action( 'admin_notices', array( $this, 'spiraclethemes_site_library_welcome_admin_notice' ), 99 );

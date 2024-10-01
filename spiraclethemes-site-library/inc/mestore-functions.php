@@ -84,6 +84,16 @@ function spiraclethemes_site_library_mestore_check_pro_plugin() {
                   'required' => true,
                 ],
                 [ 
+                  'name'     => 'WooCommerce',
+                  'slug'     => 'woocommerce',
+                  'required' => true,
+                ],
+                [ 
+                  'name'     => 'YITH WooCommerce Quick View',
+                  'slug'     => 'yith-woocommerce-quick-view',
+                  'required' => true,
+                ],
+                [ 
                   'name'     => 'Contact Form 7',
                   'slug'     => 'contact-form-7',
                   'required' => true,

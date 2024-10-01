@@ -31,8 +31,8 @@ function spiraclethemes_site_library_own_shop_set_import_files() {
             'import_widget_file_url'     => $widgets_ownshop_demo[$i],
             'import_customizer_file_url' => $customizer_ownshop_demo[$i],    
             'import_preview_image_url'   => $image_ownshop_demo[$i],
-            'import_notice'              => esc_html__( 'After you import this demo, you will have to change some menu links. Please check documentation for more information', 'spiraclethemes-site-library' ),
-            'preview_url'                => 'https://ownshopwp.spiraclethemes.com/demo'.$i,
+            'import_notice'              => esc_html__( '', 'spiraclethemes-site-library' ),
+            'preview_url'                => 'https://ownshop.spiraclethemes.com/demo'.$i,
         );
     }
     return $returnArray;

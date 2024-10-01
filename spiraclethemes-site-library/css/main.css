@@ -79,22 +79,21 @@
 
 #spiraclethemes-site-library-notice-id p {
 	text-align: center;
-	font-size: 15px;
-    font-weight: 400;
+	font-size: 17px;
+    font-weight: 500;
 }
 
 #spiraclethemes-site-library-notice-id {
 	padding: 30px 150px;
-    background-color: #f0f6fc;
-    color: #555;
+    background-color: #000;
+    color: #fff;
     border-left: none;
-    border-left: 5px solid #3582c4;
 }
 
 
 #spiraclethemes-site-library-notice-id .notice-dismiss:before {
     background: 0 0;
-    color: #555;
+    color: #fff;
     content: "\f153";
     display: block;
     font: normal 16px/20px dashicons;

@@ -77,20 +77,20 @@ function spiraclethemes_site_library_soma_check_pro_plugin() {
 			      'required' => true,
 			    ],
 			    [ 
-                  'name'     => 'Elementor Website Builder',
-                  'slug'     => 'elementor',
-                  'required' => true,
-                ],
-                [ 
-                  'name'     => 'Contact Form 7',
-                  'slug'     => 'contact-form-7',
-                  'required' => true,
-                ],
-                [ 
-                  'name'     => 'Breadcrumb NavXT',
-                  'slug'     => 'breadcrumb-navxt',
-                  'required' => true,
-                ],
+            'name'     => 'Elementor Website Builder',
+            'slug'     => 'elementor',
+            'required' => true,
+          ],
+          [ 
+            'name'     => 'Contact Form 7',
+            'slug'     => 'contact-form-7',
+            'required' => true,
+          ],
+          [ 
+            'name'     => 'Breadcrumb NavXT',
+            'slug'     => 'breadcrumb-navxt',
+            'required' => true,
+          ],
 		  	];
 		 
 		  	return array_merge( $plugins, $theme_plugins );
