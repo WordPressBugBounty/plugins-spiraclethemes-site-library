@@ -76,6 +76,9 @@ if ('legalblow' == $this->theme_slug ) :
     require_once SPIR_SITE_LIBRARY_PATH . '/inc/legalblow-functions.php';
 endif;
 
+if ('own-shop-trend' == $this->theme_slug ) :
+    require_once SPIR_SITE_LIBRARY_PATH . '/inc/own-shop-trend-functions.php';
+endif;
 
 /*************************************************************/
 
