@@ -3,7 +3,7 @@
  * Plugin Name:       Spiraclethemes Site Library
  * Plugin URI:        https://wordpress.org/plugins/spiraclethemes-site-library/
  * Description:       A plugin made by spiraclethemes.com to extends its free themes features by adding functionality to import demo data content in just a click.
- * Version:           1.3.4
+ * Version:           1.3.5
  * Author:            SpiracleThemes
  * Author URI:        https://spiraclethemes.com
  * License:           GPL-2.0+
@@ -166,8 +166,8 @@ class Spiraclethemes_Site_Library {
 		       		<div class="rating-div updated" style="padding: 15px 20px;">
 		        		<?php 
 		        			$rating_url = esc_url('https://wordpress.org/support/theme/'.$this->theme_slug.'/reviews/?filter=5');
-		        			$rating_ignore =esc_url('themes.php?page='.$this->theme_slug.'-theme-info&wp_spiraclethemes_sitelib_rating_ignore=0');
-		        			$rating_theme_info = esc_url('themes.php?page='.$this->theme_slug.'-theme-info');
+		        			$rating_ignore =esc_url(admin_url('themes.php?wp_spiraclethemes_sitelib_rating_ignore=0'));
+		        			$rating_theme_info = esc_url(admin_url('themes.php'));
 		        			$rating_theme = $this->theme_name;
 		        			printf( esc_html__('Awesome, you\'ve been using ','spiraclethemes-site-library') .
 		        				'<a href="'. $rating_theme_info.'">'. $rating_theme .'</a>'.

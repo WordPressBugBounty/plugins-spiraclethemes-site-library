@@ -80,6 +80,10 @@ if ('own-shop-trend' == $this->theme_slug ) :
     require_once SPIR_SITE_LIBRARY_PATH . '/inc/own-shop-trend-functions.php';
 endif;
 
+if ('lawfiz-one' == $this->theme_slug ) :
+    require_once SPIR_SITE_LIBRARY_PATH . '/inc/lawfiz-one-functions.php';
+endif;
+
 /*************************************************************/
 
 // Function to access API data
