@@ -5,7 +5,6 @@ use Elementor\Widget_Base;
 use Elementor\Controls_Manager;
 use Elementor\Repeater;
 use Elementor\Group_Control_Typography;
-use Elementor\Core\Schemes\Typography;
 use Elementor\Group_Control_Border;
 Use Elementor\Controls_Stack;
 
@@ -109,7 +108,6 @@ class Own_Shop_ListProd extends Widget_Base {
 			[
 				'name' => 'section_tabs_typography',
 				'label' => __( 'Product tabs typography', 'spiraclethemes-site-library' ),
-				'scheme' => Typography::TYPOGRAPHY_1,
 				'selector' => '{{WRAPPER}} .list-products-section .nav-tabs >li >a',
 				'fields_options' => [
 		            'typography' => ['default' => 'yes'],
@@ -135,7 +133,6 @@ class Own_Shop_ListProd extends Widget_Base {
 			[
 				'name' => 'section_product_title_typography',
 				'label' => __( 'Name typography', 'spiraclethemes-site-library' ),
-				'scheme' => Typography::TYPOGRAPHY_1,
 				'selector' => '{{WRAPPER}} .list-products-section li.product .woocommerce-loop-product__title',
 				'fields_options' => [
 		            'typography' => ['default' => 'yes'],
@@ -150,7 +147,6 @@ class Own_Shop_ListProd extends Widget_Base {
 			[
 				'name' => 'section_product_price_typography',
 				'label' => __( 'Price typography', 'spiraclethemes-site-library' ),
-				'scheme' => Typography::TYPOGRAPHY_1,
 				'selector' => '{{WRAPPER}} .list-products-section ul.products li.product .price',
 				'fields_options' => [
 		            'typography' => ['default' => 'yes'],
@@ -165,7 +161,6 @@ class Own_Shop_ListProd extends Widget_Base {
 			[
 				'name' => 'section_product_saved_typography',
 				'label' => __( 'Saved typography', 'spiraclethemes-site-library' ),
-				'scheme' => Typography::TYPOGRAPHY_1,
 				'selector' => '{{WRAPPER}} .list-products-section ul.products li.product p.saved-sale',
 				'fields_options' => [
 		            'typography' => ['default' => 'yes'],

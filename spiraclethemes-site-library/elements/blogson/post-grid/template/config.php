@@ -5,7 +5,6 @@ use Elementor\Widget_Base;
 use Elementor\Controls_Manager;
 use Elementor\Repeater;
 use Elementor\Group_Control_Typography;
-use Elementor\Core\Schemes\Typography;
 use Elementor\Group_Control_Border;
 Use Elementor\Controls_Stack;
 
@@ -567,7 +566,6 @@ class Blogson_Postgrid extends Widget_Base {
 			[
 				'name' => 'section_title_typography',
 				'label' => __( 'Section title typography', 'spiraclethemes-site-library' ),
-				'scheme' => Typography::TYPOGRAPHY_1,
 				'selector' => '{{WRAPPER}} .latest-posts .post_title',
 				'fields_options' => [
 		            'typography' => ['default' => 'yes'],
@@ -600,7 +598,6 @@ class Blogson_Postgrid extends Widget_Base {
 			[
 				'name' => 'title_typography',
 				'label' => __( 'Post title typography', 'spiraclethemes-site-library' ),
-				'scheme' => Typography::TYPOGRAPHY_1,
 				'selector' => '{{WRAPPER}} .latest-posts article .title h2 a',
 				'fields_options' => [
 		            'typography' => ['default' => 'yes'],
@@ -692,7 +689,6 @@ class Blogson_Postgrid extends Widget_Base {
 			[
 				'name' => 'content_typography',
 				'label' => __( 'Typography', 'spiraclethemes-site-library' ),
-				'scheme' => Typography::TYPOGRAPHY_1,
 				'selector' => '{{WRAPPER}} .latest-posts .blog-posts .post .post-content',
 			]
 		);
@@ -740,7 +736,6 @@ class Blogson_Postgrid extends Widget_Base {
 			[
 				'name' => 'category_typography',
 				'label' => __( 'Category', 'spiraclethemes-site-library' ),
-				'scheme' => Typography::TYPOGRAPHY_1,
 				'selector' => '{{WRAPPER}} .latest-posts article .category a',
 				'fields_options' => [
 		            'typography' => ['default' => 'yes'],
@@ -829,7 +824,6 @@ class Blogson_Postgrid extends Widget_Base {
 			[
 				'name' => 'meta_typography',
 				'label' => __( 'Meta (author,date,comments)', 'spiraclethemes-site-library' ),
-				'scheme' => Typography::TYPOGRAPHY_1,
 				'selector' => '{{WRAPPER}} .latest-posts article .meta span > span',
 				'{{WRAPPER}}  .latest-posts article .meta span',
 				'fields_options' => [
@@ -874,7 +868,6 @@ class Blogson_Postgrid extends Widget_Base {
 			[
 				'name' => 'readmore_typography',
 				'label' => __( 'Read more', 'spiraclethemes-site-library' ),
-				'scheme' => Typography::TYPOGRAPHY_1,
 				'selector' => '{{WRAPPER}} .latest-posts article.style_3 .post-read-more a',
 				'condition' => [
 					'post_style' => ['style_3'],

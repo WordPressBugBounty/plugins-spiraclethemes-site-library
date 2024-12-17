@@ -5,7 +5,6 @@ use Elementor\Widget_Base;
 use Elementor\Controls_Manager;
 use Elementor\Repeater;
 use Elementor\Group_Control_Typography;
-use Elementor\Core\Schemes\Typography;
 use Elementor\Group_Control_Border;
 Use Elementor\Controls_Stack;
 
@@ -128,7 +127,6 @@ class Own_Shop_RecentBlog extends Widget_Base {
 			[
 				'name' => 'section_post_title_typography',
 				'label' => __( 'Title typography', 'spiraclethemes-site-library' ),
-				'scheme' => Typography::TYPOGRAPHY_1,
 				'selector' => 
 				'{{WRAPPER}} .recent-blog-widget .content h3 a',
 				'fields_options' => [
@@ -156,7 +154,6 @@ class Own_Shop_RecentBlog extends Widget_Base {
 			[
 				'name' => 'section_post_content_typography',
 				'label' => __( 'Content typography', 'spiraclethemes-site-library' ),
-				'scheme' => Typography::TYPOGRAPHY_1,
 				'selector' => 
 				'{{WRAPPER}} .recent-blog-widget .content p',
 				'fields_options' => [
@@ -183,7 +180,6 @@ class Own_Shop_RecentBlog extends Widget_Base {
 			[
 				'name' => 'section_post_readmore_typography',
 				'label' => __( 'Read More typography', 'spiraclethemes-site-library' ),
-				'scheme' => Typography::TYPOGRAPHY_1,
 				'selector' => 
 				'{{WRAPPER}} .recent-blog-widget .content .read-more a',
 				'fields_options' => [
