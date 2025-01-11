@@ -1,6 +1,9 @@
 
 == Changelog ==
 
+== 1.3.7 ==
+- Added a notice
+
 == 1.3.6 ==
 - Fixed Elementor classes issue
 

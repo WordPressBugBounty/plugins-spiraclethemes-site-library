@@ -3,7 +3,7 @@
  * Plugin Name:       Spiraclethemes Site Library
  * Plugin URI:        https://wordpress.org/plugins/spiraclethemes-site-library/
  * Description:       A plugin made by spiraclethemes.com to extends its free themes features by adding functionality to import demo data content in just a click.
- * Version:           1.3.6
+ * Version:           1.3.7
  * Author:            SpiracleThemes
  * Author URI:        https://spiraclethemes.com
  * License:           GPL-2.0+
@@ -115,6 +115,8 @@ class Spiraclethemes_Site_Library {
          if ( is_admin()) :
             add_action( 'admin_notices', array( $this, 'spiraclethemes_site_library_welcome_admin_notice' ), 99 );
             add_action( 'admin_init', array( $this, 'spiraclethemes_site_library_rating_ignore' ), 99 );
+            add_action( 'admin_notices', array( $this, 'spiraclethemes_site_library_training_admin_notice' ), 99 );
+            add_action( 'admin_init', array( $this, 'spiraclethemes_site_library_training_ignore' ), 99 );
 
         endif;
         
@@ -192,6 +194,48 @@ class Spiraclethemes_Site_Library {
 	    endif;
 	}
 
+    //Display an admin notice
+    function spiraclethemes_site_library_training_admin_notice() {
+        $install_date = get_option('spiraclethemes_sitelib_install_date', '');
+        $install_date = date_create($install_date);
+        $date_now = date_create(date('Y-m-d G:i:s'));
+        $date_diff = date_diff($install_date, $date_now);
+
+        global $current_user;
+        $user_id = $current_user->ID;
+
+        // Check if the user has already dismissed the notice.
+        if (!get_user_meta($user_id, 'spiraclethemes_sitelib_training_ignore_notice')) {
+            ?>
+            <div class="training-div updated" style="padding: 15px 20px;">
+                <?php 
+                    $training_url = esc_url('https://livetrainingwp.com/contact/');
+                    $training_ignore = esc_url(admin_url('themes.php?wp_spiraclethemes_sitelib_training_ignore=0'));
+
+                    printf(
+                        esc_html__(
+                            'Welcome to WordPress and thanks for installing our theme! 🎉 New to WordPress? We offer 1-on-1 live training to guide you.', 
+                            'spiraclethemes-site-library'
+                        ) . '<br>' .
+                        '<a href="%1$s" target="_blank" style="color: #007cba; text-decoration: underline;">%2$s</a> | <a href="%3$s" style="color: #555;">%4$s</a>',
+                        $training_url,
+                        esc_html__('Yes, I’m interested in live training', 'spiraclethemes-site-library'),
+                        $training_ignore,
+                        esc_html__('No, thanks', 'spiraclethemes-site-library')
+                    );
+                ?>
+            </div>
+            <?php
+        }
+    }
+
+    function spiraclethemes_site_library_training_ignore() {
+        global $current_user;
+        $user_id = $current_user->ID;
+        if ( isset($_GET['wp_spiraclethemes_sitelib_training_ignore']) && '0' == $_GET['wp_spiraclethemes_sitelib_training_ignore'] ) :
+            add_user_meta($user_id, 'spiraclethemes_sitelib_training_ignore_notice', 'true', true);
+        endif;
+    }
 }
 
 // Class Register
