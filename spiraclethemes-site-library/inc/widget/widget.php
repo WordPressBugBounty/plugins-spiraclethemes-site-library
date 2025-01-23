@@ -97,18 +97,11 @@ function spiraclethemes_site_library_display_dashboard_widget() {
     $rocket_img = SPIR_SITE_LIBRARY_URL . 'img/rocket.svg';
 
     echo '<br/><br/>';
-    echo '<h3><b>' . __( 'Deals & Sales Updates', 'spiraclethemes-site-library' ) . '</b></h3>';
-    echo '<ul>';
-    echo '<li>';
-    echo '<span style="background-color: #2196f3; color: white; padding: 3px 6px; border-radius: 4px; font-size: 11px; margin-right: 5px;font-weight: 500;">' . __( 'NEW', 'spiraclethemes-site-library' ) . '</span>';
-    echo '<span>' . __( 'Enjoy a complimentary theme install and demo import service with every lifetime license purchase!', 'spiraclethemes-site-library' ) . '</span>';
-    echo '</li>';
-    echo '</ul>';
 
-    echo '<h3><span><img src="' . esc_url($rocket_img) . '" /> </span><b>' . __( 'Design, Build or Revamp existing WordPress website', 'spiraclethemes-site-library' ) . '</b></h3>';
+    echo '<h3><span><img src="' . esc_url($rocket_img) . '" /> </span><b>' . __( 'Design, Build or Revamp existing WordPress website starting from $299', 'spiraclethemes-site-library' ) . '</b></h3>';
 
     echo '<ul style="list-style: disc; padding-left: 20px;">';
-    echo '<li><b>100% Tailored Design</b> - Eye-catching site design or redesign. Unlimited revisions</li>';
+    echo '<li><b>Custom Design</b> - Eye-catching site design or redesign.</li>';
     echo '<li><b>Custom functionality</b> - Tailored functionality to meet your business needs</li>';
     echo '<li><b>SEO-Friendly</b> - Improve your search engine rankings</li>';
     echo '<li><b>Lightning-Fast</b> - Optimized for speed and performance</li>';
@@ -118,20 +111,18 @@ function spiraclethemes_site_library_display_dashboard_widget() {
     echo '<li><b>Live Chat Integrated</b> - Talk to your website\'s visitors in real time</li>';
     echo '<li><b>SSL Renewal Assistance</b> - Keep your website secure</li>';
     echo '<li><b>Spam Protection Setup</b> - Protect against unwanted spam</li>';
-    echo '<li><b>6 Months Dedicated Free Support</b> - Expert assistance when you need it</li>';
+    echo '<li><b>1 Month Dedicated Free Support</b> - Expert assistance when you need it</li>';
     echo '</ul>';
-
-   printf(
-        '<p style="text-align: left; margin-bottom:20px;margin-top:20px;">
-            <a href="mailto:support@spiraclethemes.com?subject=%s&body=%s" 
-               style="text-decoration:none; font-weight:500; background-color:#E91E63; color: #FFFFFF; padding: 10px 20px;border-radius: 5px;box-shadow: 0px 1px 5px 1px #55555526;">
-               %s
+    echo sprintf(
+        '<p style="text-align: left; margin-bottom:20px; margin-top:20px;">
+            <a href="https://spiraclethemes.com/custom-wp/" target="_blank" style="background-color:#35a62e; color:#fff; border-radius:4px; padding:10px 15px; text-decoration:none; display:inline-block;box-shadow: 3px 3px #bcedbe;">
+                %s
             </a>
         </p>',
-        urlencode('Custom WordPress Website Inquiry'),
-        urlencode("Hi Spiracle Themes Team,\n\nI'm interested in your custom WordPress website service.\n\nPlease let me know the next steps.\n\nThank you!"),
-        __('Get Started Today for Just $699 (Limited Time Offer, Regularly $999)!', 'spiraclethemes-site-library')
+        __('Get Started Today for Just $299 (Limited Time Offer)!', 'spiraclethemes-site-library')
     );
+
+
 
     echo '<h3><b>' . __( 'News & Updates', 'spiraclethemes-site-library' ) . '</b></h3>';
     echo '<ul>';

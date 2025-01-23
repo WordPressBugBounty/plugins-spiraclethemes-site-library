@@ -11,78 +11,85 @@ if ( ! defined( 'WPINC' ) ) :
 endif;
 
 
-if ('own-shop' == $this->theme_slug ) :
-    require_once SPIR_SITE_LIBRARY_PATH . '/inc/own-shop-functions.php';
-    // helper functions
-    require_once SPIR_SITE_LIBRARY_PATH . '/elements/own-shop/helper-functions.php';
-    // Widget Category
-    require_once SPIR_SITE_LIBRARY_PATH . '/elements/own-shop/widget-category.php';
-endif;
-if ('purea-magazine' == $this->theme_slug ) :
-    require_once SPIR_SITE_LIBRARY_PATH . '/inc/purea-magazine-functions.php';
-endif;
-if ('colon' == $this->theme_slug ) :
-    require_once SPIR_SITE_LIBRARY_PATH . '/inc/colon-functions.php';
-endif;
-if ('somalite' == $this->theme_slug ) :
-    require_once SPIR_SITE_LIBRARY_PATH . '/inc/somalite-functions.php';
-endif;
-if ('purea-fashion' == $this->theme_slug ) :
-    require_once SPIR_SITE_LIBRARY_PATH . '/inc/purea-fashion-functions.php';
-endif;
-if ('own-store' == $this->theme_slug ) :
-    require_once SPIR_SITE_LIBRARY_PATH . '/inc/own-store-functions.php';
-    // helper functions
-    require_once SPIR_SITE_LIBRARY_PATH . '/elements/own-shop/helper-functions.php';
-    // Widget Category
-    require_once SPIR_SITE_LIBRARY_PATH . '/elements/own-shop/widget-category.php';
-endif;
-if ('colon-plus' == $this->theme_slug ) :
-    require_once SPIR_SITE_LIBRARY_PATH . '/inc/colon-plus-functions.php';
-endif;
-if ('own-shop-lite' == $this->theme_slug ) :
-    require_once SPIR_SITE_LIBRARY_PATH . '/inc/own-shop-lite-functions.php';
-    // helper functions
-    require_once SPIR_SITE_LIBRARY_PATH . '/elements/own-shop/helper-functions.php';
-    // Widget Category
-    require_once SPIR_SITE_LIBRARY_PATH . '/elements/own-shop/widget-category.php';
-endif;
-if ('mestore' == $this->theme_slug ) :
-    require_once SPIR_SITE_LIBRARY_PATH . '/inc/mestore-functions.php';
-endif;
+$theme_files = [
+    'own-shop' => [
+        SPIR_SITE_LIBRARY_PATH . '/inc/own-shop-functions.php',
+        SPIR_SITE_LIBRARY_PATH . '/elements/own-shop/helper-functions.php',
+        SPIR_SITE_LIBRARY_PATH . '/elements/own-shop/widget-category.php',
+    ],
+    'purea-magazine' => [
+        SPIR_SITE_LIBRARY_PATH . '/inc/purea-magazine-functions.php',
+    ],
+    'colon' => [
+        SPIR_SITE_LIBRARY_PATH . '/inc/colon-functions.php',
+    ],
+    'somalite' => [
+        SPIR_SITE_LIBRARY_PATH . '/inc/somalite-functions.php',
+    ],
+    'purea-fashion' => [
+        SPIR_SITE_LIBRARY_PATH . '/inc/purea-fashion-functions.php',
+    ],
+    'own-store' => [
+        SPIR_SITE_LIBRARY_PATH . '/inc/own-store-functions.php',
+        SPIR_SITE_LIBRARY_PATH . '/elements/own-shop/helper-functions.php',
+        SPIR_SITE_LIBRARY_PATH . '/elements/own-shop/widget-category.php',
+    ],
+    'colon-plus' => [
+        SPIR_SITE_LIBRARY_PATH . '/inc/colon-plus-functions.php',
+    ],
+    'own-shop-lite' => [
+        SPIR_SITE_LIBRARY_PATH . '/inc/own-shop-lite-functions.php',
+        SPIR_SITE_LIBRARY_PATH . '/elements/own-shop/helper-functions.php',
+        SPIR_SITE_LIBRARY_PATH . '/elements/own-shop/widget-category.php',
+    ],
+    'mestore' => [
+        SPIR_SITE_LIBRARY_PATH . '/inc/mestore-functions.php',
+    ],
+    'blogson' => [
+        SPIR_SITE_LIBRARY_PATH . '/inc/blogson-functions.php',
+        SPIR_SITE_LIBRARY_PATH . '/elements/blogson/helper-functions.php',
+        SPIR_SITE_LIBRARY_PATH . '/elements/blogson/widget-category.php',
+    ],
+    'blogson-child' => [
+        SPIR_SITE_LIBRARY_PATH . '/inc/blogson-functions.php',
+        SPIR_SITE_LIBRARY_PATH . '/elements/blogson/helper-functions.php',
+        SPIR_SITE_LIBRARY_PATH . '/elements/blogson/widget-category.php',
+    ],
+    'own-shope' => [
+        SPIR_SITE_LIBRARY_PATH . '/inc/own-shope-functions.php',
+        SPIR_SITE_LIBRARY_PATH . '/elements/own-shop/helper-functions.php',
+        SPIR_SITE_LIBRARY_PATH . '/elements/own-shop/widget-category.php',
+    ],
+    'crater-free' => [
+        SPIR_SITE_LIBRARY_PATH . '/inc/crater-free-functions.php',
+    ],
+    'lawfiz' => [
+        SPIR_SITE_LIBRARY_PATH . '/inc/lawfiz-functions.php',
+    ],
+    'legalblow' => [
+        SPIR_SITE_LIBRARY_PATH . '/inc/legalblow-functions.php',
+    ],
+    'own-shop-trend' => [
+        SPIR_SITE_LIBRARY_PATH . '/inc/own-shop-trend-functions.php',
+    ],
+    'lawfiz-one' => [
+        SPIR_SITE_LIBRARY_PATH . '/inc/lawfiz-one-functions.php',
+    ],
+    'krystal' => [
+        SPIR_SITE_LIBRARY_PATH . '/inc/krystal-functions.php',
+    ],
+    'krystal-lawyer' => [
+        SPIR_SITE_LIBRARY_PATH . '/inc/krystal-lawyer-functions.php',
+    ],
+];
 
-if ('blogson' == $this->theme_slug || 'blogson-child' == $this->theme_slug ) :
-    require_once SPIR_SITE_LIBRARY_PATH . '/inc/blogson-functions.php';
-    // helper functions
-    require_once SPIR_SITE_LIBRARY_PATH . '/elements/blogson/helper-functions.php';
-    // Widget Category
-    require_once SPIR_SITE_LIBRARY_PATH . '/elements/blogson/widget-category.php';
-endif;
-if ('own-shope' == $this->theme_slug ) :
-    require_once SPIR_SITE_LIBRARY_PATH . '/inc/own-shope-functions.php';
-    // helper functions
-    require_once SPIR_SITE_LIBRARY_PATH . '/elements/own-shop/helper-functions.php';
-    // Widget Category
-    require_once SPIR_SITE_LIBRARY_PATH . '/elements/own-shop/widget-category.php';
-endif;
-if ('crater-free' == $this->theme_slug ) :
-    require_once SPIR_SITE_LIBRARY_PATH . '/inc/crater-free-functions.php';
-endif;
-if ('lawfiz' == $this->theme_slug ) :
-    require_once SPIR_SITE_LIBRARY_PATH . '/inc/lawfiz-functions.php';
-endif;
+// Load the appropriate files based on the current theme slug
+if ( isset( $theme_files[ $this->theme_slug ] ) ) {
+    foreach ( $theme_files[ $this->theme_slug ] as $file ) {
+        require_once $file;
+    }
+}
 
-if ('legalblow' == $this->theme_slug ) :
-    require_once SPIR_SITE_LIBRARY_PATH . '/inc/legalblow-functions.php';
-endif;
-
-if ('own-shop-trend' == $this->theme_slug ) :
-    require_once SPIR_SITE_LIBRARY_PATH . '/inc/own-shop-trend-functions.php';
-endif;
-
-if ('lawfiz-one' == $this->theme_slug ) :
-    require_once SPIR_SITE_LIBRARY_PATH . '/inc/lawfiz-one-functions.php';
-endif;
 
 /*************************************************************/
 
