@@ -15,36 +15,36 @@ endif;
  *  Set Import files
  */
 
-if ( ! function_exists( 'spiraclethemes_site_library_krystal_lawyer_set_import_files' ) ) :
-function spiraclethemes_site_library_krystal_lawyer_set_import_files() {
+if ( ! function_exists( 'spiraclethemes_site_library_krystal_shop_set_import_files' ) ) :
+function spiraclethemes_site_library_krystal_shop_set_import_files() {
 
-    $customizer_krystal_lawyer_demo1 = spiraclethemes_site_library_api_data('krystallawyer', 'demo1', 'customizer');
-    $widgets_krystal_lawyer_demo1 = spiraclethemes_site_library_api_data('krystallawyer', 'demo1', 'widgets');
-    $content_krystal_lawyer_demo1 = spiraclethemes_site_library_api_data('krystallawyer', 'demo1', 'content');
-    $image_krystal_lawyer_demo1 = spiraclethemes_site_library_api_data('krystallawyer', 'demo1', 'image');
+    $customizer_krystal_shop_demo1 = spiraclethemes_site_library_api_data('krystalshop', 'demo1', 'customizer');
+    $widgets_krystal_shop_demo1 = spiraclethemes_site_library_api_data('krystalshop', 'demo1', 'widgets');
+    $content_krystal_shop_demo1 = spiraclethemes_site_library_api_data('krystalshop', 'demo1', 'content');
+    $image_krystal_shop_demo1 = spiraclethemes_site_library_api_data('krystalshop', 'demo1', 'image');
 
     return array(
         array(
-            'import_file_name'           => esc_html__('Krystal Lawyer Demo', 'spiraclethemes-site-library'),
-           'import_file_url'          => $content_krystal_lawyer_demo1,
-            'import_widget_file_url'   => $widgets_krystal_lawyer_demo1,
-            'import_customizer_file_url' => $customizer_krystal_lawyer_demo1,
-            'import_preview_image_url'     => $image_krystal_lawyer_demo1,
+            'import_file_name'           => esc_html__('Krystal Shop Demo', 'spiraclethemes-site-library'),
+           'import_file_url'          => $content_krystal_shop_demo1,
+            'import_widget_file_url'   => $widgets_krystal_shop_demo1,
+            'import_customizer_file_url' => $customizer_krystal_shop_demo1,
+            'import_preview_image_url'     => $image_krystal_shop_demo1,
             'import_notice'              => esc_html__( 'After you import this demo, you will have to change some menu links. Please check documentation for more information', 'spiraclethemes-site-library' ),
-            'preview_url'                  => 'https://krystalwp.spiraclethemes.com/demo13/',
+            'preview_url'                  => 'https://krystalwp.spiraclethemes.com/demo9/',
         ),
     );
 }
 endif;
-add_filter( 'pt-ocdi/import_files', 'spiraclethemes_site_library_krystal_lawyer_set_import_files' );
+add_filter( 'pt-ocdi/import_files', 'spiraclethemes_site_library_krystal_shop_set_import_files' );
 
 
 /**
  *  After Import
  */
 
-if ( ! function_exists( 'spiraclethemes_site_library_krystal_lawyer_after_import_setup' ) ) :
-function spiraclethemes_site_library_krystal_lawyer_after_import_setup( $selected_import ) {
+if ( ! function_exists( 'spiraclethemes_site_library_krystal_shop_after_import_setup' ) ) :
+function spiraclethemes_site_library_krystal_shop_after_import_setup( $selected_import ) {
     //Assign menus to their locations
     $main_menu = get_term_by( 'name', 'Primary', 'nav_menu' );
 
@@ -63,10 +63,10 @@ function spiraclethemes_site_library_krystal_lawyer_after_import_setup( $selecte
     
 }
 endif;
-add_action( 'pt-ocdi/after_import', 'spiraclethemes_site_library_krystal_lawyer_after_import_setup' );
+add_action( 'pt-ocdi/after_import', 'spiraclethemes_site_library_krystal_shop_after_import_setup' );
 
 
-function spiraclethemes_site_library_krystal_lawyer_check_pro_plugin() {
+function spiraclethemes_site_library_krystal_shop_check_pro_plugin() {
     if ( ! function_exists( 'ocdi_register_plugins' ) ) :
         function ocdi_register_plugins( $plugins ) {
          
@@ -94,4 +94,4 @@ function spiraclethemes_site_library_krystal_lawyer_check_pro_plugin() {
     endif;
     add_filter( 'ocdi/register_plugins', 'ocdi_register_plugins' );
 }
-add_action( 'admin_init', 'spiraclethemes_site_library_krystal_lawyer_check_pro_plugin' );
+add_action( 'admin_init', 'spiraclethemes_site_library_krystal_shop_check_pro_plugin' );

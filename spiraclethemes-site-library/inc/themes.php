@@ -81,6 +81,12 @@ $theme_files = [
     'krystal-lawyer' => [
         SPIR_SITE_LIBRARY_PATH . '/inc/krystal-lawyer-functions.php',
     ],
+    'krystal-business' => [
+        SPIR_SITE_LIBRARY_PATH . '/inc/krystal-business-functions.php',
+    ],
+    'krystal-shop' => [
+        SPIR_SITE_LIBRARY_PATH . '/inc/krystal-shop-functions.php',
+    ],
 ];
 
 // Load the appropriate files based on the current theme slug
