@@ -98,28 +98,29 @@ function spiraclethemes_site_library_display_dashboard_widget() {
 
     echo '<br/><br/>';
 
-    echo '<h3><span><img src="' . esc_url($rocket_img) . '" /> </span><b>' . __( 'Design, Build or Revamp existing WordPress website starting from $299', 'spiraclethemes-site-library' ) . '</b></h3>';
+    echo '<h3><span><img src="' . esc_url($rocket_img) . '" /> </span><b>' . __( 'Design, Build or Revamp existing WordPress website starting from $999', 'spiraclethemes-site-library' ) . '</b></h3>';
 
     echo '<ul style="list-style: disc; padding-left: 20px;">';
-    echo '<li><b>Custom Design</b> - Eye-catching site design or redesign.</li>';
-    echo '<li><b>Custom functionality</b> - Tailored functionality to meet your business needs</li>';
-    echo '<li><b>SEO-Friendly</b> - Improve your search engine rankings</li>';
-    echo '<li><b>Lightning-Fast</b> - Optimized for speed and performance</li>';
-    echo '<li><b>Secure</b> - Enhanced security features for peace of mind</li>';
-    echo '<li><b>Mobile-friendly Designs</b> - Responsive design for all devices</li>';
-    echo '<li><b>Google Analytics Integrated</b> - Track your website\'s performance</li>';
-    echo '<li><b>Live Chat Integrated</b> - Talk to your website\'s visitors in real time</li>';
-    echo '<li><b>SSL Renewal Assistance</b> - Keep your website secure</li>';
-    echo '<li><b>Spam Protection Setup</b> - Protect against unwanted spam</li>';
-    echo '<li><b>1 Month Dedicated Free Support</b> - Expert assistance when you need it</li>';
+    echo '<li><b>Stunning Custom Design</b> – Make a lasting impression with a beautiful, modern website or redesign.</li>';
+    echo '<li><b>Tailor-Made Features</b> – We build exactly what your business needs – no fluff, just functionality.</li>';
+    echo '<li><b>SEO-Optimized</b> – Climb the search rankings and get discovered faster on Google.</li>';
+    echo '<li><b>Blazing-Fast Speed</b> – Say goodbye to slow loading. We make your site lightning quick!</li>';
+    echo '<li><b>Rock-Solid Security</b> – Sleep easy knowing your website is shielded with top-notch protection.</li>';
+    echo '<li><b>100% Mobile-Responsive</b> – Your site will look perfect on every screen – phones, tablets, and desktops.</li>';
+    echo '<li><b>Google Analytics Ready</b> – Gain powerful insights and track every visitor with ease.</li>';
+    echo '<li><b>Live Chat Integration</b> – Connect instantly with your visitors and turn chats into conversions.</li>';
+    echo '<li><b>SSL Renewal Support</b> – We help you stay secure, always – no more expired certificates.</li>';
+    echo '<li><b>Spam Shield Setup</b> – Keep your site clean and junk-free with robust spam protection.</li>';
+    echo '<li><b>30 Days Free Expert Support</b> – We’ve got your back, even after launch – no extra cost!</li>';
     echo '</ul>';
+
     echo sprintf(
         '<p style="text-align: left; margin-bottom:20px; margin-top:20px;">
             <a href="https://spiraclethemes.com/custom-wp/" target="_blank" style="background-color:#35a62e; color:#fff; border-radius:4px; padding:10px 15px; text-decoration:none; display:inline-block;box-shadow: 3px 3px #bcedbe;">
                 %s
             </a>
         </p>',
-        __('Get Started Today for Just $299 (Limited Time Offer)!', 'spiraclethemes-site-library')
+        __('Get Started Today for Just $999 (Limited Time Offer)!', 'spiraclethemes-site-library')
     );
 
 

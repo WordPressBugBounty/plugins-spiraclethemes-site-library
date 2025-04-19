@@ -3,7 +3,7 @@
  * Plugin Name:       Spiraclethemes Site Library
  * Plugin URI:        https://wordpress.org/plugins/spiraclethemes-site-library/
  * Description:       A plugin made by spiraclethemes.com to extends its free themes features by adding functionality to import demo data content in just a click.
- * Version:           1.3.9
+ * Version:           1.4.0
  * Author:            SpiracleThemes
  * Author URI:        https://spiraclethemes.com
  * License:           GPL-2.0+
@@ -71,11 +71,11 @@ class Spiraclethemes_Site_Library {
 
         if ( is_admin() ) {
             add_action( 'admin_notices', [ $this, 'spiraclethemes_site_library_display_welcome_notice' ] );
-            add_action( 'admin_notices', [ $this, 'spiraclethemes_site_library_display_training_notice' ] );
-            add_action( 'admin_notices', [ $this, 'spiraclethemes_site_library_display_custom_website_notice' ] );
+            //add_action( 'admin_notices', [ $this, 'spiraclethemes_site_library_display_training_notice' ] );
+            //add_action( 'admin_notices', [ $this, 'spiraclethemes_site_library_display_custom_website_notice' ] );
             add_action( 'admin_init', [ $this, 'spiraclethemes_site_library_ignore_rating_notice' ] );
-            add_action( 'admin_init', [ $this, 'spiraclethemes_site_library_ignore_training_notice' ] );
-            add_action( 'admin_init', [ $this, 'spiraclethemes_site_library_ignore_custom_website_notice' ] );
+            //add_action( 'admin_init', [ $this, 'spiraclethemes_site_library_ignore_training_notice' ] );
+            //add_action( 'admin_init', [ $this, 'spiraclethemes_site_library_ignore_custom_website_notice' ] );
         }
     }
 

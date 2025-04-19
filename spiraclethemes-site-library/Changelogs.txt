@@ -1,6 +1,9 @@
 
 == Changelog ==
 
+== 1.4.0 ==
+- Minor fixes
+
 == 1.3.9 ==
 - Fixed WooCommerce demo import issues in some demo imports
 
