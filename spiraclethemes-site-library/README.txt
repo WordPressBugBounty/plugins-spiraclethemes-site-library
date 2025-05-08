@@ -2,7 +2,7 @@
 
 Contributors: spiraclethemes
 Tags: spiraclethemes, demo, import, themes
-Stable tag: 1.4.0
+Stable tag: 1.4.1
 Requires at least: 5.0
 Requires PHP: 5.6
 Tested up to: 6.8

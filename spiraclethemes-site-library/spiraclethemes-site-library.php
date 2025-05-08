@@ -3,7 +3,7 @@
  * Plugin Name:       Spiraclethemes Site Library
  * Plugin URI:        https://wordpress.org/plugins/spiraclethemes-site-library/
  * Description:       A plugin made by spiraclethemes.com to extends its free themes features by adding functionality to import demo data content in just a click.
- * Version:           1.4.0
+ * Version:           1.4.1
  * Author:            SpiracleThemes
  * Author URI:        https://spiraclethemes.com
  * License:           GPL-2.0+
@@ -71,11 +71,13 @@ class Spiraclethemes_Site_Library {
 
         if ( is_admin() ) {
             add_action( 'admin_notices', [ $this, 'spiraclethemes_site_library_display_welcome_notice' ] );
-            //add_action( 'admin_notices', [ $this, 'spiraclethemes_site_library_display_training_notice' ] );
-            //add_action( 'admin_notices', [ $this, 'spiraclethemes_site_library_display_custom_website_notice' ] );
+            add_action( 'admin_notices', [ $this, 'spiraclethemes_site_library_display_sale10_notice' ] );
+            add_action( 'admin_notices', [ $this, 'spiraclethemes_site_library_display_sale20_notice' ] );
+            add_action( 'admin_notices', [ $this, 'spiraclethemes_site_library_display_sale40_notice' ] );
             add_action( 'admin_init', [ $this, 'spiraclethemes_site_library_ignore_rating_notice' ] );
-            //add_action( 'admin_init', [ $this, 'spiraclethemes_site_library_ignore_training_notice' ] );
-            //add_action( 'admin_init', [ $this, 'spiraclethemes_site_library_ignore_custom_website_notice' ] );
+            add_action( 'admin_init', [ $this, 'spiraclethemes_site_library_ignore_sale10_notice' ] );
+            add_action( 'admin_init', [ $this, 'spiraclethemes_site_library_ignore_sale20_notice' ] );
+            add_action( 'admin_init', [ $this, 'spiraclethemes_site_library_ignore_sale40_notice' ] );
         }
     }
 
@@ -101,111 +103,125 @@ class Spiraclethemes_Site_Library {
         load_plugin_textdomain('spiraclethemes-site-library', false, dirname(plugin_basename(__FILE__)) . '/languages/');
     }
 
-    // Display the welcome notice
-    public function spiraclethemes_site_library_display_welcome_notice() {
-        if ( ! empty( $this->notification ) ) {
-            AdminNotice::create( 'spiraclethemes-site-library-notice' )
-                ->persistentlyDismissible( AdminNotice::DISMISS_PER_SITE )
-                ->success( $this->notification )
-                ->show();
+    // Reusable method to check if notice should be shown
+    private function spiraclethemes_should_display_notice( $ignore_key, $days_after_install ) {
+        $install_date = get_option( 'spiraclethemes_sitelib_install_date' );
+        if ( strtotime( "+$days_after_install days", strtotime( $install_date ) ) > time() ) {
+            return false;
         }
 
-        $install_date = get_option( 'spiraclethemes_sitelib_install_date' );
-        if ( strtotime( '+7 days', strtotime( $install_date ) ) > time() ) {
+        $user_id = get_current_user_id();
+        return ! get_user_meta( $user_id, $ignore_key, true );
+    }
+
+    // Reusable method to display a notice
+    private function spiraclethemes_display_custom_notice( $message ) {
+        echo '<div class="notice updated">' . wp_kses_post( $message ) . '</div>';
+    }
+
+    // Reusable method to build notice message
+    private function spiraclethemes_build_sale_notice( $discount, $code, $ignore_param ) {
+        $pricing_url = esc_url( 'https://spiraclethemes.com/pricing/' );
+        $ignore_url  = esc_url( admin_url( 'themes.php?' . $ignore_param . '=0' ) );
+
+        switch ( $discount ) {
+            case 10:
+                $message = __( '🎉 Congratulations! You\'re eligible for an exclusive 10%% discount on our PRO upgrade. Use promotional code <strong>%1$s</strong> at checkout. Visit <a href="%2$s" target="_blank">our pricing page</a> to learn more. <a href="%3$s"> | No thanks</a>', 'spiraclethemes-site-library' );
+                break;
+            case 20:
+                $message = __( '🎉 Great news! You\'ve unlocked a 20%% discount on our PRO upgrade. Use promotional code <strong>%1$s</strong> at checkout. Visit <a href="%2$s" target="_blank">our pricing page</a> to learn more. <a href="%3$s"> | No thanks</a>', 'spiraclethemes-site-library' );
+                break;
+            case 40:
+                $message = __( '🎉 Final chance! A massive 40%% discount awaits you on our PRO upgrade. Use promotional code <strong>%1$s</strong> at checkout. Visit <a href="%2$s" target="_blank">our pricing page</a> to learn more. <a href="%3$s"> | No thanks</a>', 'spiraclethemes-site-library' );
+                break;
+            default:
+                return '';
+        }
+
+        return sprintf( wp_kses_post( $message ), esc_html( $code ), $pricing_url, $ignore_url );
+    }
+
+
+
+    // Welcome notice
+    public function spiraclethemes_site_library_display_welcome_notice() {
+
+        if ( ! empty( $this->notification ) ) {
+            AdminNotice::create( 'spiraclethemes-site-library-notice' )
+            ->persistentlyDismissible( AdminNotice::DISMISS_PER_SITE )
+            ->success( $this->notification )
+            ->show();
+        }
+
+        if ( ! $this->spiraclethemes_should_display_notice( 'spiraclethemes_sitelib_rating_ignore_notice', 7 ) ) {
             return;
         }
 
-        global $current_user;
-        $user_id = $current_user->ID;
-        if ( ! get_user_meta( $user_id, 'spiraclethemes_sitelib_rating_ignore_notice' ) ) {
-            $rating_url    = esc_url( 'https://wordpress.org/support/theme/' . $this->theme_slug . '/reviews/?filter=5' );
-            $ignore_url    = esc_url( admin_url( 'themes.php?wp_spiraclethemes_sitelib_rating_ignore=0' ) );
-            $theme_info_url = esc_url( admin_url( 'themes.php' ) );
+        $theme_info_url = esc_url( admin_url( 'themes.php' ) );
+        $rating_url = esc_url( 'https://wordpress.org/support/theme/' . $this->theme_slug . '/reviews/?filter=5' );
+        $ignore_url = esc_url( admin_url( 'themes.php?wp_spiraclethemes_sitelib_rating_ignore=0' ) );
 
-            echo '<div class="notice updated" style="padding: 15px;">';
-            printf(
-                esc_html__( 'Awesome, you\'ve been using %s for over a week! Please consider giving us a 5-star review.', 'spiraclethemes-site-library' ) .
-                ' <a href="%s" target="_blank">%s</a> | <a href="%s">%s</a>',
-                '<a href="' . $theme_info_url . '">' . esc_html( $this->theme_name ) . '</a>',
-                $rating_url,
-                esc_html__( 'Ok, you deserved it!', 'spiraclethemes-site-library' ),
-                $ignore_url,
-                esc_html__( 'No, thanks', 'spiraclethemes-site-library' )
-            );
-            echo '</div>';
+        echo '<div class="notice updated">';
+        printf(
+            esc_html__( 'Awesome, you\'ve been using %s for over a week! Please consider giving us a 5-star review.', 'spiraclethemes-site-library' ) .
+            ' <a href="%s" target="_blank">%s</a> | <a href="%s">%s</a>',
+            '<a href="' . $theme_info_url . '">' . esc_html( $this->theme_name ) . '</a>',
+            $rating_url,
+            esc_html__( 'Ok, you deserved it!', 'spiraclethemes-site-library' ),
+            $ignore_url,
+            esc_html__( 'No, thanks', 'spiraclethemes-site-library' )
+        );
+        echo '</div>';
+    }
+
+    // Sale notices
+    public function spiraclethemes_site_library_display_sale10_notice() {
+        if ( $this->spiraclethemes_should_display_notice( 'spiraclethemes_sitelib_sale10_ignore_notice', 7 ) ) {
+            $message = $this->spiraclethemes_build_sale_notice( 10, 'SALE10', 'wp_spiraclethemes_sitelib_sale10_ignore' );
+            $this->spiraclethemes_display_custom_notice( $message );
         }
     }
 
-    // Display the training notice
-    public function spiraclethemes_site_library_display_training_notice() {
-        global $current_user;
-        $user_id = $current_user->ID;
-
-        if ( ! get_user_meta( $user_id, 'spiraclethemes_sitelib_training_ignore_notice' ) ) {
-            $training_url = esc_url( 'https://livetrainingwp.com/contact/' );
-            $ignore_url   = esc_url( admin_url( 'themes.php?wp_spiraclethemes_sitelib_training_ignore=0' ) );
-
-            echo '<div class="notice updated" style="padding: 15px;">';
-            printf(
-                esc_html__( 'Welcome to WordPress and thanks for installing our theme! 🎉 New to WordPress? We offer 1-on-1 live training to guide you.', 'spiraclethemes-site-library' ) .
-                ' <a href="%s" target="_blank">%s</a> | <a href="%s">%s</a>',
-                $training_url,
-                esc_html__( 'Yes, I’m interested!', 'spiraclethemes-site-library' ),
-                $ignore_url,
-                esc_html__( 'No, thanks', 'spiraclethemes-site-library' )
-            );
-            echo '</div>';
+    public function spiraclethemes_site_library_display_sale20_notice() {
+        if ( $this->spiraclethemes_should_display_notice( 'spiraclethemes_sitelib_sale20_ignore_notice', 14 ) ) {
+            $message = $this->spiraclethemes_build_sale_notice( 20, '20SALEOFF', 'wp_spiraclethemes_sitelib_sale20_ignore' );
+            $this->spiraclethemes_display_custom_notice( $message );
         }
     }
 
-    // Display the custom website notice
-    public function spiraclethemes_site_library_display_custom_website_notice() {
-        global $current_user;
-        $user_id = $current_user->ID;
-
-        if ( ! get_user_meta( $user_id, 'spiraclethemes_sitelib_custom_website_ignore_notice' ) ) {
-            $training_url = esc_url( 'https://spiraclethemes.com/custom-wp/' );
-            $ignore_url   = esc_url( admin_url( 'themes.php?wp_spiraclethemes_sitelib_custom_website_ignore=0' ) );
-
-            echo '<div class="notice updated" style="padding: 15px;">';
-            printf(
-                esc_html__( '✨ Looking someone to design, build, or revamp your WordPress website? 🚀 Get started now for just $299! 💻', 'spiraclethemes-site-library' ) .
-                ' <a href="%s" target="_blank">%s</a> | <a href="%s">%s</a>',
-                $training_url,
-                esc_html__( 'Yes, I’m interested!', 'spiraclethemes-site-library' ),
-                $ignore_url,
-                esc_html__( 'No, thanks', 'spiraclethemes-site-library' )
-            );
-            echo '</div>';
+    public function spiraclethemes_site_library_display_sale40_notice() {
+        if ( $this->spiraclethemes_should_display_notice( 'spiraclethemes_sitelib_sale40_ignore_notice', 28 ) ) {
+            $message = $this->spiraclethemes_build_sale_notice( 40, 'SALE40', 'wp_spiraclethemes_sitelib_sale40_ignore' );
+            $this->spiraclethemes_display_custom_notice( $message );
         }
     }
 
-    // Ignore the rating notice
+
+    // Generic ignore handler
+    private function spiraclethemes_handle_ignore_notice( $param, $meta_key ) {
+        if ( isset( $_GET[ $param ] ) ) {
+            $user_id = get_current_user_id();
+            add_user_meta( $user_id, $meta_key, true, true );
+        }
+    }
+
+    // Public ignore handlers
     public function spiraclethemes_site_library_ignore_rating_notice() {
-        global $current_user;
-        $user_id = $current_user->ID;
-        if ( isset( $_GET['wp_spiraclethemes_sitelib_rating_ignore'] ) ) {
-            add_user_meta( $user_id, 'spiraclethemes_sitelib_rating_ignore_notice', true, true );
-        }
+        $this->spiraclethemes_handle_ignore_notice( 'wp_spiraclethemes_sitelib_rating_ignore', 'spiraclethemes_sitelib_rating_ignore_notice' );
     }
 
-    // Ignore the training notice
-    public function spiraclethemes_site_library_ignore_training_notice() {
-        global $current_user;
-        $user_id = $current_user->ID;
-        if ( isset( $_GET['wp_spiraclethemes_sitelib_training_ignore'] ) ) {
-            add_user_meta( $user_id, 'spiraclethemes_sitelib_training_ignore_notice', true, true );
-        }
+    public function spiraclethemes_site_library_ignore_sale10_notice() {
+        $this->spiraclethemes_handle_ignore_notice( 'wp_spiraclethemes_sitelib_sale10_ignore', 'spiraclethemes_sitelib_sale10_ignore_notice' );
     }
 
-    // Ignore the custom websit notice
-    public function spiraclethemes_site_library_ignore_custom_website_notice() {
-        global $current_user;
-        $user_id = $current_user->ID;
-        if ( isset( $_GET['wp_spiraclethemes_sitelib_custom_website_ignore'] ) ) {
-            add_user_meta( $user_id, 'spiraclethemes_sitelib_custom_website_ignore_notice', true, true );
-        }
+    public function spiraclethemes_site_library_ignore_sale20_notice() {
+        $this->spiraclethemes_handle_ignore_notice( 'wp_spiraclethemes_sitelib_sale20_ignore', 'spiraclethemes_sitelib_sale20_ignore_notice' );
     }
+
+    public function spiraclethemes_site_library_ignore_sale40_notice() {
+        $this->spiraclethemes_handle_ignore_notice( 'wp_spiraclethemes_sitelib_sale40_ignore', 'spiraclethemes_sitelib_sale40_ignore_notice' );
+    }
+
 }
 
 

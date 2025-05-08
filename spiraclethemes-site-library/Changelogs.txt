@@ -1,6 +1,9 @@
 
 == Changelog ==
 
+== 1.4.1 ==
+- Dashboard design minor update
+
 == 1.4.0 ==
 - Minor fixes
 

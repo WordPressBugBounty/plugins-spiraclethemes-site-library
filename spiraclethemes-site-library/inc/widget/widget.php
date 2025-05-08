@@ -116,7 +116,7 @@ function spiraclethemes_site_library_display_dashboard_widget() {
 
     echo sprintf(
         '<p style="text-align: left; margin-bottom:20px; margin-top:20px;">
-            <a href="https://spiraclethemes.com/custom-wp/" target="_blank" style="background-color:#35a62e; color:#fff; border-radius:4px; padding:10px 15px; text-decoration:none; display:inline-block;box-shadow: 3px 3px #bcedbe;">
+            <a href="https://spiraclethemes.com/hire-us/" target="_blank" style="background-color:#35a62e; color:#fff; border-radius:4px; padding:10px 15px; text-decoration:none; display:inline-block;box-shadow: 3px 3px #bcedbe;">
                 %s
             </a>
         </p>',
