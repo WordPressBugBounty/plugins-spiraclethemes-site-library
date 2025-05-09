@@ -3,7 +3,7 @@
  * Plugin Name:       Spiraclethemes Site Library
  * Plugin URI:        https://wordpress.org/plugins/spiraclethemes-site-library/
  * Description:       A plugin made by spiraclethemes.com to extends its free themes features by adding functionality to import demo data content in just a click.
- * Version:           1.4.1
+ * Version:           1.4.2
  * Author:            SpiracleThemes
  * Author URI:        https://spiraclethemes.com
  * License:           GPL-2.0+
@@ -116,7 +116,7 @@ class Spiraclethemes_Site_Library {
 
     // Reusable method to display a notice
     private function spiraclethemes_display_custom_notice( $message ) {
-        echo '<div class="notice updated">' . wp_kses_post( $message ) . '</div>';
+        echo '<div class="notice updated ssl-pro-upgrade-notice">' . wp_kses_post( $message ) . '</div>';
     }
 
     // Reusable method to build notice message
