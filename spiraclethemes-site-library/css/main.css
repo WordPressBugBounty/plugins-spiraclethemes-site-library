@@ -132,7 +132,7 @@
 
 }
 
-.notice.notice-success {
+#spiraclethemes-site-library-notice {
     background-color: #fff;
     border-color: #ddd;
     color: #333;
@@ -143,12 +143,12 @@
     box-shadow: 0 1px 1px rgba(0, 0, 0, 0.04);
 }
 
-.notice.notice-success p {
+#spiraclethemes-site-library-notice p {
     margin: 0 0 15px 0;
     padding: 0 15px;
 }
 
-.notice.notice-success a.button {
+#spiraclethemes-site-library-notice a.button {
     display: block;
     width: auto;
     max-width: 220px;
@@ -172,12 +172,12 @@
     transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
 
-.notice.notice-success a.button:hover {
+#spiraclethemes-site-library-notice a.button:hover {
     background-color: #4a4ad7;
     border-color: #4a4ad7;
 }
 
-.notice.notice-success .notice-dismiss {
+#spiraclethemes-site-library-notice .notice-dismiss {
     position: absolute;
     top: 10px;
     right: 10px;
@@ -188,24 +188,24 @@
     cursor: pointer;
 }
 
-.notice.updated {
-    padding: 25px;
+.ssl-notice,
+.ssl-pro-upgrade-notice {
+    padding: 25px !important;
     color: #000;
-    border: none;
+    border: none !important;
     background: none;
-    cursor: pointer;
-    background: #fff;
+    background: #fff !important;
     border-radius: 4px;
-    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.04);
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.04) !important;
 }
 
-.notice.notice-success .notice-dismiss:before {
+#spiraclethemes-site-library-notice .notice-dismiss:before {
     content: '\00d7';
     font-size: 20px;
     line-height: 1;
 }
 
-.notice.notice-success .notice-dismiss .screen-reader-text {
+#spiraclethemes-site-library-notice .screen-reader-text {
     clip: rect(1px, 1px, 1px, 1px);
     height: 1px;
     overflow: hidden;

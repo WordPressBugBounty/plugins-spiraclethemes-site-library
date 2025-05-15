@@ -2,7 +2,7 @@
 
 Contributors: spiraclethemes
 Tags: spiraclethemes, demo, import, themes
-Stable tag: 1.4.2
+Stable tag: 1.4.3
 Requires at least: 5.0
 Requires PHP: 5.6
 Tested up to: 6.8
@@ -11,7 +11,7 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 == Description ==
 
-A plugin by Spiraclethemes.com to extend its free themes with one-click demo data import functionality.
+A plugin by Spiracle Themes that adds one-click demo import, theme customization, starter templates, and page builder support to its free themes.
 
 How to use this Spiraclethemes site library?
 

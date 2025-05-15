@@ -1,6 +1,9 @@
 
 == Changelog ==
 
+== 1.4.3 ==
+- Upgrade notices display fix
+
 == 1.4.2 ==
 - Minor fix update
 
