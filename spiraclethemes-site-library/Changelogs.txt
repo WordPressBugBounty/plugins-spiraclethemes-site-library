@@ -1,6 +1,11 @@
 
 == Changelog ==
 
+== 1.5.0 ==
+- Added plugin about, info and settings tab
+- removed the plugin textdomain notice issue
+- Added few options in plugin settings tab
+
 == 1.4.3 ==
 - Upgrade notices display fix
 

@@ -3,7 +3,7 @@
  * Plugin Name:       Spiraclethemes Site Library
  * Plugin URI:        https://wordpress.org/plugins/spiraclethemes-site-library/
  * Description:       A plugin by Spiracle Themes that adds one-click demo import, theme customization, starter templates, and page builder support to its free themes.
- * Version:           1.4.3
+ * Version:           1.5.0
  * Author:            SpiracleThemes
  * Author URI:        https://spiraclethemes.com
  * License:           GPL-2.0+
@@ -55,21 +55,19 @@ class Spiraclethemes_Site_Library {
     }
 
     public function __construct() {
+        
+        if ("1" === get_option('ssl_disable_demo_import')) {
+            require_once SPIR_SITE_LIBRARY_PATH . 'vendor/ocdi/one-click-demo-import.php';
+        }
         require_once SPIR_SITE_LIBRARY_PATH . 'vendor/admin-notices/AdminNotice.php';
-        require_once SPIR_SITE_LIBRARY_PATH . 'vendor/ocdi/one-click-demo-import.php';
 
         $theme = wp_get_theme();
         $this->theme_name    = $theme->get( 'Name' );
         $this->theme_slug    = $theme->get( 'TextDomain' );
         $this->theme_version = $theme->get( 'Version' );
-        $this->notification  = sprintf(
-            '<p>%1$s <a href="%2$s" class="button" style="text-decoration: none;">%3$s</a></p>',
-            esc_html__( 'Kickstart your WordPress website with our free demo starter templates, tailored for this theme.', 'spiraclethemes-site-library' ),
-            esc_url( admin_url( 'themes.php?page=one-click-demo-import' ) ),
-            esc_html__( 'Start Importing Templates', 'spiraclethemes-site-library' )
-        );
 
         if ( is_admin() ) {
+            add_action( 'admin_init', [ $this, 'spiraclethemes_site_library_set_notification' ] );
             add_action( 'admin_notices', [ $this, 'spiraclethemes_site_library_display_welcome_notice' ] );
             add_action( 'admin_notices', [ $this, 'spiraclethemes_site_library_display_sale10_notice' ] );
             add_action( 'admin_notices', [ $this, 'spiraclethemes_site_library_display_sale20_notice' ] );
@@ -79,12 +77,32 @@ class Spiraclethemes_Site_Library {
             add_action( 'admin_init', [ $this, 'spiraclethemes_site_library_ignore_sale20_notice' ] );
             add_action( 'admin_init', [ $this, 'spiraclethemes_site_library_ignore_sale40_notice' ] );
         }
+
+        add_action('init', [ $this, 'spiraclethemes_site_library_load_plugin_textdomain' ] );
+    }
+
+    // function to set notification after init
+    public function spiraclethemes_site_library_set_notification() {
+        $this->notification  = sprintf(
+            '<p>%1$s <a href="%2$s" class="button" style="text-decoration: none;">%3$s</a></p>',
+            esc_html__( 'Kickstart your WordPress website with our free demo starter templates, tailored for this theme.', 'spiraclethemes-site-library' ),
+            esc_url( admin_url( 'themes.php?page=one-click-demo-import' ) ),
+            esc_html__( 'Start Importing Templates', 'spiraclethemes-site-library' )
+        );
     }
 
     // spiraclethemes site library functions
     function spiraclethemes_site_library_functions() {
-        require_once SPIR_SITE_LIBRARY_PATH . '/inc/themes.php';
+        if ("1" === get_option('ssl_disable_demo_import')) {
+            require_once SPIR_SITE_LIBRARY_PATH . '/inc/themes.php';
+        }
         require_once SPIR_SITE_LIBRARY_PATH . '/inc/widget/widget.php';
+        //Admin init
+        require_once SPIR_SITE_LIBRARY_PATH . '/admin/admin-init.php';
+        // System Info
+        require_once SPIR_SITE_LIBRARY_PATH . '/admin/includes/system-info.php';
+        // System Settings
+        require_once SPIR_SITE_LIBRARY_PATH . '/admin/includes/system-settings.php';
     }
 
     //register styles
@@ -253,7 +271,6 @@ if ( class_exists( 'Spiraclethemes_Site_Library' ) ) :
     $spiraclethemes_site_library = new Spiraclethemes_Site_Library();
     $spiraclethemes_site_library->spiraclethemes_site_library_register_styles();
     $spiraclethemes_site_library->spiraclethemes_site_library_functions();
-    $spiraclethemes_site_library->spiraclethemes_site_library_load_plugin_textdomain();
 
 endif;
 

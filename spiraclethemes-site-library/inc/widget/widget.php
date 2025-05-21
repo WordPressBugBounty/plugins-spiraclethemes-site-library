@@ -14,6 +14,16 @@ endif;
 // Define theme constants
 define('WP_THEME', wp_get_theme()->Name);
 define('WP_THEME_SLUG', wp_get_theme()->get('TextDomain'));
+if (!defined('SPIRACLETHEMES_POSTS_PER_PAGE')) {
+    define('SPIRACLETHEMES_POSTS_PER_PAGE', 3);
+}
+if (!defined('SPIRACLETHEMES_NEW_POST_DAYS')) {
+    define('SPIRACLETHEMES_NEW_POST_DAYS', 7);
+}
+if (!defined('HOUR_IN_SECONDS')) {
+    define('HOUR_IN_SECONDS', 3600);
+}
+
 
 // Function to add dashboard widget
 function spiraclethemes_site_library_add_dashboard_widgets() {
@@ -30,71 +40,77 @@ function spiraclethemes_site_library_add_dashboard_widgets() {
 
 // Function to display dashboard widget content
 function spiraclethemes_site_library_display_dashboard_widget() {
-    // URL of the API endpoint serving discounts.xml
-    $api_url = 'https://api.spiraclethemes.com/discounts/disapi.php';
 
-    // Fetch XML data from the API
-    $response = wp_remote_get($api_url);
+    // Validate constants
+    $theme_slug = sanitize_key(wp_get_theme()->get('TextDomain'));
+    $theme_name = esc_html(wp_get_theme()->get('Name'));
 
-    // Check if there was an error fetching the data
-    if (is_wp_error($response)) {
-        echo '<p>' . __( 'Error fetching discount data.', 'spiraclethemes-site-library' ) . '</p>';
-    } else {
-        // Check HTTP response code for success (200)
-        $response_code = wp_remote_retrieve_response_code($response);
-        if ($response_code === 200) {
-            // Parse XML data
-            $xml_body = wp_remote_retrieve_body($response);
+    if ("1" === get_option('ssl_disable_discount_widget')) {
+        $cache_key = 'spiraclethemes_discount_data';
+        $xml_body = get_transient($cache_key);
 
-            // Suppress any warnings from XML parsing
-            libxml_use_internal_errors(true);
-            $xml = simplexml_load_string($xml_body);
+        if (false === $xml_body) {
+            $api_url = esc_url_raw('https://api.spiraclethemes.com/discounts/disapi.php');
+            $response = wp_safe_remote_get($api_url, [
+                'timeout' => 10,
+                'sslverify' => true,
+            ]);
 
-            // Check for XML parsing errors
-            if ($xml === false) {
-                echo '<p>' . __( 'Error parsing XML data.', 'spiraclethemes-site-library' ) . '</p>';
-            } else {
-                // Find the discount information for the current theme
-                $theme_slug = WP_THEME_SLUG; // Replace with dynamic value or function to get theme slug
-                $theme_discount = null;
-                $theme_url = null;
-
-                foreach ($xml->theme as $theme) {
-                    if ((string) $theme->slug === $theme_slug) {
-                        $theme_discount = (string) $theme->sale;
-                        $theme_url = (string) $theme->purchase_url;
-                        break;
-                    }
-                }
-
-                // Display discount information in the widget
-                echo '<h3><b>' . __( 'Special Discount', 'spiraclethemes-site-library' ) . '</b></h3>';
-                if ($theme_discount && $theme_url) {
-                    echo '<span style="background-color: #2196f3; color: white; padding: 3px 6px; border-radius: 4px; font-size: 11px; margin-right: 5px;font-weight: 500;">' . __( 'NEW', 'spiraclethemes-site-library' ) . '</span>';
-                    printf(
-                        '<span>' . __( 'Unlock the Pro version for just $%1$s! Take advantage of our limited-time discount on %2$s. <a href="%3$s" target="_blank">Buy now</a>!', 'spiraclethemes-site-library' ) . '</span>',
-                        esc_html( $theme_discount ),
-                        esc_html( WP_THEME ),
-                        esc_url( $theme_url )
-                    );
-                } else {
-                    echo '<span>' . __( 'No special discount currently available.', 'spiraclethemes-site-library' ) . '</span>';
-                }
+            if (is_wp_error($response)) {
+                echo '<p>' . esc_html__('Error fetching discount data: ', 'spiraclethemes-site-library') . esc_html($response->get_error_message()) . '</p>';
+                return;
             }
 
-            // Clear any XML parsing errors
-            libxml_clear_errors();
-        } else {
-            // Handle HTTP error response codes
-            printf(
-                '<p>' . __( 'Error fetching discount data. HTTP Status Code: %s', 'spiraclethemes-site-library' ) . '</p>',
-                esc_html( $response_code )
-            );
+            $response_code = wp_remote_retrieve_response_code($response);
+            if ($response_code !== 200) {
+                echo '<p>' . sprintf(esc_html__('Error fetching discount data. HTTP Status Code: %s', 'spiraclethemes-site-library'), esc_html($response_code)) . '</p>';
+                return;
+            }
+
+            $xml_body = wp_remote_retrieve_body($response);
+            set_transient($cache_key, $xml_body, HOUR_IN_SECONDS * 24);
         }
+
+        libxml_disable_entity_loader(true);
+        libxml_use_internal_errors(true);
+        $xml = simplexml_load_string($xml_body, 'SimpleXMLElement', LIBXML_NOCDATA);
+
+        if ($xml === false) {
+            echo '<p>' . esc_html__('Error parsing XML data.', 'spiraclethemes-site-library') . '</p>';
+            libxml_clear_errors();
+            return;
+        }
+
+        $theme_discount = null;
+        $theme_url = null;
+        foreach ($xml->theme as $theme) {
+            if ((string) $theme->slug === $theme_slug) {
+                $theme_discount = (string) $theme->sale;
+                $theme_url = (string) $theme->purchase_url;
+                break;
+            }
+        }
+
+        echo '<h3><b>' . esc_html__('Special Discount', 'spiraclethemes-site-library') . '</b></h3>';
+        if ($theme_discount && $theme_url) {
+            echo '<span class="new-badge">' . esc_html__('NEW', 'spiraclethemes-site-library') . '</span>';
+            printf(
+                '<span>' . esc_html__('Unlock the Pro version for just $%1$s! Take advantage of our limited-time discount on %2$s. <a href="%3$s" target="_blank">Buy now</a>!', 'spiraclethemes-site-library') . '</span>',
+                esc_html($theme_discount),
+                esc_html($theme_name),
+                esc_url($theme_url)
+            );
+        } else {
+            echo '<span>' . esc_html__('No special discount currently available.', 'spiraclethemes-site-library') . '</span>';
+        }
+        libxml_clear_errors();
     }
 
-    // Display other content in the dashboard widget
-    $rocket_img = SPIR_SITE_LIBRARY_URL . 'img/rocket.svg';
+    $rocket_img = defined('SPIR_SITE_LIBRARY_URL') ? esc_url(SPIR_SITE_LIBRARY_URL . 'img/rocket.svg') : '';
+    if (empty($rocket_img)) {
+        echo '<p>' . esc_html__('Image not found.', 'spiraclethemes-site-library') . '</p>';
+        return;
+    }
 
     echo '<br/><br/>';
 
@@ -123,44 +139,73 @@ function spiraclethemes_site_library_display_dashboard_widget() {
         __('Get Started Today for Just $999 (Limited Time Offer)!', 'spiraclethemes-site-library')
     );
 
+    
+    if ("1" === get_option('ssl_disable_discount_widget')) {
+        echo '<h3><b>' . esc_html__('News & Updates', 'spiraclethemes-site-library') . '</b></h3>';
+        echo '<ul>';
 
+        $cache_key = 'spiraclethemes_news_posts';
+        $posts = get_transient($cache_key);
 
-    echo '<h3><b>' . __( 'News & Updates', 'spiraclethemes-site-library' ) . '</b></h3>';
-    echo '<ul>';
+        if (false === $posts) {
+            $api_url = esc_url_raw('https://spiraclethemes.com/wp-json/wp/v2/posts?per_page=' . SPIRACLETHEMES_POSTS_PER_PAGE);
+            $response_posts = wp_safe_remote_get($api_url, [
+                'timeout' => 10,
+                'sslverify' => true,
+            ]);
 
-    // Fetch the latest 2 blog posts
-    $response_posts = wp_remote_get('https://spiraclethemes.com/wp-json/wp/v2/posts?per_page=3');
+            if (is_wp_error($response_posts)) {
+                echo '<li>' . esc_html__('Error fetching blog posts: ', 'spiraclethemes-site-library') . esc_html($response_posts->get_error_message()) . '</li>';
+                echo '</ul>';
+                return;
+            }
 
-    if (is_wp_error($response_posts)) {
-        echo '<li>' . __( 'Error: Unable to fetch blog posts. Please try again later.', 'spiraclethemes-site-library' ) . '</li>';
-    } else {
-        $posts = json_decode(wp_remote_retrieve_body($response_posts));
+            $response_code = wp_remote_retrieve_response_code($response_posts);
+            if ($response_code !== 200) {
+                echo '<li>' . sprintf(esc_html__('Error fetching blog posts. HTTP Status Code: %s', 'spiraclethemes-site-library'), esc_html($response_code)) . '</li>';
+                echo '</ul>';
+                return;
+            }
 
-        if (is_array($posts) && !empty($posts)) {
+            $posts = json_decode(wp_remote_retrieve_body($response_posts), true);
+            if (!is_array($posts)) {
+                echo '<li>' . esc_html__('Invalid blog post data.', 'spiraclethemes-site-library') . '</li>';
+                echo '</ul>';
+                return;
+            }
+
+            set_transient($cache_key, $posts, HOUR_IN_SECONDS * 24);
+        }
+
+        if (!empty($posts)) {
             foreach ($posts as $post) {
-                // Check if the post is published within the last 60 days
-                $post_date = strtotime($post->date);
-                $sixty_days_ago = strtotime('-7 days');
-                $is_new = $post_date > $sixty_days_ago;
+                if (!isset($post['date'], $post['link'], $post['title']['rendered'])) {
+                    continue;
+                }
 
-                // Display the post title with a "New" badge if it's new
+                $post_date = strtotime($post['date'] ?? '');
+                $seven_days_ago = strtotime('-' . SPIRACLETHEMES_NEW_POST_DAYS . ' days');
+                $is_new = $post_date !== false && $post_date > $seven_days_ago;
+
                 echo '<li>';
                 if ($is_new) {
-                    echo '<span style="background-color: #2196f3; color: white; padding: 3px 6px; border-radius: 4px; font-size: 11px; margin-right: 5px;font-weight: 500;">' . __( 'NEW', 'spiraclethemes-site-library' ) . '</span>';
+                    echo '<span class="new-badge">' . esc_html__('NEW', 'spiraclethemes-site-library') . '</span>';
                 }
                 printf(
                     '<a href="%1$s" target="_blank">%2$s</a>',
-                    esc_url( $post->link ),
-                    esc_html( $post->title->rendered )
+                    esc_url($post['link']),
+                    esc_html($post['title']['rendered'])
                 );
                 echo '</li>';
             }
         } else {
-            echo '<li>' . __( 'No recent posts found.', 'spiraclethemes-site-library' ) . '</li>';
+            echo '<li>' . esc_html__('No recent posts found.', 'spiraclethemes-site-library') . '</li>';
         }
+
+        echo '</ul>';
     }
 
-    echo '</ul>';
+    
 
     // Display footer links
     echo '<div style="margin-top: 10px; border-top: 1px solid #e5e5e5; padding-top: 10px;">';
@@ -183,6 +228,10 @@ add_action('wp_dashboard_setup', 'spiraclethemes_site_library_add_dashboard_widg
 
 // Ensure our widget is always on top
 function spiraclethemes_site_library_move_widget_to_top() {
+    if (get_current_screen()->id !== 'dashboard') {
+        return;
+    }
+    
     global $wp_meta_boxes;
 
     // Check if our widget is set
