@@ -1,7 +1,7 @@
 <?php 
 if (!defined('ABSPATH')) exit;
 
-function ssl_get_syssettings() {
+function spiraclethemes_site_library_get_syssettings() {
     ob_start();
     ?>
     <table class="form-table">

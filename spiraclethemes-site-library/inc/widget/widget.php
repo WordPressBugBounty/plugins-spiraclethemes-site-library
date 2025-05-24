@@ -46,10 +46,15 @@ function spiraclethemes_site_library_display_dashboard_widget() {
     $theme_name = esc_html(wp_get_theme()->get('Name'));
 
     if ("1" === get_option('ssl_disable_discount_widget')) {
+        if (!current_user_can('manage_options')) {
+            echo '<p>' . esc_html__('You do not have permission to view this content.', 'spiraclethemes-site-library') . '</p>';
+            return;
+        }
+
         $cache_key = 'spiraclethemes_discount_data';
         $xml_body = get_transient($cache_key);
 
-        if (false === $xml_body) {
+        if (false === $xml_body || !is_string($xml_body) || empty($xml_body)) {
             $api_url = esc_url_raw('https://api.spiraclethemes.com/discounts/disapi.php');
             $response = wp_safe_remote_get($api_url, [
                 'timeout' => 10,
@@ -71,11 +76,16 @@ function spiraclethemes_site_library_display_dashboard_widget() {
             set_transient($cache_key, $xml_body, HOUR_IN_SECONDS * 24);
         }
 
-        libxml_disable_entity_loader(true);
+        if (version_compare(PHP_VERSION, '8.0.0', '<')) {
+            libxml_disable_entity_loader(true);
+        }
         libxml_use_internal_errors(true);
         $xml = simplexml_load_string($xml_body, 'SimpleXMLElement', LIBXML_NOCDATA);
 
         if ($xml === false) {
+            if (defined('WP_DEBUG') && WP_DEBUG) {
+                error_log('Spiraclethemes Site Library: XML parsing errors: ' . print_r(libxml_get_errors(), true));
+            }
             echo '<p>' . esc_html__('Error parsing XML data.', 'spiraclethemes-site-library') . '</p>';
             libxml_clear_errors();
             return;
@@ -85,8 +95,8 @@ function spiraclethemes_site_library_display_dashboard_widget() {
         $theme_url = null;
         foreach ($xml->theme as $theme) {
             if ((string) $theme->slug === $theme_slug) {
-                $theme_discount = (string) $theme->sale;
-                $theme_url = (string) $theme->purchase_url;
+                $theme_discount = !empty($theme->sale) ? (string) $theme->sale : null;
+                $theme_url = !empty($theme->purchase_url) ? (string) $theme->purchase_url : null;
                 break;
             }
         }

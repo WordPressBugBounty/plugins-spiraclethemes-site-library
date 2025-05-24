@@ -12,7 +12,7 @@ if (!defined('ABSPATH')) {
 // Ensure no output before JSON response
 ob_start();
 
-class SSL_Admin {
+class Spiraclethemes_site_library_Admin {
 
     /**
      * Nonce name for AJAX and form security.
@@ -42,19 +42,19 @@ class SSL_Admin {
             }
         }
 
-        $this->ssl_init_hooks();
+        $this->spiraclethemes_site_library_init_hooks();
     }
 
     /**
      * Register admin menu.
      */
-    public function ssl_register_admin_menu() {
+    public function spiraclethemes_site_library_register_admin_menu() {
         add_menu_page(
             esc_html__('Spiraclethemes Site Library', 'spiraclethemes-site-library'),
             esc_html__('Spiraclethemes Site Library', 'spiraclethemes-site-library'),
             'manage_options',
             'ssl-settings',
-            [$this, 'ssl_display_settings_pages'],
+            [$this, 'spiraclethemes_site_library_display_settings_pages'],
             'dashicons-art'
         );
     }
@@ -62,10 +62,10 @@ class SSL_Admin {
     /**
      * Initialize hooks.
      */
-    public function ssl_init_hooks() {
-        add_action('admin_menu', [$this, 'ssl_register_admin_menu']);
-        add_action('admin_enqueue_scripts', [$this, 'ssl_enqueue_scripts']);
-        add_action('wp_ajax_ssl_save_settings', [$this, 'ssl_save_settings']);
+    public function spiraclethemes_site_library_init_hooks() {
+        add_action('admin_menu', [$this, 'spiraclethemes_site_library_register_admin_menu']);
+        add_action('admin_enqueue_scripts', [$this, 'spiraclethemes_site_library_enqueue_scripts']);
+        add_action('wp_ajax_ssl_save_settings', [$this, 'spiraclethemes_site_library_save_settings']);
     }
 
     /**
@@ -73,7 +73,7 @@ class SSL_Admin {
      *
      * @param string $hook The current admin page hook.
      */
-    public function ssl_enqueue_scripts($hook) {
+    public function spiraclethemes_site_library_enqueue_scripts($hook) {
         if ('toplevel_page_ssl-settings' !== $hook) {
             return;
         }
@@ -110,7 +110,7 @@ class SSL_Admin {
     /**
      * Save settings via AJAX.
      */
-    public function ssl_save_settings() {
+    public function spiraclethemes_site_library_save_settings() {
         // Verify nonce
         if (!check_ajax_referer(self::NONCE_NAME, 'nonce', false)) {
             wp_send_json_error(
@@ -221,7 +221,7 @@ class SSL_Admin {
     /**
      * Display settings pages.
      */
-    public function ssl_display_settings_pages() {
+    public function spiraclethemes_site_library_display_settings_pages() {
         // Explicit capability check
         if (!current_user_can('manage_options')) {
             wp_die(
@@ -291,7 +291,7 @@ class SSL_Admin {
                             <div class="ssl-system-info-container">
                                 <?php
                                 // Assume ssl_get_sysinfo() is properly sanitized
-                                echo wp_kses_post(nl2br(ssl_get_sysinfo()));
+                                echo wp_kses_post(nl2br(spiraclethemes_site_library_get_sysinfo()));
                                 ?>
                             </div>
                         </div>
@@ -302,7 +302,7 @@ class SSL_Admin {
                             <div class="ssl-system-settings-container">
                                 <?php
                                 // Assume ssl_get_syssettings() is properly sanitized
-                                echo ssl_get_syssettings();
+                                echo spiraclethemes_site_library_get_syssettings();
                                 ?>
                                 <p class="submit">
                                     <input
@@ -323,4 +323,4 @@ class SSL_Admin {
     }
 }
 
-new SSL_Admin();
+new Spiraclethemes_site_library_Admin();

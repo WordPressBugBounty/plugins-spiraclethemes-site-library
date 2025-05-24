@@ -2,7 +2,7 @@
 
 if (!defined('ABSPATH')) exit; // Exit if accessed directly
 
-function ssl_get_sysinfo() {
+function spiraclethemes_site_library_get_sysinfo() {
     global $wpdb;
 
     // Sanitize theme data retrieval
