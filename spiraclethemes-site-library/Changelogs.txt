@@ -1,6 +1,10 @@
 
 == Changelog ==
 
+== 1.5.2 ==
+- Updated the notice
+- Minor bug fixes
+
 == 1.5.1 ==
 - Fixed deprecated issue warning in dashboard widget
 
