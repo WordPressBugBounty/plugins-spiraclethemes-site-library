@@ -3,7 +3,7 @@
  * Plugin Name:       Spiraclethemes Site Library
  * Plugin URI:        https://wordpress.org/plugins/spiraclethemes-site-library/
  * Description:       A plugin by Spiracle Themes that adds one-click demo import, theme customization, starter templates, and page builder support to its free themes.
- * Version:           1.5.2
+ * Version:           1.5.3
  * Author:            SpiracleThemes
  * Author URI:        https://spiraclethemes.com
  * License:           GPL-2.0+
@@ -107,12 +107,23 @@ class Spiraclethemes_Site_Library {
 
     // function to set notification after init
     public function spiraclethemes_site_library_set_notification() {
-        $this->notification  = sprintf(
+        $raw_html = sprintf(
             '<p>%1$s <a href="%2$s" class="button" style="text-decoration: none;">%3$s</a></p>',
             esc_html__( 'Kickstart your WordPress website with our free demo starter templates, tailored for this theme.', 'spiraclethemes-site-library' ),
             esc_url( admin_url( 'themes.php?page=one-click-demo-import' ) ),
             esc_html__( 'Start Importing Templates', 'spiraclethemes-site-library' )
         );
+
+        $this->notification = wp_kses( $raw_html, [
+            'p' => [],
+            'a' => [
+                'href' => [],
+                'class' => [],
+                'style' => [],
+                'target' => [],
+                'rel' => [],
+            ]
+        ]);
     }
 
     // spiraclethemes site library functions
@@ -174,7 +185,7 @@ class Spiraclethemes_Site_Library {
     // Reusable method to build notice message
     private function spiraclethemes_site_library_build_sale_notice( $discount, $code, $ignore_param, $theme_name ) {
         $pricing_url = esc_url( 'https://spiraclethemes.com/pricing/' );
-        $ignore_url  = esc_url( admin_url( 'themes.php?' . $ignore_param . '=0' ) );
+        $ignore_url  = esc_url( wp_nonce_url( admin_url( 'themes.php?' . $ignore_param . '=0' ), $ignore_param . '_nonce' ) );
 
         switch ( $discount ) {
             case 10:
@@ -211,7 +222,7 @@ class Spiraclethemes_Site_Library {
         if ( $days_since >= 7 && $this->spiraclethemes_site_library_should_display_notice( 'spiraclethemes_sitelib_rating_ignore_notice', 7 ) ) {
             $theme_info_url = esc_url( admin_url( 'themes.php' ) );
             $rating_url = esc_url( 'https://wordpress.org/support/theme/' . $this->theme_slug . '/reviews/?filter=5' );
-            $ignore_url = esc_url( admin_url( 'themes.php?wp_spiraclethemes_sitelib_rating_ignore=0' ) );
+            $ignore_url = esc_url( wp_nonce_url( admin_url( 'themes.php?wp_spiraclethemes_sitelib_rating_ignore=0' ), 'wp_spiraclethemes_sitelib_rating_ignore_nonce' ) );
 
             echo '<div class="notice updated ssl-notice">';
             printf(
@@ -262,9 +273,11 @@ class Spiraclethemes_Site_Library {
 
     // Generic ignore handler
     private function spiraclethemes_site_library_handle_ignore_notice( $param, $meta_key ) {
-        if ( isset( $_GET[ $param ] ) ) {
-            $user_id = get_current_user_id();
-            add_user_meta( $user_id, $meta_key, true, true );
+        if ( current_user_can( 'manage_options' ) && isset( $_GET[ $param ] ) && isset( $_GET['_wpnonce'] ) ) {
+            if ( wp_verify_nonce( $_GET['_wpnonce'], $param . '_nonce' ) ) {
+                $user_id = get_current_user_id();
+                add_user_meta( $user_id, sanitize_key( $meta_key ), true, true );
+            }
         }
     }
 
@@ -291,7 +304,6 @@ class Spiraclethemes_Site_Library {
 // Class Register
 
 if ( class_exists( 'Spiraclethemes_Site_Library' ) ) :
-    # code...
     $spiraclethemes_site_library = new Spiraclethemes_Site_Library();
     $spiraclethemes_site_library->spiraclethemes_site_library_register_styles();
     $spiraclethemes_site_library->spiraclethemes_site_library_functions();

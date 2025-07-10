@@ -22,7 +22,9 @@ $theme            = wp_get_theme();
 
 		<div class="ocdi__content-container-content">
 			<div class="ocdi__content-container-content--main">
-				<?php if ( isset( $_GET['import'] ) ) : ?>
+				<?php if ( isset( $_GET['import'] ) && is_numeric( $_GET['import'] ) && current_user_can( 'edit_theme_options' ) ) :
+					$import_index = absint( $_GET['import'] );
+					if ( isset( $this->import_files[ $import_index ] ) ) : ?>
 					<div class="ocdi-install-plugins-content js-ocdi-install-plugins-content">
 						<div class="ocdi-install-plugins-content-header">
 							<h2><?php esc_html_e( 'Before We Import Your Demo', 'one-click-demo-import' ); ?></h2>
@@ -30,7 +32,7 @@ $theme            = wp_get_theme();
 								<?php esc_html_e( 'To ensure the best experience, installing the following plugins is strongly recommended, and in some cases required.', 'one-click-demo-import' ); ?>
 							</p>
 
-							<?php if ( ! empty( $this->import_files[ $_GET['import'] ]['import_notice'] ) ) : ?>
+							<?php if ( ! empty( $this->import_files[ $import_index ]['import_notice'] ) ) : ?>
 								<div class="notice  notice-info">
 									<p><?php echo wp_kses_post( $this->import_files[ $_GET['import'] ]['import_notice'] ); ?></p>
 								</div>
@@ -85,6 +87,7 @@ $theme            = wp_get_theme();
 							<a href="#" class="button button-primary js-ocdi-install-plugins-before-import"><?php esc_html_e( 'Continue & Import' , 'one-click-demo-import' ); ?></a>
 						</div>
 					</div>
+					<?php endif; ?>
 				<?php else : ?>
 					<div class="js-ocdi-auto-start-manual-import"></div>
 				<?php endif; ?>

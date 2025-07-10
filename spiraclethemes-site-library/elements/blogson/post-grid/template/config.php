@@ -234,7 +234,7 @@ class Blogson_Postgrid extends Widget_Base {
 					'true' => __( 'Show', 'spiraclethemes-site-library' ),
 					'false' => __( 'Hide', 'spiraclethemes-site-library' ),
 				],
-				'default' => 'true',
+				'default' => 'false',
 				'condition' => [
 					'post_style' => ['style_3'],
 				],
@@ -354,7 +354,7 @@ class Blogson_Postgrid extends Widget_Base {
 					'true' => __( 'Show', 'spiraclethemes-site-library' ),
 					'false' => __( 'Hide', 'spiraclethemes-site-library' ),
 				],
-				'default' => 'true',
+				'default' => 'false',
 				'condition' => [
 					'post_style' => ['style_3'],
 				],

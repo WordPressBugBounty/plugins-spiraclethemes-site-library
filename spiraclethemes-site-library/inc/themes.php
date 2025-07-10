@@ -102,49 +102,46 @@ if ( isset( $theme_files[ $this->theme_slug ] ) ) {
 // Function to access API data
 function spiraclethemes_site_library_api_data($theme_name, $demo_name, $file_type) {
     // API URL for accessing files
-    $api_url = "https://api.spiraclethemes.com/wp-json/custom/v1/files/$file_type/$theme_name/$demo_name/";
+    $api_url = "https://api.spiraclethemes.com/wp-json/custom/v2/files/{$file_type}/{$theme_name}/{$demo_name}/";
 
     // Send GET request to the API
-    $response = wp_remote_get($api_url);
+    $response = wp_remote_get($api_url, ['timeout' => 10, 'sslverify' => true]);
 
-    // Check if the request was successful
+    // Check for request errors
     if (is_wp_error($response)) {
-        // Log the error (optional, for debugging purposes)
         error_log('API Request Error: ' . $response->get_error_message());
-        return false; // Return false to indicate API request failure
+        return false;
     }
 
     // Get the response code
     $response_code = wp_remote_retrieve_response_code($response);
-
-    // Check if API returned a valid response (2xx status code)
     if (strpos((string) $response_code, '2') !== 0) {
-        // Log the response code (optional, for debugging purposes)
         error_log('API Response Error: ' . $response_code);
-        return false; // Return false to indicate API response error
+        return false;
     }
 
-    // Get the response body
+    // Get and decode the JSON body
     $api_data = wp_remote_retrieve_body($response);
-
-    // Check if API data is valid
     if (empty($api_data)) {
         error_log('Empty API Response');
-        return false; // Return false for empty API response
+        return false;
     }
 
-    // Convert JSON string to PHP array
     $api_data_array = json_decode($api_data, true);
 
-    // Check if the data was successfully decoded and contains 'file_path'
+    // Validate and return the public URL
     if ($api_data_array && isset($api_data_array['file_path'])) {
-        // Construct the file URL
-        $file = "https://spiraclethemes.com/" . implode('/', array_slice(explode('/', ltrim($api_data_array['file_path'])), 6));
-        return $file;
-    } else {
-        // No file path found in API response
-        error_log('No file path found in API response');
-        return false; // Return false for missing file path
-    }
-}
+        $file_url = esc_url_raw(trim($api_data_array['file_path']));
 
+        // Only allow URLs from domain
+        if (strpos($file_url, 'https://spiraclethemes.com/') === 0) {
+            return $file_url;
+        } else {
+            error_log('Invalid file URL returned from API.');
+            return false;
+        }
+    }
+
+    error_log('Missing or invalid file_url in API response');
+    return false;
+}

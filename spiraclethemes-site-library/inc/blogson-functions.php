@@ -146,7 +146,7 @@ function spiraclethemes_site_library_blogson_get_all_posts(){
     if($the_query->have_posts()){
         while ($the_query->have_posts()) {
             $the_query->the_post();
-            $array_of_post[get_the_ID()] = get_the_title();
+            $array_of_post[get_the_ID()] = esc_html(get_the_title());
         }
     }
     wp_reset_postdata();
@@ -155,318 +155,201 @@ function spiraclethemes_site_library_blogson_get_all_posts(){
 
 
 
-if( !function_exists('spiraclethemes_site_library_blogson_gridposts') ){
+if (!function_exists('spiraclethemes_site_library_blogson_gridposts')) {
     function spiraclethemes_site_library_blogson_gridposts($atts, $content = null) {
-        extract(shortcode_atts(array(
-            'show_section_title' => 'true',
-            'section_title' => '',
-            'section_title_size' => 'h2',
-            'post_count' => '4',
-            'post_columns' => 'span6',
-            'post_style' => 'style_1',
-            'post_orderby' => 'date',
-            'post_order' => 'DESC',
-            'post_cat_slug' => '',
-            'post_ids' => '',
-            'post__not_in' => '',
-            'post_thumbsize'     => 'post-thumbnail',
-            'post_content_show' => 'true',
-            'post_excerpt_count' => '15',
-            'post_display_categories' => 'true',
-            'post_display_date' => 'true',
-            'post_display_author' => 'true',
+        $atts = shortcode_atts(array(
+            'show_section_title'            => 'true',
+            'section_title'                 => '',
+            'section_title_size'           => 'h2',
+            'post_count'                   => '4',
+            'post_columns'                 => 'span6',
+            'post_style'                   => 'style_1',
+            'post_orderby'                 => 'date',
+            'post_order'                   => 'DESC',
+            'post_cat_slug'                => '',
+            'post_ids'                     => '',
+            'post__not_in'                 => '',
+            'post_thumbsize'               => 'post-thumbnail',
+            'post_content_show'            => 'false',
+            'post_excerpt_count'           => '15',
+            'post_display_categories'      => 'true',
+            'post_display_date'            => 'true',
+            'post_display_author'          => 'true',
             'post_display_author_pre_text' => 'By',
-            'post_display_comments' => 'true',
-            'post_show_readmore' => 'false',
-            'post_readmore_text' => 'Read More',
-            'post_ignore_featured' => 'true',
-            'post_trim_title' => 'true',
-            'post_trim_title_count' => '7',
-            'post_text_position' => 'bottomcenter'
-        ), $atts));
+            'post_display_comments'        => 'true',
+            'post_show_readmore'           => 'false',
+            'post_readmore_text'           => 'Read More',
+            'post_ignore_featured'         => 'true',
+            'post_trim_title'              => 'true',
+            'post_trim_title_count'        => '7',
+            'post_text_position'           => 'bottomcenter',
+        ), $atts, 'gridposts');
 
-        global $post;
-        global $paged;
-        if ( is_front_page() ) {
-            $paged = (get_query_var('page')) ? get_query_var('page') : 1;
-        } else {
-            $paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
-        }
-        if($post_ids != ''){
-            $post_ids = str_replace(' ', '', $post_ids);
-            if (strpos($post_ids, ',') !== false){
-                $post_ids = explode(',', $post_ids);
-            } else {
-                $post_ids = array($post_ids);
-            }
-        } else {
-            $post_ids = array();
-        }
-        if($post__not_in != ''){
-            $post__not_in = str_replace(' ', '', $post__not_in);
-            if (strpos($post__not_in, ',') !== false){
-                $post__not_in = explode(',', $post__not_in);
-            } else {
-                $post__not_in = array($post__not_in);
-            }
-        } else {
-            $post__not_in = array();
-        }
+        // Sanitize
+        $atts['section_title']                 = sanitize_text_field($atts['section_title']);
+        $atts['section_title_size']           = sanitize_text_field($atts['section_title_size']);
+        $atts['post_count']                   = absint($atts['post_count']);
+        $atts['post_columns']                 = sanitize_html_class($atts['post_columns']);
+        $atts['post_style']                   = sanitize_html_class($atts['post_style']);
+        $atts['post_orderby']                 = sanitize_text_field($atts['post_orderby']);
+        $atts['post_order']                   = in_array($atts['post_order'], ['ASC', 'DESC']) ? $atts['post_order'] : 'DESC';
+        $atts['post_cat_slug']                = sanitize_text_field($atts['post_cat_slug']);
+        $atts['post_ids']                     = sanitize_text_field($atts['post_ids']);
+        $atts['post__not_in']                 = sanitize_text_field($atts['post__not_in']);
+        $atts['post_thumbsize']               = sanitize_text_field($atts['post_thumbsize']);
+        $atts['post_excerpt_count']           = absint($atts['post_excerpt_count']);
+        $atts['post_display_author_pre_text'] = sanitize_text_field($atts['post_display_author_pre_text']);
+        $atts['post_readmore_text']           = sanitize_text_field($atts['post_readmore_text']);
+        $atts['post_trim_title_count']        = absint($atts['post_trim_title_count']);
+        $atts['post_text_position']           = sanitize_html_class($atts['post_text_position']);
 
-        $show_section_title = ($show_section_title === 'true' || $show_section_title=='1');
-        $post_display_comments = ($post_display_comments === 'true' || $post_display_comments=='1');
-        $post_display_date = ($post_display_date == 'true' || $post_display_date=='1');
-        $post_display_author = ($post_display_author == 'true' || $post_display_author=='1');
-        $post_display_categories = ($post_display_categories === 'true' || $post_display_categories=='1');
-        $post_ignore_featured = ($post_ignore_featured === 'true' || $post_ignore_featured=='1' );
-        $post_content_show = ($post_content_show === 'true' || $post_content_show == '1' );
-        $post_show_readmore = ($post_show_readmore === 'true' || $post_show_readmore == '1' );
-        $bottom_lines = '';
-        $contentoverimage='';
-        $ignorestickyposts='';
-       
-        if($post_style=== 'style_1' || $post_style=== 'style_2') {
-            $contentoverimage="contentoverimage";
-        }
-        else{
-            $contentoverimage="nocontentoverimage";
-        }
-
-        $sticky_args = [
-            'post__in' => get_option('sticky_posts'),
-            'post_status' => 'publish'
+        $bool_keys = [
+            'show_section_title',
+            'post_content_show',
+            'post_display_categories',
+            'post_display_date',
+            'post_display_author',
+            'post_display_comments',
+            'post_show_readmore',
+            'post_ignore_featured',
+            'post_trim_title',
         ];
-        $sticky_posts = new WP_Query($sticky_args);
-        $sticky_count = $sticky_posts->post_count; 
-        
-        if($post_style=='style_1' && $post_cat_slug == '' && $sticky_count > 0){
-            $post_count=3 - $sticky_count;
-            $post_columns='span4f';
-        }
-        elseif($post_style=='style_1'){
-            $post_count=3;
-           $post_columns='span4f';
+        foreach ($bool_keys as $key) {
+            $atts[$key] = in_array($atts[$key], ['true', '1'], true);
         }
 
+        // Convert CSV post IDs to arrays
+        $atts['post_ids'] = $atts['post_ids'] ? array_map('absint', explode(',', str_replace(' ', '', $atts['post_ids']))) : [];
+        $atts['post__not_in'] = $atts['post__not_in'] ? array_map('absint', explode(',', str_replace(' ', '', $atts['post__not_in']))) : [];
 
-        $args = array(
-            'post_type' => 'post',
-            'posts_per_page' => $post_count,
-            'post__in' => $post_ids,
-            'post__not_in' => $post__not_in,
-            'order'          => $post_order,
-            'orderby'        => $post_orderby,
-            'post_status'    => 'publish',
-        );
-        if($post_cat_slug != '' && $post_cat_slug != 'all'){
-            $str = str_replace(' ', '', $post_cat_slug);
-            $arr = explode(',', $str);    
-            $args['tax_query'][] = array(
-              'taxonomy'  => 'category',
-              'field'   => 'slug',
-              'terms'   => $arr
-            );
+        // Determine style-specific adjustments
+        $contentoverimage = in_array($atts['post_style'], ['style_1', 'style_2']) ? 'contentoverimage' : 'nocontentoverimage';
 
+        // Sticky logic
+        $sticky_count = (new WP_Query([
+            'post__in' => get_option('sticky_posts'),
+            'post_status' => 'publish',
+        ]))->post_count;
+
+        if ($atts['post_style'] === 'style_1') {
+            $atts['post_count'] = ($atts['post_cat_slug'] === '' && $sticky_count > 0) ? max(0, 3 - $sticky_count) : 3;
+            $atts['post_columns'] = 'span4f';
         }
-        
-        static $post_section_id = 0;
-        $out = '';
-        ++$post_section_id;
-        query_posts( $args );
-        
-        if( have_posts() ) {
-            $out .= '<div class="latest-posts">';
-            if( $section_title != '' && $show_section_title==true ) {
-                $out .= '<'.$section_title_size.' class="post_title">'.esc_html($section_title).'</'.$section_title_size.'>';
+
+        // Query args
+        $args = [
+            'post_type'      => 'post',
+            'posts_per_page'=> $atts['post_count'],
+            'order'         => $atts['post_order'],
+            'orderby'       => $atts['post_orderby'],
+            'post_status'   => 'publish',
+            'post__in'      => $atts['post_ids'],
+            'post__not_in'  => $atts['post__not_in'],
+        ];
+
+        if ($atts['post_cat_slug'] && $atts['post_cat_slug'] !== 'all') {
+            $args['tax_query'][] = [
+                'taxonomy' => 'category',
+                'field'    => 'slug',
+                'terms'    => explode(',', str_replace(' ', '', $atts['post_cat_slug'])),
+            ];
+        }
+
+        $query = new WP_Query($args);
+        $output = '';
+
+        if ($query->have_posts()) {
+            static $post_section_id = 0;
+            $post_section_id++;
+
+            $output .= '<div class="latest-posts">';
+            if ($atts['show_section_title'] && $atts['section_title']) {
+                $output .= sprintf(
+                    '<%1$s class="post_title">%2$s</%1$s>',
+                    esc_attr($atts['section_title_size']),
+                    esc_html($atts['section_title'])
+                );
             }
-            $out .= '<div id="blog-posts-'.$post_section_id.'" class="row-fluid blog-posts">';
-            
-            if($post_style=='style_1') {
-                while ( have_posts() ) {
-                    the_post();
-                    $classes = join(' ', get_post_class($post->ID) );
-                    $classes .= ' post';
-                    if(true) {
-                        $classes = str_replace('sticky ', '', $classes);
-                        $out .= '<article class="textcenter '.$classes.' '.$contentoverimage.' '.$post_columns.' '.$post_style.' '.$post_text_position.' ">';
-                            
-                        if(has_post_thumbnail()) { 
-                            $post_img_url= wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), $post_thumbsize );
-                        }
-                        else {
-                            $post_img_url[0] =  esc_url( plugins_url( 'img/no-image.jpg', dirname(__FILE__) ) );
-                        }
 
-                        $out .= '<div id="post-'.$post->ID.'" class="post-grid-area-box">';
-                            $out .= '<div class="post-grid-area-content" style="background:url('.$post_img_url[0].') no-repeat;">';
-                                $out .= '<div class="content-wrapper">';
-                                    $out .= '<div class="content">';
-                                        $out .= '<div class="content-inner">';
-                                            $out .= '<div class="category">';
-                                                if( $post_display_categories ) 
-                                                $out .= '<span> '.get_the_category_list(', ').' </span>';
-                                            $out .= '</div>';
-                                            $out .= '<div class="title">';
-                                                if($post_trim_title=='true') {
-                                                    $out .= '<h2><a href="'.get_the_permalink().'" title="'.esc_html__('Permalink to', 'spiraclethemes-site-library').' '.esc_attr(the_title_attribute('echo=0')).'" rel="bookmark">'. wp_trim_words(get_the_title(), $post_trim_title_count).'</a></h2>';
-                                                }
-                                                else {
-                                                    $out .= '<h2><a href="'.get_the_permalink().'" title="'.esc_html__('Permalink to', 'spiraclethemes-site-library').' '.esc_attr(the_title_attribute('echo=0')).'" rel="bookmark">'. get_the_title() .'</a></h2>';
-                                                }
-                                            $out .= '</div>';
-                                            $out .= '<div class="meta">';
-                                                if( $post_display_author ) {
-                                                    $out .= '<span class="author"><span>'. esc_html( $post_display_author_pre_text ) .':&nbsp;<a class="author-post-url" href="'. esc_url( get_author_posts_url( get_the_author_meta( "ID" ) ) ) .'">'. get_the_author() .'</a></span></span>';
-                                                }
-                                                if( $post_display_date ) {
-                                                    $out .= '<span class="date"><span>' .get_the_time(get_option('date_format')). '</span></span>';
-                                                }
-                                                if( $post_display_comments ) {
-                                                    $out .= '<span class="comments"><span><a class="post-comments-url" href="'. get_the_permalink().'#comments" >'. get_comments_number('0','1','%') . esc_html__(" Comments","blogson") .'</a></span></span>';
-                                                }
-                                            $out .= '</div>';
+            $output .= '<div id="blog-posts-' . $post_section_id . '" class="row-fluid blog-posts">';
 
-                                        $out .= '</div>';
-                                    $out .= '</div>';
-                                $out .= '</div>';
-                            $out .= '</div>';   
-                        $out .= '</div>';
-                       
-                        $out .= '</article>';
-                    }
+            while ($query->have_posts()) {
+                $query->the_post();
 
+                $post_id = get_the_ID();
+                $img = has_post_thumbnail() ?
+                    wp_get_attachment_image_src(get_post_thumbnail_id($post_id), $atts['post_thumbsize'])[0] :
+                    esc_url(plugins_url('img/no-image.jpg', dirname(__FILE__)));
+
+                $classes = implode(' ', get_post_class('', $post_id));
+                $classes = str_replace('sticky ', '', $classes);
+
+                $output .= '<article class="textcenter ' . esc_attr("$classes {$contentoverimage} {$atts['post_columns']} {$atts['post_style']} {$atts['post_text_position']}") . '">';
+                $output .= '<div id="post-' . esc_attr($post_id) . '" class="post-grid-area-box">';
+
+                if ($atts['post_style'] === 'style_3') {
+                    $output .= '<div class="post-grid">';
+                    $output .= '<div class="content-wrapper">';
+                    $output .= '<div class="post-image"><img src="' . esc_url($img) . '" alt=""></div>';
+                } else {
+                    $output .= '<div class="post-grid-area-content" style="background-image:url(' . esc_url($img) . ');">';
+                    $output .= '<div class="content-wrapper">';
                 }
 
-            }
-            if($post_style=='style_2') {
-                while ( have_posts() ) {
-                    the_post();
-                    $classes = join(' ', get_post_class($post->ID) );
-                    $classes .= ' post';
-                    if(true) {
-                        $classes = str_replace('sticky ', '', $classes);
-                        $out .= '<article class="textcenter '.$classes.' '.$contentoverimage.' '.$post_columns.' '.$post_style.' '.$post_text_position.' ">';
-                            
-                        if(has_post_thumbnail()) { 
-                            $post_img_url= wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), $post_thumbsize );
-                        }
-                        else {
-                            $post_img_url[0] =  esc_url( plugins_url( 'img/no-image.jpg', dirname(__FILE__) ) );
-                        }
-                        $out .= '<div id="post-'.$post->ID.'" class="post-grid-area-box">';
-                            $out .= '<div class="post-grid-area-content" style="background:url('.$post_img_url[0].') no-repeat;">';
-                                $out .= '<div class="content-wrapper">';
-                                    $out .= '<div class="content">';
-                                        $out .= '<div class="content-inner">';
-                                            $out .= '<div class="category">';
-                                                if( $post_display_categories ) 
-                                                $out .= '<span> '.get_the_category_list(', ').' </span>';
-                                            $out .= '</div>';
-                                            $out .= '<div class="title">';
-                                                if($post_trim_title=='true') {
-                                                    $out .= '<h2><a href="'.get_the_permalink().'" title="'.esc_html__('Permalink to', 'spiraclethemes-site-library').' '.esc_attr(the_title_attribute('echo=0')).'" rel="bookmark">'. wp_trim_words(get_the_title(), $post_trim_title_count).'</a></h2>';
-                                                }
-                                                else {
-                                                    $out .= '<h2><a href="'.get_the_permalink().'" title="'.esc_html__('Permalink to', 'spiraclethemes-site-library').' '.esc_attr(the_title_attribute('echo=0')).'" rel="bookmark">'. get_the_title() .'</a></h2>';
-                                                }
-                                            $out .= '</div>';
-                                            $out .= '<div class="meta">';
-                                                if( $post_display_author ) {
-                                                    $out .= '<span class="author"><span>'. esc_html( $post_display_author_pre_text ) .':&nbsp;<a class="author-post-url" href="'. esc_url( get_author_posts_url( get_the_author_meta( "ID" ) ) ) .'">'. get_the_author() .'</a></span></span>';
-                                                }
-                                                if( $post_display_date ) {
-                                                    $out .= '<span class="date"><span>' .get_the_time(get_option('date_format')). '</span></span>';
-                                                }
-                                                if( $post_display_comments ) {
-                                                    $out .= '<span class="comments"><span><a class="post-comments-url" href="'. get_the_permalink().'#comments" >'. get_comments_number('0','1','%') . esc_html__(" Comments","blogson") .'</a></span></span>';
-                                                }
-                                            $out .= '</div>';
+                $output .= '<div class="content"><div class="content-inner">';
 
-                                        $out .= '</div>';
-                                    $out .= '</div>';
-                                $out .= '</div>';
-                            $out .= '</div>';   
-                        $out .= '</div>';
-                        $out .= '</article>';
-                    }
-
+                // Categories
+                if ($atts['post_display_categories']) {
+                    $output .= '<div class="category"><span>' . wp_kses(get_the_category_list(', '), [
+                        'a' => ['href' => [], 'rel' => []],
+                        'span' => [],
+                    ]) . '</span></div>';
                 }
-            }
-            if($post_style=='style_3') {
-                while ( have_posts() ) {
-                    the_post();
-                    $classes = join(' ', get_post_class($post->ID) );
-                    $classes .= ' post';
-                    if(true) {
-                        $classes = str_replace('sticky ', '', $classes);
-                        $out .= '<article class="textcenter '.$classes.' '.$contentoverimage.' '.$post_columns.' '.$post_style.' '.$post_text_position.' ">';
-                            
-                        if(has_post_thumbnail()) { 
-                            $post_img_url= wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), $post_thumbsize );
-                        }
-                        else {
-                            $post_img_url[0] =  esc_url( plugins_url( 'img/no-image.jpg', dirname(__FILE__) ) );
-                        }
-                        $out .= '<div id="post-'.$post->ID.'" class="post-grid-area-box">';
-                            $out .= '<div class="post-grid">';
-                                $out .= '<div class="content-wrapper">';
-                                    $out .= '<div class="post-image">';
-                                        $out .= '<div class="post-image-wrapper">';
-                                            $out .= '<img src="'.esc_url($post_img_url[0]).'" />';
-                                        $out .= '</div>';
-                                    $out .= '</div>';
-                                    $out .= '<div class="content">';
-                                        $out .= '<div class="content-inner">';
-                                            $out .= '<div class="category">';
-                                                if( $post_display_categories ) 
-                                                $out .= '<span> '.get_the_category_list(', ').' </span>';
-                                            $out .= '</div>';
-                                            $out .= '<div class="title">';
-                                                if($post_trim_title=='true') {
-                                                    $out .= '<h2><a href="'.get_the_permalink().'" title="'.esc_html__('Permalink to', 'spiraclethemes-site-library').' '.esc_attr(the_title_attribute('echo=0')).'" rel="bookmark">'. wp_trim_words(get_the_title(), $post_trim_title_count).'</a></h2>';
-                                                }
-                                                else {
-                                                    $out .= '<h2><a href="'.get_the_permalink().'" title="'.esc_html__('Permalink to', 'spiraclethemes-site-library').' '.esc_attr(the_title_attribute('echo=0')).'" rel="bookmark">'. get_the_title() .'</a></h2>';
-                                                }
-                                            $out .= '</div>';
-                                            $out .= '<div class="meta">';
-                                                if( $post_display_author ) {
-                                                    $out .= '<span class="author"><span>'. esc_html( $post_display_author_pre_text ) .':&nbsp;<a class="author-post-url" href="'. esc_url( get_author_posts_url( get_the_author_meta( "ID" ) ) ) .'">'. get_the_author() .'</a></span></span>';
-                                                }
-                                                if( $post_display_date ) {
-                                                    $out .= '<span class="date"><span>' .get_the_time(get_option('date_format')). '</span></span>';
-                                                }
-                                                if( $post_display_comments ) {
-                                                    $out .= '<span class="comments"><span><a class="post-comments-url" href="'. get_the_permalink().'#comments" >'. get_comments_number('0','1','%') . esc_html__(" Comments","blogson") .'</a></span></span>';
-                                                }
-                                            $out .= '</div>';
-                                            if( $post_content_show ) {
-                                                $out .= '<div class="main-content">';
-                                                    $out .= '<p class="post-content">'. wp_trim_words(get_the_content(), $post_excerpt_count).'</p>';
-                                                $out .= '</div>';
-                                            }
-                                            if( $post_show_readmore ) {
-                                                $out .= '<div class="post-read-more">';
-                                                $out .= '<a href="'.get_the_permalink().'">'. esc_html($post_readmore_text).'</a>';
-                                                $out .= '</div>';
-                                            }
-                                        $out .= '</div>';
-                                    $out .= '</div>';
-                                $out .= '</div>';
-                            $out .= '</div>';   
-                        $out .= '</div>';
-                        $out .= '</article>';
-                    }
 
+                // Title
+                $output .= '<div class="title">';
+                $title = get_the_title();
+                $output .= '<h2><a href="' . esc_url(get_permalink()) . '" title="' . esc_attr($title) . '" rel="bookmark">';
+                $output .= $atts['post_trim_title'] ? esc_html(wp_trim_words($title, $atts['post_trim_title_count'])) : esc_html($title);
+                $output .= '</a></h2></div>';
+
+                // Meta
+                $output .= '<div class="meta">';
+                if ($atts['post_display_author']) {
+                    $output .= '<span class="author">' . esc_html($atts['post_display_author_pre_text']) . ': ';
+                    $output .= '<a href="' . esc_url(get_author_posts_url(get_the_author_meta('ID'))) . '">' . esc_html(get_the_author()) . '</a></span>';
                 }
+                if ($atts['post_display_date']) {
+                    $output .= '<span class="date">' . esc_html(get_the_time(get_option('date_format'))) . '</span>';
+                }
+                if ($atts['post_display_comments']) {
+                    $output .= '<span class="comments"><a href="' . esc_url(get_comments_link()) . '">' . esc_html(get_comments_number()) . ' ' . esc_html__('Comments', 'blogson') . '</a></span>';
+                }
+                $output .= '</div>'; // meta
+
+                // Content
+                if ($atts['post_content_show']) {
+                    $output .= '<div class="main-content"><p class="post-content">' . esc_html(wp_trim_words(strip_tags(get_the_content()), $atts['post_excerpt_count'])) . '</p></div>';
+                }
+
+                // Read More
+                if ($atts['post_show_readmore']) {
+                    $output .= '<div class="post-read-more"><a href="' . esc_url(get_permalink()) . '">' . esc_html($atts['post_readmore_text']) . '</a></div>';
+                }
+
+                $output .= '</div></div>';
+
+                $output .= '</div>';
+                $output .= '</div>';
+                $output .= '</div>';
+                $output .= '</article>';
             }
-    
-            $out .= '</div>';
-           
-            $out .= '</div>';
+
+            $output .= '</div></div>';
         }
-        wp_reset_query();
-        return $out;
+
+        wp_reset_postdata();
+        return $output;
     }
     add_shortcode('gridposts', 'spiraclethemes_site_library_blogson_gridposts');
 }

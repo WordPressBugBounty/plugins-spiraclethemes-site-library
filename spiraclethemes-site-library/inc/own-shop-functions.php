@@ -116,15 +116,18 @@ add_action( 'admin_init', 'spiraclethemes_site_library_own_shop_check_pro_plugin
 
 if( !function_exists('spiraclethemes_site_library_own_shop_listprod') ) {
     function spiraclethemes_site_library_own_shop_listprod($atts, $content = null) {
-        extract(shortcode_atts(array(
-            'prod_options' => '',
-            'prod_count' => '8',
-            'prod_columns_count' => '4',
-            'prod_display_tabs' => 'true'
-        ), $atts));
+        $atts = shortcode_atts(array(
+            'prod_options'        => '',
+            'prod_count'          => '8',
+            'prod_columns_count'  => '4',
+            'prod_display_tabs'   => 'true',
+        ), $atts);
 
+        $prod_options        = sanitize_text_field($atts['prod_options']);
+        $prod_count          = absint($atts['prod_count']);
+        $prod_columns_count  = absint($atts['prod_columns_count']);
+        $prod_display_tabs   = ($atts['prod_display_tabs'] === 'true' || $atts['prod_display_tabs'] === '1') ? 'true' : 'false';
        
-        $prod_display_tabs = ($prod_display_tabs === 'true' || $prod_display_tabs=='1');
         $arr='';
         if($prod_options != '' && $prod_options != 'all') {
             $str = str_replace(' ', '', $prod_options);
@@ -148,7 +151,7 @@ if( !function_exists('spiraclethemes_site_library_own_shop_listprod') ) {
                                                 else :
                                                     ?><li><?php
                                                 endif;
-                                                ?><a href="#tab_default_<?php echo $tabcount; ?>" data-toggle="tab"><?php echo esc_html_e('All','spiraclethemes-site-library'); ?></a></li><?php
+                                                ?><a href="#tab_default_<?php echo $tabcount; ?>" data-toggle="tab"><?php esc_html_e('All','spiraclethemes-site-library'); ?></a></li><?php
                                             endif;
                                             if (in_array("featured", $arr)) :
                                                 $tabcount++;
@@ -157,7 +160,7 @@ if( !function_exists('spiraclethemes_site_library_own_shop_listprod') ) {
                                                 else :
                                                     ?><li><?php
                                                 endif;
-                                                ?><a href="#tab_default_<?php echo $tabcount; ?>" data-toggle="tab"><?php echo esc_html_e('Featured','spiraclethemes-site-library'); ?></a></li><?php
+                                                ?><a href="#tab_default_<?php echo $tabcount; ?>" data-toggle="tab"><?php esc_html_e('Featured','spiraclethemes-site-library'); ?></a></li><?php
                                             endif;
                                             if (in_array("new", $arr)) :
                                                 $tabcount++;
@@ -166,7 +169,7 @@ if( !function_exists('spiraclethemes_site_library_own_shop_listprod') ) {
                                                 else :
                                                     ?><li><?php
                                                 endif;
-                                                ?><a href="#tab_default_<?php echo $tabcount; ?>" data-toggle="tab"><?php echo esc_html_e('New','spiraclethemes-site-library'); ?></a></li><?php
+                                                ?><a href="#tab_default_<?php echo $tabcount; ?>" data-toggle="tab"><?php esc_html_e('New','spiraclethemes-site-library'); ?></a></li><?php
                                             endif;
                                             if (in_array("popular", $arr)) :
                                                 $tabcount++;
@@ -175,7 +178,7 @@ if( !function_exists('spiraclethemes_site_library_own_shop_listprod') ) {
                                                 else :
                                                     ?><li><?php
                                                 endif;
-                                                ?><a href="#tab_default_<?php echo $tabcount; ?>" data-toggle="tab"><?php echo esc_html_e('Popular','spiraclethemes-site-library'); ?></a></li><?php
+                                                ?><a href="#tab_default_<?php echo $tabcount; ?>" data-toggle="tab"><?php esc_html_e('Popular','spiraclethemes-site-library'); ?></a></li><?php
                                             endif;
                                         ?>
                                     </ul>
@@ -188,9 +191,9 @@ if( !function_exists('spiraclethemes_site_library_own_shop_listprod') ) {
                                 if (in_array("all", $arr)) :
                                     $tabcount++;
                                     if($tabcount==1) :
-                                        ?><div class="tab-pane active" id="tab_default_<?php echo $tabcount; ?>"><?php
+                                        ?><div class="tab-pane active" id="<?php echo esc_attr('tab_default_'.$tabcount); ?>"><?php
                                     else :
-                                        ?><div class="tab-pane" id="tab_default_<?php echo $tabcount; ?>"><?php
+                                        ?><div class="tab-pane" id="<?php echo esc_attr('tab_default_'.$tabcount); ?>"><?php
                                     endif;
                                     ?>
                                         <?php echo do_shortcode('[products limit="'.$prod_count.'" columns="'.$prod_columns_count.'"]'); ?>
@@ -200,9 +203,9 @@ if( !function_exists('spiraclethemes_site_library_own_shop_listprod') ) {
                                 if (in_array("featured", $arr)) :
                                     $tabcount++;
                                     if($tabcount==1) :
-                                        ?><div class="tab-pane active" id="tab_default_<?php echo $tabcount; ?>"><?php
+                                        ?><div class="tab-pane active" id="<?php echo esc_attr('tab_default_'.$tabcount); ?>"><?php
                                     else :
-                                        ?><div class="tab-pane" id="tab_default_<?php echo $tabcount; ?>"><?php
+                                        ?><div class="tab-pane" id="<?php echo esc_attr('tab_default_'.$tabcount); ?>"><?php
                                     endif;
                                     ?>
                                         <?php echo do_shortcode('[products limit="'.$prod_count.'" columns="'.$prod_columns_count.'" visibility="featured"]'); ?>
@@ -212,9 +215,9 @@ if( !function_exists('spiraclethemes_site_library_own_shop_listprod') ) {
                                 if (in_array("new", $arr)) :
                                     $tabcount++;
                                     if($tabcount==1) :
-                                        ?><div class="tab-pane active" id="tab_default_<?php echo $tabcount; ?>"><?php
+                                        ?><div class="tab-pane active" id="<?php echo esc_attr('tab_default_'.$tabcount); ?>"><?php
                                     else :
-                                        ?><div class="tab-pane" id="tab_default_<?php echo $tabcount; ?>"><?php
+                                        ?><div class="tab-pane" id="<?php echo esc_attr('tab_default_'.$tabcount); ?>"><?php
                                     endif;
                                     ?>
                                         <?php echo do_shortcode('[products limit="'.$prod_count.'" columns="'.$prod_columns_count.'" orderby="id" order="DESC" visibility="visible"]'); ?>
@@ -224,9 +227,9 @@ if( !function_exists('spiraclethemes_site_library_own_shop_listprod') ) {
                                 if (in_array("popular", $arr)) :
                                     $tabcount++;
                                     if($tabcount==1) :
-                                        ?><div class="tab-pane active" id="tab_default_<?php echo $tabcount; ?>"><?php
+                                        ?><div class="tab-pane active" id="<?php echo esc_attr('tab_default_'.$tabcount); ?>"><?php
                                     else :
-                                        ?><div class="tab-pane" id="tab_default_<?php echo $tabcount; ?>"><?php
+                                        ?><div class="tab-pane" id="<?php echo esc_attr('tab_default_'.$tabcount); ?>"><?php
                                     endif;
                                     ?>	
                                         <?php echo do_shortcode('[products limit="'.$prod_count.'" columns="'.$prod_columns_count.'" best_selling="true" ]'); ?>
@@ -251,10 +254,13 @@ if( !function_exists('spiraclethemes_site_library_own_shop_listprod') ) {
 
  if( !function_exists('spiraclethemes_site_library_own_shop_featuredprod') ) {
     function spiraclethemes_site_library_own_shop_featuredprod($atts, $content = null) {
-        extract(shortcode_atts(array(
-            'prod_count' => '8',
+        $atts = shortcode_atts(array(
+            'prod_count'         => '8',
             'prod_columns_count' => '4',
-        ), $atts));
+        ), $atts);
+
+        $prod_count         = absint($atts['prod_count']);
+        $prod_columns_count = absint($atts['prod_columns_count']);
         
         ?>
             <div class="list-products-section">
@@ -273,10 +279,13 @@ if( !function_exists('spiraclethemes_site_library_own_shop_listprod') ) {
 
  if( !function_exists('spiraclethemes_site_library_own_shop_newprod') ) {
     function spiraclethemes_site_library_own_shop_newprod($atts, $content = null) {
-        extract(shortcode_atts(array(
-            'prod_count' => '8',
+        $atts = shortcode_atts(array(
+            'prod_count'         => '8',
             'prod_columns_count' => '4',
-        ), $atts));
+        ), $atts);
+
+        $prod_count         = absint($atts['prod_count']);
+        $prod_columns_count = absint($atts['prod_columns_count']);
         
         ?>
             <div class="list-products-section">
@@ -295,10 +304,13 @@ if( !function_exists('spiraclethemes_site_library_own_shop_listprod') ) {
 
  if( !function_exists('spiraclethemes_site_library_own_shop_popularprod') ) {
     function spiraclethemes_site_library_own_shop_popularprod($atts, $content = null) {
-        extract(shortcode_atts(array(
-            'prod_count' => '8',
+        $atts = shortcode_atts(array(
+            'prod_count'         => '8',
             'prod_columns_count' => '4',
-        ), $atts));
+        ), $atts);
+
+        $prod_count         = absint($atts['prod_count']);
+        $prod_columns_count = absint($atts['prod_columns_count']);
         
         ?>
             <div class="list-products-section">
@@ -345,16 +357,19 @@ function spiraclethemes_site_library_own_shop_get_categories(){
 
  if( !function_exists('spiraclethemes_site_library_own_shop_recentblog') ) {
     function spiraclethemes_site_library_own_shop_recentblog($atts, $content = null) {
-        extract(shortcode_atts(array(
-            'posts_count' => '3',
-            'post_cat_slug' => '',
-            'post_display_excerpt' => 'false',
-            'post_display_readmore' => 'true',
-            'post_read_more' => 'READ MORE'
-        ), $atts));
+        $atts = shortcode_atts(array(
+            'posts_count'            => '3',
+            'post_cat_slug'          => '',
+            'post_display_excerpt'   => 'false',
+            'post_display_readmore'  => 'true',
+            'post_read_more'         => 'READ MORE',
+        ), $atts);
 
-        $post_display_excerpt = ($post_display_excerpt === 'true' || $post_display_excerpt=='1');
-        $post_display_readmore = ($post_display_readmore === 'true' || $post_display_readmore=='1');
+        $posts_count           = absint($atts['posts_count']);
+        $post_cat_slug         = sanitize_text_field($atts['post_cat_slug']);
+        $post_display_excerpt  = ($atts['post_display_excerpt'] === 'true' || $atts['post_display_excerpt'] === '1') ? 'true' : 'false';
+        $post_display_readmore = ($atts['post_display_readmore'] === 'true' || $atts['post_display_readmore'] === '1') ? 'true' : 'false';
+        $post_read_more        = sanitize_text_field($atts['post_read_more']);
 
         $args = array(
             'post_type' => 'post',
@@ -371,13 +386,14 @@ function spiraclethemes_site_library_own_shop_get_categories(){
             );
 
         }
-        query_posts( $args );
+        $recent = new WP_Query($args);
+
         ?>
             <div class="latest-posts-wrapper">
                 <div class="latest-posts-lists-wrapper">
                     <div class="latest-posts-content">
                         <?php
-                            while ( have_posts() )  : the_post(); ?>
+                            while ( $recent->have_posts() )  : $recent->the_post(); ?>
                                 <article class="recent-blog-widget">
                                     <div class="blog-post">
                                         <div class="image">
@@ -402,7 +418,7 @@ function spiraclethemes_site_library_own_shop_get_categories(){
                                                         echo "<i class='la la-thumbtack'></i>";
                                                     endif;
                                                 ?>
-                                                <a href="<?php echo esc_url( get_permalink()); ?>" rel="bookmark"><?php the_title(); ?></a>
+                                                <a href="<?php echo esc_url( get_permalink()); ?>" rel="bookmark"><?php echo esc_html(get_the_title()); ?></a>
                                             </h3>
                                             <?php
                                                 if( true==$post_display_excerpt ) {
@@ -410,7 +426,7 @@ function spiraclethemes_site_library_own_shop_get_categories(){
                                                     if( true==$post_display_readmore ) {
                                                         ?>
                                                             <div class="read-more">
-                                                                <a href="<?php echo esc_url( get_permalink() ); ?>"><?php echo $post_read_more; ?> <i class="la la-long-arrow-alt-right"></i></a>
+                                                                <a href="<?php echo esc_url( get_permalink() ); ?>"><?php echo esc_html($post_read_more); ?> <i class="la la-long-arrow-alt-right"></i></a>
                                                             </div>
                                                         <?php
                                                     }
@@ -425,7 +441,7 @@ function spiraclethemes_site_library_own_shop_get_categories(){
                 </div>
             </div>
         <?php
-        wp_reset_query();
+        wp_reset_postdata();
     }
     add_shortcode('recentblog', 'spiraclethemes_site_library_own_shop_recentblog');
 }
