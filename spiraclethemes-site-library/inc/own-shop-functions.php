@@ -151,7 +151,7 @@ if( !function_exists('spiraclethemes_site_library_own_shop_listprod') ) {
                                                 else :
                                                     ?><li><?php
                                                 endif;
-                                                ?><a href="#tab_default_<?php echo $tabcount; ?>" data-toggle="tab"><?php esc_html_e('All','spiraclethemes-site-library'); ?></a></li><?php
+                                                ?><a href="#tab_default_<?php echo esc_attr( $tabcount ); ?>" data-toggle="tab"><?php esc_html_e('All','spiraclethemes-site-library'); ?></a></li><?php
                                             endif;
                                             if (in_array("featured", $arr)) :
                                                 $tabcount++;
@@ -160,7 +160,7 @@ if( !function_exists('spiraclethemes_site_library_own_shop_listprod') ) {
                                                 else :
                                                     ?><li><?php
                                                 endif;
-                                                ?><a href="#tab_default_<?php echo $tabcount; ?>" data-toggle="tab"><?php esc_html_e('Featured','spiraclethemes-site-library'); ?></a></li><?php
+                                                ?><a href="#tab_default_<?php echo esc_attr( $tabcount ); ?>" data-toggle="tab"><?php esc_html_e('Featured','spiraclethemes-site-library'); ?></a></li><?php
                                             endif;
                                             if (in_array("new", $arr)) :
                                                 $tabcount++;
@@ -169,7 +169,7 @@ if( !function_exists('spiraclethemes_site_library_own_shop_listprod') ) {
                                                 else :
                                                     ?><li><?php
                                                 endif;
-                                                ?><a href="#tab_default_<?php echo $tabcount; ?>" data-toggle="tab"><?php esc_html_e('New','spiraclethemes-site-library'); ?></a></li><?php
+                                                ?><a href="#tab_default_<?php echo esc_attr( $tabcount ); ?>" data-toggle="tab"><?php esc_html_e('New','spiraclethemes-site-library'); ?></a></li><?php
                                             endif;
                                             if (in_array("popular", $arr)) :
                                                 $tabcount++;
@@ -178,7 +178,7 @@ if( !function_exists('spiraclethemes_site_library_own_shop_listprod') ) {
                                                 else :
                                                     ?><li><?php
                                                 endif;
-                                                ?><a href="#tab_default_<?php echo $tabcount; ?>" data-toggle="tab"><?php esc_html_e('Popular','spiraclethemes-site-library'); ?></a></li><?php
+                                                ?><a href="#tab_default_<?php echo esc_attr( $tabcount ); ?>" data-toggle="tab"><?php esc_html_e('Popular','spiraclethemes-site-library'); ?></a></li><?php
                                             endif;
                                         ?>
                                     </ul>
@@ -415,7 +415,7 @@ function spiraclethemes_site_library_own_shop_get_categories(){
                                             <h3 class="entry-title">
                                                 <?php
                                                     if ( is_sticky() && is_home() ) :
-                                                        echo "<i class='la la-thumbtack'></i>";
+                                                        echo wp_kses_post( "<i class='la la-thumbtack'></i>" );
                                                     endif;
                                                 ?>
                                                 <a href="<?php echo esc_url( get_permalink()); ?>" rel="bookmark"><?php echo esc_html(get_the_title()); ?></a>

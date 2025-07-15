@@ -2,7 +2,7 @@
 $settings = $this->get_settings();
 $id = $this->get_id();
 
-$section_title              = sanitize_text_field($settings['section_title'] ?? '');
+$section_title              = esc_attr($settings['section_title'] ?? '');
 $section_title_size        = sanitize_text_field($settings['section_title_size'] ?? 'h2');
 $post_count                = absint($settings['post_count'] ?? 4);
 $post_columns              = sanitize_text_field($settings['post_columns'] ?? 'span6');
@@ -11,8 +11,8 @@ $post_orderby              = sanitize_text_field($settings['post_orderby'] ?? 'd
 $post_order                = sanitize_text_field($settings['post_order'] ?? 'DESC');
 $post_thumbsize            = sanitize_text_field($settings['post_thumbsize'] ?? 'post-thumbnail');
 $post_excerpt_count        = absint($settings['post_excerpt_count'] ?? 15);
-$post_display_author_pre_text = sanitize_text_field($settings['post_display_author_pre_text'] ?? 'By');
-$post_readmore_text        = sanitize_text_field($settings['post_readmore_text'] ?? 'Read More');
+$post_display_author_pre_text = esc_attr($settings['post_display_author_pre_text'] ?? 'By');
+$post_readmore_text        = esc_attr($settings['post_readmore_text'] ?? 'Read More');
 $post_trim_title_count     = absint($settings['post_trim_title_count'] ?? 7);
 $post_text_position        = sanitize_text_field($settings['post_text_position'] ?? 'bottomcenter');
 

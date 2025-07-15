@@ -10,9 +10,9 @@ $prod_display_tabs  = (($settings['prod_display_tabs'] ?? 'true') === 'true' || 
 $prod_options_raw = $settings['prod_options'] ?? '';
 
 if (is_array($prod_options_raw)) {
-    $prod_options = implode(',', array_map('sanitize_text_field', $prod_options_raw));
+    $prod_options = implode(',', array_map('esc_attr', $prod_options_raw));
 } else {
-    $prod_options = sanitize_text_field($prod_options_raw);
+    $prod_options = esc_attr($prod_options_raw);
 }
 
 $out = '[listprod'

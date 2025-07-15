@@ -3,7 +3,7 @@
  * Plugin Name:       Spiraclethemes Site Library
  * Plugin URI:        https://wordpress.org/plugins/spiraclethemes-site-library/
  * Description:       A plugin by Spiracle Themes that adds one-click demo import, theme customization, starter templates, and page builder support to its free themes.
- * Version:           1.5.3
+ * Version:           1.5.4
  * Author:            SpiracleThemes
  * Author URI:        https://spiraclethemes.com
  * License:           GPL-2.0+
@@ -274,7 +274,7 @@ class Spiraclethemes_Site_Library {
     // Generic ignore handler
     private function spiraclethemes_site_library_handle_ignore_notice( $param, $meta_key ) {
         if ( current_user_can( 'manage_options' ) && isset( $_GET[ $param ] ) && isset( $_GET['_wpnonce'] ) ) {
-            if ( wp_verify_nonce( $_GET['_wpnonce'], $param . '_nonce' ) ) {
+            if ( wp_verify_nonce( sanitize_text_field($_GET['_wpnonce']), $param . '_nonce' ) ) {
                 $user_id = get_current_user_id();
                 add_user_meta( $user_id, sanitize_key( $meta_key ), true, true );
             }

@@ -126,7 +126,8 @@ function spiraclethemes_site_library_display_dashboard_widget() {
 
     echo '<h3><span><img src="' . esc_url($rocket_img) . '" /> </span><b>' . __( 'Design, Build or Revamp existing WordPress website starting from $999', 'spiraclethemes-site-library' ) . '</b></h3>';
 
-    echo '<ul style="list-style: disc; padding-left: 20px;">';
+    wp_add_inline_style( 'spiraclethemes-site-library-main', 'ul { list-style: disc; padding-left: 20px; }' );
+    echo '<ul>';
     echo '<li><b>Stunning Custom Design</b> – Make a lasting impression with a beautiful, modern website or redesign.</li>';
     echo '<li><b>Tailor-Made Features</b> – We build exactly what your business needs – no fluff, just functionality.</li>';
     echo '<li><b>SEO-Optimized</b> – Climb the search rankings and get discovered faster on Google.</li>';
@@ -141,11 +142,7 @@ function spiraclethemes_site_library_display_dashboard_widget() {
     echo '</ul>';
 
     echo sprintf(
-        '<p style="text-align: left; margin-bottom:20px; margin-top:20px;">
-            <a href="https://spiraclethemes.com/hire-us/" target="_blank" style="background-color:#35a62e; color:#fff; border-radius:4px; padding:10px 15px; text-decoration:none; display:inline-block;box-shadow: 3px 3px #bcedbe;">
-                %s
-            </a>
-        </p>',
+        '<p><a href="https://spiraclethemes.com/hire-us/" target="_blank" class="button button-primary">%s</a></p>',
         __('Get Started Today for Just $999 (Limited Time Offer)!', 'spiraclethemes-site-library')
     );
 
@@ -218,14 +215,14 @@ function spiraclethemes_site_library_display_dashboard_widget() {
     
 
     // Display footer links
-    echo '<div style="margin-top: 10px; border-top: 1px solid #e5e5e5; padding-top: 10px;">';
+    echo '<div>';
     printf(
-        '<a href="%1$s" target="_blank" style="text-decoration:none;color:#93003f;font-weight: 600;">' . __( 'Help Us to Translate %2$s', 'spiraclethemes-site-library' ) . ' <span class="dashicons dashicons-external" style="text-decoration: none;font-size: 16px;color: #6c6969;"></span></a> | ',
+        '<a href="%1$s" target="_blank">' . __( 'Help Us to Translate %2$s', 'spiraclethemes-site-library' ) . ' <span class="dashicons dashicons-external"></span></a> | ',
         esc_url( 'https://translate.wordpress.org/projects/wp-themes/' . WP_THEME_SLUG . '/' ),
         esc_html( WP_THEME )
     );
     printf(
-        '<a href="%1$s" target="_blank" style="text-decoration:none;color: #93003f;font-weight: 600;">' . __( 'Write a Review', 'spiraclethemes-site-library' ) . '<span class="dashicons dashicons-external" style="text-decoration: none;font-size: 16px;color: #6c6969;"></span></a>',
+        '<a href="%1$s" target="_blank">' . __( 'Write a Review', 'spiraclethemes-site-library' ) . '<span class="dashicons dashicons-external"></span></a>',
         esc_url( 'https://wordpress.org/support/theme/' . WP_THEME_SLUG . '/reviews/#new-post' )
     );
 

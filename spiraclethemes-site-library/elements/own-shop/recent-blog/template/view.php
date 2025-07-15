@@ -9,7 +9,7 @@ $post_display_excerpt = (($settings['post_display_excerpt'] ?? 'true') === 'true
 
 $post_display_readmore = (($settings['post_display_readmore'] ?? 'true') === 'true' || ($settings['post_display_readmore'] ?? 'true') === '1') ? 'true' : 'false';
 
-$post_read_more = sanitize_text_field($settings['post_read_more'] ?? 'READ MORE');
+$post_read_more = esc_attr($settings['post_read_more'] ?? 'READ MORE');
 
 $post_cat_slug = $settings['post_cat_slug'] ?? '';
 if (is_array($post_cat_slug)) {

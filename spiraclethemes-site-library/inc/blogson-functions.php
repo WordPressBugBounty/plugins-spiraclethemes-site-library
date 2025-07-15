@@ -292,7 +292,7 @@ if (!function_exists('spiraclethemes_site_library_blogson_gridposts')) {
                     $output .= '<div class="content-wrapper">';
                     $output .= '<div class="post-image"><img src="' . esc_url($img) . '" alt=""></div>';
                 } else {
-                    $output .= '<div class="post-grid-area-content" style="background-image:url(' . esc_url($img) . ');">';
+                    $output .= '<div class="post-grid-area-content" style="background-image:url(\'' . esc_url($img) . '\');">';
                     $output .= '<div class="content-wrapper">';
                 }
 

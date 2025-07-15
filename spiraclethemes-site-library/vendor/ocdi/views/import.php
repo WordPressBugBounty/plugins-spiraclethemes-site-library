@@ -34,7 +34,7 @@ $theme            = wp_get_theme();
 
 							<?php if ( ! empty( $this->import_files[ $import_index ]['import_notice'] ) ) : ?>
 								<div class="notice  notice-info">
-									<p><?php echo wp_kses_post( $this->import_files[ $_GET['import'] ]['import_notice'] ); ?></p>
+									<p><?php echo wp_kses_post( $this->import_files[ $import_index ]['import_notice'] ); ?></p>
 								</div>
 							<?php endif; ?>
 						</div>

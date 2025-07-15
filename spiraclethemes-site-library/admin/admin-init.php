@@ -164,8 +164,8 @@ class Spiraclethemes_site_library_Admin {
         foreach ($option_names as $index => $option_name) {
             $exists = $wpdb->get_var(
                 $wpdb->prepare(
-                    'SELECT COUNT(*) FROM %i WHERE option_name = %s',
-                    [$wpdb->options, $option_name]
+                    "SELECT COUNT(*) FROM {$wpdb->options} WHERE option_name = %s",
+                    $option_name
                 )
             );
 
@@ -291,7 +291,7 @@ class Spiraclethemes_site_library_Admin {
                             <div class="ssl-system-info-container">
                                 <?php
                                 // Assume ssl_get_sysinfo() is properly sanitized
-                                echo wp_kses_post(nl2br(spiraclethemes_site_library_get_sysinfo()));
+                                echo nl2br(wp_kses_post(spiraclethemes_site_library_get_sysinfo()));
                                 ?>
                             </div>
                         </div>
@@ -302,7 +302,7 @@ class Spiraclethemes_site_library_Admin {
                             <div class="ssl-system-settings-container">
                                 <?php
                                 // Assume ssl_get_syssettings() is properly sanitized
-                                echo spiraclethemes_site_library_get_syssettings();
+                                echo wp_kses_post(spiraclethemes_site_library_get_syssettings());
                                 ?>
                                 <p class="submit">
                                     <input

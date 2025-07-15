@@ -219,11 +219,11 @@ class OneClickDemoImport {
 				array(
 					'ajax_url'         => admin_url( 'admin-ajax.php' ),
 					'ajax_nonce'       => wp_create_nonce( 'ocdi-ajax-verification' ),
-					'import_files'     => $this->import_files,
+					'import_files'     => array_map( 'sanitize_text_field', $this->import_files ),
 					'wp_customize_on'  => Helpers::apply_filters( 'ocdi/enable_wp_customize_save_hooks', false ),
-					'theme_screenshot' => $theme->get_screenshot(),
-					'missing_plugins'  => $this->plugin_installer->get_missing_plugins(),
-					'plugin_url'       => OCDI_URL,
+					'theme_screenshot' => esc_url_raw( $theme->get_screenshot() ),
+					'missing_plugins'  => array_map( 'sanitize_text_field', $this->plugin_installer->get_missing_plugins() ),
+					'plugin_url'       => esc_url_raw( OCDI_URL ),
 					'import_url'       => $this->get_plugin_settings_url( [ 'step' => 'import' ] ),
 					'texts'            => array(
 						'missing_preview_image'    => esc_html__( 'No preview image defined for this import.', 'one-click-demo-import' ),
