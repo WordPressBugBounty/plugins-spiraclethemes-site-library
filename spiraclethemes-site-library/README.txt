@@ -2,7 +2,7 @@
 
 Contributors: spiraclethemes
 Tags: spiraclethemes, demo, import, themes
-Stable tag: 1.5.4
+Stable tag: 1.5.5
 Requires at least: 5.0
 Requires PHP: 5.6
 Tested up to: 6.8
@@ -63,3 +63,8 @@ https://github.com/awesomemotive/one-click-demo-import
 = Does this plugin work with any WordPress theme? =
 
 No, this plugin works only with themes developed by [Spiraclethemes](https://spiraclethemes.com/).
+
+
+== How can I report security bugs? == 
+
+You can report security bugs through the Patchstack Vulnerability Disclosure Program. The Patchstack team help validate, triage and handle any security vulnerabilities. [Report a security vulnerability.](https://patchstack.com/database/wordpress/plugin/spiraclethemes-site-library/vdp)

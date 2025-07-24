@@ -186,7 +186,7 @@ if (!function_exists('spiraclethemes_site_library_blogson_gridposts')) {
         ), $atts, 'gridposts');
 
         // Sanitize
-        $atts['section_title']                 = sanitize_text_field($atts['section_title']);
+        $atts['section_title']                = sanitize_text_field($atts['section_title']);
         $atts['section_title_size']           = sanitize_text_field($atts['section_title_size']);
         $atts['post_count']                   = absint($atts['post_count']);
         $atts['post_columns']                 = sanitize_html_class($atts['post_columns']);
@@ -263,10 +263,17 @@ if (!function_exists('spiraclethemes_site_library_blogson_gridposts')) {
             $post_section_id++;
 
             $output .= '<div class="latest-posts">';
-            if ($atts['show_section_title'] && $atts['section_title']) {
+            if (!empty($atts['show_section_title']) && !empty($atts['section_title'])) {
+                // Whitelist allowed heading tags
+                $allowed_tags = array('h1', 'h2', 'h3', 'h4', 'h5', 'h6');
+
+                $tag = in_array($atts['section_title_size'], $allowed_tags, true) 
+                    ? $atts['section_title_size'] 
+                    : 'h2'; // default tag
+
                 $output .= sprintf(
                     '<%1$s class="post_title">%2$s</%1$s>',
-                    esc_attr($atts['section_title_size']),
+                    $tag,
                     esc_html($atts['section_title'])
                 );
             }

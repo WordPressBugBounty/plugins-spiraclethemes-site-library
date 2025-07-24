@@ -1,6 +1,9 @@
 
 == Changelog ==
 
+== 1.5.5 ==
+- Fixed security updates
+
 == 1.5.4 ==
 - Fixed security updates
 
