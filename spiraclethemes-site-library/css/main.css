@@ -212,3 +212,118 @@
     position: absolute !important;
     width: 1px;
 }
+
+/* Balloon animation for offer notices */
+.ssl-pro-upgrade-notice {
+    position: relative;
+    overflow: hidden;
+    background: #fff !important;
+}
+
+.ssl-pro-upgrade-notice .balloon {
+    position: absolute;
+    width: 30px;
+    height: 40px;
+    border-radius: 50%;
+    animation: float 10s infinite ease-in-out;
+    opacity: 0.7;
+    z-index: 0;
+    bottom: -50px;
+}
+
+.ssl-pro-upgrade-notice .balloon:before {
+    content: "";
+    position: absolute;
+    bottom: -5px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 2px;
+    height: 30px;
+    background: #ffd166;
+}
+
+/* Position 1 (10% from left) - Red balloons */
+.ssl-pro-upgrade-notice .balloon.pos-1 {
+    background: #ff6b6b;
+    width: 30px;
+    height: 40px;
+    left: 10%;
+}
+.ssl-pro-upgrade-notice .balloon.pos-1:nth-child(6n+1) { animation-delay: 0s; }
+.ssl-pro-upgrade-notice .balloon.pos-1:nth-child(6n+2) { animation-delay: 1s; }
+.ssl-pro-upgrade-notice .balloon.pos-1:nth-child(6n+3) { animation-delay: 2s; }
+.ssl-pro-upgrade-notice .balloon.pos-1:nth-child(6n+4) { animation-delay: 3s; }
+.ssl-pro-upgrade-notice .balloon.pos-1:nth-child(6n+5) { animation-delay: 4s; }
+.ssl-pro-upgrade-notice .balloon.pos-1:nth-child(6n+6) { animation-delay: 5s; }
+
+/* Position 2 (20% from left) - Teal balloons */
+.ssl-pro-upgrade-notice .balloon.pos-2 {
+    background: #4ecdc4;
+    width: 25px;
+    height: 35px;
+    left: 20%;
+}
+.ssl-pro-upgrade-notice .balloon.pos-2:nth-child(6n+7) { animation-delay: 0.5s; }
+.ssl-pro-upgrade-notice .balloon.pos-2:nth-child(6n+8) { animation-delay: 1.5s; }
+.ssl-pro-upgrade-notice .balloon.pos-2:nth-child(6n+9) { animation-delay: 2.5s; }
+.ssl-pro-upgrade-notice .balloon.pos-2:nth-child(6n+10) { animation-delay: 3.5s; }
+.ssl-pro-upgrade-notice .balloon.pos-2:nth-child(6n+11) { animation-delay: 4.5s; }
+.ssl-pro-upgrade-notice .balloon.pos-2:nth-child(6n+12) { animation-delay: 5.5s; }
+
+/* Position 3 (40% from left) - Orange balloons */
+.ssl-pro-upgrade-notice .balloon.pos-3 {
+    background: #ff9f1c;
+    width: 20px;
+    height: 30px;
+    left: 40%;
+}
+.ssl-pro-upgrade-notice .balloon.pos-3:nth-child(6n+13) { animation-delay: 1s; }
+.ssl-pro-upgrade-notice .balloon.pos-3:nth-child(6n+14) { animation-delay: 2s; }
+.ssl-pro-upgrade-notice .balloon.pos-3:nth-child(6n+15) { animation-delay: 3s; }
+.ssl-pro-upgrade-notice .balloon.pos-3:nth-child(6n+16) { animation-delay: 4s; }
+.ssl-pro-upgrade-notice .balloon.pos-3:nth-child(6n+17) { animation-delay: 5s; }
+.ssl-pro-upgrade-notice .balloon.pos-3:nth-child(6n+18) { animation-delay: 6s; }
+
+/* Position 4 (70% from left) - Purple balloons */
+.ssl-pro-upgrade-notice .balloon.pos-4 {
+    background: #6a0572;
+    width: 35px;
+    height: 45px;
+    left: 70%;
+}
+.ssl-pro-upgrade-notice .balloon.pos-4:nth-child(6n+19) { animation-delay: 1.5s; }
+.ssl-pro-upgrade-notice .balloon.pos-4:nth-child(6n+20) { animation-delay: 2.5s; }
+.ssl-pro-upgrade-notice .balloon.pos-4:nth-child(6n+21) { animation-delay: 3.5s; }
+.ssl-pro-upgrade-notice .balloon.pos-4:nth-child(6n+22) { animation-delay: 4.5s; }
+.ssl-pro-upgrade-notice .balloon.pos-4:nth-child(6n+23) { animation-delay: 5.5s; }
+.ssl-pro-upgrade-notice .balloon.pos-4:nth-child(6n+24) { animation-delay: 6.5s; }
+
+/* Position 5 (80% from left) - Green balloons */
+.ssl-pro-upgrade-notice .balloon.pos-5 {
+    background: #1a936f;
+    width: 28px;
+    height: 38px;
+    left: 80%;
+}
+.ssl-pro-upgrade-notice .balloon.pos-5:nth-child(6n+25) { animation-delay: 2s; }
+.ssl-pro-upgrade-notice .balloon.pos-5:nth-child(6n+26) { animation-delay: 3s; }
+.ssl-pro-upgrade-notice .balloon.pos-5:nth-child(6n+27) { animation-delay: 4s; }
+.ssl-pro-upgrade-notice .balloon.pos-5:nth-child(6n+28) { animation-delay: 5s; }
+.ssl-pro-upgrade-notice .balloon.pos-5:nth-child(6n+29) { animation-delay: 6s; }
+.ssl-pro-upgrade-notice .balloon.pos-5:nth-child(6n+30) { animation-delay: 7s; }
+
+@keyframes float {
+    0% {
+        transform: translateY(0) translateX(0) rotate(0deg);
+        opacity: 0.7;
+    }
+    100% {
+        transform: translateY(-300px) translateX(300px) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+.ssl-pro-upgrade-notice .notice-content {
+    position: relative;
+    z-index: 1;
+}
