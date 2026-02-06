@@ -3,7 +3,7 @@
  * Plugin Name:       Spiraclethemes Site Library
  * Plugin URI:        https://wordpress.org/plugins/spiraclethemes-site-library/
  * Description:       A plugin by Spiracle Themes that adds one-click demo import, theme customization, starter templates, and page builder support to its free themes.
- * Version:           1.5.7
+ * Version:           1.5.8
  * Author:            SpiracleThemes
  * Author URI:        https://spiraclethemes.com
  * License:           GPL-2.0+
@@ -52,12 +52,12 @@ class Spiraclethemes_Site_Library {
         delete_option( 'spiraclethemes_sitelib_install_date' );
         delete_user_meta( $user_id, 'spiraclethemes_sitelib_rating_ignore_notice' );
         delete_user_meta( $user_id, 'spiraclethemes_sitelib_training_ignore_notice' );
-        // Clean up new $3/month plan notice meta keys
-        delete_user_meta( $user_id, 'spiraclethemes_sitelib_3dollar_0day_notice' );
-        delete_user_meta( $user_id, 'spiraclethemes_sitelib_3dollar_7day_notice' );
-        delete_user_meta( $user_id, 'spiraclethemes_sitelib_3dollar_14day_notice' );
-        delete_user_meta( $user_id, 'spiraclethemes_sitelib_3dollar_28day_notice' );
-        delete_user_meta( $user_id, 'spiraclethemes_sitelib_3dollar_60day_notice' );
+        // Clean up plan notice meta keys
+        delete_user_meta( $user_id, 'spiraclethemes_sitelib_49dollar_0day_notice' );
+        delete_user_meta( $user_id, 'spiraclethemes_sitelib_49dollar_7day_notice' );
+        delete_user_meta( $user_id, 'spiraclethemes_sitelib_49dollar_14day_notice' );
+        delete_user_meta( $user_id, 'spiraclethemes_sitelib_49dollar_28day_notice' );
+        delete_user_meta( $user_id, 'spiraclethemes_sitelib_49dollar_60day_notice' );
     }
 
     public function __construct() {
@@ -100,9 +100,9 @@ class Spiraclethemes_Site_Library {
         if (is_admin() && in_array($this->theme_slug, $allowed_themes)) {
             add_action( 'admin_init', [ $this, 'spiraclethemes_site_library_set_notification' ] );
             add_action( 'admin_notices', [ $this, 'spiraclethemes_site_library_display_welcome_notice' ] );
-            add_action( 'admin_notices', [ $this, 'spiraclethemes_site_library_display_3dollar_notices' ] );
+            add_action( 'admin_notices', [ $this, 'spiraclethemes_site_library_display_49dollar_notices' ] );
             add_action( 'admin_init', [ $this, 'spiraclethemes_site_library_ignore_rating_notice' ] );
-            add_action( 'admin_init', [ $this, 'spiraclethemes_site_library_ignore_3dollar_notices' ] );
+            add_action( 'admin_init', [ $this, 'spiraclethemes_site_library_ignore_49dollar_notices' ] );
         }
         add_action('init', [ $this, 'spiraclethemes_site_library_load_plugin_textdomain' ] );
     }
@@ -192,16 +192,45 @@ class Spiraclethemes_Site_Library {
         echo '</div>';
     }
 
-    // Reusable method to build $3/month plan notice message
-    private function spiraclethemes_site_library_build_3dollar_notice( $days, $ignore_param, $theme_name ) {
-        $pricing_url = esc_url( 'https://spiraclethemes.com/pricing/' );
-        
+    // Get theme-specific pricing URL
+    private function spiraclethemes_site_library_get_theme_pricing_url() {
+        $theme_pricing_urls = [
+            'own-shop' => 'https://spiraclethemes.com/own-shop-pro-addons/',
+            'purea-magazine' => 'https://spiraclethemes.com/purea-magazine-pro-addons',
+            'colon' => 'https://spiraclethemes.com/colon-pro-addons/',
+            'somalite' => 'https://spiraclethemes.com/soma-pro-addons/',
+            'purea-fashion' => 'https://spiraclethemes.com/purea-magazine-pro-addons/',
+            'own-store' => 'https://spiraclethemes.com/own-shop-pro-addons/',
+            'colon-plus' => 'https://spiraclethemes.com/colon-pro-addons/',
+            'own-shop-lite' => 'https://spiraclethemes.com/own-shop-lite-pro-addons/',
+            'mestore' => 'https://spiraclethemes.com/mestore-pro-addons',
+            'blogson' => 'https://spiraclethemes.com/blogson-pro-addons/',
+            'blogson-child' => 'https://spiraclethemes.com/blogson-pro-addons/',
+            'own-shope' => 'https://spiraclethemes.com/own-shope-free-wordpress-theme/#pricing',
+            'crater-free' => 'https://spiraclethemes.com/crater-pro-addons/',
+            'lawfiz' => 'https://spiraclethemes.com/lawfiz-theme/#pricing',
+            'legalblow' => 'https://spiraclethemes.com/legalblow-theme/#pricing',
+            'own-shop-trend' => 'https://spiraclethemes.com/own-shop-pro-addons/',
+            'lawfiz-one' => 'https://spiraclethemes.com/lawfiz-one-theme/#pricing',
+            'krystal' => 'https://spiraclethemes.com/krystal-pro-addons/',
+            'krystal-lawyer' => 'https://spiraclethemes.com/krystal-pro-addons/',
+            'krystal-business' => 'https://spiraclethemes.com/krystal-pro-addons/',
+            'krystal-shop' => 'https://spiraclethemes.com/krystal-pro-addons/'
+        ];
+
+        return isset($theme_pricing_urls[$this->theme_slug]) ? esc_url($theme_pricing_urls[$this->theme_slug]) : esc_url('https://spiraclethemes.com/pricing/');
+    }
+
+    // Reusable method to build $49/year plan notice message
+    private function spiraclethemes_site_library_build_49dollar_notice( $days, $ignore_param, $theme_name ) {
+        $pricing_url = $this->spiraclethemes_site_library_get_theme_pricing_url();
+
         // Convert theme name to title case and append "Pro"
         $theme_pro_name = ucwords( $theme_name ) . ' Pro';
-        
+
         // For all notices, use "Remind me later" option
         $ignore_url = esc_url( wp_nonce_url( admin_url( 'themes.php?' . $ignore_param . '=0' ), $ignore_param . '_nonce' ) );
-        $message = __( '🎉 Special Offer! %3$s now at just <span style="background: #319942; padding: 4px 8px; border-radius: 25px; color: #fff;"><strong>$3/month</strong></span> <del>$5/month</del> – making Pro accessible to all! Visit <a href="%1$s" target="_blank">our pricing page</a> to learn more. <a href="%2$s">Remind me later</a>', 'spiraclethemes-site-library' );
+        $message = __( '🎉 Special Offer! %3$s now at just <span style="background: #319942; padding: 4px 8px; border-radius: 25px; color: #fff;"><strong>$49</strong></span> <del>$59</del> – making Pro accessible to all! Visit <a href="%1$s" target="_blank">our pricing page</a> to learn more. <a href="%2$s">Remind me later</a>', 'spiraclethemes-site-library' );
         return sprintf( wp_kses_post( $message ), $pricing_url, $ignore_url, $theme_pro_name );
     }
 
@@ -220,17 +249,17 @@ class Spiraclethemes_Site_Library {
                 ->show();
         }
         
-        // Show rating notice after 7 days, but only if $3/month notices haven't been shown
+        // Show rating notice after 7 days, but only if $49/year notices haven't been shown
         $should_show_rating = true;
         $notice_schedule = [
-            ['days' => 0, 'key' => 'spiraclethemes_sitelib_3dollar_0day_notice'],
-            ['days' => 7, 'key' => 'spiraclethemes_sitelib_3dollar_7day_notice'],
-            ['days' => 14, 'key' => 'spiraclethemes_sitelib_3dollar_14day_notice'],
-            ['days' => 28, 'key' => 'spiraclethemes_sitelib_3dollar_28day_notice'],
-            ['days' => 60, 'key' => 'spiraclethemes_sitelib_3dollar_60day_notice']
+            ['days' => 0, 'key' => 'spiraclethemes_sitelib_49dollar_0day_notice'],
+            ['days' => 7, 'key' => 'spiraclethemes_sitelib_49dollar_7day_notice'],
+            ['days' => 14, 'key' => 'spiraclethemes_sitelib_49dollar_14day_notice'],
+            ['days' => 28, 'key' => 'spiraclethemes_sitelib_49dollar_28day_notice'],
+            ['days' => 60, 'key' => 'spiraclethemes_sitelib_49dollar_60day_notice']
         ];
-        
-        // Check if any $3/month notices have been shown or should be shown
+
+        // Check if any $49/year notices have been shown or should be shown
         foreach ($notice_schedule as $notice) {
             if ($days_since >= $notice['days']) {
                 $dismissal_data = get_user_meta($user_id, $notice['key'], true);
@@ -240,8 +269,8 @@ class Spiraclethemes_Site_Library {
                 }
             }
         }
-        
-        // Show rating notice after 7 days if no $3/month notices have been shown
+
+        // Show rating notice after 7 days if no $49/year notices have been shown
         if ( $should_show_rating && $days_since >= 7 && $this->spiraclethemes_site_library_should_display_notice( 'spiraclethemes_sitelib_rating_ignore_notice', 7 ) ) {
             $theme_info_url = esc_url( admin_url( 'themes.php' ) );
             $rating_url = esc_url( 'https://wordpress.org/support/theme/' . $this->theme_slug . '/reviews/?filter=5' );
@@ -262,8 +291,8 @@ class Spiraclethemes_Site_Library {
     }
 
 
-    // Reusable method to check if $3/month plan notice should be shown
-    private function spiraclethemes_site_library_should_display_3dollar_notice( $ignore_key, $days_after_install, $is_permanent = false ) {
+    // Reusable method to check if $49/year plan notice should be shown
+    private function spiraclethemes_site_library_should_display_49dollar_notice( $ignore_key, $days_after_install, $is_permanent = false ) {
         $install_date = get_option( 'spiraclethemes_sitelib_install_date' );
         if ( strtotime( "+$days_after_install days", strtotime( $install_date ) ) > time() ) {
             return false;
@@ -271,34 +300,34 @@ class Spiraclethemes_Site_Library {
 
         $user_id = get_current_user_id();
         $dismissal_data = get_user_meta( $user_id, $ignore_key, true );
-        
+
         // If no dismissal data, show the notice
         if ( empty( $dismissal_data ) ) {
             return true;
         }
-        
+
         // If permanent dismissal, never show again
         if ( $is_permanent ) {
             return false;
         }
-        
+
         // For temporary dismissal, check if it's time to remind again
         $reminder_time = intval( $dismissal_data );
         return time() >= $reminder_time;
     }
 
-    // $3/month plan notices - single function to determine which notice to show
-    public function spiraclethemes_site_library_display_3dollar_notices() {
+    // $49/year plan notices - single function to determine which notice to show
+    public function spiraclethemes_site_library_display_49dollar_notices() {
         $days_since = $this->spiraclethemes_site_library_get_days_since_install();
         $user_id = get_current_user_id();
-        
+
         // Define notice schedule
         $notice_schedule = [
-            ['days' => 0, 'key' => 'spiraclethemes_sitelib_3dollar_0day_notice'],
-            ['days' => 7, 'key' => 'spiraclethemes_sitelib_3dollar_7day_notice'],
-            ['days' => 14, 'key' => 'spiraclethemes_sitelib_3dollar_14day_notice'],
-            ['days' => 28, 'key' => 'spiraclethemes_sitelib_3dollar_28day_notice'],
-            ['days' => 60, 'key' => 'spiraclethemes_sitelib_3dollar_60day_notice']
+            ['days' => 0, 'key' => 'spiraclethemes_sitelib_49dollar_0day_notice'],
+            ['days' => 7, 'key' => 'spiraclethemes_sitelib_49dollar_7day_notice'],
+            ['days' => 14, 'key' => 'spiraclethemes_sitelib_49dollar_14day_notice'],
+            ['days' => 28, 'key' => 'spiraclethemes_sitelib_49dollar_28day_notice'],
+            ['days' => 60, 'key' => 'spiraclethemes_sitelib_49dollar_60day_notice']
         ];
         
         // Find the most recent applicable notice that hasn't been permanently dismissed
@@ -332,9 +361,9 @@ class Spiraclethemes_Site_Library {
         
         // Show the appropriate notice
         if ($notice_to_show) {
-            $message = $this->spiraclethemes_site_library_build_3dollar_notice(
+            $message = $this->spiraclethemes_site_library_build_49dollar_notice(
                 $notice_to_show['days'],
-                'wp_spiraclethemes_sitelib_3dollar_ignore',
+                'wp_spiraclethemes_sitelib_49dollar_ignore',
                 $this->theme_name
             );
             $this->spiraclethemes_site_library_display_custom_notice($message);
@@ -342,20 +371,20 @@ class Spiraclethemes_Site_Library {
     }
 
 
-    // Public ignore handlers for $3/month plan notices
-    public function spiraclethemes_site_library_ignore_3dollar_notices() {
-        if ( current_user_can( 'manage_options' ) && isset( $_GET['wp_spiraclethemes_sitelib_3dollar_ignore'] ) && isset( $_GET['_wpnonce'] ) ) {
-            if ( wp_verify_nonce( sanitize_text_field($_GET['_wpnonce']), 'wp_spiraclethemes_sitelib_3dollar_ignore_nonce' ) ) {
+    // Public ignore handlers for $49/year plan notices
+    public function spiraclethemes_site_library_ignore_49dollar_notices() {
+        if ( current_user_can( 'manage_options' ) && isset( $_GET['wp_spiraclethemes_sitelib_49dollar_ignore'] ) && isset( $_GET['_wpnonce'] ) ) {
+            if ( wp_verify_nonce( sanitize_text_field($_GET['_wpnonce']), 'wp_spiraclethemes_sitelib_49dollar_ignore_nonce' ) ) {
                 $user_id = get_current_user_id();
                 $days_since = $this->spiraclethemes_site_library_get_days_since_install();
-                
+
                 // Define notice schedule
                 $notice_schedule = [
-                    ['days' => 0, 'key' => 'spiraclethemes_sitelib_3dollar_0day_notice'],
-                    ['days' => 7, 'key' => 'spiraclethemes_sitelib_3dollar_7day_notice'],
-                    ['days' => 14, 'key' => 'spiraclethemes_sitelib_3dollar_14day_notice'],
-                    ['days' => 28, 'key' => 'spiraclethemes_sitelib_3dollar_28day_notice'],
-                    ['days' => 60, 'key' => 'spiraclethemes_sitelib_3dollar_60day_notice']
+                    ['days' => 0, 'key' => 'spiraclethemes_sitelib_49dollar_0day_notice'],
+                    ['days' => 7, 'key' => 'spiraclethemes_sitelib_49dollar_7day_notice'],
+                    ['days' => 14, 'key' => 'spiraclethemes_sitelib_49dollar_14day_notice'],
+                    ['days' => 28, 'key' => 'spiraclethemes_sitelib_49dollar_28day_notice'],
+                    ['days' => 60, 'key' => 'spiraclethemes_sitelib_49dollar_60day_notice']
                 ];
                 
                 // Find which notice was dismissed based on days since install

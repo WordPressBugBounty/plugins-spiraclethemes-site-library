@@ -1,6 +1,9 @@
 
 == Changelog ==
 
+== 1.5.8 ==
+- Fixed some issues
+
 == 1.5.7 ==
 - Introduced new pricing plans
 
