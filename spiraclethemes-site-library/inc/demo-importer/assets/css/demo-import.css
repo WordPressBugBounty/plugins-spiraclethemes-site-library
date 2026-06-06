@@ -1,0 +1,750 @@
+/**
+ * Spiraclethemes Site Library - Demo Import Admin Styles
+ *
+ * Clean, professional card-based design with file status indicators
+ * and plugin status badges.
+ *
+ * @package spiraclethemes-site-library
+ * @subpackage inc/demo-importer
+ */
+
+
+/* ═══════════════════════════════════════════════════════════════
+   Main Wrapper
+   ═══════════════════════════════════════════════════════════════ */
+
+.spiracle-demo-import-wrap {
+    max-width: 1200px;
+    margin: 20px auto 0;
+    padding: 0 20px;
+}
+
+.spiracle-demo-import-title {
+    font-size: 24px;
+    font-weight: 600;
+    color: #1e1e1e;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.spiracle-demo-import-title .dashicons {
+    font-size: 24px;
+    width: 24px;
+    height: 24px;
+    color: #2271b1;
+}
+
+.spiracle-demo-import-description {
+    color: #646970;
+    font-size: 14px;
+    margin-bottom: 30px;
+}
+
+
+/* ═══════════════════════════════════════════════════════════════
+   No Demos Message
+   ═══════════════════════════════════════════════════════════════ */
+
+.spiracle-no-demos {
+    text-align: center;
+    padding: 60px 20px;
+    background: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+}
+
+.spiracle-no-demos .dashicons {
+    font-size: 48px;
+    width: 48px;
+    height: 48px;
+    color: #dba617;
+    margin-bottom: 16px;
+}
+
+.spiracle-no-demos h3 {
+    font-size: 18px;
+    color: #1e1e1e;
+    margin: 0 0 8px;
+}
+
+.spiracle-no-demos p {
+    color: #646970;
+    font-size: 14px;
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+
+/* ═══════════════════════════════════════════════════════════════
+   Demo Grid
+   ═══════════════════════════════════════════════════════════════ */
+
+.spiracle-demo-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+    gap: 24px;
+}
+
+
+/* ═══════════════════════════════════════════════════════════════
+   Demo Card
+   ═══════════════════════════════════════════════════════════════ */
+
+.spiracle-demo-card {
+    background: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    overflow: hidden;
+    transition: box-shadow 0.2s ease, transform 0.15s ease;
+}
+
+.spiracle-demo-card:hover {
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    transform: translateY(-2px);
+}
+
+
+/* ═══════════════════════════════════════════════════════════════
+   Card Preview Image
+   ═══════════════════════════════════════════════════════════════ */
+
+.spiracle-demo-card-preview {
+    width: 100%;
+    height: 220px;
+    overflow: hidden;
+    background: #f0f0f1;
+    position: relative;
+}
+
+.spiracle-demo-card-preview img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.3s ease;
+}
+
+.spiracle-demo-card:hover .spiracle-demo-card-preview img {
+    transform: scale(1.03);
+}
+
+.spiracle-demo-card-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #f5f5f5 0%, #e8e8e8 100%);
+}
+
+.spiracle-demo-card-placeholder .dashicons {
+    font-size: 48px;
+    width: 48px;
+    height: 48px;
+    color: #aaa;
+}
+
+
+/* ═══════════════════════════════════════════════════════════════
+   Card Body
+   ═══════════════════════════════════════════════════════════════ */
+
+.spiracle-demo-card-body {
+    padding: 20px;
+}
+
+.spiracle-demo-card-name {
+    font-size: 18px;
+    font-weight: 600;
+    color: #1e1e1e;
+    margin: 0 0 12px;
+}
+
+.spiracle-demo-card-notice {
+    font-size: 13px;
+    color: #646970;
+    margin: 0 0 16px;
+    padding: 10px 12px;
+    background: #f6f7f7;
+    border-left: 3px solid #dba617;
+    border-radius: 2px;
+    line-height: 1.5;
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+}
+
+.spiracle-demo-card-notice .dashicons {
+    font-size: 16px;
+    width: 16px;
+    height: 16px;
+    color: #dba617;
+    flex-shrink: 0;
+    margin-top: 2px;
+}
+
+
+/* ═══════════════════════════════════════════════════════════════
+   File Status Indicators
+   ═══════════════════════════════════════════════════════════════ */
+
+.spiracle-demo-card-files {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+}
+
+.spiracle-file-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 12px;
+    padding: 4px 10px;
+    border-radius: 3px;
+    font-weight: 500;
+}
+
+.spiracle-file-status .dashicons {
+    font-size: 16px;
+    width: 16px;
+    height: 16px;
+}
+
+.spiracle-file-status.status-ok {
+    background: #e6f9e6;
+    color: #1a7a1a;
+}
+
+.spiracle-file-status.status-ok .dashicons {
+    color: #1a7a1a;
+}
+
+.spiracle-file-status.status-missing {
+    background: #fce4e4;
+    color: #b32d2d;
+}
+
+.spiracle-file-status.status-missing .dashicons {
+    color: #b32d2d;
+}
+
+
+/* ═══════════════════════════════════════════════════════════════
+   Required Plugins Section
+   ═══════════════════════════════════════════════════════════════ */
+
+.spiracle-demo-card-plugins {
+    margin-bottom: 16px;
+    padding-top: 12px;
+    border-top: 1px solid #f0f0f0;
+}
+
+.spiracle-plugins-heading {
+    font-size: 13px;
+    font-weight: 600;
+    color: #50575e;
+    margin: 0 0 10px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.spiracle-plugins-heading .dashicons {
+    font-size: 16px;
+    width: 16px;
+    height: 16px;
+    color: #646970;
+}
+
+.spiracle-plugins-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.spiracle-plugin-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 10px;
+    background: #f9f9f9;
+    border-radius: 4px;
+    font-size: 13px;
+    line-height: 1.4;
+}
+
+.spiracle-plugin-status-indicator {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.spiracle-plugin-status-indicator .dashicons {
+    font-size: 16px;
+    width: 16px;
+    height: 16px;
+}
+
+.spiracle-plugin-active .dashicons {
+    color: #1a7a1a;
+}
+
+.spiracle-plugin-inactive .dashicons {
+    color: #dba617;
+}
+
+.spiracle-plugin-not_installed .dashicons {
+    color: #b32d2d;
+}
+
+.spiracle-plugin-name {
+    flex: 1;
+    color: #1e1e1e;
+    font-weight: 500;
+}
+
+.spiracle-plugin-badge {
+    display: inline-block;
+    font-size: 11px;
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-weight: 600;
+    line-height: 1.4;
+    text-transform: capitalize;
+    flex-shrink: 0;
+}
+
+.spiracle-badge-active {
+    background: #e6f9e6;
+    color: #1a7a1a;
+}
+
+.spiracle-badge-inactive {
+    background: #fef8e6;
+    color: #8a6d00;
+}
+
+.spiracle-badge-not_installed {
+    background: #fce4e4;
+    color: #b32d2d;
+}
+
+
+/* ═══════════════════════════════════════════════════════════════
+   Card Actions
+   ═══════════════════════════════════════════════════════════════ */
+
+.spiracle-demo-card-actions {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    flex-wrap: wrap;
+    padding-top: 16px;
+    border-top: 1px solid #f0f0f0;
+}
+
+.spiracle-import-btn,
+.spiracle-preview-btn {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 5px !important;
+    line-height: 1 !important;
+    vertical-align: middle !important;
+    text-decoration: none !important;
+}
+
+.spiracle-import-btn .dashicons,
+.spiracle-preview-btn .dashicons {
+    font-size: 16px !important;
+    width: 16px !important;
+    height: 16px !important;
+    line-height: 1 !important;
+    vertical-align: middle !important;
+    margin: 0 !important;
+    position: relative !important;
+    top: 0 !important;
+}
+
+.spiracle-import-btn .dashicons {
+    color: #fff !important;
+}
+
+
+/* ═══════════════════════════════════════════════════════════════
+   Import Progress Overlay
+   ═══════════════════════════════════════════════════════════════ */
+
+#spiracle-import-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.6);
+    z-index: 100000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.spiracle-import-modal {
+    background: #fff;
+    border-radius: 8px;
+    padding: 40px;
+    max-width: 500px;
+    width: 90%;
+    text-align: center;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+    position: relative;
+}
+
+.spiracle-import-modal h2 {
+    font-size: 20px;
+    font-weight: 600;
+    color: #1e1e1e;
+    margin: 0 0 24px;
+}
+
+
+/* ═══════════════════════════════════════════════════════════════
+   Modal Close Button (X)
+   ═══════════════════════════════════════════════════════════════ */
+
+.spiracle-modal-close {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+    border-radius: 4px;
+    color: #646970;
+    transition: color 0.15s ease, background 0.15s ease;
+}
+
+.spiracle-modal-close:hover {
+    color: #1e1e1e;
+    background: #f0f0f1;
+}
+
+.spiracle-modal-close .dashicons {
+    font-size: 20px;
+    width: 20px;
+    height: 20px;
+}
+
+
+/* ═══════════════════════════════════════════════════════════════
+   Modal Actions (Visit Website + Close)
+   ═══════════════════════════════════════════════════════════════ */
+
+.spiracle-modal-actions {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    margin-top: 20px;
+    padding-top: 16px;
+    border-top: 1px solid #f0f0f0;
+}
+
+.spiracle-visit-site-btn {
+    display: inline-flex;
+    align-items: center;
+    text-decoration: none !important;
+}
+
+.spiracle-visit-site-btn .dashicons {
+    font-size: 16px;
+    width: 16px;
+    height: 16px;
+    vertical-align: text-bottom;
+    margin-right: 4px;
+}
+
+.spiracle-close-btn {
+    cursor: pointer;
+}
+
+
+/* ═══════════════════════════════════════════════════════════════
+   Progress Bar — Dual-color animated
+   ═══════════════════════════════════════════════════════════════ */
+
+.spiracle-import-progress-bar {
+    width: 100%;
+    height: 10px;
+    background: #e0e0e0;
+    border-radius: 5px;
+    overflow: hidden;
+    margin-bottom: 24px;
+    position: relative;
+}
+
+.spiracle-import-progress-fill {
+    height: 100%;
+    border-radius: 5px;
+    transition: width 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    width: 0%;
+    position: relative;
+    background: linear-gradient(90deg, #2271b1, #00d4aa);
+    background-size: 200% 100%;
+    animation: spiracleProgressGradient 2s ease infinite;
+}
+
+/* Shimmer overlay on the progress fill */
+.spiracle-import-progress-fill::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(
+        90deg,
+        transparent 0%,
+        rgba(255, 255, 255, 0.35) 50%,
+        transparent 100%
+    );
+    animation: spiracleProgressShimmer 1.5s ease-in-out infinite;
+}
+
+/* Striped pattern overlay */
+.spiracle-import-progress-fill::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: linear-gradient(
+        45deg,
+        rgba(255, 255, 255, 0.12) 25%,
+        transparent 25%,
+        transparent 50%,
+        rgba(255, 255, 255, 0.12) 50%,
+        rgba(255, 255, 255, 0.12) 75%,
+        transparent 75%,
+        transparent
+    );
+    background-size: 20px 20px;
+    animation: spiracleProgressStripes 0.75s linear infinite;
+    border-radius: 5px;
+}
+
+@keyframes spiracleProgressGradient {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+@keyframes spiracleProgressShimmer {
+    0% {
+        transform: translateX(-100%);
+    }
+    100% {
+        transform: translateX(100%);
+    }
+}
+
+@keyframes spiracleProgressStripes {
+    0% {
+        background-position: 20px 0;
+    }
+    100% {
+        background-position: 0 0;
+    }
+}
+
+
+/* ═══════════════════════════════════════════════════════════════
+   Import Steps List — with spinner / check indicators
+   ═══════════════════════════════════════════════════════════════ */
+
+.spiracle-import-steps {
+    list-style: none;
+    margin: 0 0 20px;
+    padding: 0;
+    text-align: left;
+}
+
+.spiracle-step-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 14px;
+    margin-bottom: 4px;
+    border-radius: 6px;
+    font-size: 14px;
+    color: #646970;
+    transition: background 0.2s ease, color 0.2s ease;
+}
+
+.spiracle-step-item.spiracle-step-active {
+    background: #f0f6fc;
+    color: #1e1e1e;
+    font-weight: 500;
+}
+
+.spiracle-step-item.spiracle-step-done {
+    color: #1a7a1a;
+}
+
+.spiracle-step-item.spiracle-step-done .spiracle-step-text {
+    text-decoration: line-through;
+    text-decoration-color: rgba(26, 122, 26, 0.4);
+}
+
+.spiracle-step-item.spiracle-step-error {
+    color: #b32d2d;
+    background: #fce4e4;
+}
+
+.spiracle-step-text {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* Step status indicator (spinner / check / error) */
+.spiracle-step-status {
+    width: 22px;
+    height: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+/* Spinner via CSS animation */
+.spiracle-step-status.spiracle-spinner::after {
+    content: '';
+    display: block;
+    width: 18px;
+    height: 18px;
+    border: 2.5px solid #e0e0e0;
+    border-top-color: #2271b1;
+    border-radius: 50%;
+    animation: spiracleSpin 0.7s linear infinite;
+}
+
+@keyframes spiracleSpin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* Check icon (done) */
+.spiracle-step-status.spiracle-check::after {
+    content: '\f15e'; /* dashicons-yes-alt */
+    font-family: dashicons;
+    font-size: 20px;
+    width: 20px;
+    height: 20px;
+    line-height: 20px;
+    color: #1a7a1a;
+    animation: spiracleCheckPop 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes spiracleCheckPop {
+    0% {
+        transform: scale(0);
+        opacity: 0;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* Error icon */
+.spiracle-step-status.spiracle-error-icon::after {
+    content: '\f153'; /* dashicons-no */
+    font-family: dashicons;
+    font-size: 18px;
+    width: 18px;
+    height: 18px;
+    line-height: 18px;
+    color: #b32d2d;
+}
+
+
+/* ═══════════════════════════════════════════════════════════════
+   Import Log
+   ═══════════════════════════════════════════════════════════════ */
+
+.spiracle-import-log {
+    max-height: 150px;
+    overflow-y: auto;
+    background: #f6f7f7;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 10px;
+    text-align: left;
+    font-family: monospace;
+    font-size: 12px;
+    line-height: 1.6;
+    color: #50575e;
+}
+
+.spiracle-import-log .log-entry {
+    margin: 0;
+    padding: 2px 0;
+}
+
+.spiracle-import-log .log-entry.log-success {
+    color: #1a7a1a;
+}
+
+.spiracle-import-log .log-entry.log-error {
+    color: #b32d2d;
+}
+
+.spiracle-import-log .log-entry.log-info {
+    color: #2271b1;
+}
+
+
+/* ═══════════════════════════════════════════════════════════════
+   Responsive
+   ═══════════════════════════════════════════════════════════════ */
+
+@media screen and (max-width: 782px) {
+    .spiracle-demo-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .spiracle-demo-import-wrap {
+        padding: 0 10px;
+    }
+
+    .spiracle-import-modal {
+        padding: 24px;
+        width: 95%;
+    }
+
+    .spiracle-plugin-item {
+        flex-wrap: wrap;
+    }
+
+    .spiracle-plugin-badge {
+        margin-left: auto;
+    }
+}

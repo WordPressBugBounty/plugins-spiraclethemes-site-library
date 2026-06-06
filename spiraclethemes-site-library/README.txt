@@ -2,10 +2,10 @@
 
 Contributors: spiraclethemes
 Tags: spiraclethemes, demo, import, themes
-Stable tag: 1.5.8
+Stable tag: 1.5.9
 Requires at least: 5.0
 Requires PHP: 5.6
-Tested up to: 6.8
+Tested up to: 7.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -22,7 +22,7 @@ How to use this Spiraclethemes site library?
 
 == Copyright ==
 
-Spiraclethemes Site Library, Copyright 2025 Spiraclethemes
+Spiraclethemes Site Library, Copyright 2026 Spiraclethemes
 Spiraclethemes Site Library is distributed under the terms of the GNU GPL
 
 Spiraclethemes Site Library is free software: you can redistribute it and/or modify

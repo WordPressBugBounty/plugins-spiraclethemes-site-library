@@ -1,14 +1,36 @@
+/**
+ * Toggle switch styles for Spiraclethemes Site Library settings.
+ *
+ * Refined iOS-style toggle with glow effects and smooth transitions.
+ */
+
 .ssl-toggle-switch {
-    position: relative;
-    display: inline-block;
-    width: 60px;
-    height: 34px;
+    position: relative !important;
+    display: inline-block !important;
+    width: 44px !important;
+    height: 24px !important;
+    flex-shrink: 0;
+    vertical-align: middle;
 }
 
-.ssl-toggle-switch input {
-    opacity: 0;
-    width: 0;
-    height: 0;
+.ssl-toggle-switch input[type="checkbox"] {
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    opacity: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    cursor: pointer !important;
+    z-index: 2 !important;
+    -webkit-appearance: none !important;
+    -moz-appearance: none !important;
+    appearance: none !important;
+    border: none !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    outline: none !important;
 }
 
 .ssl-toggle-slider {
@@ -18,31 +40,40 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: #ccc;
-    transition: .4s;
-    border-radius: 34px;
+    background-color: #cbd5e1;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border-radius: 24px;
+    z-index: 1;
 }
 
-.ssl-toggle-slider:before {
+.ssl-toggle-slider::before {
     position: absolute;
     content: "";
-    height: 26px;
-    width: 26px;
-    left: 4px;
-    bottom: 4px;
-    background-color: white;
-    transition: .4s;
+    height: 18px;
+    width: 18px;
+    left: 3px;
+    bottom: 3px;
+    background-color: #fff;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     border-radius: 50%;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.18);
 }
 
-input:checked + .ssl-toggle-slider {
-    background-color: #2196F3;
+.ssl-toggle-switch input:checked + .ssl-toggle-slider {
+    background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
+    box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.15);
 }
 
-input:checked + .ssl-toggle-slider:before {
-    transform: translateX(26px);
+.ssl-toggle-switch input:checked + .ssl-toggle-slider::before {
+    transform: translateX(20px);
+    box-shadow: 0 1px 4px rgba(79, 70, 229, 0.3);
 }
 
 .ssl-toggle-switch input:focus + .ssl-toggle-slider {
-    box-shadow: 0 0 1px #2196F3;
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
+}
+
+.ssl-toggle-switch input:disabled + .ssl-toggle-slider {
+    opacity: 0.45;
+    cursor: not-allowed;
 }
