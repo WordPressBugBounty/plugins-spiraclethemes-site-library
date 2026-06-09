@@ -25,7 +25,7 @@ function spiraclethemes_site_library_crater_free_set_import_files() {
         $image_crater_demo[$i] = spiraclethemes_site_library_api_data('crater', 'demo'.$i, 'image');
 
         $returnArray[] = array(
-            'import_file_name'           => esc_html__('Demo'.$i, 'spiraclethemes-site-library'),
+            'import_file_name'           => esc_html(sprintf( /* translators: %d: Demo number */ __('Demo %d', 'spiraclethemes-site-library'), $i)),
             'import_file_url'            => $content_crater_demo[$i],
             'import_widget_file_url'     => $widgets_crater_demo[$i],
             'import_customizer_file_url' => $customizer_crater_demo[$i],    
@@ -54,8 +54,28 @@ function spiraclethemes_site_library_crater_after_import_setup( $selected_import
 	);
 
     //Assign front & blog page
-    $front_page = get_page_by_title( 'Home' );  
-    $blog_page = get_page_by_title( 'Blog' );  
+    $front_page_query = new WP_Query( array(
+        'post_type'              => 'page',
+        'title'                  => 'Home',
+        'post_status'            => 'all',
+        'posts_per_page'         => 1,
+        'no_found_rows'          => true,
+        'ignore_sticky_posts'    => true,
+        'update_post_meta_cache' => false,
+        'update_post_term_cache' => false,
+    ) );
+    $front_page = ! empty( $front_page_query->posts ) ? $front_page_query->posts[0] : null;
+    $blog_page_query = new WP_Query( array(
+        'post_type'              => 'page',
+        'title'                  => 'Blog',
+        'post_status'            => 'all',
+        'posts_per_page'         => 1,
+        'no_found_rows'          => true,
+        'ignore_sticky_posts'    => true,
+        'update_post_meta_cache' => false,
+        'update_post_term_cache' => false,
+    ) );
+    $blog_page = ! empty( $blog_page_query->posts ) ? $blog_page_query->posts[0] : null;
 
     update_option( 'show_on_front', 'page' );
     update_option( 'page_on_front', $front_page->ID );    

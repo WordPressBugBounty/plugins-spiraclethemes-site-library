@@ -72,10 +72,20 @@ function spiraclethemes_site_library_blogson_after_import_setup( $selected_impor
 	);
 
     //Assign front & blog page
-    $front_page = get_page_by_title( 'Home' );  
+    $front_page_query = new WP_Query( array(
+        'post_type'              => 'page',
+        'title'                  => 'Home',
+        'post_status'            => 'all',
+        'posts_per_page'         => 1,
+        'no_found_rows'          => true,
+        'ignore_sticky_posts'    => true,
+        'update_post_meta_cache' => false,
+        'update_post_term_cache' => false,
+    ) );
+    $front_page = ! empty( $front_page_query->posts ) ? $front_page_query->posts[0] : null;
 
     update_option( 'show_on_front', 'page' );
-    update_option( 'page_on_front', $front_page->ID ); 
+    update_option( 'page_on_front', $front_page->ID );
     
 }
 endif;
@@ -84,6 +94,7 @@ add_action( 'pt-ocdi/after_import', 'spiraclethemes_site_library_blogson_after_i
 
 function spiraclethemes_site_library_blogson_check_pro_plugin() {
     if ( ! function_exists( 'ocdi_register_plugins' ) ) :
+        // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedFunctionFound
         function ocdi_register_plugins( $plugins ) {
          
             // List of plugins used by all theme demos.
@@ -330,13 +341,13 @@ if (!function_exists('spiraclethemes_site_library_blogson_gridposts')) {
                     $output .= '<span class="date">' . esc_html(get_the_time(get_option('date_format'))) . '</span>';
                 }
                 if ($atts['post_display_comments']) {
-                    $output .= '<span class="comments"><a href="' . esc_url(get_comments_link()) . '">' . esc_html(get_comments_number()) . ' ' . esc_html__('Comments', 'blogson') . '</a></span>';
+                    $output .= '<span class="comments"><a href="' . esc_url(get_comments_link()) . '">' . esc_html(get_comments_number()) . ' ' . esc_html__('Comments', 'spiraclethemes-site-library') . '</a></span>';
                 }
                 $output .= '</div>'; // meta
 
                 // Content
                 if ($atts['post_content_show']) {
-                    $output .= '<div class="main-content"><p class="post-content">' . esc_html(wp_trim_words(strip_tags(get_the_content()), $atts['post_excerpt_count'])) . '</p></div>';
+                    $output .= '<div class="main-content"><p class="post-content">' . esc_html(wp_trim_words(wp_strip_all_tags(get_the_content()), $atts['post_excerpt_count'])) . '</p></div>';
                 }
 
                 // Read More

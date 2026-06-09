@@ -272,10 +272,6 @@ if (!class_exists(__NAMESPACE__ . '\\AdminNotice', false)) {
 		 * Show the notice on the next admin page that's visited by the current user.
 		 * The notice will be shown only once.
 		 *
-		 * More accurately, this shows the notice the next time the admin_notices hook is called
-		 * in the context of the current user, whether that happens during this page load or the next,
-		 * or a week later. The intended use is for form handlers that redirect to another page, plugin
-		 * activation hooks and other callbacks that can't display a notice in the usual way.
 		 *
 		 * @return self
 		 */
@@ -546,10 +542,10 @@ if (!class_exists(__NAMESPACE__ . '\\AdminNotice', false)) {
 				return;
 			}
 
-			$id =        substr($_POST['action'], strlen(self::DISMISS_ACTION_PREFIX));
-			$ajaxNonce = strval($_POST['_ajax_nonce']);
-			$json =      strval(wp_unslash($_POST['notice-data']));
-			if (!wp_verify_nonce($_POST['signature'], $id . '|' . $ajaxNonce . '|' . $json)) {
+			$id =        substr(sanitize_key($_POST['action']), strlen(self::DISMISS_ACTION_PREFIX));
+			$ajaxNonce = sanitize_text_field(wp_unslash($_POST['_ajax_nonce']));
+			$json =      sanitize_text_field(wp_unslash($_POST['notice-data']));
+			if (!wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['signature'])), $id . '|' . $ajaxNonce . '|' . $json)) {
 				return;
 			}
 
@@ -576,7 +572,7 @@ if (!class_exists(__NAMESPACE__ . '\\AdminNotice', false)) {
 				}
 			}
 
-			$action = $_POST['action'];
+			$action = sanitize_key($_POST['action']);
 			if (has_action('wp_ajax_' . $action) === true) {
 				return false;
 			}

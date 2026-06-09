@@ -1,4 +1,5 @@
 <?php
+// phpcs:disable WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound
 /**
  * Shop by Category Section - Frontend Render
  *
@@ -64,7 +65,7 @@ $columns         = $settings['columns'] ?? '3';
 			?>
 				<div class="shopnex-category-card">
 					<?php if ( $has_link ) : ?>
-						<a href="<?php echo esc_url( $link_url ); ?>" class="shopnex-category-card-link"<?php echo $link_target . $link_nofollow; ?>>
+						<a href="<?php echo esc_url( $link_url ); ?>" class="shopnex-category-card-link"<?php echo esc_attr( $link_target . $link_nofollow ); ?>>
 					<?php endif; ?>
 
 					<?php if ( ! empty( $image_url ) ) : ?>

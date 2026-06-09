@@ -16,6 +16,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 class Spiracle_Content_Importer {
 
+	const MAX_IMPORT_AUTHORS = 50;
+
 	/**
 	 * Mapping from old post IDs to new post IDs.
 	 *
@@ -44,6 +46,15 @@ class Spiracle_Content_Importer {
 	 */
 	public function get_post_id_map() {
 		return $this->post_id_map;
+	}
+
+	/**
+	 * Get the old-to-new term ID mapping after import.
+	 *
+	 * @return array Associative array of old_term_id => new_term_id.
+	 */
+	public function get_term_id_map() {
+		return $this->term_id_map;
 	}
 
 	/**
@@ -77,6 +88,8 @@ class Spiracle_Content_Importer {
 	 * @return true|WP_Error
 	 */
 	private function import_with_wp_importer( $file ) {
+		$wxr_terms = $this->extract_wxr_term_ids( $file );
+
 		// phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
 		$importer = new WP_Import();
 		$importer->fetch_attachments = true;
@@ -85,7 +98,57 @@ class Spiracle_Content_Importer {
 		$importer->import( $file );
 		ob_end_clean();
 
+		if ( ! empty( $wxr_terms ) ) {
+			foreach ( $wxr_terms as $old_id => $info ) {
+				if ( isset( $this->term_id_map[ $old_id ] ) ) {
+					continue;
+				}
+				$term_obj = get_term_by( 'slug', $info['slug'], $info['taxonomy'] );
+				if ( $term_obj && $term_obj->term_id !== $old_id ) {
+					$this->term_id_map[ $old_id ] = $term_obj->term_id;
+				}
+			}
+		}
+
 		return true;
+	}
+
+	/**
+	 * Extract old term IDs with their slugs and taxonomies from a WXR file.
+	 *
+	 * Used by import_with_wp_importer() to build a term ID map after
+	 * the WordPress Importer plugin creates terms with new IDs.
+	 *
+	 * @param string $file Absolute path to the WXR file.
+	 * @return array Associative array of old_term_id => array( 'slug' => ..., 'taxonomy' => ... ).
+	 */
+	private function extract_wxr_term_ids( $file ) {
+		if ( ! class_exists( 'Spir_WXR_Parser' ) ) {
+			$this->load_wxr_parser();
+		}
+
+		$parser = new Spir_WXR_Parser();
+		$data   = $parser->parse( $file );
+
+		if ( is_wp_error( $data ) || empty( $data['terms'] ) ) {
+			return array();
+		}
+
+		$result = array();
+		foreach ( $data['terms'] as $term ) {
+			$old_id   = isset( $term['term_id'] ) ? absint( $term['term_id'] ) : 0;
+			$slug     = isset( $term['term_slug'] ) ? $term['term_slug'] : '';
+			$taxonomy = isset( $term['term_taxonomy'] ) ? $term['term_taxonomy'] : '';
+
+			if ( $old_id && $slug && $taxonomy ) {
+				$result[ $old_id ] = array(
+					'slug'     => $slug,
+					'taxonomy' => $taxonomy,
+				);
+			}
+		}
+
+		return $result;
 	}
 
 	/**
@@ -95,6 +158,8 @@ class Spiracle_Content_Importer {
 	 * @return true|WP_Error
 	 */
 	private function import_with_native_parser( $file ) {
+		ob_start();
+
 		if ( ! function_exists( 'get_importers' ) ) {
 			require_once ABSPATH . 'wp-admin/includes/import.php';
 		}
@@ -109,15 +174,15 @@ class Spiracle_Content_Importer {
 			require_once ABSPATH . 'wp-admin/includes/file.php';
 		}
 
-		// Load the WXR parser.
-		if ( ! class_exists( 'WXR_Parser' ) ) {
+		if ( ! class_exists( 'Spir_WXR_Parser' ) ) {
 			$this->load_wxr_parser();
 		}
 
-		$parser = new WXR_Parser();
+		$parser = new Spir_WXR_Parser();
 		$data   = $parser->parse( $file );
 
 		if ( is_wp_error( $data ) ) {
+			ob_end_clean();
 			return $data;
 		}
 
@@ -141,6 +206,8 @@ class Spiracle_Content_Importer {
 			$this->import_posts( $data['posts'] );
 		}
 
+		ob_end_clean();
+
 		return true;
 	}
 
@@ -148,18 +215,10 @@ class Spiracle_Content_Importer {
 	 * Load the WXR parser class.
 	 */
 	private function load_wxr_parser() {
-		// Try loading from WordPress Importer plugin.
-		$wp_importer_file = WP_PLUGIN_DIR . '/wordpress-importer/parsers.php';
-		if ( file_exists( $wp_importer_file ) ) {
-			require_once $wp_importer_file;
-			return;
-		}
-
-		// Use bundled parser.
+		// Always load the bundled parser which defines Spir_WXR_Parser.
 		$bundled_parser = dirname( __FILE__ ) . '/parsers/class-wxr-parser.php';
 		if ( file_exists( $bundled_parser ) ) {
 			require_once $bundled_parser;
-			return;
 		}
 	}
 
@@ -169,9 +228,19 @@ class Spiracle_Content_Importer {
 	 * @param array $authors Array of author data.
 	 */
 	private function import_authors( $authors ) {
+		$created = 0;
+
 		foreach ( $authors as $author ) {
+			if ( $created >= self::MAX_IMPORT_AUTHORS ) {
+				break;
+			}
+
 			$login = isset( $author['author_login'] ) ? $author['author_login'] : '';
 			if ( empty( $login ) ) {
+				continue;
+			}
+
+			if ( ! validate_username( $login ) ) {
 				continue;
 			}
 
@@ -180,16 +249,28 @@ class Spiracle_Content_Importer {
 				continue;
 			}
 
+			$email = isset( $author['author_email'] ) ? $author['author_email'] : '';
+			if ( ! empty( $email ) && ! is_email( $email ) ) {
+				$email = '';
+			}
+			if ( empty( $email ) ) {
+				$email = $login . '@example.com';
+			}
+
 			$user_data = array(
 				'user_login'    => $login,
 				'user_pass'     => wp_generate_password(),
-				'user_email'    => isset( $author['author_email'] ) ? $author['author_email'] : $login . '@example.com',
+				'user_email'    => $email,
 				'display_name'  => isset( $author['author_display_name'] ) ? $author['author_display_name'] : $login,
 				'first_name'    => isset( $author['author_first_name'] ) ? $author['author_first_name'] : '',
 				'last_name'     => isset( $author['author_last_name'] ) ? $author['author_last_name'] : '',
+				'role'          => 'subscriber',
 			);
 
-			wp_insert_user( $user_data );
+			$result = wp_insert_user( $user_data );
+			if ( ! is_wp_error( $result ) ) {
+				$created++;
+			}
 		}
 	}
 
@@ -274,11 +355,11 @@ class Spiracle_Content_Importer {
 				continue;
 			}
 
-			$term_slug = isset( $term['slug'] ) ? $term['slug'] : sanitize_title( $term_name );
+		$term_slug = isset( $term['term_slug'] ) ? $term['term_slug'] : sanitize_title( $term_name );
 
-			$existing = get_term_by( 'slug', $term_slug, $taxonomy );
-			if ( $existing ) {
-				$old_term_id = isset( $term['term_term_id'] ) ? absint( $term['term_term_id'] ) : 0;
+		$existing = get_term_by( 'slug', $term_slug, $taxonomy );
+		if ( $existing ) {
+			$old_term_id = isset( $term['term_id'] ) ? absint( $term['term_id'] ) : 0;
 				if ( $old_term_id && $old_term_id !== $existing->term_id ) {
 					$this->term_id_map[ $old_term_id ] = $existing->term_id;
 				}
@@ -307,13 +388,41 @@ class Spiracle_Content_Importer {
 
 			$new_term_id = (int) $result['term_id'];
 
-			$old_term_id = isset( $term['term_term_id'] ) ? absint( $term['term_term_id'] ) : 0;
+			$old_term_id = isset( $term['term_id'] ) ? absint( $term['term_id'] ) : 0;
 			if ( $old_term_id && $old_term_id !== $new_term_id ) {
 				$this->term_id_map[ $old_term_id ] = $new_term_id;
 			}
 
 			$this->import_term_meta( $new_term_id, $term );
 		}
+	}
+
+	/**
+	 * Safely unserialize a value, rejecting any PHP objects.
+	 *
+	 * @param mixed $value The value to maybe unserialize.
+	 * @return mixed The unserialized value (arrays/scalars only) or the original value.
+	 */
+	private function safe_maybe_unserialize( $value ) {
+		if ( ! is_string( $value ) ) {
+			return $value;
+		}
+
+		if ( ! preg_match( '/^[aOs]:/', $value ) ) {
+			return $value;
+		}
+
+		if ( false !== strpos( $value, 'O:' ) && preg_match( '/\bO:\d+:/', $value ) ) {
+			return $value;
+		}
+
+		$unserialized = @unserialize( $value, array( 'allowed_classes' => false ) );
+
+		if ( false === $unserialized && $value !== serialize( false ) ) {
+			return $value;
+		}
+
+		return $unserialized;
 	}
 
 	/**
@@ -685,7 +794,7 @@ class Spiracle_Content_Importer {
 				continue;
 			}
 
-			update_post_meta( $post_id, wp_slash( $key ), wp_slash( maybe_unserialize( $value ) ) );
+			update_post_meta( $post_id, wp_slash( $key ), wp_slash( $this->safe_maybe_unserialize( $value ) ) );
 		}
 	}
 
@@ -887,9 +996,9 @@ class Spiracle_Content_Importer {
 				'author_email' => $comment_data['comment_author_email'],
 				'date_query'   => array(
 					array(
-						'year'  => date( 'Y', strtotime( $comment_data['comment_date'] ) ),
-						'month' => date( 'm', strtotime( $comment_data['comment_date'] ) ),
-						'day'   => date( 'd', strtotime( $comment_data['comment_date'] ) ),
+						'year'  => gmdate( 'Y', strtotime( $comment_data['comment_date'] ) ),
+						'month' => gmdate( 'm', strtotime( $comment_data['comment_date'] ) ),
+						'day'   => gmdate( 'd', strtotime( $comment_data['comment_date'] ) ),
 					),
 				),
 			) );
@@ -903,7 +1012,7 @@ class Spiracle_Content_Importer {
 			if ( $comment_id && ! empty( $comment['commentmeta'] ) ) {
 				foreach ( $comment['commentmeta'] as $meta ) {
 					if ( ! empty( $meta['key'] ) ) {
-						add_comment_meta( $comment_id, wp_slash( $meta['key'] ), wp_slash( maybe_unserialize( $meta['value'] ) ) );
+						add_comment_meta( $comment_id, wp_slash( $meta['key'] ), wp_slash( $this->safe_maybe_unserialize( $meta['value'] ) ) );
 					}
 				}
 			}

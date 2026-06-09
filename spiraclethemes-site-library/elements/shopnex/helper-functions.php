@@ -83,8 +83,6 @@ final class Shopnex_Elementor_Extension {
      */
     public function i18n() {
 
-        load_plugin_textdomain( 'spiraclethemes-site-library' );
-
     }
 
     /**
@@ -189,17 +187,19 @@ final class Shopnex_Elementor_Extension {
      */
     public function admin_notice_missing_main_plugin() {
 
-        if ( isset( $_GET['activate'] ) ) unset( $_GET['activate'] );
+        if ( isset( $_GET['activate'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+            unset( $_GET['activate'] );
+        }
 
         $message = sprintf(
             /* translators: 1: Plugin name 2: Elementor */
             esc_html__( '"%1$s" %2$s requires "%3$s" to be installed and activated.', 'spiraclethemes-site-library' ),
-            '<strong>' . esc_html__( 'Shopnex Elements' ) . '</strong>', 
+            '<strong>' . esc_html__( 'Shopnex Elements', 'spiraclethemes-site-library' ) . '</strong>', 
             esc_html__( 'inside the Elementor page builder', 'spiraclethemes-site-library' ) . '</strong>',
             '<strong>' . esc_html__( 'Elementor', 'spiraclethemes-site-library' ) . '</strong>'
         );
 
-        printf( '<div class="notice notice-warning is-dismissible"><p>%1$s</p></div>', $message );
+        printf( '<div class="notice notice-warning is-dismissible"><p>%1$s</p></div>', wp_kses_post( $message ) );
 
     }
 
@@ -214,7 +214,9 @@ final class Shopnex_Elementor_Extension {
      */
     public function admin_notice_minimum_elementor_version() {
 
-        if ( isset( $_GET['activate'] ) ) unset( $_GET['activate'] );
+        if ( isset( $_GET['activate'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+            unset( $_GET['activate'] );
+        }
 
         $message = sprintf(
             /* translators: 1: Plugin name 2: Elementor 3: Required Elementor version */
@@ -225,7 +227,7 @@ final class Shopnex_Elementor_Extension {
              self::MINIMUM_ELEMENTOR_VERSION
         );
 
-        printf( '<div class="notice notice-warning is-dismissible"><p>%1$s</p></div>', $message );
+        printf( '<div class="notice notice-warning is-dismissible"><p>%1$s</p></div>', wp_kses_post( $message ) );
 
     }
 
@@ -240,7 +242,9 @@ final class Shopnex_Elementor_Extension {
      */
     public function admin_notice_minimum_php_version() {
 
-        if ( isset( $_GET['activate'] ) ) unset( $_GET['activate'] );
+        if ( isset( $_GET['activate'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+            unset( $_GET['activate'] );
+        }
 
         $message = sprintf(
             /* translators: 1: Plugin name 2: PHP 3: Required PHP version */
@@ -250,7 +254,7 @@ final class Shopnex_Elementor_Extension {
              self::MINIMUM_PHP_VERSION
         );
 
-        printf( '<div class="notice notice-warning is-dismissible"><p>%1$s</p></div>', $message );
+        printf( '<div class="notice notice-warning is-dismissible"><p>%1$s</p></div>', wp_kses_post( $message ) );
 
     }
 

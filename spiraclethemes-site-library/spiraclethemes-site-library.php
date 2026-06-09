@@ -3,7 +3,7 @@
  * Plugin Name:       Spiraclethemes Site Library
  * Plugin URI:        https://wordpress.org/plugins/spiraclethemes-site-library/
  * Description:       A plugin by Spiracle Themes that adds one-click demo import, theme customization, starter templates, and page builder support to its free themes.
- * Version:           1.6.0
+ * Version:           1.6.1
  * Author:            SpiracleThemes
  * Author URI:        https://spiraclethemes.com
  * License:           GPL-2.0+
@@ -18,16 +18,16 @@ if ( ! defined( 'WPINC' ) ) {
 }
 
 // Define constants.
-$constants = [
+$spir_constants = [
     'SPIR_SITE_LIBRARY_FILE'    => __FILE__,
     'SPIR_SITE_LIBRARY_URL'     => plugins_url( '/', __FILE__ ),
     'SPIR_SITE_LIBRARY_DIR_URL' => plugin_dir_url( __FILE__ ),
     'SPIR_SITE_LIBRARY_PATH'    => plugin_dir_path( __FILE__ ),
 ];
 
-foreach ( $constants as $key => $value ) {
-    if ( ! defined( $key ) ) {
-        define( $key, $value );
+foreach ( $spir_constants as $spir_key => $spir_value ) { 
+    if ( ! defined( $spir_key ) ) {
+        define( $spir_key, $spir_value );
     }
 }
 
@@ -43,7 +43,7 @@ class Spiraclethemes_Site_Library {
      *
      * @var string
      */
-    const VERSION = '1.6.0';
+    const VERSION = '1.6.1';
 
     /**
      * Allowed Spiraclethemes theme slugs.
@@ -276,7 +276,6 @@ class Spiraclethemes_Site_Library {
      * Load plugin text domain.
      */
     public function spiraclethemes_site_library_load_plugin_textdomain() {
-        load_plugin_textdomain( 'spiraclethemes-site-library', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
     }
 
     /**
@@ -425,17 +424,18 @@ class Spiraclethemes_Site_Library {
         // Show rating notice after 7 days if no $49/year notices have been shown.
         if ( $should_show_rating && $days_since >= 7 && $this->spiraclethemes_site_library_should_display_notice( 'spiraclethemes_sitelib_rating_ignore_notice', 7 ) ) {
             $theme_info_url = esc_url( admin_url( 'themes.php' ) );
-            $rating_url     = esc_url( 'https://wordpress.org/support/theme/' . $this->theme_slug . '/reviews/?filter=5' );
+            $rating_url     = esc_url( 'https://wordpress.org/support/theme/' . $this->theme_slug . '/reviews/' );
             $ignore_url     = esc_url( wp_nonce_url( admin_url( 'themes.php?wp_spiraclethemes_sitelib_rating_ignore=0' ), 'wp_spiraclethemes_sitelib_rating_ignore_nonce' ) );
 
             echo '<div class="notice updated ssl-notice">';
             printf(
+                /* translators: 1: Theme name with link, 2: Rating URL, 3: Rating link text, 4: Ignore URL, 5: Ignore link text */
                 esc_html__( 'Awesome, you\'ve been using %s for over a week! Please consider giving us a 5-star review.', 'spiraclethemes-site-library' ) .
                 ' <a href="%s" target="_blank">%s</a> | <a href="%s">%s</a>',
-                '<a href="' . $theme_info_url . '">' . esc_html( $this->theme_name ) . '</a>',
-                $rating_url,
+                '<a href="' . esc_url( $theme_info_url ) . '">' . esc_html( $this->theme_name ) . '</a>',
+                esc_url( $rating_url ),
                 esc_html__( 'Ok, you deserved it!', 'spiraclethemes-site-library' ),
-                $ignore_url,
+                esc_url( $ignore_url ),
                 esc_html__( 'No, thanks', 'spiraclethemes-site-library' )
             );
             echo '</div>';
@@ -603,7 +603,7 @@ class Spiraclethemes_Site_Library {
             'div' => [ 'class' => [] ],
             'p'   => [ 'class' => [] ],
             'a'   => [ 'href' => [], 'class' => [], 'target' => [], 'rel' => [] ],
-            'svg' => [ 'width' => [], 'height' => [], 'viewbox' => [], 'viewBox' => [], 'fill' => [], 'stroke' => [], 'stroke-width' => [], 'stroke-linecap' => [], 'stroke-linejoin' => [] ],
+            'svg' => [ 'width' => [], 'height' => [], 'viewbox' => [], 'viewBox' => [], 'fill' => [], 'stroke' => [], 'stroke-width' => [], 'stroke-linecap' => [], 'stroke-linejoin' => [], 'xmlns' => [] ],
             'path' => [ 'd' => [], 'fill' => [], 'stroke' => [] ],
         ];
 

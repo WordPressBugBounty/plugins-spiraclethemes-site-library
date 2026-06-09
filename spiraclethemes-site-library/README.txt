@@ -2,12 +2,14 @@
 
 Contributors: spiraclethemes
 Tags: spiraclethemes, demo, import, themes
-Stable tag: 1.5.9
+Stable tag: 1.6.1
 Requires at least: 5.0
 Requires PHP: 5.6
 Tested up to: 7.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
+
+One-click demo import, theme customization, starter templates, and page builder support for Spiracle Themes.
 
 == Description ==
 

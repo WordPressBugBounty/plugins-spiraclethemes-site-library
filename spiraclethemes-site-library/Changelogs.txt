@@ -1,6 +1,9 @@
 
 == Changelog ==
 
+== 1.6.1 ==
+- minor bug fixes
+
 == 1.6.0 ==
 - Added new shopnex demo
 - Redesigned demo import

@@ -58,7 +58,17 @@ function spiraclethemes_site_library_purea_fashion_after_import_setup( $selected
 	);
 
     //Assign front & blog page
-    $front_page = get_page_by_title( 'Home' );  
+    $front_page_query = new WP_Query( array(
+        'post_type'              => 'page',
+        'title'                  => 'Home',
+        'post_status'            => 'all',
+        'posts_per_page'         => 1,
+        'no_found_rows'          => true,
+        'ignore_sticky_posts'    => true,
+        'update_post_meta_cache' => false,
+        'update_post_term_cache' => false,
+    ) );
+    $front_page = ! empty( $front_page_query->posts ) ? $front_page_query->posts[0] : null;
 
     update_option( 'show_on_front', 'page' );
     update_option( 'page_on_front', $front_page->ID ); 

@@ -10,7 +10,7 @@ Use Elementor\Controls_Stack;
 
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
-class Blogson_Postgrid extends Widget_Base {
+class Blogson_Postgrid extends Widget_Base { // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedClassFound
 
 	public function get_name() {
 		return 'blogson-elementor-postgrid';

@@ -30,7 +30,7 @@ function spiraclethemes_site_library_own_shop_trend_set_import_files() {
             'import_widget_file_url'   => $widgets_ownshoptren_demo1,
             'import_customizer_file_url' => $customizer_ownshoptrend_demo1,
             'import_preview_image_url'     => $image_ownshoptren_demo1,
-            'import_notice'              => esc_html__( '', 'spiraclethemes-site-library' ),
+            'import_notice'              => esc_html__( 'After you import this demo, you will have to set up your menus and homepage. Please check documentation for more information.', 'spiraclethemes-site-library' ),
             'preview_url'                  => 'https://ownshop.spiraclethemes.com/ownshoptrend/',
         ),
     );
@@ -56,8 +56,28 @@ function spiraclethemes_site_library_own_shop_trend_after_import_setup( $selecte
 	);
 
     //Assign front & blog page
-    $front_page = get_page_by_title( 'Home' );  
-    $blog_page = get_page_by_title( 'Blog' );  
+    $front_page_query = new WP_Query( array(
+        'post_type'              => 'page',
+        'title'                  => 'Home',
+        'post_status'            => 'all',
+        'posts_per_page'         => 1,
+        'no_found_rows'          => true,
+        'ignore_sticky_posts'    => true,
+        'update_post_meta_cache' => false,
+        'update_post_term_cache' => false,
+    ) );
+    $front_page = ! empty( $front_page_query->posts ) ? $front_page_query->posts[0] : null;
+    $blog_page_query = new WP_Query( array(
+        'post_type'              => 'page',
+        'title'                  => 'Blog',
+        'post_status'            => 'all',
+        'posts_per_page'         => 1,
+        'no_found_rows'          => true,
+        'ignore_sticky_posts'    => true,
+        'update_post_meta_cache' => false,
+        'update_post_term_cache' => false,
+    ) );
+    $blog_page = ! empty( $blog_page_query->posts ) ? $blog_page_query->posts[0] : null;
 
     update_option( 'show_on_front', 'page' );
     update_option( 'page_on_front', $front_page->ID );    
@@ -70,6 +90,7 @@ add_action( 'pt-ocdi/after_import', 'spiraclethemes_site_library_own_shop_trend_
 
 function spiraclethemes_site_library_own_shop_trend_check_pro_plugin() {
     if ( ! function_exists( 'ocdi_register_plugins' ) ) :
+        // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedFunctionFound
         function ocdi_register_plugins( $plugins ) {
          
             // List of plugins used by all theme demos.

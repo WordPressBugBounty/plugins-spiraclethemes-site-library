@@ -1,4 +1,6 @@
 <?php
+// phpcs:disable WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound
+if ( ! defined( 'ABSPATH' ) ) exit;
 
 $settings = $this->get_settings();
 $id = $this->get_id();
@@ -10,6 +12,6 @@ $out = '[popularprod'
     . ' prod_columns_count="' . $prod_columns_count . '"'
     . ' prod_count="' . $prod_count . '"]';
 
-echo shortcode_unautop(do_shortcode($out));
+echo wp_kses_post( shortcode_unautop( do_shortcode( $out ) ) );
 
 ?>

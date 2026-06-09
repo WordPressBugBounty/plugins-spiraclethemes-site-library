@@ -1,4 +1,6 @@
 <?php
+// phpcs:disable WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound
+if ( ! defined( 'ABSPATH' ) ) exit;
 
 $settings = $this->get_settings();
 $id = $this->get_id();
@@ -25,5 +27,5 @@ $out = '[recentblog'
     . ' post_read_more="' . $post_read_more . '"'
     . ' post_display_excerpt="' . $post_display_excerpt . '"]';
 
-echo shortcode_unautop(do_shortcode($out));
+echo wp_kses_post( shortcode_unautop( do_shortcode( $out ) ) );
 ?>

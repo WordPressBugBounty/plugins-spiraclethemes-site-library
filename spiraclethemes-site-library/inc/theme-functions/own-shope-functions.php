@@ -30,7 +30,7 @@ function spiraclethemes_site_library_own_shope_set_import_files() {
             'import_widget_file_url'   => $widgets_ownshope_demo1,
             'import_customizer_file_url' => $customizer_ownshope_demo1,
             'import_preview_image_url'     => $image_ownshope_demo1,
-            'import_notice'              => esc_html__( '', 'spiraclethemes-site-library' ),
+            'import_notice'              => esc_html__( 'After you import this demo, you will have to set up your menus and homepage. Please check documentation for more information.', 'spiraclethemes-site-library' ),
             'preview_url'                  => 'https://ownshop.spiraclethemes.com/ownshope/',
         ),
     );
@@ -56,8 +56,28 @@ function spiraclethemes_site_library_own_shope_after_import_setup( $selected_imp
 	);
 
     //Assign front & blog page
-    $front_page = get_page_by_title( 'Home' );  
-    $blog_page = get_page_by_title( 'Blog' );  
+    $front_page_query = new WP_Query( array(
+        'post_type'              => 'page',
+        'title'                  => 'Home',
+        'post_status'            => 'all',
+        'posts_per_page'         => 1,
+        'no_found_rows'          => true,
+        'ignore_sticky_posts'    => true,
+        'update_post_meta_cache' => false,
+        'update_post_term_cache' => false,
+    ) );
+    $front_page = ! empty( $front_page_query->posts ) ? $front_page_query->posts[0] : null;
+    $blog_page_query = new WP_Query( array(
+        'post_type'              => 'page',
+        'title'                  => 'Blog',
+        'post_status'            => 'all',
+        'posts_per_page'         => 1,
+        'no_found_rows'          => true,
+        'ignore_sticky_posts'    => true,
+        'update_post_meta_cache' => false,
+        'update_post_term_cache' => false,
+    ) );
+    $blog_page = ! empty( $blog_page_query->posts ) ? $blog_page_query->posts[0] : null;
 
     update_option( 'show_on_front', 'page' );
     update_option( 'page_on_front', $front_page->ID );    
@@ -70,6 +90,7 @@ add_action( 'pt-ocdi/after_import', 'spiraclethemes_site_library_own_shope_after
 
 function spiraclethemes_site_library_own_shope_check_pro_plugin() {
     if ( ! function_exists( 'ocdi_register_plugins' ) ) :
+        // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedFunctionFound
         function ocdi_register_plugins( $plugins ) {
          
             // List of plugins used by all theme demos.
@@ -478,7 +499,7 @@ if( !function_exists('spiraclethemes_site_library_own_shop_quick_view_ajax_handl
     function spiraclethemes_site_library_own_shop_quick_view_ajax_handler() {
         check_ajax_referer( 'own_shop_quick_view_nonce', 'nonce' );
 
-        $product_id = intval( $_POST['product_id'] );
+        $product_id = isset( $_POST['product_id'] ) ? intval( wp_unslash( $_POST['product_id'] ) ) : 0;
         $product = wc_get_product( $product_id );
 
         if ( !$product ) {
@@ -527,9 +548,9 @@ if( !function_exists('spiraclethemes_site_library_own_shop_quick_view_ajax_handl
                             $review_count = $product->get_review_count();
                             $average = $product->get_average_rating();
                             ?>
-                            <?php echo wc_get_rating_html( $average, $rating_count ); ?>
+                            <?php echo wp_kses_post( wc_get_rating_html( $average, $rating_count ) ); ?>
                             <?php if ( comments_open() && $review_count ) : ?>
-                                <span class="modal-reviews"><?php printf( _n( '(%s review)', '(%s reviews)', $review_count, 'woocommerce' ), '<span class="count">' . esc_html( $review_count ) . '</span>' ); ?></span>
+                                <span class="modal-reviews"><?php /* translators: %s: Review count */ printf( esc_html( _n( '(%s review)', '(%s reviews)', $review_count, 'spiraclethemes-site-library' ) ), '<span class="count">' . esc_html( $review_count ) . '</span>' ); ?></span>
                             <?php endif ?>
                         </div>
 
@@ -543,7 +564,7 @@ if( !function_exists('spiraclethemes_site_library_own_shop_quick_view_ajax_handl
                         <div class="modal-stock"><?php echo esc_html( $product->is_in_stock() ? 'In Stock' : 'Out of Stock' ); ?></div>
 
                         <div class="quick-view-quantity">
-                            <span class="quantity-label"><?php esc_html_e('Quantity:', 'woocommerce'); ?></span>
+                            <span class="quantity-label"><?php esc_html_e('Quantity:', 'spiraclethemes-site-library'); ?></span>
                             <div class="quantity-input">
                                 <button class="quantity-btn" onclick="decreaseQuickViewQuantity()">-</button>
                                 <input type="number" class="quantity-value" id="quick-view-quantity" value="1" min="1" readonly>
@@ -565,7 +586,7 @@ if( !function_exists('spiraclethemes_site_library_own_shop_quick_view_ajax_handl
                                 foreach ( $categories as $category ) {
                                     $category_names[] = esc_html( $category->name );
                                 }
-                                echo '<span>' . implode( ', ', $category_names ) . '</span>';
+                                echo '<span>' . esc_html( implode( ', ', $category_names ) ) . '</span>';
                                 ?>
                             </div>
                         </div>
@@ -589,10 +610,10 @@ if( !function_exists('spiraclethemes_site_library_own_shop_quick_view_add_to_car
     function spiraclethemes_site_library_own_shop_quick_view_add_to_cart_ajax() {
         check_ajax_referer( 'own_shop_quick_view_nonce', 'security' );
 
-        $product_id = intval( $_POST['product_id'] );
-        $quantity = intval( $_POST['quantity'] );
-        $variation_id = isset( $_POST['variation_id'] ) ? intval( $_POST['variation_id'] ) : 0;
-        $variations = isset( $_POST['variation'] ) ? $_POST['variation'] : array();
+        $product_id  = isset( $_POST['product_id'] ) ? intval( wp_unslash( $_POST['product_id'] ) ) : 0;
+        $quantity    = isset( $_POST['quantity'] ) ? intval( wp_unslash( $_POST['quantity'] ) ) : 0;
+        $variation_id = isset( $_POST['variation_id'] ) ? intval( wp_unslash( $_POST['variation_id'] ) ) : 0;
+        $variations  = isset( $_POST['variation'] ) ? array_map( 'sanitize_text_field', wp_unslash( $_POST['variation'] ) ) : array();
 
         if ( ! $product_id || $quantity < 1 ) {
             wp_send_json_error( __( 'Invalid product or quantity.', 'spiraclethemes-site-library' ) );
@@ -625,7 +646,8 @@ if( !function_exists('spiraclethemes_site_library_own_shop_quick_view_add_to_car
 
         // Check stock quantity
         if ( ! $product->has_enough_stock( $quantity ) ) {
-            wp_send_json_error( sprintf( __( 'Sorry, we do not have enough "%s" in stock to fulfill your order.', 'woocommerce' ), $product->get_name() ) );
+            /* translators: %s: Product name */
+            wp_send_json_error( sprintf( __( 'Sorry, we do not have enough "%s" in stock to fulfill your order.', 'spiraclethemes-site-library' ), $product->get_name() ) );
         }
 
         // Add to cart
@@ -638,9 +660,10 @@ if( !function_exists('spiraclethemes_site_library_own_shop_quick_view_add_to_car
         // Return success response
         wp_send_json_success( array(
             'cart_hash' => WC()->cart->get_cart_hash(),
-            'fragments' => apply_filters( 'woocommerce_add_to_cart_fragments', array() ),
+            'fragments' => apply_filters( 'woocommerce_add_to_cart_fragments', array() ), // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
             'cart_url' => wc_get_cart_url(),
-            'message' => sprintf( __( '"%s" has been added to your cart.', 'woocommerce' ), $product->get_name() ),
+            /* translators: %s: Product name */
+            'message' => sprintf( __( '"%s" has been added to your cart.', 'spiraclethemes-site-library' ), $product->get_name() ),
         ) );
     }
     add_action( 'wp_ajax_own_shop_quick_view_add_to_cart', 'spiraclethemes_site_library_own_shop_quick_view_add_to_cart_ajax' );

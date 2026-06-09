@@ -30,6 +30,7 @@ if ( ! defined( 'HOUR_IN_SECONDS' ) ) {
  * Add dashboard widget.
  */
 function spiraclethemes_site_library_add_dashboard_widgets() {
+    /* translators: %s: Theme name */
     $widget_title = sprintf( __( '%s Theme', 'spiraclethemes-site-library' ), SPIR_SITE_LIBRARY_THEME_NAME );
 
     wp_add_dashboard_widget(
@@ -99,16 +100,10 @@ function spiraclethemes_site_library_render_discount_section( $theme_slug, $them
         set_transient( $cache_key, $xml_body, HOUR_IN_SECONDS * 24 );
     }
 
-    if ( version_compare( PHP_VERSION, '8.0.0', '<' ) ) {
-        libxml_disable_entity_loader( true );
-    }
     libxml_use_internal_errors( true );
-    $xml = simplexml_load_string( $xml_body, 'SimpleXMLElement', LIBXML_NOCDATA );
+    $xml = simplexml_load_string( $xml_body, 'SimpleXMLElement', LIBXML_NOENT | LIBXML_NONET | LIBXML_NOCDATA );
 
     if ( false === $xml ) {
-        if ( defined( 'WP_DEBUG' ) && WP_DEBUG ) {
-            error_log( 'Spiraclethemes Site Library: XML parsing errors: ' . print_r( libxml_get_errors(), true ) );
-        }
         echo '<div class="ssl-widget-section ssl-discount-section">';
         echo '<div class="ssl-discount-header"><span class="ssl-discount-icon">%</span>';
         echo '<h3>' . esc_html__( 'Special Discount', 'spiraclethemes-site-library' ) . '</h3></div>';
@@ -140,6 +135,7 @@ function spiraclethemes_site_library_render_discount_section( $theme_slug, $them
         echo '<span class="ssl-discount-badge">' . esc_html__( 'LIMITED TIME', 'spiraclethemes-site-library' ) . '</span>';
         echo '<p class="ssl-discount-text">';
         printf(
+            /* translators: 1: Discount price, 2: Theme name */
             esc_html__( 'Unlock the Pro version for just $%1$s! Take advantage of our limited-time discount on %2$s.', 'spiraclethemes-site-library' ),
             esc_html( $theme_discount ),
             esc_html( $theme_name )
@@ -258,6 +254,7 @@ function spiraclethemes_site_library_render_services_section() {
 
     // CTA.
     echo '<div class="ssl-services-cta-wrap">';
+    /* translators: %s: Theme name */
     echo '<a href="mailto:support@spiraclethemes.com?subject=' . rawurlencode( sprintf( __( 'Website Design/Revamp Inquiry - %s', 'spiraclethemes-site-library' ), SPIR_SITE_LIBRARY_THEME_NAME ) ) . '" class="ssl-services-cta">';
     echo '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>';
     echo '<span>' . esc_html__( 'Email Us to Get Started — $299', 'spiraclethemes-site-library' ) . '</span>';
@@ -349,6 +346,7 @@ function spiraclethemes_site_library_render_news_section() {
 function spiraclethemes_site_library_render_footer_links() {
     echo '<div class="ssl-widget-footer">';
     printf(
+        /* translators: 1: Translation URL, 2: Theme name */
         '<a href="%1$s" target="_blank">' . esc_html__( 'Help Us to Translate %2$s', 'spiraclethemes-site-library' ) . ' <span class="dashicons dashicons-external"></span></a>',
         esc_url( 'https://translate.wordpress.org/projects/wp-themes/' . SPIR_SITE_LIBRARY_THEME_SLUG . '/' ),
         esc_html( SPIR_SITE_LIBRARY_THEME_NAME )

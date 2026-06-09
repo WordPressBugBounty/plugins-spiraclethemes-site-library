@@ -5,7 +5,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 
-function blogson_elementor_widget_categories( $elements_manager ) {
+function blogson_elementor_widget_categories( $elements_manager ) { // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedFunctionFound
 
     $categories = [];
     $categories['sslb-elementor'] =

@@ -50,7 +50,6 @@ class Spiracle_Demo_Import {
 
 		// Collect recommended plugins on admin_init (theme files register
 		// the ocdi/register_plugins filter inside admin_init callbacks,
-		// so we must collect after that hook fires).
 		add_action( 'admin_init', array( $this, 'collect_plugins' ) );
 
 		// Admin hooks.
@@ -68,10 +67,10 @@ class Spiracle_Demo_Import {
 	 * Collect demo configurations from the pt-ocdi/import_files filter.
 	 *
 	 * This is the OCDI compatibility layer — theme function files register
-	 * their demos using this filter, and we collect them the same way.
+	 * their demos using this filter
 	 */
 	private function collect_demos() {
-		$demos = apply_filters( 'pt-ocdi/import_files', array() );
+		$demos = apply_filters( 'pt-ocdi/import_files', array() ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
 
 		if ( is_array( $demos ) && ! empty( $demos ) ) {
 			$this->demos = $demos;
@@ -85,7 +84,7 @@ class Spiracle_Demo_Import {
 	 * their plugins using this filter.
 	 */
 	public function collect_plugins() {
-		$plugins = apply_filters( 'ocdi/register_plugins', array() );
+		$plugins = apply_filters( 'ocdi/register_plugins', array() ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
 
 		if ( is_array( $plugins ) && ! empty( $plugins ) ) {
 			$this->recommended_plugins = $plugins;
@@ -114,7 +113,7 @@ class Spiracle_Demo_Import {
 	/**
 	 * Add admin menu page under Appearance.
 	 *
-	 * Uses the same menu slug as OCDI so existing links continue to work.
+	 * Uses the same menu slug as OCDI
 	 */
 	public function add_admin_menu() {
 		add_theme_page(
@@ -164,7 +163,7 @@ class Spiracle_Demo_Import {
 				'success'           => esc_html__( 'Demo imported successfully!', 'spiraclethemes-site-library' ),
 				'error'             => esc_html__( 'Import failed.', 'spiraclethemes-site-library' ),
 				'confirm'           => esc_html__( 'This will install required plugins, then import demo content, widgets, and customizer settings. Existing content may be duplicated. Continue?', 'spiraclethemes-site-library' ),
-				'installing_plugin' => esc_html__( 'Installing and activating %s…', 'spiraclethemes-site-library' ),
+				'installing_plugin' => /* translators: %s: Plugin name */ esc_html__( 'Installing and activating %s…', 'spiraclethemes-site-library' ),
 				'plugin_active'     => esc_html__( 'Active', 'spiraclethemes-site-library' ),
 				'plugin_inactive'   => esc_html__( 'Inactive', 'spiraclethemes-site-library' ),
 				'plugin_missing'    => esc_html__( 'Not Installed', 'spiraclethemes-site-library' ),
@@ -201,7 +200,7 @@ class Spiracle_Demo_Import {
 				<div class="spiracle-demo-grid">
 					<?php foreach ( $demos as $index => $demo ) :
 						$preview_image_url = ! empty( $demo['import_preview_image_url'] ) ? $demo['import_preview_image_url'] : '';
-						$demo_name         = ! empty( $demo['import_file_name'] ) ? $demo['import_file_name'] : sprintf( __( 'Demo %d', 'spiraclethemes-site-library' ), $index + 1 );
+						$demo_name         = ! empty( $demo['import_file_name'] ) ? $demo['import_file_name'] : sprintf( /* translators: %d: Demo number */ __( 'Demo %d', 'spiraclethemes-site-library' ), $index + 1 );
 						$notice            = ! empty( $demo['import_notice'] ) ? $demo['import_notice'] : '';
 						$preview_url       = ! empty( $demo['preview_url'] ) ? $demo['preview_url'] : '';
 						$has_content       = ! empty( $demo['import_file_url'] );
@@ -383,21 +382,127 @@ class Spiracle_Demo_Import {
 			return new WP_Error( 'spiracle_empty_url', esc_html__( 'File URL is empty.', 'spiraclethemes-site-library' ) );
 		}
 
-		// Validate URL scheme to prevent SSRF (only http/https allowed).
+		$local_path = $this->resolve_local_file_path( $url );
+		if ( $local_path && file_exists( $local_path ) && is_readable( $local_path ) ) {
+			return $local_path;
+		}
+
 		$scheme = wp_parse_url( $url, PHP_URL_SCHEME );
 		if ( ! in_array( $scheme, array( 'http', 'https' ), true ) ) {
 			return new WP_Error( 'spiracle_invalid_url_scheme', esc_html__( 'Only http:// and https:// URLs are allowed for file downloads.', 'spiraclethemes-site-library' ) );
 		}
 
+		$host = wp_parse_url( $url, PHP_URL_HOST );
+		if ( ! $host ) {
+			return new WP_Error( 'spiracle_invalid_url_host', esc_html__( 'Invalid URL: missing host.', 'spiraclethemes-site-library' ) );
+		}
+
+		$is_local = $this->is_local_host( $host );
+
+		if ( ! $is_local ) {
+			$resolved_ip = gethostbyname( $host );
+			if ( $resolved_ip === $host ) {
+				return new WP_Error( 'spiracle_unresolvable_host', esc_html__( 'Could not resolve download URL host.', 'spiraclethemes-site-library' ) );
+			}
+
+			$private_ip_patterns = array(
+				'/^10\./',
+				'/^172\.(1[6-9]|2[0-9]|3[01])\./',
+				'/^192\.168\./',
+				'/^127\./',
+				'/^0\./',
+				'/^169\.254\./',
+				'/^::1$/',
+				'/^fc/',
+				'/^fd/',
+				'/^fe80:/',
+			);
+
+			foreach ( $private_ip_patterns as $pattern ) {
+				if ( preg_match( $pattern, $resolved_ip ) ) {
+					return new WP_Error( 'spiracle_private_ip', esc_html__( 'Downloads from private/internal networks are not allowed.', 'spiraclethemes-site-library' ) );
+				}
+			}
+		}
+
 		require_once ABSPATH . 'wp-admin/includes/file.php';
 
-		$tmp = download_url( $url, 60 );
+		$tmp = download_url( $url, 120 );
 
 		if ( is_wp_error( $tmp ) ) {
 			return $tmp;
 		}
 
 		return $tmp;
+	}
+
+	private function resolve_local_file_path( $url ) {
+		$site_url = site_url( '/' );
+		$site_path = wp_parse_url( $site_url, PHP_URL_PATH );
+
+		$url_path = wp_parse_url( $url, PHP_URL_PATH );
+		if ( ! $url_path ) {
+			return '';
+		}
+
+		$url_host = wp_parse_url( $url, PHP_URL_HOST );
+		$site_host = wp_parse_url( $site_url, PHP_URL_HOST );
+
+		if ( $url_host && $site_host && $url_host !== $site_host ) {
+			if ( ! $this->is_local_host( $url_host ) || ! $this->is_local_host( $site_host ) ) {
+				return '';
+			}
+		}
+
+		if ( $site_path && 0 === strpos( $url_path, $site_path ) ) {
+			$relative = substr( $url_path, strlen( $site_path ) );
+		} else {
+			$relative = ltrim( $url_path, '/' );
+		}
+
+		$absolute = ABSPATH . $relative;
+
+		$real_base = realpath( ABSPATH );
+		$real_file = realpath( dirname( $absolute ) );
+
+		if ( $real_base && $real_file && 0 !== strpos( $real_file, $real_base ) ) {
+			return '';
+		}
+
+		return $absolute;
+	}
+
+	private function cleanup_file( $file ) {
+		$tmp_dir = get_temp_dir();
+		$tmp_dir_real = realpath( $tmp_dir );
+		$file_real = realpath( $file );
+
+		if ( $tmp_dir_real && $file_real && 0 === strpos( $file_real, $tmp_dir_real ) ) {
+			wp_delete_file( $file );
+		}
+	}
+
+	private function is_local_host( $host ) {
+		$local_patterns = array(
+			'/\.local$/',
+			'/\.test$/',
+			'/\.dev$/',
+			'/\.localhost$/',
+			'/\.internal$/',
+			'/^localhost$/',
+			'/^127\./',
+			'/^10\./',
+			'/^172\.(1[6-9]|2[0-9]|3[01])\./',
+			'/^192\.168\./',
+		);
+
+		foreach ( $local_patterns as $pattern ) {
+			if ( preg_match( $pattern, $host ) ) {
+				return true;
+			}
+		}
+
+		return false;
 	}
 
 	/**
@@ -409,13 +514,18 @@ class Spiracle_Demo_Import {
 	 *   - step   : Current step (plugins, content, widgets, customizer, after_import).
 	 */
 	public function ajax_run_import() {
-		// Verify nonce.
+		ob_start();
+		@ini_set( 'display_errors', 0 );
+
+		$this->register_shutdown_handler();
+
 		if ( ! isset( $_POST['nonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['nonce'] ) ), 'spiracle_demo_import_nonce' ) ) {
+			ob_end_clean();
 			wp_send_json_error( array( 'message' => esc_html__( 'Security check failed.', 'spiraclethemes-site-library' ) ) );
 		}
 
-		// Check capabilities.
 		if ( ! current_user_can( 'manage_options' ) ) {
+			ob_end_clean();
 			wp_send_json_error( array( 'message' => esc_html__( 'You do not have sufficient permissions.', 'spiraclethemes-site-library' ) ) );
 		}
 
@@ -424,12 +534,22 @@ class Spiracle_Demo_Import {
 
 		$demo = $this->get_demo( $demo_index );
 		if ( ! $demo ) {
+			ob_end_clean();
 			wp_send_json_error( array( 'message' => esc_html__( 'Invalid demo selected.', 'spiraclethemes-site-library' ) ) );
 		}
 
-		// Increase time limit for import.
-		if ( function_exists( 'set_time_limit' ) ) {
-			set_time_limit( 300 );
+		if ( function_exists( 'set_time_limit' ) && false === strpos( ini_get( 'disable_functions' ), 'set_time_limit' ) ) {
+			@set_time_limit( 1800 );
+		}
+
+		if ( function_exists( 'wp_raise_memory_limit' ) ) {
+			wp_raise_memory_limit( 'admin' );
+		} else {
+			$current = wp_convert_hr_to_bytes( ini_get( 'memory_limit' ) );
+			$needed  = 512 * MB_IN_BYTES;
+			if ( $current < $needed ) {
+				@ini_set( 'memory_limit', '512M' );
+			}
 		}
 
 		$result = array();
@@ -443,7 +563,6 @@ class Spiracle_Demo_Import {
 				if ( ! empty( $demo['import_file_url'] ) ) {
 					$result = $this->import_content( $demo['import_file_url'] );
 				} else {
-					// Skip content import if no URL provided.
 					$result = array(
 						'message' => esc_html__( 'No content file to import, skipping.', 'spiraclethemes-site-library' ),
 						'next'    => 'widgets',
@@ -478,14 +597,48 @@ class Spiracle_Demo_Import {
 				break;
 
 			default:
+				ob_end_clean();
 				wp_send_json_error( array( 'message' => esc_html__( 'Invalid import step.', 'spiraclethemes-site-library' ) ) );
 		}
 
 		if ( is_wp_error( $result ) ) {
+			ob_end_clean();
 			wp_send_json_error( array( 'message' => $result->get_error_message() ) );
 		}
 
+		ob_end_clean();
 		wp_send_json_success( $result );
+	}
+
+	private function register_shutdown_handler() {
+		$buffer_level = ob_get_level();
+
+		register_shutdown_function( function () use ( $buffer_level ) {
+			$error = error_get_last();
+			if ( ! $error || ! in_array( $error['type'], array( E_ERROR, E_PARSE, E_CORE_ERROR, E_COMPILE_ERROR, E_USER_ERROR ), true ) ) {
+				return;
+			}
+
+			while ( ob_get_level() > $buffer_level ) {
+				ob_end_clean();
+			}
+
+			if ( ! headers_sent() ) {
+				header( 'Content-Type: application/json; charset=UTF-8' );
+			}
+
+			echo wp_json_encode( array(
+				'success' => false,
+				'data'    => array(
+					'message' => sprintf(
+						'Import error: %s in %s on line %d',
+						$error['message'],
+						basename( $error['file'] ),
+						$error['line']
+					),
+				),
+			) );
+		} );
 	}
 
 	/**
@@ -531,25 +684,38 @@ class Spiracle_Demo_Import {
 	 * AJAX handler — install a single plugin.
 	 */
 	public function ajax_install_plugin() {
+		ob_start();
+
 		if ( ! isset( $_POST['nonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['nonce'] ) ), 'spiracle_demo_import_nonce' ) ) {
+			ob_end_clean();
 			wp_send_json_error( array( 'message' => esc_html__( 'Security check failed.', 'spiraclethemes-site-library' ) ) );
 		}
 
 		if ( ! current_user_can( 'install_plugins' ) ) {
+			ob_end_clean();
 			wp_send_json_error( array( 'message' => esc_html__( 'You do not have permission to install plugins.', 'spiraclethemes-site-library' ) ) );
 		}
 
 		$slug = isset( $_POST['slug'] ) ? sanitize_key( $_POST['slug'] ) : '';
 		if ( empty( $slug ) ) {
+			ob_end_clean();
 			wp_send_json_error( array( 'message' => esc_html__( 'Plugin slug is required.', 'spiraclethemes-site-library' ) ) );
+		}
+
+		$allowed_slugs = wp_list_pluck( $this->recommended_plugins, 'slug' );
+		if ( ! in_array( $slug, $allowed_slugs, true ) ) {
+			ob_end_clean();
+			wp_send_json_error( array( 'message' => esc_html__( 'This plugin is not in the recommended plugins list.', 'spiraclethemes-site-library' ) ) );
 		}
 
 		$result = $this->plugin_installer->install_and_activate( $slug );
 
 		if ( is_wp_error( $result ) ) {
+			ob_end_clean();
 			wp_send_json_error( array( 'message' => $result->get_error_message() ) );
 		}
 
+		ob_end_clean();
 		wp_send_json_success( $result );
 	}
 
@@ -557,25 +723,38 @@ class Spiracle_Demo_Import {
 	 * AJAX handler — activate a single plugin.
 	 */
 	public function ajax_activate_plugin() {
+		ob_start();
+
 		if ( ! isset( $_POST['nonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['nonce'] ) ), 'spiracle_demo_import_nonce' ) ) {
+			ob_end_clean();
 			wp_send_json_error( array( 'message' => esc_html__( 'Security check failed.', 'spiraclethemes-site-library' ) ) );
 		}
 
 		if ( ! current_user_can( 'activate_plugins' ) ) {
+			ob_end_clean();
 			wp_send_json_error( array( 'message' => esc_html__( 'You do not have permission to activate plugins.', 'spiraclethemes-site-library' ) ) );
 		}
 
 		$slug = isset( $_POST['slug'] ) ? sanitize_key( $_POST['slug'] ) : '';
 		if ( empty( $slug ) ) {
+			ob_end_clean();
 			wp_send_json_error( array( 'message' => esc_html__( 'Plugin slug is required.', 'spiraclethemes-site-library' ) ) );
+		}
+
+		$allowed_slugs = wp_list_pluck( $this->recommended_plugins, 'slug' );
+		if ( ! in_array( $slug, $allowed_slugs, true ) ) {
+			ob_end_clean();
+			wp_send_json_error( array( 'message' => esc_html__( 'This plugin is not in the recommended plugins list.', 'spiraclethemes-site-library' ) ) );
 		}
 
 		$result = $this->plugin_installer->activate_plugin( $slug );
 
 		if ( is_wp_error( $result ) ) {
+			ob_end_clean();
 			wp_send_json_error( array( 'message' => $result->get_error_message() ) );
 		}
 
+		ob_end_clean();
 		wp_send_json_success( $result );
 	}
 
@@ -583,11 +762,15 @@ class Spiracle_Demo_Import {
 	 * AJAX handler — get the status of recommended plugins.
 	 */
 	public function ajax_get_plugins_status() {
+		ob_start();
+
 		if ( ! isset( $_POST['nonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['nonce'] ) ), 'spiracle_demo_import_nonce' ) ) {
+			ob_end_clean();
 			wp_send_json_error( array( 'message' => esc_html__( 'Security check failed.', 'spiraclethemes-site-library' ) ) );
 		}
 
 		if ( ! current_user_can( 'manage_options' ) ) {
+			ob_end_clean();
 			wp_send_json_error( array( 'message' => esc_html__( 'You do not have sufficient permissions.', 'spiraclethemes-site-library' ) ) );
 		}
 
@@ -596,6 +779,7 @@ class Spiracle_Demo_Import {
 			$statuses[] = $this->plugin_installer->check_plugin_status( $plugin );
 		}
 
+		ob_end_clean();
 		wp_send_json_success( array( 'plugins' => $statuses ) );
 	}
 
@@ -624,8 +808,14 @@ class Spiracle_Demo_Import {
 			set_transient( 'spiracle_demo_import_post_id_map', $post_id_map, HOUR_IN_SECONDS );
 		}
 
+		// Save the term ID mapping for the widget import step (nav_menu widget remapping).
+		$term_id_map = $importer->get_term_id_map();
+		if ( ! empty( $term_id_map ) ) {
+			set_transient( 'spiracle_demo_import_term_id_map', $term_id_map, HOUR_IN_SECONDS );
+		}
+
 		// Clean up temp file.
-		@unlink( $tmp_file );
+		$this->cleanup_file( $tmp_file );
 
 		if ( is_wp_error( $result ) ) {
 			return $result;
@@ -651,10 +841,20 @@ class Spiracle_Demo_Import {
 		}
 
 		$importer = new Spiracle_Widget_Importer();
-		$result   = $importer->import( $tmp_file );
+
+		// Retrieve the term ID mapping from the content import step for nav_menu widget remapping.
+		$term_id_map = get_transient( 'spiracle_demo_import_term_id_map' );
+		if ( ! is_array( $term_id_map ) ) {
+			$term_id_map = array();
+		}
+
+		$result = $importer->import( $tmp_file, $term_id_map );
+
+		// Clean up term ID map transient.
+		delete_transient( 'spiracle_demo_import_term_id_map' );
 
 		// Clean up temp file.
-		@unlink( $tmp_file );
+		$this->cleanup_file( $tmp_file );
 
 		if ( is_wp_error( $result ) ) {
 			return $result;
@@ -693,7 +893,8 @@ class Spiracle_Demo_Import {
 
 		// Clean up transient and temp file.
 		delete_transient( 'spiracle_demo_import_post_id_map' );
-		@unlink( $tmp_file );
+		delete_transient( 'spiracle_demo_import_term_id_map' );
+		$this->cleanup_file( $tmp_file );
 
 		if ( is_wp_error( $result ) ) {
 			return $result;
@@ -733,7 +934,7 @@ class Spiracle_Demo_Import {
 		 *
 		 * @param array $selected_import The selected demo configuration.
 		 */
-		do_action( 'pt-ocdi/after_import', $selected_import );
+		do_action( 'pt-ocdi/after_import', $selected_import ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
 
 		// Flush Elementor cache.
 		$this->flush_elementor_cache();

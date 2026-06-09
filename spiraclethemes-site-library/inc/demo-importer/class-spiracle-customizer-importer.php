@@ -189,6 +189,10 @@ class Spiracle_Customizer_Importer {
 	/**
 	 * Import WordPress options.
 	 *
+	 * Uses a whitelist of known-safe option prefixes/names to prevent
+	 * arbitrary option injection. Theme-specific options are identified
+	 * by matching the current theme slug prefix.
+	 *
 	 * @param array $options Associative array of option key => value pairs.
 	 */
 	private function import_options( $options ) {
@@ -231,10 +235,119 @@ class Spiracle_Customizer_Importer {
 			'ping_sites',
 			'woocommerce_email_from_address',
 			'woocommerce_email_from_name',
+			'template',
+			'stylesheet',
+			'active_plugins',
+			'blog_public',
+			'wp_user_roles',
+			'recently_edited',
+			'disallowed_keys',
+			'moderation_keys',
+			'default_comment_status',
+			'default_ping_status',
+			'default_pingback_flag',
+			'comment_max_links',
+			'comment_whitelist',
+			'comment_registration',
+			'close_comments_for_old_posts',
+			'close_comments_days_old',
+			'thread_comments',
+			'thread_comments_depth',
+			'page_comments',
+			'comments_per_page',
+			'default_comments_page',
+			'comment_order',
+			'sticky_posts',
+			'sidebars_widgets',
+			'recovery_mode_cookie',
+			'recovery_mode_expired',
+			'auto_updater',
+			'auto_core_update_notified',
+			'adminhash',
+			'auth_salt',
+			'secure_auth_salt',
+			'logged_in_salt',
+			'nonce_salt',
+			'secret',
+			'db_version',
+			'initial_db_version',
+			'WPLANG',
+			'can_compress_scripts',
+			'html_type',
+			'use_smilies',
+			'use_trackback',
+			'default_link_category',
+			'image_default_link_type',
+			'image_default_size',
+			'image_default_align',
+			'links_recently_updated_time',
+			'links_recently_updated_append',
+			'thumbnail_size_w',
+			'thumbnail_size_h',
+			'thumbnail_crop',
+			'medium_size_w',
+			'medium_size_h',
+			'medium_large_size_w',
+			'medium_large_size_h',
+			'large_size_w',
+			'large_size_h',
+			'embed_autourls',
+			'embed_size_w',
+			'embed_size_h',
+			'embed_oembed_discover',
+			'uploads_use_yearmonth_folders',
+		);
+
+		$blacklisted_prefixes = array(
+			'widget_',
+			'sidebars_',
+			'_transient_',
+			'_site_transient_',
+			'recovery_mode_',
+			'wp_php',
+			'wp_debug_',
+			'auto_update_',
+			'force_',
+		);
+
+		$theme_slug = get_option( 'stylesheet' );
+
+		$allowed_prefixes = array(
+			$theme_slug . '_',
+			'theme_mods_',
+			'woocommerce_',
+			'yith_',
+			'elementor_',
+			'ekit_',
+			'ohio_',
+			'eael_',
+			'woo_',
 		);
 
 		foreach ( $options as $key => $value ) {
 			if ( in_array( $key, $blacklisted_options, true ) ) {
+				continue;
+			}
+
+			$skip = false;
+			foreach ( $blacklisted_prefixes as $prefix ) {
+				if ( 0 === strpos( $key, $prefix ) ) {
+					$skip = true;
+					break;
+				}
+			}
+			if ( $skip ) {
+				continue;
+			}
+
+			$allowed = false;
+			foreach ( $allowed_prefixes as $prefix ) {
+				if ( 0 === strpos( $key, $prefix ) ) {
+					$allowed = true;
+					break;
+				}
+			}
+			if ( ! $allowed ) {
 				continue;
 			}
 

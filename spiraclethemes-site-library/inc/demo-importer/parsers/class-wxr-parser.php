@@ -5,8 +5,8 @@
  * Parses WordPress eXtended RSS (WXR) export files.
  * Based on the WordPress Importer plugin's parser.
  *
- * @package velour-pro-addons
- * @subpackage inc/demo-import/parsers
+ * @package spiraclethemes-site-library
+ * @subpackage inc/demo-importer/parsers
  */
 
 // Prevent direct access.
@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * WXR Parser class — converts a WXR file into a structured PHP array.
  */
-class WXR_Parser {
+class Spir_WXR_Parser { // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedClassFound
 
 	/**
 	 * Parse a WXR file.
@@ -27,7 +27,7 @@ class WXR_Parser {
 	 */
 	public function parse( $file ) {
 		if ( ! file_exists( $file ) ) {
-			return new WP_Error( 'wxr_parser_error', esc_html__( 'File does not exist.', 'velour-pro-addons' ) );
+			return new WP_Error( 'wxr_parser_error', esc_html__( 'File does not exist.', 'spiraclethemes-site-library' ) );
 		}
 
 		$parser = $this->get_parser_class( $file );
@@ -38,23 +38,23 @@ class WXR_Parser {
 	 * Determine the best parser to use based on available extensions.
 	 *
 	 * @param string $file File path.
-	 * @return WXR_Parser_SimpleXML|WXR_Parser_XML|WXR_Parser_Regex
+	 * @return Spir_WXR_Parser_SimpleXML|Spir_WXR_Parser_XML|Spir_WXR_Parser_Regex
 	 */
 	private function get_parser_class( $file ) {
 		if ( extension_loaded( 'simplexml' ) ) {
-			return new WXR_Parser_SimpleXML();
+			return new Spir_WXR_Parser_SimpleXML();
 		}
 		if ( extension_loaded( 'xml' ) ) {
-			return new WXR_Parser_XML();
+			return new Spir_WXR_Parser_XML();
 		}
-		return new WXR_Parser_Regex();
+		return new Spir_WXR_Parser_Regex();
 	}
 }
 
 /**
  * SimpleXML-based WXR parser.
  */
-class WXR_Parser_SimpleXML {
+class Spir_WXR_Parser_SimpleXML { // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedClassFound
 
 	/**
 	 * Parse the file using SimpleXML.
@@ -78,10 +78,9 @@ class WXR_Parser_SimpleXML {
 		$xml = file_get_contents( $file );
 
 		if ( empty( $xml ) ) {
-			return new WP_Error( 'wxr_parser_error', esc_html__( 'Empty or unreadable file.', 'velour-pro-addons' ) );
+			return new WP_Error( 'wxr_parser_error', esc_html__( 'Empty or unreadable file.', 'spiraclethemes-site-library' ) );
 		}
 
-		// Handle WXR namespace.
 		$wxr_version  = '';
 		$base_url     = '';
 		$wxr_namespaces = array(
@@ -90,10 +89,10 @@ class WXR_Parser_SimpleXML {
 
 		libxml_clear_errors();
 
-		$load_result = $dom->loadXML( $xml );
+		$load_result = $dom->loadXML( $xml, LIBXML_NOENT | LIBXML_NONET );
 		if ( ! $load_result ) {
 			libxml_use_internal_errors( $internal_errors );
-			return new WP_Error( 'wxr_parser_error', esc_html__( 'Could not parse XML file.', 'velour-pro-addons' ) );
+			return new WP_Error( 'wxr_parser_error', esc_html__( 'Could not parse XML file.', 'spiraclethemes-site-library' ) );
 		}
 
 		$xpath = new DOMXPath( $dom );
@@ -184,7 +183,7 @@ class WXR_Parser_SimpleXML {
 						$term_meta[] = $meta;
 					}
 				} else {
-					$term[ 'term_' . $tag ] = $child->textContent;
+					$term[ $tag ] = $child->textContent;
 				}
 			}
 
@@ -352,7 +351,7 @@ class WXR_Parser_SimpleXML {
 /**
  * XML parser fallback using xml_parse (SAX-based).
  */
-class WXR_Parser_XML {
+class Spir_WXR_Parser_XML { // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedClassFound
 
 	/**
 	 * Parse the file using the XML extension.
@@ -364,7 +363,7 @@ class WXR_Parser_XML {
 		// phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents
 		$xml = file_get_contents( $file );
 		if ( empty( $xml ) ) {
-			return new WP_Error( 'wxr_parser_error', esc_html__( 'Empty or unreadable file.', 'velour-pro-addons' ) );
+			return new WP_Error( 'wxr_parser_error', esc_html__( 'Empty or unreadable file.', 'spiraclethemes-site-library' ) );
 		}
 
 		// Use SimpleXML parser as fallback with error suppression.
@@ -373,13 +372,13 @@ class WXR_Parser_XML {
 		if ( false === $simple_xml ) {
 			libxml_clear_errors();
 			// Fall back to regex parser.
-			$regex_parser = new WXR_Parser_Regex();
+			$regex_parser = new Spir_WXR_Parser_Regex();
 			return $regex_parser->parse( $file );
 		}
 		libxml_clear_errors();
 
 		// Convert SimpleXML to our format using the SimpleXML parser.
-		$simplexml_parser = new WXR_Parser_SimpleXML();
+		$simplexml_parser = new Spir_WXR_Parser_SimpleXML();
 		return $simplexml_parser->parse( $file );
 	}
 }
@@ -387,7 +386,7 @@ class WXR_Parser_XML {
 /**
  * Regex-based WXR parser (last resort fallback).
  */
-class WXR_Parser_Regex {
+class Spir_WXR_Parser_Regex { // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedClassFound
 
 	/**
 	 * Parse the file using regex patterns.
@@ -399,7 +398,7 @@ class WXR_Parser_Regex {
 		// phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents
 		$content = file_get_contents( $file );
 		if ( empty( $content ) ) {
-			return new WP_Error( 'wxr_parser_error', esc_html__( 'Empty or unreadable file.', 'velour-pro-addons' ) );
+			return new WP_Error( 'wxr_parser_error', esc_html__( 'Empty or unreadable file.', 'spiraclethemes-site-library' ) );
 		}
 
 		return array(

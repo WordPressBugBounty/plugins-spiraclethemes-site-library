@@ -14,7 +14,7 @@ if ( ! defined( 'WPINC' ) ) {
  *
  * Maps theme slugs to their corresponding function and element files.
  */
-$theme_files = [
+$spir_theme_files = [
     'own-shop'         => [
         SPIR_SITE_LIBRARY_PATH . '/inc/theme-functions/own-shop-functions.php',
         SPIR_SITE_LIBRARY_PATH . '/elements/own-shop/helper-functions.php',
@@ -98,10 +98,10 @@ $theme_files = [
 ];
 
 // Load the appropriate files based on the current theme slug.
-if ( isset( $theme_files[ $this->theme_slug ] ) ) {
-    foreach ( $theme_files[ $this->theme_slug ] as $file ) {
-        if ( file_exists( $file ) ) {
-            require_once $file;
+if ( isset( $spir_theme_files[ $this->theme_slug ] ) ) {
+    foreach ( $spir_theme_files[ $this->theme_slug ] as $spir_file ) {
+        if ( file_exists( $spir_file ) ) {
+            require_once $spir_file;
         }
     }
 }
@@ -129,25 +129,21 @@ function spiraclethemes_site_library_api_data( $theme_name, $demo_name, $file_ty
     $response = wp_remote_get( $api_url, [ 'timeout' => 10, 'sslverify' => true ] );
 
     if ( is_wp_error( $response ) ) {
-        error_log( 'Spiraclethemes Site Library API Error: ' . $response->get_error_message() );
         return false;
     }
 
     $response_code = wp_remote_retrieve_response_code( $response );
     if ( 200 !== (int) $response_code ) {
-        error_log( 'Spiraclethemes Site Library API Response Error: ' . $response_code );
         return false;
     }
 
     $api_data = wp_remote_retrieve_body( $response );
     if ( empty( $api_data ) ) {
-        error_log( 'Spiraclethemes Site Library: Empty API Response' );
         return false;
     }
 
     $api_data_array = json_decode( $api_data, true );
     if ( ! $api_data_array || ! isset( $api_data_array['file_path'] ) ) {
-        error_log( 'Spiraclethemes Site Library: Missing or invalid file_url in API response' );
         return false;
     }
 
@@ -169,14 +165,12 @@ function spiraclethemes_site_library_api_data( $theme_name, $demo_name, $file_ty
 			);
 		}
 	} else {
-		error_log( 'Spiraclethemes Site Library: Invalid file URL returned from API.' );
 		return false;
 	}
 
 	$file_url = esc_url_raw( $file_url );
 
 	if ( 0 !== strpos( $file_url, 'https://spiraclethemes.com/' ) ) {
-		error_log( 'Spiraclethemes Site Library: Invalid file URL returned from API.' );
 		return false;
 	}
 

@@ -1,4 +1,5 @@
 <?php
+// phpcs:disable WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound
 /**
  * CTA Widget View for Shopnex Theme
  *
@@ -52,7 +53,7 @@ $btn_nofollow = ! empty( $button_link['nofollow'] ) ? ' rel="nofollow"' : '';
             <?php endif; ?>
 
             <?php if ( $show_button && $button_text ) : ?>
-                <a href="<?php echo $btn_href; ?>" class="shopnex-cta-btn"<?php echo $btn_target . $btn_nofollow; ?>>
+                <a href="<?php echo esc_url( $btn_href ); ?>" class="shopnex-cta-btn"<?php echo esc_attr( $btn_target . $btn_nofollow ); ?>>
                     <?php echo esc_html( $button_text ); ?>
                 </a>
             <?php endif; ?>

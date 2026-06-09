@@ -1,4 +1,5 @@
 <?php
+// phpcs:disable WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound
 /**
  * Home Featured Section - Frontend Render
  *
@@ -65,13 +66,13 @@ if ( ! empty( $hero_image['id'] ) ) {
 
             <div class="shopnex-hero-buttons">
                 <?php if ( ! empty( $primary_btn_text ) ) : ?>
-                    <a href="<?php echo $primary_link; ?>" class="shopnex-btn shopnex-btn-primary"<?php echo $primary_target . $primary_nofollow; ?>>
+                    <a href="<?php echo esc_url( $primary_link ); ?>" class="shopnex-btn shopnex-btn-primary"<?php echo esc_attr( $primary_target . $primary_nofollow ); ?>>
                         <?php echo esc_html( $primary_btn_text ); ?>
                     </a>
                 <?php endif; ?>
 
                 <?php if ( ! empty( $secondary_btn_text ) ) : ?>
-                    <a href="<?php echo $secondary_link; ?>" class="shopnex-btn shopnex-btn-outline"<?php echo $secondary_target . $secondary_nofollow; ?>>
+                    <a href="<?php echo esc_url( $secondary_link ); ?>" class="shopnex-btn shopnex-btn-outline"<?php echo esc_attr( $secondary_target . $secondary_nofollow ); ?>>
                         <?php echo esc_html( $secondary_btn_text ); ?>
                     </a>
                 <?php endif; ?>

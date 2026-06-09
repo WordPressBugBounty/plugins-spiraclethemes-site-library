@@ -1,0 +1,3824 @@
+# Copyright (C) 2026 SpiracleThemes
+# This file is distributed under the GPL-2.0+.
+msgid ""
+msgstr ""
+"Project-Id-Version: Spiraclethemes Site Library 1.6.1\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/spiraclethemes-site-library\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2026-06-09T07:36:06+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.12.0\n"
+"X-Domain: spiraclethemes-site-library\n"
+
+#. Plugin Name of the plugin
+#: spiraclethemes-site-library.php
+#: admin/admin-init.php:79
+#: admin/admin-init.php:80
+#: admin/admin-init.php:214
+#: admin/admin-init.php:253
+msgid "Spiraclethemes Site Library"
+msgstr ""
+
+#. Plugin URI of the plugin
+#: spiraclethemes-site-library.php
+msgid "https://wordpress.org/plugins/spiraclethemes-site-library/"
+msgstr ""
+
+#. Description of the plugin
+#: spiraclethemes-site-library.php
+msgid "A plugin by Spiracle Themes that adds one-click demo import, theme customization, starter templates, and page builder support to its free themes."
+msgstr ""
+
+#. Author of the plugin
+#: spiraclethemes-site-library.php
+msgid "SpiracleThemes"
+msgstr ""
+
+#. Author URI of the plugin
+#: spiraclethemes-site-library.php
+msgid "https://spiraclethemes.com"
+msgstr ""
+
+#: admin/admin-init.php:136
+msgid "Invalid nonce"
+msgstr ""
+
+#: admin/admin-init.php:144
+msgid "Unauthorized user"
+msgstr ""
+
+#: admin/admin-init.php:163
+msgid "Settings saved successfully"
+msgstr ""
+
+#: admin/admin-init.php:168
+msgid "Failed to verify saved settings"
+msgstr ""
+
+#: admin/admin-init.php:182
+msgid "You do not have permission to access this page."
+msgstr ""
+
+#: admin/admin-init.php:183
+msgid "Permission Denied"
+msgstr ""
+
+#: admin/admin-init.php:215
+msgid "One-click demo import, starter templates & theme customization"
+msgstr ""
+
+#: admin/admin-init.php:229
+msgid "About"
+msgstr ""
+
+#: admin/admin-init.php:235
+msgid "System Info"
+msgstr ""
+
+#: admin/admin-init.php:241
+msgid "Settings"
+msgstr ""
+
+#: admin/admin-init.php:254
+msgid "A powerful plugin by Spiracle Themes that adds one-click demo import, theme customization, starter templates, and page builder support to its free themes."
+msgstr ""
+
+#: admin/admin-init.php:256
+msgid "Visit Spiraclethemes"
+msgstr ""
+
+#: admin/admin-init.php:264
+msgid "One-Click Demo Import"
+msgstr ""
+
+#: admin/admin-init.php:265
+msgid "Import complete theme demos with content, widgets, and settings in a single click."
+msgstr ""
+
+#: admin/admin-init.php:271
+msgid "Starter Templates"
+msgstr ""
+
+#: admin/admin-init.php:272
+msgid "Ready-to-use templates for various niches — business, shop, blog, and more."
+msgstr ""
+
+#: admin/admin-init.php:278
+msgid "Theme Customization"
+msgstr ""
+
+#: admin/admin-init.php:279
+msgid "Fine-tune every aspect of your theme with powerful customization options."
+msgstr ""
+
+#: admin/admin-init.php:285
+msgid "Page Builder Support"
+msgstr ""
+
+#: admin/admin-init.php:286
+msgid "Seamless integration with Elementor and other popular page builders."
+msgstr ""
+
+#: admin/admin-init.php:296
+msgid "System Information"
+msgstr ""
+
+#: admin/admin-init.php:297
+msgid "System setup information useful for debugging purposes."
+msgstr ""
+
+#: admin/admin-init.php:308
+msgid "Plugin Settings"
+msgstr ""
+
+#: admin/admin-init.php:309
+msgid "Configure plugin features and behavior."
+msgstr ""
+
+#: admin/admin-init.php:350
+msgid "Save Changes"
+msgstr ""
+
+#: admin/includes/system-info.php:27
+msgid "Begin System Info"
+msgstr ""
+
+#: admin/includes/system-info.php:29
+msgid "-- Site Info --"
+msgstr ""
+
+#: admin/includes/system-info.php:30
+msgid "Site URL:"
+msgstr ""
+
+#: admin/includes/system-info.php:31
+msgid "Home URL:"
+msgstr ""
+
+#: admin/includes/system-info.php:32
+msgid "Multisite:"
+msgstr ""
+
+#: admin/includes/system-info.php:34
+msgid "-- WordPress Configuration --"
+msgstr ""
+
+#: admin/includes/system-info.php:35
+msgid "Version:"
+msgstr ""
+
+#: admin/includes/system-info.php:36
+msgid "Language:"
+msgstr ""
+
+#: admin/includes/system-info.php:37
+msgid "Permalink Structure:"
+msgstr ""
+
+#: admin/includes/system-info.php:38
+msgid "Active Theme:"
+msgstr ""
+
+#: admin/includes/system-info.php:40
+msgid "-- WordPress Plugins --"
+msgstr ""
+
+#: admin/includes/system-info.php:48
+msgid "-- Webserver Configuration --"
+msgstr ""
+
+#: admin/includes/system-info.php:49
+msgid "PHP Version:"
+msgstr ""
+
+#: admin/includes/system-info.php:50
+msgid "MySQL Version:"
+msgstr ""
+
+#: admin/includes/system-info.php:52
+msgid "Webserver Info:"
+msgstr ""
+
+#: admin/includes/system-info.php:56
+msgid "-- PHP Configuration --"
+msgstr ""
+
+#: admin/includes/system-info.php:57
+msgid "Memory Limit:"
+msgstr ""
+
+#: admin/includes/system-info.php:58
+msgid "Upload Max Size:"
+msgstr ""
+
+#: admin/includes/system-info.php:59
+msgid "Post Max Size:"
+msgstr ""
+
+#: admin/includes/system-info.php:60
+msgid "Time Limit:"
+msgstr ""
+
+#: admin/includes/system-info.php:61
+msgid "Max Input Vars:"
+msgstr ""
+
+#: admin/includes/system-info.php:63
+msgid "Display Errors:"
+msgstr ""
+
+#: admin/includes/system-info.php:67
+msgid "-- PHP Extensions --"
+msgstr ""
+
+#: admin/includes/system-info.php:68
+msgid "cURL:"
+msgstr ""
+
+#: admin/includes/system-info.php:69
+msgid "fsockopen:"
+msgstr ""
+
+#: admin/includes/system-info.php:70
+msgid "SOAP Client:"
+msgstr ""
+
+#: admin/includes/system-info.php:71
+msgid "Suhosin:"
+msgstr ""
+
+#: admin/includes/system-info.php:73
+msgid "End System Info"
+msgstr ""
+
+#: admin/includes/system-settings.php:27
+#: inc/demo-importer/class-spiracle-demo-import.php:120
+#: inc/demo-importer/class-spiracle-demo-import.php:121
+#: inc/demo-importer/class-spiracle-demo-import.php:187
+msgid "Demo Import"
+msgstr ""
+
+#: admin/includes/system-settings.php:28
+msgid "Enable or disable the one-click demo import feature for your theme."
+msgstr ""
+
+#: admin/includes/system-settings.php:36
+msgid "Enabled"
+msgstr ""
+
+#: admin/includes/system-settings.php:36
+msgid "Disabled"
+msgstr ""
+
+#. translators: 1: Plugin name 2: Elementor
+#: elements/blogson/helper-functions.php:197
+#: elements/own-shop/helper-functions.php:197
+#: elements/shopnex/helper-functions.php:196
+#, php-format
+msgid "\"%1$s\" %2$s requires \"%3$s\" to be installed and activated."
+msgstr ""
+
+#: elements/blogson/helper-functions.php:198
+#: elements/blogson/helper-functions.php:225
+msgid "Blogson Elements"
+msgstr ""
+
+#: elements/blogson/helper-functions.php:199
+#: elements/blogson/helper-functions.php:226
+#: elements/own-shop/helper-functions.php:199
+#: elements/own-shop/helper-functions.php:226
+#: elements/shopnex/helper-functions.php:198
+#: elements/shopnex/helper-functions.php:225
+msgid "inside the Elementor page builder"
+msgstr ""
+
+#: elements/blogson/helper-functions.php:200
+#: elements/blogson/helper-functions.php:227
+#: elements/own-shop/helper-functions.php:200
+#: elements/own-shop/helper-functions.php:227
+#: elements/shopnex/helper-functions.php:199
+#: elements/shopnex/helper-functions.php:226
+msgid "Elementor"
+msgstr ""
+
+#. translators: 1: Plugin name 2: Elementor 3: Required Elementor version
+#: elements/blogson/helper-functions.php:224
+#: elements/own-shop/helper-functions.php:224
+#: elements/shopnex/helper-functions.php:223
+#, php-format
+msgid "\"%1$s\" %2$s requires \"%3$s\" version %4$s or greater."
+msgstr ""
+
+#. translators: 1: Plugin name 2: PHP 3: Required PHP version
+#: elements/blogson/helper-functions.php:252
+#: elements/own-shop/helper-functions.php:252
+#: elements/shopnex/helper-functions.php:251
+#, php-format
+msgid "\"%1$s\" requires \"%2$s\" version %3$s or greater."
+msgstr ""
+
+#: elements/blogson/helper-functions.php:253
+msgid "Blogson Elementor Addons"
+msgstr ""
+
+#: elements/blogson/helper-functions.php:254
+#: elements/own-shop/helper-functions.php:254
+#: elements/shopnex/helper-functions.php:253
+msgid "PHP"
+msgstr ""
+
+#: elements/blogson/post-grid/template/config.php:20
+#: elements/blogson/post-grid/template/config.php:44
+msgid "Post Grid"
+msgstr ""
+
+#: elements/blogson/post-grid/template/config.php:51
+msgid "Show section title"
+msgstr ""
+
+#: elements/blogson/post-grid/template/config.php:54
+#: elements/blogson/post-grid/template/config.php:234
+#: elements/blogson/post-grid/template/config.php:264
+#: elements/blogson/post-grid/template/config.php:277
+#: elements/blogson/post-grid/template/config.php:290
+#: elements/blogson/post-grid/template/config.php:303
+#: elements/blogson/post-grid/template/config.php:354
+#: elements/blogson/post-grid/template/config.php:766
+#: elements/own-shop/list-prod/template/config.php:89
+#: elements/own-shop/recent-blog/template/config.php:76
+#: elements/own-shop/recent-blog/template/config.php:89
+msgid "Show"
+msgstr ""
+
+#: elements/blogson/post-grid/template/config.php:55
+#: elements/blogson/post-grid/template/config.php:235
+#: elements/blogson/post-grid/template/config.php:265
+#: elements/blogson/post-grid/template/config.php:278
+#: elements/blogson/post-grid/template/config.php:291
+#: elements/blogson/post-grid/template/config.php:304
+#: elements/blogson/post-grid/template/config.php:355
+#: elements/blogson/post-grid/template/config.php:767
+#: elements/own-shop/list-prod/template/config.php:90
+#: elements/own-shop/recent-blog/template/config.php:77
+#: elements/own-shop/recent-blog/template/config.php:90
+msgid "Hide"
+msgstr ""
+
+#: elements/blogson/post-grid/template/config.php:64
+#: elements/blogson/post-grid/template/config.php:187
+#: elements/blogson/post-grid/template/config.php:559
+#: elements/own-shop/recent-blog/template/config.php:120
+#: elements/shopnex/bestsellers/template/config.php:55
+#: elements/shopnex/bestsellers/template/config.php:402
+#: elements/shopnex/categories/template/config.php:57
+#: elements/shopnex/categories/template/config.php:363
+#: elements/shopnex/contact-layout/template/config.php:158
+#: elements/shopnex/contact-layout/template/config.php:224
+#: elements/shopnex/contact-layout/template/config.php:302
+#: elements/shopnex/cta/template/config.php:91
+#: elements/shopnex/cta/template/config.php:426
+#: elements/shopnex/editorial/template/config.php:227
+#: elements/shopnex/editorial/template/config.php:406
+#: elements/shopnex/home-featured/template/config.php:60
+#: elements/shopnex/home-featured/template/config.php:312
+#: elements/shopnex/info-boxes/template/config.php:122
+#: elements/shopnex/info-boxes/template/config.php:358
+#: elements/shopnex/journey/template/config.php:124
+#: elements/shopnex/map-section/template/config.php:177
+#: elements/shopnex/our-story/template/config.php:160
+#: elements/shopnex/our-story/template/config.php:443
+#: elements/shopnex/page-hero/template/config.php:220
+#: elements/shopnex/page-hero/template/config.php:546
+#: elements/shopnex/page-title/template/config.php:69
+#: elements/shopnex/page-title/template/config.php:224
+#: elements/shopnex/values/template/config.php:149
+msgid "Title"
+msgstr ""
+
+#: elements/blogson/post-grid/template/config.php:65
+msgid "Enter title. Leave blank to hide."
+msgstr ""
+
+#: elements/blogson/post-grid/template/config.php:77
+msgid "Title size"
+msgstr ""
+
+#: elements/blogson/post-grid/template/config.php:79
+msgid "H1"
+msgstr ""
+
+#: elements/blogson/post-grid/template/config.php:80
+msgid "H2"
+msgstr ""
+
+#: elements/blogson/post-grid/template/config.php:81
+msgid "H3"
+msgstr ""
+
+#: elements/blogson/post-grid/template/config.php:82
+msgid "H4"
+msgstr ""
+
+#: elements/blogson/post-grid/template/config.php:83
+msgid "H5"
+msgstr ""
+
+#: elements/blogson/post-grid/template/config.php:84
+msgid "H6"
+msgstr ""
+
+#: elements/blogson/post-grid/template/config.php:97
+msgid "Posts style"
+msgstr ""
+
+#: elements/blogson/post-grid/template/config.php:99
+msgid "Select posts style on preview."
+msgstr ""
+
+#: elements/blogson/post-grid/template/config.php:101
+#: elements/own-shop/list-prod/template/config.php:55
+#: inc/theme-functions/own-shop-functions.php:179
+#: inc/theme-functions/own-shop-lite-functions.php:175
+#: inc/theme-functions/own-shope-functions.php:175
+#: inc/theme-functions/own-store-functions.php:175
+msgid "Featured"
+msgstr ""
+
+#: elements/blogson/post-grid/template/config.php:102
+msgid "Image Blocks"
+msgstr ""
+
+#: elements/blogson/post-grid/template/config.php:103
+msgid "Grid List"
+msgstr ""
+
+#: elements/blogson/post-grid/template/config.php:112
+msgid "Posts count"
+msgstr ""
+
+#: elements/blogson/post-grid/template/config.php:113
+msgid "Enter number of post to display (Note: Enter -1 to display all posts). Note: You might see the sticky posts on the front page so adjust the count according to the number of sticky posts. Sticky posts will show only when no category selected."
+msgstr ""
+
+#: elements/blogson/post-grid/template/config.php:125
+msgid "Posts per row"
+msgstr ""
+
+#: elements/blogson/post-grid/template/config.php:127
+msgid "Select posts count per row. It works for simple and masonry style."
+msgstr ""
+
+#: elements/blogson/post-grid/template/config.php:129
+msgid "One"
+msgstr ""
+
+#: elements/blogson/post-grid/template/config.php:130
+msgid "Two"
+msgstr ""
+
+#: elements/blogson/post-grid/template/config.php:131
+msgid "Three"
+msgstr ""
+
+#: elements/blogson/post-grid/template/config.php:132
+msgid "Four"
+msgstr ""
+
+#: elements/blogson/post-grid/template/config.php:144
+#: elements/own-shop/recent-blog/template/config.php:61
+#: elements/shopnex/categories/template/config.php:93
+msgid "Categories"
+msgstr ""
+
+#: elements/blogson/post-grid/template/config.php:145
+#: elements/own-shop/recent-blog/template/config.php:62
+msgid "This help you to retrieve items from specific category."
+msgstr ""
+
+#: elements/blogson/post-grid/template/config.php:156
+msgid "Select posts to show"
+msgstr ""
+
+#: elements/blogson/post-grid/template/config.php:157
+msgid "Leave empty to show recent posts."
+msgstr ""
+
+#: elements/blogson/post-grid/template/config.php:168
+msgid "Select posts to exclude"
+msgstr ""
+
+#: elements/blogson/post-grid/template/config.php:169
+msgid "Select posts to exclude those records"
+msgstr ""
+
+#: elements/blogson/post-grid/template/config.php:180
+msgid "Order by"
+msgstr ""
+
+#: elements/blogson/post-grid/template/config.php:182
+msgid "Select how to sort retrieved posts."
+msgstr ""
+
+#: elements/blogson/post-grid/template/config.php:184
+msgid "Date"
+msgstr ""
+
+#: elements/blogson/post-grid/template/config.php:185
+msgid "Last modified date"
+msgstr ""
+
+#: elements/blogson/post-grid/template/config.php:186
+msgid "Popularity"
+msgstr ""
+
+#: elements/blogson/post-grid/template/config.php:188
+#: elements/shopnex/bestsellers/template/config.php:118
+msgid "Random"
+msgstr ""
+
+#: elements/blogson/post-grid/template/config.php:197
+msgid "Posts order"
+msgstr ""
+
+#: elements/blogson/post-grid/template/config.php:201
+msgid "descending"
+msgstr ""
+
+#: elements/blogson/post-grid/template/config.php:205
+msgid "ascending"
+msgstr ""
+
+#: elements/blogson/post-grid/template/config.php:220
+msgid "Image size"
+msgstr ""
+
+#: elements/blogson/post-grid/template/config.php:222
+msgid "Select your image size to use in post."
+msgstr ""
+
+#: elements/blogson/post-grid/template/config.php:231
+msgid "Display content?"
+msgstr ""
+
+#: elements/blogson/post-grid/template/config.php:247
+msgid "Content count"
+msgstr ""
+
+#: elements/blogson/post-grid/template/config.php:248
+msgid "Enter number of words in post excerpt. 0 to hide it."
+msgstr ""
+
+#: elements/blogson/post-grid/template/config.php:261
+msgid "Display categories?"
+msgstr ""
+
+#: elements/blogson/post-grid/template/config.php:274
+msgid "Display comments?"
+msgstr ""
+
+#: elements/blogson/post-grid/template/config.php:287
+msgid "Display date?"
+msgstr ""
+
+#: elements/blogson/post-grid/template/config.php:300
+msgid "Display author?"
+msgstr ""
+
+#: elements/blogson/post-grid/template/config.php:313
+msgid "Author pre text"
+msgstr ""
+
+#: elements/blogson/post-grid/template/config.php:325
+msgid "Trim title?"
+msgstr ""
+
+#: elements/blogson/post-grid/template/config.php:328
+#: elements/shopnex/bestsellers/template/config.php:77
+#: elements/shopnex/bestsellers/template/config.php:151
+#: elements/shopnex/bestsellers/template/config.php:163
+#: elements/shopnex/bestsellers/template/config.php:175
+#: elements/shopnex/bestsellers/template/config.php:188
+#: elements/shopnex/bestsellers/template/config.php:200
+#: elements/shopnex/categories/template/config.php:79
+#: elements/shopnex/contact-layout/template/config.php:132
+#: elements/shopnex/contact-layout/template/config.php:198
+#: elements/shopnex/contact-layout/template/config.php:276
+#: elements/shopnex/cta/template/config.php:68
+#: elements/shopnex/cta/template/config.php:115
+#: elements/shopnex/home-featured/template/config.php:132
+#: elements/shopnex/info-boxes/template/config.php:268
+#: elements/shopnex/info-boxes/template/config.php:280
+#: elements/shopnex/journey/template/config.php:91
+#: elements/shopnex/map-section/template/config.php:167
+#: elements/shopnex/map-section/template/config.php:236
+#: elements/shopnex/our-story/template/config.php:82
+#: elements/shopnex/our-story/template/config.php:150
+#: elements/shopnex/our-story/template/config.php:223
+#: elements/shopnex/page-hero/template/config.php:108
+#: elements/shopnex/page-hero/template/config.php:131
+#: elements/shopnex/page-hero/template/config.php:210
+#: elements/shopnex/page-hero/template/config.php:261
+#: elements/shopnex/page-title/template/config.php:110
+#: elements/shopnex/page-title/template/config.php:335
+#: elements/shopnex/stats-strip/template/config.php:208
+#: elements/shopnex/stats-strip/template/config.php:220
+#: elements/shopnex/stats-strip/template/config.php:232
+#: elements/shopnex/team/template/config.php:102
+#: elements/shopnex/team/template/config.php:530
+#: elements/shopnex/team/template/config.php:543
+#: elements/shopnex/team/template/config.php:566
+#: elements/shopnex/values/template/config.php:102
+#: elements/shopnex/values/template/config.php:573
+#: elements/shopnex/values/template/config.php:585
+msgid "Yes"
+msgstr ""
+
+#: elements/blogson/post-grid/template/config.php:329
+#: elements/shopnex/bestsellers/template/config.php:78
+#: elements/shopnex/bestsellers/template/config.php:152
+#: elements/shopnex/bestsellers/template/config.php:164
+#: elements/shopnex/bestsellers/template/config.php:176
+#: elements/shopnex/bestsellers/template/config.php:189
+#: elements/shopnex/bestsellers/template/config.php:201
+#: elements/shopnex/categories/template/config.php:80
+#: elements/shopnex/contact-layout/template/config.php:133
+#: elements/shopnex/contact-layout/template/config.php:199
+#: elements/shopnex/contact-layout/template/config.php:277
+#: elements/shopnex/cta/template/config.php:69
+#: elements/shopnex/cta/template/config.php:116
+#: elements/shopnex/home-featured/template/config.php:133
+#: elements/shopnex/info-boxes/template/config.php:269
+#: elements/shopnex/info-boxes/template/config.php:281
+#: elements/shopnex/journey/template/config.php:92
+#: elements/shopnex/map-section/template/config.php:168
+#: elements/shopnex/map-section/template/config.php:237
+#: elements/shopnex/our-story/template/config.php:83
+#: elements/shopnex/our-story/template/config.php:151
+#: elements/shopnex/our-story/template/config.php:224
+#: elements/shopnex/page-hero/template/config.php:109
+#: elements/shopnex/page-hero/template/config.php:132
+#: elements/shopnex/page-hero/template/config.php:211
+#: elements/shopnex/page-hero/template/config.php:262
+#: elements/shopnex/page-title/template/config.php:111
+#: elements/shopnex/page-title/template/config.php:336
+#: elements/shopnex/stats-strip/template/config.php:209
+#: elements/shopnex/stats-strip/template/config.php:221
+#: elements/shopnex/stats-strip/template/config.php:233
+#: elements/shopnex/team/template/config.php:103
+#: elements/shopnex/team/template/config.php:531
+#: elements/shopnex/team/template/config.php:544
+#: elements/shopnex/team/template/config.php:567
+#: elements/shopnex/values/template/config.php:103
+#: elements/shopnex/values/template/config.php:574
+#: elements/shopnex/values/template/config.php:586
+msgid "No"
+msgstr ""
+
+#: elements/blogson/post-grid/template/config.php:338
+msgid "Trim title count"
+msgstr ""
+
+#: elements/blogson/post-grid/template/config.php:339
+msgid "Enter number of words to show in title, 0 to hide it."
+msgstr ""
+
+#: elements/blogson/post-grid/template/config.php:351
+msgid "Show readmore"
+msgstr ""
+
+#: elements/blogson/post-grid/template/config.php:367
+msgid "Readmore text"
+msgstr ""
+
+#: elements/blogson/post-grid/template/config.php:384
+#: elements/own-shop/featured-prod/template/config.php:127
+#: elements/own-shop/list-prod/template/config.php:180
+#: elements/own-shop/new-prod/template/config.php:127
+#: elements/own-shop/popular-prod/template/config.php:127
+#: elements/shopnex/contact-layout/template/config.php:332
+#: elements/shopnex/cta/template/config.php:181
+#: elements/shopnex/editorial/template/config.php:58
+#: elements/shopnex/info-boxes/template/config.php:176
+#: elements/shopnex/journey/template/config.php:184
+#: elements/shopnex/our-story/template/config.php:285
+#: elements/shopnex/page-hero/template/config.php:332
+#: elements/shopnex/page-title/template/config.php:150
+#: elements/shopnex/stats-strip/template/config.php:138
+#: elements/shopnex/team/template/config.php:187
+#: elements/shopnex/values/template/config.php:203
+msgid "Layout"
+msgstr ""
+
+#: elements/blogson/post-grid/template/config.php:392
+msgid "Rows gap"
+msgstr ""
+
+#: elements/blogson/post-grid/template/config.php:414
+msgid "Image height"
+msgstr ""
+
+#: elements/blogson/post-grid/template/config.php:436
+msgid "Text position"
+msgstr ""
+
+#: elements/blogson/post-grid/template/config.php:438
+msgid "Choose text position over image"
+msgstr ""
+
+#: elements/blogson/post-grid/template/config.php:440
+#: elements/shopnex/bestsellers/template/config.php:319
+#: elements/shopnex/categories/template/config.php:280
+#: elements/shopnex/cta/template/config.php:159
+#: elements/shopnex/page-hero/template/config.php:279
+#: elements/shopnex/page-title/template/config.php:128
+msgid "Center"
+msgstr ""
+
+#: elements/blogson/post-grid/template/config.php:441
+msgid "Bottom Center"
+msgstr ""
+
+#: elements/blogson/post-grid/template/config.php:455
+msgid "Text Adjustment"
+msgstr ""
+
+#: elements/blogson/post-grid/template/config.php:482
+#: elements/shopnex/cta/template/config.php:290
+#: elements/shopnex/editorial/template/config.php:130
+#: elements/shopnex/editorial/template/config.php:305
+#: elements/shopnex/our-story/template/config.php:61
+#: elements/shopnex/our-story/template/config.php:718
+msgid "Image"
+msgstr ""
+
+#: elements/blogson/post-grid/template/config.php:490
+msgid "Image padding"
+msgstr ""
+
+#: elements/blogson/post-grid/template/config.php:508
+msgid "Image border radius"
+msgstr ""
+
+#: elements/blogson/post-grid/template/config.php:528
+#: elements/blogson/post-grid/template/config.php:678
+#: elements/own-shop/recent-blog/template/config.php:147
+#: elements/shopnex/cta/template/config.php:58
+#: elements/shopnex/editorial/template/config.php:201
+#: elements/shopnex/home-featured/template/config.php:43
+#: elements/shopnex/our-story/template/config.php:130
+#: elements/shopnex/page-hero/template/config.php:190
+#: elements/shopnex/page-title/template/config.php:61
+#: inc/demo-importer/class-spiracle-demo-import.php:244
+msgid "Content"
+msgstr ""
+
+#: elements/blogson/post-grid/template/config.php:540
+msgid "Content padding"
+msgstr ""
+
+#: elements/blogson/post-grid/template/config.php:568
+msgid "Section title typography"
+msgstr ""
+
+#: elements/blogson/post-grid/template/config.php:584
+msgid "Section title color"
+msgstr ""
+
+#: elements/blogson/post-grid/template/config.php:600
+msgid "Post title typography"
+msgstr ""
+
+#: elements/blogson/post-grid/template/config.php:613
+msgid "Post title color"
+msgstr ""
+
+#: elements/blogson/post-grid/template/config.php:626
+msgid "Post title hover color"
+msgstr ""
+
+#: elements/blogson/post-grid/template/config.php:639
+msgid "Section title space"
+msgstr ""
+
+#: elements/blogson/post-grid/template/config.php:659
+msgid "Post title space"
+msgstr ""
+
+#: elements/blogson/post-grid/template/config.php:691
+#: elements/shopnex/bestsellers/template/config.php:371
+#: elements/shopnex/bestsellers/template/config.php:411
+#: elements/shopnex/bestsellers/template/config.php:449
+#: elements/shopnex/categories/template/config.php:332
+#: elements/shopnex/categories/template/config.php:372
+#: elements/shopnex/categories/template/config.php:410
+#: elements/shopnex/editorial/template/config.php:361
+#: elements/shopnex/editorial/template/config.php:415
+#: elements/shopnex/editorial/template/config.php:469
+#: elements/shopnex/editorial/template/config.php:548
+#: elements/shopnex/home-featured/template/config.php:231
+#: elements/shopnex/home-featured/template/config.php:321
+#: elements/shopnex/home-featured/template/config.php:410
+msgid "Typography"
+msgstr ""
+
+#: elements/blogson/post-grid/template/config.php:699
+msgid "Content color"
+msgstr ""
+
+#: elements/blogson/post-grid/template/config.php:710
+msgid "Content space"
+msgstr ""
+
+#: elements/blogson/post-grid/template/config.php:729
+msgid "Category & meta style"
+msgstr ""
+
+#: elements/blogson/post-grid/template/config.php:738
+msgid "Category"
+msgstr ""
+
+#: elements/blogson/post-grid/template/config.php:751
+msgid "Category color"
+msgstr ""
+
+#: elements/blogson/post-grid/template/config.php:763
+msgid "Category background settings"
+msgstr ""
+
+#: elements/blogson/post-grid/template/config.php:776
+msgid "Category background color"
+msgstr ""
+
+#: elements/blogson/post-grid/template/config.php:791
+msgid "Category padding"
+msgstr ""
+
+#: elements/blogson/post-grid/template/config.php:808
+msgid "Category radius"
+msgstr ""
+
+#: elements/blogson/post-grid/template/config.php:826
+msgid "Meta (author,date,comments)"
+msgstr ""
+
+#: elements/blogson/post-grid/template/config.php:841
+msgid "Meta color"
+msgstr ""
+
+#: elements/blogson/post-grid/template/config.php:855
+msgid "Meta hover color"
+msgstr ""
+
+#: elements/blogson/post-grid/template/config.php:870
+msgid "Read more"
+msgstr ""
+
+#: elements/blogson/post-grid/template/config.php:882
+msgid "Readmore space"
+msgstr ""
+
+#: elements/blogson/post-grid/template/config.php:909
+#: elements/shopnex/contact-layout/template/config.php:887
+#: elements/shopnex/cta/template/config.php:612
+#: elements/shopnex/editorial/template/config.php:599
+#: elements/shopnex/map-section/template/config.php:643
+msgid "Normal"
+msgstr ""
+
+#: elements/blogson/post-grid/template/config.php:916
+#: elements/blogson/post-grid/template/config.php:938
+#: elements/shopnex/contact-layout/template/config.php:509
+#: elements/shopnex/contact-layout/template/config.php:545
+#: elements/shopnex/contact-layout/template/config.php:759
+#: elements/shopnex/contact-layout/template/config.php:979
+#: elements/shopnex/cta/template/config.php:289
+#: elements/shopnex/cta/template/config.php:389
+#: elements/shopnex/cta/template/config.php:448
+#: elements/shopnex/cta/template/config.php:506
+#: elements/shopnex/editorial/template/config.php:369
+#: elements/shopnex/editorial/template/config.php:423
+#: elements/shopnex/editorial/template/config.php:477
+#: elements/shopnex/map-section/template/config.php:563
+#: elements/shopnex/map-section/template/config.php:602
+#: elements/shopnex/map-section/template/config.php:650
+#: elements/shopnex/map-section/template/config.php:671
+#: elements/shopnex/our-story/template/config.php:406
+#: elements/shopnex/our-story/template/config.php:466
+#: elements/shopnex/our-story/template/config.php:524
+#: elements/shopnex/page-hero/template/config.php:569
+#: elements/shopnex/page-hero/template/config.php:630
+#: elements/shopnex/page-title/template/config.php:246
+#: elements/shopnex/page-title/template/config.php:307
+#: elements/shopnex/page-title/template/config.php:345
+msgid "Color"
+msgstr ""
+
+#: elements/blogson/post-grid/template/config.php:931
+#: elements/shopnex/contact-layout/template/config.php:920
+#: elements/shopnex/cta/template/config.php:645
+#: elements/shopnex/editorial/template/config.php:632
+#: elements/shopnex/map-section/template/config.php:664
+msgid "Hover"
+msgstr ""
+
+#: elements/blogson/widget-category.php:13
+msgid "Blogson Free Elements"
+msgstr ""
+
+#: elements/own-shop/featured-prod/template/config.php:20
+#: elements/own-shop/featured-prod/template/config.php:44
+msgid "Featured Products"
+msgstr ""
+
+#: elements/own-shop/featured-prod/template/config.php:51
+#: elements/own-shop/list-prod/template/config.php:67
+#: elements/own-shop/new-prod/template/config.php:51
+#: elements/own-shop/popular-prod/template/config.php:51
+msgid "Number of products"
+msgstr ""
+
+#: elements/own-shop/featured-prod/template/config.php:60
+#: elements/own-shop/list-prod/template/config.php:76
+#: elements/own-shop/new-prod/template/config.php:60
+#: elements/own-shop/popular-prod/template/config.php:60
+msgid "Number of columns"
+msgstr ""
+
+#: elements/own-shop/featured-prod/template/config.php:61
+#: elements/own-shop/list-prod/template/config.php:86
+#: elements/own-shop/new-prod/template/config.php:61
+#: elements/own-shop/popular-prod/template/config.php:61
+msgid "Note: If you see empty products, change atleast one setting to see products in preview mode"
+msgstr ""
+
+#: elements/own-shop/featured-prod/template/config.php:73
+#: elements/own-shop/list-prod/template/config.php:126
+#: elements/own-shop/new-prod/template/config.php:73
+#: elements/own-shop/popular-prod/template/config.php:73
+msgid "Product"
+msgstr ""
+
+#: elements/own-shop/featured-prod/template/config.php:82
+#: elements/own-shop/list-prod/template/config.php:135
+#: elements/own-shop/new-prod/template/config.php:82
+#: elements/own-shop/popular-prod/template/config.php:82
+msgid "Name typography"
+msgstr ""
+
+#: elements/own-shop/featured-prod/template/config.php:96
+#: elements/own-shop/list-prod/template/config.php:149
+#: elements/own-shop/new-prod/template/config.php:96
+#: elements/own-shop/popular-prod/template/config.php:96
+msgid "Price typography"
+msgstr ""
+
+#: elements/own-shop/featured-prod/template/config.php:110
+#: elements/own-shop/list-prod/template/config.php:163
+#: elements/own-shop/new-prod/template/config.php:110
+#: elements/own-shop/popular-prod/template/config.php:110
+msgid "Saved typography"
+msgstr ""
+
+#: elements/own-shop/featured-prod/template/config.php:135
+#: elements/own-shop/list-prod/template/config.php:188
+#: elements/own-shop/new-prod/template/config.php:135
+#: elements/own-shop/popular-prod/template/config.php:135
+msgid "Product Row Spacing"
+msgstr ""
+
+#: elements/own-shop/helper-functions.php:198
+#: elements/own-shop/helper-functions.php:225
+msgid "Own Shop Elements"
+msgstr ""
+
+#: elements/own-shop/helper-functions.php:253
+msgid "Own Shop Elementor Addons"
+msgstr ""
+
+#: elements/own-shop/list-prod/template/config.php:20
+msgid "List All | Featured | New | Popular"
+msgstr ""
+
+#: elements/own-shop/list-prod/template/config.php:44
+msgid "List Products"
+msgstr ""
+
+#: elements/own-shop/list-prod/template/config.php:51
+msgid "Choose product options"
+msgstr ""
+
+#: elements/own-shop/list-prod/template/config.php:54
+#: inc/theme-functions/own-shop-functions.php:170
+#: inc/theme-functions/own-shop-lite-functions.php:166
+#: inc/theme-functions/own-shope-functions.php:166
+#: inc/theme-functions/own-store-functions.php:166
+msgid "All"
+msgstr ""
+
+#: elements/own-shop/list-prod/template/config.php:56
+#: elements/shopnex/bestsellers/template/view.php:125
+#: inc/theme-functions/own-shop-functions.php:188
+#: inc/theme-functions/own-shop-lite-functions.php:184
+#: inc/theme-functions/own-shope-functions.php:184
+#: inc/theme-functions/own-store-functions.php:184
+msgid "New"
+msgstr ""
+
+#: elements/own-shop/list-prod/template/config.php:57
+#: inc/theme-functions/own-shop-functions.php:197
+#: inc/theme-functions/own-shop-lite-functions.php:193
+#: inc/theme-functions/own-shope-functions.php:193
+#: inc/theme-functions/own-store-functions.php:193
+msgid "Popular"
+msgstr ""
+
+#: elements/own-shop/list-prod/template/config.php:85
+msgid "Show tabs?"
+msgstr ""
+
+#: elements/own-shop/list-prod/template/config.php:101
+msgid "Tabs"
+msgstr ""
+
+#: elements/own-shop/list-prod/template/config.php:110
+msgid "Product tabs typography"
+msgstr ""
+
+#: elements/own-shop/new-prod/template/config.php:20
+#: elements/own-shop/new-prod/template/config.php:44
+msgid "New Products"
+msgstr ""
+
+#: elements/own-shop/popular-prod/template/config.php:20
+#: elements/own-shop/popular-prod/template/config.php:44
+msgid "Popular Products"
+msgstr ""
+
+#: elements/own-shop/recent-blog/template/config.php:20
+msgid "Recent Blog Posts"
+msgstr ""
+
+#: elements/own-shop/recent-blog/template/config.php:44
+msgid "Recent Blog"
+msgstr ""
+
+#: elements/own-shop/recent-blog/template/config.php:51
+msgid "Number of posts"
+msgstr ""
+
+#: elements/own-shop/recent-blog/template/config.php:73
+msgid "Show excerpt?"
+msgstr ""
+
+#: elements/own-shop/recent-blog/template/config.php:86
+msgid "Show read more?"
+msgstr ""
+
+#: elements/own-shop/recent-blog/template/config.php:102
+msgid "Read more text"
+msgstr ""
+
+#: elements/own-shop/recent-blog/template/config.php:129
+msgid "Title typography"
+msgstr ""
+
+#: elements/own-shop/recent-blog/template/config.php:156
+msgid "Content typography"
+msgstr ""
+
+#: elements/own-shop/recent-blog/template/config.php:173
+msgid "Read More"
+msgstr ""
+
+#: elements/own-shop/recent-blog/template/config.php:182
+msgid "Read More typography"
+msgstr ""
+
+#: elements/own-shop/widget-category.php:13
+msgid "Own Shop Free"
+msgstr ""
+
+#: elements/shopnex/bestsellers/template/config.php:17
+#: elements/shopnex/bestsellers/template/config.php:47
+msgid "Bestsellers"
+msgstr ""
+
+#: elements/shopnex/bestsellers/template/config.php:38
+#: elements/shopnex/bestsellers/template/config.php:303
+#: elements/shopnex/categories/template/config.php:40
+#: elements/shopnex/categories/template/config.php:264
+#: elements/shopnex/journey/template/config.php:61
+#: elements/shopnex/team/template/config.php:61
+#: elements/shopnex/values/template/config.php:61
+msgid "Section Header"
+msgstr ""
+
+#: elements/shopnex/bestsellers/template/config.php:45
+#: elements/shopnex/categories/template/config.php:47
+#: elements/shopnex/cta/template/config.php:78
+#: elements/shopnex/editorial/template/config.php:218
+#: elements/shopnex/home-featured/template/config.php:50
+#: elements/shopnex/our-story/template/config.php:138
+#: elements/shopnex/page-hero/template/config.php:198
+msgid "Tag Text"
+msgstr ""
+
+#: elements/shopnex/bestsellers/template/config.php:48
+#: elements/shopnex/categories/template/config.php:50
+#: elements/shopnex/home-featured/template/config.php:53
+msgid "Enter tag text"
+msgstr ""
+
+#: elements/shopnex/bestsellers/template/config.php:57
+msgid "Trending Now"
+msgstr ""
+
+#: elements/shopnex/bestsellers/template/config.php:58
+#: elements/shopnex/categories/template/config.php:60
+#: elements/shopnex/home-featured/template/config.php:63
+msgid "Enter title"
+msgstr ""
+
+#: elements/shopnex/bestsellers/template/config.php:65
+#: elements/shopnex/bestsellers/template/config.php:440
+#: elements/shopnex/categories/template/config.php:67
+#: elements/shopnex/categories/template/config.php:401
+#: elements/shopnex/page-title/template/config.php:97
+#: elements/shopnex/page-title/template/config.php:283
+msgid "Subtitle"
+msgstr ""
+
+#: elements/shopnex/bestsellers/template/config.php:67
+msgid "The styles our community loves to wear - shop the favorites."
+msgstr ""
+
+#: elements/shopnex/bestsellers/template/config.php:68
+#: elements/shopnex/categories/template/config.php:70
+msgid "Enter subtitle"
+msgstr ""
+
+#: elements/shopnex/bestsellers/template/config.php:75
+#: elements/shopnex/categories/template/config.php:77
+#: elements/shopnex/journey/template/config.php:89
+#: elements/shopnex/team/template/config.php:100
+#: elements/shopnex/values/template/config.php:100
+msgid "Show Section Header"
+msgstr ""
+
+#: elements/shopnex/bestsellers/template/config.php:91
+msgid "Product Query"
+msgstr ""
+
+#: elements/shopnex/bestsellers/template/config.php:98
+msgid "Number of Products"
+msgstr ""
+
+#: elements/shopnex/bestsellers/template/config.php:109
+msgid "Order By"
+msgstr ""
+
+#: elements/shopnex/bestsellers/template/config.php:113
+msgid "Popularity (Best Sellers)"
+msgstr ""
+
+#: elements/shopnex/bestsellers/template/config.php:114
+msgid "Newest First"
+msgstr ""
+
+#: elements/shopnex/bestsellers/template/config.php:115
+msgid "Price: Low to High"
+msgstr ""
+
+#: elements/shopnex/bestsellers/template/config.php:116
+msgid "Price: High to Low"
+msgstr ""
+
+#: elements/shopnex/bestsellers/template/config.php:117
+msgid "Top Rated"
+msgstr ""
+
+#: elements/shopnex/bestsellers/template/config.php:119
+msgid "Title (A-Z)"
+msgstr ""
+
+#: elements/shopnex/bestsellers/template/config.php:127
+msgid "Product Categories"
+msgstr ""
+
+#: elements/shopnex/bestsellers/template/config.php:129
+msgid "Enter category slugs separated by comma. Leave empty for all categories."
+msgstr ""
+
+#: elements/shopnex/bestsellers/template/config.php:131
+msgid "e.g. furniture, lighting"
+msgstr ""
+
+#: elements/shopnex/bestsellers/template/config.php:142
+msgid "Product Elements"
+msgstr ""
+
+#: elements/shopnex/bestsellers/template/config.php:149
+msgid "Show Product Badge"
+msgstr ""
+
+#: elements/shopnex/bestsellers/template/config.php:161
+msgid "Show Add to Cart Button"
+msgstr ""
+
+#: elements/shopnex/bestsellers/template/config.php:173
+msgid "Show Wishlist Button"
+msgstr ""
+
+#: elements/shopnex/bestsellers/template/config.php:179
+msgid "Note: Wishlist functionality will only work when Shopnex Pro Addons plugin is active."
+msgstr ""
+
+#: elements/shopnex/bestsellers/template/config.php:186
+msgid "Show Product Category"
+msgstr ""
+
+#: elements/shopnex/bestsellers/template/config.php:198
+msgid "Show Price"
+msgstr ""
+
+#: elements/shopnex/bestsellers/template/config.php:214
+#: elements/shopnex/categories/template/config.php:176
+msgid "Grid Settings"
+msgstr ""
+
+#: elements/shopnex/bestsellers/template/config.php:221
+#: elements/shopnex/categories/template/config.php:183
+#: elements/shopnex/info-boxes/template/config.php:184
+#: elements/shopnex/stats-strip/template/config.php:146
+#: elements/shopnex/team/template/config.php:195
+#: elements/shopnex/values/template/config.php:211
+msgid "Columns"
+msgstr ""
+
+#: elements/shopnex/bestsellers/template/config.php:225
+#: elements/shopnex/categories/template/config.php:187
+msgid "2 Columns"
+msgstr ""
+
+#: elements/shopnex/bestsellers/template/config.php:226
+#: elements/shopnex/categories/template/config.php:188
+msgid "3 Columns"
+msgstr ""
+
+#: elements/shopnex/bestsellers/template/config.php:227
+#: elements/shopnex/categories/template/config.php:189
+msgid "4 Columns"
+msgstr ""
+
+#: elements/shopnex/bestsellers/template/config.php:235
+#: elements/shopnex/categories/template/config.php:197
+msgid "Grid Gap (px)"
+msgstr ""
+
+#: elements/shopnex/bestsellers/template/config.php:257
+#: elements/shopnex/categories/template/config.php:219
+msgid "Card Border Radius (px)"
+msgstr ""
+
+#: elements/shopnex/bestsellers/template/config.php:279
+#: elements/shopnex/categories/template/config.php:240
+msgid "Section Padding (px)"
+msgstr ""
+
+#: elements/shopnex/bestsellers/template/config.php:311
+#: elements/shopnex/categories/template/config.php:272
+msgid "Alignment"
+msgstr ""
+
+#: elements/shopnex/bestsellers/template/config.php:315
+#: elements/shopnex/categories/template/config.php:276
+#: elements/shopnex/cta/template/config.php:155
+#: elements/shopnex/editorial/template/config.php:70
+#: elements/shopnex/page-hero/template/config.php:275
+#: elements/shopnex/page-title/template/config.php:124
+msgid "Left"
+msgstr ""
+
+#: elements/shopnex/bestsellers/template/config.php:323
+#: elements/shopnex/categories/template/config.php:284
+#: elements/shopnex/cta/template/config.php:163
+#: elements/shopnex/editorial/template/config.php:74
+#: elements/shopnex/page-hero/template/config.php:283
+#: elements/shopnex/page-title/template/config.php:132
+msgid "Right"
+msgstr ""
+
+#: elements/shopnex/bestsellers/template/config.php:337
+#: elements/shopnex/categories/template/config.php:298
+msgid "Header Bottom Spacing (px)"
+msgstr ""
+
+#: elements/shopnex/bestsellers/template/config.php:362
+#: elements/shopnex/categories/template/config.php:323
+#: elements/shopnex/cta/template/config.php:364
+#: elements/shopnex/editorial/template/config.php:349
+#: elements/shopnex/home-featured/template/config.php:222
+#: elements/shopnex/our-story/template/config.php:381
+#: elements/shopnex/page-hero/template/config.php:425
+msgid "Tag"
+msgstr ""
+
+#: elements/shopnex/bestsellers/template/config.php:386
+#: elements/shopnex/categories/template/config.php:347
+#: elements/shopnex/journey/template/config.php:287
+#: elements/shopnex/team/template/config.php:284
+#: elements/shopnex/values/template/config.php:300
+msgid "Tag Color"
+msgstr ""
+
+#: elements/shopnex/bestsellers/template/config.php:424
+#: elements/shopnex/categories/template/config.php:385
+#: elements/shopnex/info-boxes/template/config.php:380
+#: elements/shopnex/journey/template/config.php:346
+#: elements/shopnex/journey/template/config.php:464
+#: elements/shopnex/team/template/config.php:343
+#: elements/shopnex/values/template/config.php:359
+#: elements/shopnex/values/template/config.php:735
+msgid "Title Color"
+msgstr ""
+
+#: elements/shopnex/bestsellers/template/config.php:462
+#: elements/shopnex/categories/template/config.php:423
+#: elements/shopnex/team/template/config.php:401
+#: elements/shopnex/values/template/config.php:417
+msgid "Subtitle Color"
+msgstr ""
+
+#: elements/shopnex/bestsellers/template/config.php:478
+msgid "Product Badge"
+msgstr ""
+
+#: elements/shopnex/bestsellers/template/config.php:487
+msgid "Badge Typography"
+msgstr ""
+
+#: elements/shopnex/bestsellers/template/config.php:502
+msgid "Badge Background"
+msgstr ""
+
+#: elements/shopnex/bestsellers/template/config.php:514
+msgid "Badge Text Color"
+msgstr ""
+
+#: elements/shopnex/bestsellers/template/config.php:526
+msgid "\"New\" Badge Background"
+msgstr ""
+
+#: elements/shopnex/bestsellers/template/config.php:538
+msgid "\"Sale\" Badge Background"
+msgstr ""
+
+#: elements/shopnex/bestsellers/template/config.php:554
+msgid "Product Card"
+msgstr ""
+
+#: elements/shopnex/bestsellers/template/config.php:562
+msgid "Card Background"
+msgstr ""
+
+#: elements/shopnex/bestsellers/template/config.php:575
+msgid "Product Name Typography"
+msgstr ""
+
+#: elements/shopnex/bestsellers/template/config.php:588
+msgid "Product Name Color"
+msgstr ""
+
+#: elements/shopnex/bestsellers/template/config.php:600
+msgid "Product Name Hover Color"
+msgstr ""
+
+#: elements/shopnex/bestsellers/template/config.php:613
+msgid "Product Category Typography"
+msgstr ""
+
+#: elements/shopnex/bestsellers/template/config.php:627
+msgid "Product Category Color"
+msgstr ""
+
+#: elements/shopnex/bestsellers/template/config.php:640
+msgid "Price Typography"
+msgstr ""
+
+#: elements/shopnex/bestsellers/template/config.php:653
+msgid "Price Color"
+msgstr ""
+
+#: elements/shopnex/bestsellers/template/config.php:665
+msgid "Old Price Color"
+msgstr ""
+
+#: elements/shopnex/bestsellers/template/config.php:677
+msgid "Product Info Padding"
+msgstr ""
+
+#: elements/shopnex/bestsellers/template/config.php:701
+msgid "Action Buttons"
+msgstr ""
+
+#: elements/shopnex/bestsellers/template/config.php:709
+msgid "Button Size (px)"
+msgstr ""
+
+#: elements/shopnex/bestsellers/template/config.php:730
+msgid "Button Background"
+msgstr ""
+
+#: elements/shopnex/bestsellers/template/config.php:742
+msgid "Button Icon Color"
+msgstr ""
+
+#: elements/shopnex/bestsellers/template/config.php:754
+msgid "Button Hover Background"
+msgstr ""
+
+#: elements/shopnex/bestsellers/template/config.php:766
+msgid "Button Hover Icon Color"
+msgstr ""
+
+#: elements/shopnex/bestsellers/template/view.php:79
+msgid "WooCommerce plugin is required to display products."
+msgstr ""
+
+#: elements/shopnex/bestsellers/template/view.php:122
+msgid "Sale"
+msgstr ""
+
+#: elements/shopnex/bestsellers/template/view.php:168
+#: elements/shopnex/bestsellers/template/view.php:470
+#: elements/shopnex/bestsellers/template/view.php:471
+msgid "Added to cart"
+msgstr ""
+
+#: elements/shopnex/bestsellers/template/view.php:168
+msgid "Add to cart"
+msgstr ""
+
+#: elements/shopnex/bestsellers/template/view.php:177
+msgid "Add to wishlist"
+msgstr ""
+
+#: elements/shopnex/bestsellers/template/view.php:198
+msgid "No products found."
+msgstr ""
+
+#: elements/shopnex/categories/template/config.php:19
+#: elements/shopnex/categories/template/config.php:49
+msgid "Shop by Category"
+msgstr ""
+
+#: elements/shopnex/categories/template/config.php:59
+msgid "Curated Styles"
+msgstr ""
+
+#: elements/shopnex/categories/template/config.php:69
+msgid "From everyday essentials to statement pieces — find your perfect fit."
+msgstr ""
+
+#: elements/shopnex/categories/template/config.php:102
+#: elements/shopnex/editorial/template/config.php:138
+#: elements/shopnex/home-featured/template/config.php:153
+#: elements/shopnex/our-story/template/config.php:69
+#: elements/shopnex/page-hero/template/config.php:69
+msgid "Choose Image"
+msgstr ""
+
+#: elements/shopnex/categories/template/config.php:113
+msgid "Category Name"
+msgstr ""
+
+#: elements/shopnex/categories/template/config.php:115
+#: elements/shopnex/categories/template/config.php:153
+msgid "Dresses"
+msgstr ""
+
+#: elements/shopnex/categories/template/config.php:116
+msgid "Enter category name"
+msgstr ""
+
+#: elements/shopnex/categories/template/config.php:123
+msgid "Item Count Text"
+msgstr ""
+
+#: elements/shopnex/categories/template/config.php:125
+msgid "48 pieces"
+msgstr ""
+
+#: elements/shopnex/categories/template/config.php:126
+msgid "e.g. 48 pieces"
+msgstr ""
+
+#: elements/shopnex/categories/template/config.php:133
+msgid "Link URL"
+msgstr ""
+
+#: elements/shopnex/categories/template/config.php:135
+#: elements/shopnex/cta/template/config.php:140
+#: elements/shopnex/editorial/template/config.php:190
+#: elements/shopnex/editorial/template/config.php:265
+#: elements/shopnex/home-featured/template/config.php:92
+#: elements/shopnex/home-featured/template/config.php:117
+msgid "https://your-link.com"
+msgstr ""
+
+#: elements/shopnex/categories/template/config.php:148
+msgid "Category Cards"
+msgstr ""
+
+#: elements/shopnex/categories/template/config.php:154
+msgid "48 items"
+msgstr ""
+
+#: elements/shopnex/categories/template/config.php:157
+msgid "Tops & Blouses"
+msgstr ""
+
+#: elements/shopnex/categories/template/config.php:158
+msgid "32 items"
+msgstr ""
+
+#: elements/shopnex/categories/template/config.php:161
+msgid "Accessories"
+msgstr ""
+
+#: elements/shopnex/categories/template/config.php:162
+msgid "56 items"
+msgstr ""
+
+#: elements/shopnex/categories/template/config.php:439
+msgid "Card Overlay"
+msgstr ""
+
+#: elements/shopnex/categories/template/config.php:447
+msgid "Overlay Gradient Color"
+msgstr ""
+
+#: elements/shopnex/categories/template/config.php:463
+msgid "Card Content"
+msgstr ""
+
+#: elements/shopnex/categories/template/config.php:472
+msgid "Category Title Typography"
+msgstr ""
+
+#: elements/shopnex/categories/template/config.php:485
+msgid "Category Title Color"
+msgstr ""
+
+#: elements/shopnex/categories/template/config.php:498
+msgid "Item Count Typography"
+msgstr ""
+
+#: elements/shopnex/categories/template/config.php:510
+msgid "Item Count Color"
+msgstr ""
+
+#: elements/shopnex/categories/template/config.php:522
+#: elements/shopnex/home-featured/template/config.php:626
+#: elements/shopnex/our-story/template/config.php:337
+#: elements/shopnex/page-hero/template/config.php:340
+msgid "Content Padding"
+msgstr ""
+
+#: elements/shopnex/categories/template/config.php:542
+msgid "Content Margin"
+msgstr ""
+
+#: elements/shopnex/contact-layout/template/config.php:25
+msgid "Contact Layout"
+msgstr ""
+
+#: elements/shopnex/contact-layout/template/config.php:58
+msgid "Contact Form"
+msgstr ""
+
+#: elements/shopnex/contact-layout/template/config.php:66
+#: elements/shopnex/contact-layout/template/config.php:488
+msgid "Form Heading"
+msgstr ""
+
+#: elements/shopnex/contact-layout/template/config.php:68
+msgid "Send us a message"
+msgstr ""
+
+#: elements/shopnex/contact-layout/template/config.php:76
+#: elements/shopnex/contact-layout/template/config.php:524
+msgid "Form Subheading"
+msgstr ""
+
+#: elements/shopnex/contact-layout/template/config.php:78
+msgid "Fill out the form below and we'll get back to you within 24 hours."
+msgstr ""
+
+#: elements/shopnex/contact-layout/template/config.php:87
+msgid "Contact Form Shortcode"
+msgstr ""
+
+#: elements/shopnex/contact-layout/template/config.php:89
+msgid "[contact-form-7 id=\"123\"]"
+msgstr ""
+
+#: elements/shopnex/contact-layout/template/config.php:91
+msgid "Enter a contact form shortcode (e.g. Contact Form 7, WPForms). Leave empty to show a placeholder form."
+msgstr ""
+
+#: elements/shopnex/contact-layout/template/config.php:98
+msgid "Submit Button Text"
+msgstr ""
+
+#: elements/shopnex/contact-layout/template/config.php:100
+msgid "Send Message"
+msgstr ""
+
+#: elements/shopnex/contact-layout/template/config.php:108
+#: elements/shopnex/contact-layout/template/config.php:958
+msgid "Form Note"
+msgstr ""
+
+#: elements/shopnex/contact-layout/template/config.php:110
+msgid "We typically respond within one business day. For urgent inquiries, please call us directly."
+msgstr ""
+
+#: elements/shopnex/contact-layout/template/config.php:122
+msgid "Card: Visit Us"
+msgstr ""
+
+#: elements/shopnex/contact-layout/template/config.php:130
+#: elements/shopnex/contact-layout/template/config.php:196
+#: elements/shopnex/contact-layout/template/config.php:274
+msgid "Show Card"
+msgstr ""
+
+#: elements/shopnex/contact-layout/template/config.php:142
+#: elements/shopnex/contact-layout/template/config.php:208
+#: elements/shopnex/contact-layout/template/config.php:286
+#: elements/shopnex/info-boxes/template/config.php:92
+#: elements/shopnex/info-boxes/template/config.php:293
+#: elements/shopnex/values/template/config.php:125
+#: elements/shopnex/values/template/config.php:598
+msgid "Icon"
+msgstr ""
+
+#: elements/shopnex/contact-layout/template/config.php:160
+msgid "Visit our studio"
+msgstr ""
+
+#: elements/shopnex/contact-layout/template/config.php:171
+#: elements/shopnex/map-section/template/config.php:190
+msgid "Address"
+msgstr ""
+
+#: elements/shopnex/contact-layout/template/config.php:173
+msgid ""
+"NORD. Headquarters\n"
+"47 Viktoria Street\n"
+"Stockholm, Sweden 114 55"
+msgstr ""
+
+#: elements/shopnex/contact-layout/template/config.php:188
+msgid "Card: Contact Us"
+msgstr ""
+
+#: elements/shopnex/contact-layout/template/config.php:226
+msgid "Contact us"
+msgstr ""
+
+#: elements/shopnex/contact-layout/template/config.php:237
+#: elements/shopnex/contact-layout/template/view.php:95
+#: elements/shopnex/contact-layout/template/view.php:96
+msgid "Email Address"
+msgstr ""
+
+#: elements/shopnex/contact-layout/template/config.php:239
+msgid "hello@nord.com"
+msgstr ""
+
+#: elements/shopnex/contact-layout/template/config.php:250
+msgid "Phone Number"
+msgstr ""
+
+#: elements/shopnex/contact-layout/template/config.php:252
+msgid "+46 8 123 456 78"
+msgstr ""
+
+#: elements/shopnex/contact-layout/template/config.php:266
+msgid "Card: Studio Hours"
+msgstr ""
+
+#: elements/shopnex/contact-layout/template/config.php:304
+msgid "Studio hours"
+msgstr ""
+
+#: elements/shopnex/contact-layout/template/config.php:315
+msgid "Hours"
+msgstr ""
+
+#: elements/shopnex/contact-layout/template/config.php:317
+msgid "One item per line. Use format: Day | Hours (e.g., Mon — Fri | 10:00 — 18:00)"
+msgstr ""
+
+#: elements/shopnex/contact-layout/template/config.php:340
+#: elements/shopnex/our-story/template/config.php:293
+msgid "Gap"
+msgstr ""
+
+#: elements/shopnex/contact-layout/template/config.php:362
+msgid "Sidebar Width"
+msgstr ""
+
+#: elements/shopnex/contact-layout/template/config.php:388
+#: elements/shopnex/cta/template/config.php:252
+#: elements/shopnex/map-section/template/config.php:132
+msgid "Margin Bottom"
+msgstr ""
+
+#: elements/shopnex/contact-layout/template/config.php:413
+msgid "Form Wrapper"
+msgstr ""
+
+#: elements/shopnex/contact-layout/template/config.php:421
+#: elements/shopnex/contact-layout/template/config.php:568
+#: elements/shopnex/contact-layout/template/config.php:894
+#: elements/shopnex/contact-layout/template/config.php:927
+#: elements/shopnex/cta/template/config.php:298
+#: elements/shopnex/cta/template/config.php:619
+#: elements/shopnex/cta/template/config.php:652
+#: elements/shopnex/editorial/template/config.php:334
+#: elements/shopnex/editorial/template/config.php:606
+#: elements/shopnex/editorial/template/config.php:639
+#: elements/shopnex/home-featured/template/config.php:284
+#: elements/shopnex/info-boxes/template/config.php:528
+#: elements/shopnex/journey/template/config.php:696
+#: elements/shopnex/map-section/template/config.php:260
+#: elements/shopnex/map-section/template/config.php:406
+#: elements/shopnex/our-story/template/config.php:599
+#: elements/shopnex/our-story/template/config.php:726
+#: elements/shopnex/page-hero/template/config.php:462
+#: elements/shopnex/stats-strip/template/config.php:452
+#: elements/shopnex/values/template/config.php:484
+msgid "Background Color"
+msgstr ""
+
+#: elements/shopnex/contact-layout/template/config.php:444
+#: elements/shopnex/contact-layout/template/config.php:592
+#: elements/shopnex/contact-layout/template/config.php:863
+#: elements/shopnex/cta/template/config.php:208
+#: elements/shopnex/cta/template/config.php:586
+#: elements/shopnex/editorial/template/config.php:166
+#: elements/shopnex/editorial/template/config.php:575
+#: elements/shopnex/map-section/template/config.php:275
+#: elements/shopnex/map-section/template/config.php:418
+#: elements/shopnex/our-story/template/config.php:108
+#: elements/shopnex/our-story/template/config.php:661
+#: elements/shopnex/page-hero/template/config.php:381
+#: elements/shopnex/page-hero/template/config.php:527
+#: elements/shopnex/page-title/template/config.php:435
+#: elements/shopnex/values/template/config.php:530
+msgid "Border Radius"
+msgstr ""
+
+#: elements/shopnex/contact-layout/template/config.php:466
+#: elements/shopnex/contact-layout/template/config.php:614
+#: elements/shopnex/contact-layout/template/config.php:844
+#: elements/shopnex/cta/template/config.php:567
+#: elements/shopnex/editorial/template/config.php:556
+#: elements/shopnex/editorial/template/config.php:677
+#: elements/shopnex/home-featured/template/config.php:594
+#: elements/shopnex/map-section/template/config.php:440
+#: elements/shopnex/our-story/template/config.php:623
+#: elements/shopnex/page-hero/template/config.php:486
+msgid "Padding"
+msgstr ""
+
+#: elements/shopnex/contact-layout/template/config.php:560
+msgid "Info Cards"
+msgstr ""
+
+#: elements/shopnex/contact-layout/template/config.php:580
+#: elements/shopnex/home-featured/template/config.php:296
+#: elements/shopnex/info-boxes/template/config.php:483
+#: elements/shopnex/page-hero/template/config.php:474
+#: elements/shopnex/stats-strip/template/config.php:362
+#: elements/shopnex/values/template/config.php:496
+msgid "Border Color"
+msgstr ""
+
+#: elements/shopnex/contact-layout/template/config.php:633
+msgid "Card Gap"
+msgstr ""
+
+#: elements/shopnex/contact-layout/template/config.php:658
+msgid "Card Icon"
+msgstr ""
+
+#: elements/shopnex/contact-layout/template/config.php:666
+#: elements/shopnex/values/template/config.php:606
+msgid "Icon Background Color"
+msgstr ""
+
+#: elements/shopnex/contact-layout/template/config.php:678
+#: elements/shopnex/map-section/template/config.php:311
+msgid "Icon Color"
+msgstr ""
+
+#: elements/shopnex/contact-layout/template/config.php:690
+#: elements/shopnex/map-section/template/config.php:345
+#: elements/shopnex/values/template/config.php:618
+msgid "Icon Size"
+msgstr ""
+
+#: elements/shopnex/contact-layout/template/config.php:712
+msgid "Icon Font Size"
+msgstr ""
+
+#: elements/shopnex/contact-layout/template/config.php:738
+#: elements/shopnex/map-section/template/config.php:539
+#: elements/shopnex/values/template/config.php:713
+msgid "Card Title"
+msgstr ""
+
+#: elements/shopnex/contact-layout/template/config.php:774
+msgid "Card Text"
+msgstr ""
+
+#: elements/shopnex/contact-layout/template/config.php:795
+#: elements/shopnex/contact-layout/template/config.php:906
+#: elements/shopnex/contact-layout/template/config.php:939
+#: elements/shopnex/cta/template/config.php:631
+#: elements/shopnex/cta/template/config.php:664
+#: elements/shopnex/editorial/template/config.php:618
+#: elements/shopnex/editorial/template/config.php:651
+#: elements/shopnex/home-featured/template/config.php:272
+#: elements/shopnex/home-featured/template/config.php:364
+#: elements/shopnex/home-featured/template/config.php:449
+#: elements/shopnex/map-section/template/config.php:380
+#: elements/shopnex/our-story/template/config.php:587
+#: elements/shopnex/page-hero/template/config.php:450
+msgid "Text Color"
+msgstr ""
+
+#: elements/shopnex/contact-layout/template/config.php:808
+msgid "Link Hover Color"
+msgstr ""
+
+#: elements/shopnex/contact-layout/template/config.php:823
+#: elements/shopnex/cta/template/config.php:543
+#: elements/shopnex/editorial/template/config.php:536
+msgid "Button"
+msgstr ""
+
+#: elements/shopnex/contact-layout/template/view.php:87
+#: elements/shopnex/contact-layout/template/view.php:88
+msgid "First Name"
+msgstr ""
+
+#: elements/shopnex/contact-layout/template/view.php:91
+#: elements/shopnex/contact-layout/template/view.php:92
+msgid "Last Name"
+msgstr ""
+
+#: elements/shopnex/contact-layout/template/view.php:99
+msgid "Message"
+msgstr ""
+
+#: elements/shopnex/contact-layout/template/view.php:100
+msgid "Tell us how we can help…"
+msgstr ""
+
+#: elements/shopnex/cta/template/config.php:25
+msgid "CTA"
+msgstr ""
+
+#: elements/shopnex/cta/template/config.php:66
+#: elements/shopnex/editorial/template/config.php:209
+#: elements/shopnex/our-story/template/config.php:148
+#: elements/shopnex/page-hero/template/config.php:208
+msgid "Show Tag"
+msgstr ""
+
+#: elements/shopnex/cta/template/config.php:80
+msgid "Style Support"
+msgstr ""
+
+#: elements/shopnex/cta/template/config.php:93
+msgid "Need help finding your look?"
+msgstr ""
+
+#: elements/shopnex/cta/template/config.php:102
+#: elements/shopnex/cta/template/config.php:485
+#: elements/shopnex/editorial/template/config.php:236
+#: elements/shopnex/editorial/template/config.php:460
+#: elements/shopnex/home-featured/template/config.php:70
+#: elements/shopnex/home-featured/template/config.php:401
+#: elements/shopnex/info-boxes/template/config.php:132
+#: elements/shopnex/info-boxes/template/config.php:417
+#: elements/shopnex/journey/template/config.php:134
+#: elements/shopnex/journey/template/config.php:501
+#: elements/shopnex/our-story/template/config.php:503
+#: elements/shopnex/page-hero/template/config.php:248
+#: elements/shopnex/page-hero/template/config.php:606
+#: elements/shopnex/values/template/config.php:159
+msgid "Description"
+msgstr ""
+
+#: elements/shopnex/cta/template/config.php:104
+msgid "From sizing advice to styling tips, our team is here to help you find the perfect fit and feel confident in every purchase."
+msgstr ""
+
+#: elements/shopnex/cta/template/config.php:113
+#: elements/shopnex/editorial/template/config.php:245
+msgid "Show Button"
+msgstr ""
+
+#: elements/shopnex/cta/template/config.php:125
+#: elements/shopnex/editorial/template/config.php:254
+msgid "Button Text"
+msgstr ""
+
+#: elements/shopnex/cta/template/config.php:127
+msgid "Visit FAQ"
+msgstr ""
+
+#: elements/shopnex/cta/template/config.php:138
+#: elements/shopnex/editorial/template/config.php:263
+msgid "Button Link"
+msgstr ""
+
+#: elements/shopnex/cta/template/config.php:151
+#: elements/shopnex/page-title/template/config.php:120
+msgid "Text Alignment"
+msgstr ""
+
+#: elements/shopnex/cta/template/config.php:189
+#: elements/shopnex/editorial/template/config.php:86
+#: elements/shopnex/journey/template/config.php:708
+#: elements/shopnex/page-title/template/config.php:158
+msgid "Section Padding"
+msgstr ""
+
+#: elements/shopnex/cta/template/config.php:230
+#: elements/shopnex/our-story/template/config.php:356
+#: elements/shopnex/page-hero/template/config.php:359
+msgid "Content Max Width"
+msgstr ""
+
+#: elements/shopnex/cta/template/config.php:277
+#: elements/shopnex/info-boxes/template/config.php:520
+#: elements/shopnex/journey/template/config.php:688
+#: elements/shopnex/stats-strip/template/config.php:444
+msgid "Background"
+msgstr ""
+
+#: elements/shopnex/cta/template/config.php:285
+msgid "Background Type"
+msgstr ""
+
+#: elements/shopnex/cta/template/config.php:313
+#: elements/shopnex/home-featured/template/config.php:146
+#: elements/shopnex/page-hero/template/config.php:61
+msgid "Background Image"
+msgstr ""
+
+#: elements/shopnex/cta/template/config.php:324
+#: elements/shopnex/home-featured/template/config.php:206
+#: elements/shopnex/page-hero/template/config.php:141
+msgid "Overlay Color"
+msgstr ""
+
+#: elements/shopnex/cta/template/config.php:336
+msgid "Overlay Opacity"
+msgstr ""
+
+#: elements/shopnex/cta/template/config.php:401
+#: elements/shopnex/cta/template/config.php:460
+#: elements/shopnex/cta/template/config.php:518
+#: elements/shopnex/editorial/template/config.php:381
+#: elements/shopnex/editorial/template/config.php:435
+#: elements/shopnex/editorial/template/config.php:511
+#: elements/shopnex/info-boxes/template/config.php:312
+#: elements/shopnex/info-boxes/template/config.php:392
+#: elements/shopnex/journey/template/config.php:299
+#: elements/shopnex/journey/template/config.php:417
+#: elements/shopnex/journey/template/config.php:476
+#: elements/shopnex/our-story/template/config.php:418
+#: elements/shopnex/our-story/template/config.php:478
+#: elements/shopnex/page-hero/template/config.php:505
+#: elements/shopnex/page-hero/template/config.php:581
+#: elements/shopnex/page-title/template/config.php:258
+#: elements/shopnex/stats-strip/template/config.php:292
+#: elements/shopnex/team/template/config.php:296
+#: elements/shopnex/team/template/config.php:355
+#: elements/shopnex/team/template/config.php:613
+#: elements/shopnex/values/template/config.php:312
+#: elements/shopnex/values/template/config.php:371
+#: elements/shopnex/values/template/config.php:747
+msgid "Bottom Spacing"
+msgstr ""
+
+#: elements/shopnex/editorial/template/config.php:25
+msgid "Editorial"
+msgstr ""
+
+#: elements/shopnex/editorial/template/config.php:66
+msgid "Image Position"
+msgstr ""
+
+#: elements/shopnex/editorial/template/config.php:105
+msgid "Column Gap"
+msgstr ""
+
+#: elements/shopnex/editorial/template/config.php:149
+#: elements/shopnex/our-story/template/config.php:92
+msgid "Aspect Ratio"
+msgstr ""
+
+#: elements/shopnex/editorial/template/config.php:152
+#: elements/shopnex/our-story/template/config.php:96
+msgid "4:5 (Portrait)"
+msgstr ""
+
+#: elements/shopnex/editorial/template/config.php:153
+#: elements/shopnex/our-story/template/config.php:97
+msgid "1:1 (Square)"
+msgstr ""
+
+#: elements/shopnex/editorial/template/config.php:154
+#: elements/shopnex/our-story/template/config.php:98
+msgid "3:4 (Portrait)"
+msgstr ""
+
+#: elements/shopnex/editorial/template/config.php:155
+#: elements/shopnex/our-story/template/config.php:99
+msgid "3:2 (Landscape)"
+msgstr ""
+
+#: elements/shopnex/editorial/template/config.php:156
+#: elements/shopnex/our-story/template/config.php:100
+msgid "16:9 (Wide)"
+msgstr ""
+
+#: elements/shopnex/editorial/template/config.php:157
+msgid "Auto (Original)"
+msgstr ""
+
+#: elements/shopnex/editorial/template/config.php:188
+msgid "Image Link"
+msgstr ""
+
+#: elements/shopnex/editorial/template/config.php:220
+msgid "Behind the Collection"
+msgstr ""
+
+#: elements/shopnex/editorial/template/config.php:229
+msgid "Fashion with intention"
+msgstr ""
+
+#: elements/shopnex/editorial/template/config.php:238
+msgid "We believe in quality over quantity. Every garment is designed to be worn, loved, and lived in — combining modern silhouettes with fabrics that feel as good as they look."
+msgstr ""
+
+#: elements/shopnex/editorial/template/config.php:256
+msgid "Read Our Story"
+msgstr ""
+
+#: elements/shopnex/editorial/template/config.php:275
+msgid "Vertical Alignment"
+msgstr ""
+
+#: elements/shopnex/editorial/template/config.php:279
+#: elements/shopnex/page-hero/template/config.php:302
+msgid "Top"
+msgstr ""
+
+#: elements/shopnex/editorial/template/config.php:283
+#: elements/shopnex/page-hero/template/config.php:306
+msgid "Middle"
+msgstr ""
+
+#: elements/shopnex/editorial/template/config.php:287
+#: elements/shopnex/page-hero/template/config.php:310
+msgid "Bottom"
+msgstr ""
+
+#: elements/shopnex/editorial/template/config.php:313
+msgid "Hover Zoom"
+msgstr ""
+
+#: elements/shopnex/editorial/template/config.php:489
+#: elements/shopnex/info-boxes/template/config.php:450
+#: elements/shopnex/journey/template/config.php:534
+#: elements/shopnex/map-section/template/config.php:459
+#: elements/shopnex/page-hero/template/config.php:642
+msgid "Max Width"
+msgstr ""
+
+#: elements/shopnex/editorial/template/config.php:669
+msgid "Content Wrapper"
+msgstr ""
+
+#: elements/shopnex/editorial/template/view.php:24
+msgid "Editorial image"
+msgstr ""
+
+#: elements/shopnex/helper-functions.php:197
+#: elements/shopnex/helper-functions.php:224
+msgid "Shopnex Elements"
+msgstr ""
+
+#: elements/shopnex/helper-functions.php:252
+msgid "Shopnex Elementor Addons"
+msgstr ""
+
+#: elements/shopnex/home-featured/template/config.php:22
+msgid "Home Featured"
+msgstr ""
+
+#: elements/shopnex/home-featured/template/config.php:52
+msgid "New Season 2026"
+msgstr ""
+
+#: elements/shopnex/home-featured/template/config.php:62
+msgid "Define Your Style"
+msgstr ""
+
+#: elements/shopnex/home-featured/template/config.php:72
+msgid "Thoughtfully designed furniture and home objects that bring calm to everyday living."
+msgstr ""
+
+#: elements/shopnex/home-featured/template/config.php:73
+msgid "Enter description"
+msgstr ""
+
+#: elements/shopnex/home-featured/template/config.php:80
+msgid "Primary Button Text"
+msgstr ""
+
+#: elements/shopnex/home-featured/template/config.php:82
+msgid "Shop New Arrivals"
+msgstr ""
+
+#: elements/shopnex/home-featured/template/config.php:83
+#: elements/shopnex/home-featured/template/config.php:108
+msgid "Enter button text"
+msgstr ""
+
+#: elements/shopnex/home-featured/template/config.php:90
+msgid "Primary Button URL"
+msgstr ""
+
+#: elements/shopnex/home-featured/template/config.php:105
+msgid "Secondary Button Text"
+msgstr ""
+
+#: elements/shopnex/home-featured/template/config.php:107
+msgid "View Lookbook"
+msgstr ""
+
+#: elements/shopnex/home-featured/template/config.php:115
+msgid "Secondary Button URL"
+msgstr ""
+
+#: elements/shopnex/home-featured/template/config.php:130
+msgid "Show Scroll Indicator"
+msgstr ""
+
+#: elements/shopnex/home-featured/template/config.php:173
+msgid "Min Height (px)"
+msgstr ""
+
+#: elements/shopnex/home-featured/template/config.php:199
+#: elements/shopnex/page-hero/template/config.php:121
+msgid "Overlay"
+msgstr ""
+
+#: elements/shopnex/home-featured/template/config.php:246
+#: elements/shopnex/home-featured/template/config.php:334
+#: elements/shopnex/home-featured/template/config.php:423
+#: elements/shopnex/home-featured/template/config.php:487
+msgid "Font Size"
+msgstr ""
+
+#: elements/shopnex/home-featured/template/config.php:376
+#: elements/shopnex/home-featured/template/config.php:688
+msgid "Margin Bottom (px)"
+msgstr ""
+
+#: elements/shopnex/home-featured/template/config.php:465
+msgid "Buttons"
+msgstr ""
+
+#: elements/shopnex/home-featured/template/config.php:474
+msgid "Button Typography"
+msgstr ""
+
+#: elements/shopnex/home-featured/template/config.php:513
+msgid "Primary Button Background"
+msgstr ""
+
+#: elements/shopnex/home-featured/template/config.php:525
+msgid "Primary Button Text Color"
+msgstr ""
+
+#: elements/shopnex/home-featured/template/config.php:537
+msgid "Primary Button Hover Background"
+msgstr ""
+
+#: elements/shopnex/home-featured/template/config.php:549
+msgid "Secondary Button Text Color"
+msgstr ""
+
+#: elements/shopnex/home-featured/template/config.php:561
+msgid "Secondary Button Border Color"
+msgstr ""
+
+#: elements/shopnex/home-featured/template/config.php:573
+#: elements/shopnex/home-featured/template/config.php:667
+msgid "Border Radius (px)"
+msgstr ""
+
+#: elements/shopnex/home-featured/template/config.php:618
+msgid "Content Position"
+msgstr ""
+
+#: elements/shopnex/home-featured/template/config.php:646
+msgid "Content Max Width (px)"
+msgstr ""
+
+#: elements/shopnex/home-featured/template/view.php:84
+msgid "Scroll"
+msgstr ""
+
+#: elements/shopnex/info-boxes/template/config.php:28
+#: elements/shopnex/info-boxes/template/config.php:61
+msgid "Info Boxes"
+msgstr ""
+
+#: elements/shopnex/info-boxes/template/config.php:71
+#: elements/shopnex/values/template/config.php:136
+msgid "Icon Type"
+msgstr ""
+
+#: elements/shopnex/info-boxes/template/config.php:77
+msgid "Icon Library"
+msgstr ""
+
+#: elements/shopnex/info-boxes/template/config.php:81
+#: elements/shopnex/values/template/config.php:140
+msgid "Emoji / Text"
+msgstr ""
+
+#: elements/shopnex/info-boxes/template/config.php:108
+msgid "Icon (Emoji or Text)"
+msgstr ""
+
+#: elements/shopnex/info-boxes/template/config.php:112
+msgid "Enter an emoji character or HTML entity for the icon."
+msgstr ""
+
+#: elements/shopnex/info-boxes/template/config.php:124
+msgid "Premium Fabrics"
+msgstr ""
+
+#: elements/shopnex/info-boxes/template/config.php:134
+msgid "Crafted from the finest fabrics for lasting comfort and effortless style."
+msgstr ""
+
+#: elements/shopnex/info-boxes/template/config.php:143
+msgid "Info Box Items"
+msgstr ""
+
+#: elements/shopnex/info-boxes/template/config.php:203
+#: elements/shopnex/team/template/config.php:215
+#: elements/shopnex/values/template/config.php:231
+msgid "Grid Gap"
+msgstr ""
+
+#: elements/shopnex/info-boxes/template/config.php:225
+#: elements/shopnex/stats-strip/template/config.php:165
+msgid "Item Padding"
+msgstr ""
+
+#: elements/shopnex/info-boxes/template/config.php:244
+msgid "Section Padding (Vertical)"
+msgstr ""
+
+#: elements/shopnex/info-boxes/template/config.php:266
+#: elements/shopnex/stats-strip/template/config.php:206
+msgid "Top Border"
+msgstr ""
+
+#: elements/shopnex/info-boxes/template/config.php:278
+#: elements/shopnex/stats-strip/template/config.php:218
+msgid "Bottom Border"
+msgstr ""
+
+#: elements/shopnex/info-boxes/template/config.php:334
+msgid "Opacity"
+msgstr ""
+
+#: elements/shopnex/info-boxes/template/config.php:438
+#: elements/shopnex/journey/template/config.php:522
+#: elements/shopnex/values/template/config.php:793
+msgid "Description Color"
+msgstr ""
+
+#: elements/shopnex/info-boxes/template/config.php:475
+msgid "Borders"
+msgstr ""
+
+#: elements/shopnex/info-boxes/template/config.php:495
+#: elements/shopnex/stats-strip/template/config.php:375
+#: elements/shopnex/values/template/config.php:508
+msgid "Border Width"
+msgstr ""
+
+#: elements/shopnex/journey/template/config.php:28
+msgid "Journey / Timeline"
+msgstr ""
+
+#: elements/shopnex/journey/template/config.php:69
+#: elements/shopnex/journey/template/config.php:265
+#: elements/shopnex/team/template/config.php:69
+#: elements/shopnex/team/template/config.php:262
+#: elements/shopnex/values/template/config.php:69
+#: elements/shopnex/values/template/config.php:278
+msgid "Section Tag"
+msgstr ""
+
+#: elements/shopnex/journey/template/config.php:71
+msgid "Our Journey"
+msgstr ""
+
+#: elements/shopnex/journey/template/config.php:79
+#: elements/shopnex/journey/template/config.php:324
+#: elements/shopnex/team/template/config.php:79
+#: elements/shopnex/team/template/config.php:321
+#: elements/shopnex/values/template/config.php:79
+#: elements/shopnex/values/template/config.php:337
+msgid "Section Title"
+msgstr ""
+
+#: elements/shopnex/journey/template/config.php:81
+msgid "Milestones"
+msgstr ""
+
+#: elements/shopnex/journey/template/config.php:104
+#: elements/shopnex/journey/template/config.php:144
+msgid "Timeline Items"
+msgstr ""
+
+#: elements/shopnex/journey/template/config.php:114
+#: elements/shopnex/journey/template/config.php:383
+msgid "Year"
+msgstr ""
+
+#: elements/shopnex/journey/template/config.php:116
+msgid "2018"
+msgstr ""
+
+#: elements/shopnex/journey/template/config.php:126
+msgid "The first collection"
+msgstr ""
+
+#: elements/shopnex/journey/template/config.php:136
+msgid "A brief description of this milestone or event in the company journey."
+msgstr ""
+
+#: elements/shopnex/journey/template/config.php:192
+msgid "Timeline Max Width"
+msgstr ""
+
+#: elements/shopnex/journey/template/config.php:218
+#: elements/shopnex/our-story/template/config.php:315
+#: elements/shopnex/page-hero/template/config.php:400
+#: elements/shopnex/page-title/template/config.php:199
+#: elements/shopnex/stats-strip/template/config.php:184
+msgid "Bottom Margin"
+msgstr ""
+
+#: elements/shopnex/journey/template/config.php:240
+msgid "Item Spacing"
+msgstr ""
+
+#: elements/shopnex/journey/template/config.php:358
+#: elements/shopnex/team/template/config.php:435
+#: elements/shopnex/values/template/config.php:451
+msgid "Header Bottom Spacing"
+msgstr ""
+
+#: elements/shopnex/journey/template/config.php:405
+msgid "Year Color"
+msgstr ""
+
+#: elements/shopnex/journey/template/config.php:442
+msgid "Item Title"
+msgstr ""
+
+#: elements/shopnex/journey/template/config.php:563
+msgid "Timeline Line & Dots"
+msgstr ""
+
+#: elements/shopnex/journey/template/config.php:571
+msgid "Line Color"
+msgstr ""
+
+#: elements/shopnex/journey/template/config.php:583
+msgid "Line Width"
+msgstr ""
+
+#: elements/shopnex/journey/template/config.php:605
+msgid "Dot Border Color"
+msgstr ""
+
+#: elements/shopnex/journey/template/config.php:617
+msgid "First Dot Fill Color"
+msgstr ""
+
+#: elements/shopnex/journey/template/config.php:629
+msgid "Dot Background (non-active)"
+msgstr ""
+
+#: elements/shopnex/journey/template/config.php:641
+msgid "Dot Size"
+msgstr ""
+
+#: elements/shopnex/journey/template/config.php:663
+msgid "Dot Border Width"
+msgstr ""
+
+#: elements/shopnex/map-section/template/config.php:25
+msgid "Map Section"
+msgstr ""
+
+#: elements/shopnex/map-section/template/config.php:58
+#: elements/shopnex/map-section/template/config.php:252
+msgid "Map"
+msgstr ""
+
+#: elements/shopnex/map-section/template/config.php:66
+msgid "Map Type"
+msgstr ""
+
+#: elements/shopnex/map-section/template/config.php:70
+#: elements/shopnex/map-section/template/config.php:300
+msgid "Placeholder"
+msgstr ""
+
+#: elements/shopnex/map-section/template/config.php:71
+msgid "Google Maps Embed"
+msgstr ""
+
+#: elements/shopnex/map-section/template/config.php:73
+msgid "Choose \"Placeholder\" for a static design preview or \"Google Maps Embed\" to display an actual map."
+msgstr ""
+
+#: elements/shopnex/map-section/template/config.php:80
+msgid "Google Maps Embed URL"
+msgstr ""
+
+#: elements/shopnex/map-section/template/config.php:82
+msgid "https://www.google.com/maps/embed?pb=..."
+msgstr ""
+
+#: elements/shopnex/map-section/template/config.php:83
+msgid "Paste the Google Maps embed URL or the full <iframe> embed code. Get it from Google Maps → Share → Embed a map."
+msgstr ""
+
+#: elements/shopnex/map-section/template/config.php:93
+msgid "Placeholder Text"
+msgstr ""
+
+#: elements/shopnex/map-section/template/config.php:95
+msgid "Interactive map placeholder"
+msgstr ""
+
+#: elements/shopnex/map-section/template/config.php:106
+msgid "Map Height"
+msgstr ""
+
+#: elements/shopnex/map-section/template/config.php:157
+#: elements/shopnex/map-section/template/config.php:395
+msgid "Overlay Card"
+msgstr ""
+
+#: elements/shopnex/map-section/template/config.php:165
+msgid "Show Overlay Card"
+msgstr ""
+
+#: elements/shopnex/map-section/template/config.php:179
+msgid "NORD. Studio"
+msgstr ""
+
+#: elements/shopnex/map-section/template/config.php:192
+msgid ""
+"47 Viktoria Street, Stockholm\n"
+"Sweden 114 55"
+msgstr ""
+
+#: elements/shopnex/map-section/template/config.php:204
+msgid "Directions Link Text"
+msgstr ""
+
+#: elements/shopnex/map-section/template/config.php:206
+msgid "Get directions"
+msgstr ""
+
+#: elements/shopnex/map-section/template/config.php:217
+msgid "Directions URL"
+msgstr ""
+
+#: elements/shopnex/map-section/template/config.php:219
+msgid "https://maps.google.com/..."
+msgstr ""
+
+#: elements/shopnex/map-section/template/config.php:234
+msgid "Show Arrow Icon"
+msgstr ""
+
+#: elements/shopnex/map-section/template/config.php:323
+msgid "Icon Opacity"
+msgstr ""
+
+#: elements/shopnex/map-section/template/config.php:481
+msgid "Position Bottom"
+msgstr ""
+
+#: elements/shopnex/map-section/template/config.php:503
+msgid "Position Left"
+msgstr ""
+
+#: elements/shopnex/map-section/template/config.php:578
+msgid "Card Address"
+msgstr ""
+
+#: elements/shopnex/map-section/template/config.php:617
+msgid "Directions Link"
+msgstr ""
+
+#: elements/shopnex/map-section/template/view.php:62
+msgid "Location Map"
+msgstr ""
+
+#: elements/shopnex/our-story/template/config.php:28
+#: elements/shopnex/our-story/template/config.php:140
+msgid "Our Story"
+msgstr ""
+
+#: elements/shopnex/our-story/template/config.php:80
+#: elements/shopnex/page-hero/template/config.php:106
+msgid "Enable Hover Zoom"
+msgstr ""
+
+#: elements/shopnex/our-story/template/config.php:162
+msgid "Where Style Meets Soul"
+msgstr ""
+
+#: elements/shopnex/our-story/template/config.php:170
+#: elements/shopnex/page-hero/template/config.php:230
+#: elements/shopnex/page-title/template/config.php:79
+msgid "Title HTML Tag"
+msgstr ""
+
+#: elements/shopnex/our-story/template/config.php:188
+msgid "Paragraph 1"
+msgstr ""
+
+#: elements/shopnex/our-story/template/config.php:190
+msgid "Our label was born from a passion for clothing that empowers and inspires. What began as a small atelier in 2018 — with just a sewing machine, a vision, and an obsession with fabric and form — has grown into a brand worn by those who believe fashion should feel as good as it looks."
+msgstr ""
+
+#: elements/shopnex/our-story/template/config.php:199
+msgid "Paragraph 2"
+msgstr ""
+
+#: elements/shopnex/our-story/template/config.php:201
+msgid "Today, we collaborate with skilled artisans and textile mills across the globe — from hand-loom weavers in India to master tailors in Italy — to craft garments that honor traditional craftsmanship while embracing bold, contemporary design. Every piece goes through months of refinement before it earns a place in our collection."
+msgstr ""
+
+#: elements/shopnex/our-story/template/config.php:213
+#: elements/shopnex/our-story/template/config.php:561
+msgid "Blockquote"
+msgstr ""
+
+#: elements/shopnex/our-story/template/config.php:221
+msgid "Show Blockquote"
+msgstr ""
+
+#: elements/shopnex/our-story/template/config.php:233
+msgid "Quote Text"
+msgstr ""
+
+#: elements/shopnex/our-story/template/config.php:235
+msgid "We don't chase trends — we create them. Great style isn't about following the crowd; it's about wearing what makes you feel unmistakably you."
+msgstr ""
+
+#: elements/shopnex/our-story/template/config.php:247
+#: elements/shopnex/our-story/template/config.php:681
+msgid "Citation"
+msgstr ""
+
+#: elements/shopnex/our-story/template/config.php:249
+msgid "— Elin Bergström, Founder & Creative Director"
+msgstr ""
+
+#: elements/shopnex/our-story/template/config.php:263
+msgid "Additional Content"
+msgstr ""
+
+#: elements/shopnex/our-story/template/config.php:271
+msgid "Paragraph 3 (After Blockquote)"
+msgstr ""
+
+#: elements/shopnex/our-story/template/config.php:273
+msgid "Our commitment extends beyond aesthetics. We source only sustainably managed timber, use natural oils and finishes, and package every order in recycled and recyclable materials. We believe that beautiful design and responsible practice are inseparable."
+msgstr ""
+
+#: elements/shopnex/our-story/template/config.php:536
+msgid "Paragraph Spacing"
+msgstr ""
+
+#: elements/shopnex/our-story/template/config.php:611
+msgid "Left Border Color"
+msgstr ""
+
+#: elements/shopnex/our-story/template/config.php:642
+msgid "Margin"
+msgstr ""
+
+#: elements/shopnex/our-story/template/config.php:703
+msgid "Citation Color"
+msgstr ""
+
+#: elements/shopnex/page-hero/template/config.php:28
+msgid "Page Hero"
+msgstr ""
+
+#: elements/shopnex/page-hero/template/config.php:80
+msgid "Min Height"
+msgstr ""
+
+#: elements/shopnex/page-hero/template/config.php:129
+msgid "Show Overlay"
+msgstr ""
+
+#: elements/shopnex/page-hero/template/config.php:153
+msgid "Overlay Color (Top)"
+msgstr ""
+
+#: elements/shopnex/page-hero/template/config.php:165
+msgid "Gradient Stop Position"
+msgstr ""
+
+#: elements/shopnex/page-hero/template/config.php:200
+msgid "New Season · SS25 Collection"
+msgstr ""
+
+#: elements/shopnex/page-hero/template/config.php:222
+msgid "Designed for quiet living"
+msgstr ""
+
+#: elements/shopnex/page-hero/template/config.php:250
+msgid "Discover curated collections that blend contemporary fashion with timeless elegance. From runway-inspired silhouettes to everyday essentials, find pieces that speak to your unique sense of style."
+msgstr ""
+
+#: elements/shopnex/page-hero/template/config.php:259
+msgid "Show Description"
+msgstr ""
+
+#: elements/shopnex/page-hero/template/config.php:271
+msgid "Content Alignment"
+msgstr ""
+
+#: elements/shopnex/page-hero/template/config.php:298
+msgid "Vertical Position"
+msgstr ""
+
+#: elements/shopnex/page-title/template/config.php:28
+msgid "Page Title"
+msgstr ""
+
+#: elements/shopnex/page-title/template/config.php:71
+msgid "Get in touch"
+msgstr ""
+
+#: elements/shopnex/page-title/template/config.php:99
+msgid "Have a question about our products, need design advice, or want to collaborate? We'd love to hear from you."
+msgstr ""
+
+#: elements/shopnex/page-title/template/config.php:108
+msgid "Show Subtitle"
+msgstr ""
+
+#: elements/shopnex/page-title/template/config.php:177
+#: elements/shopnex/team/template/config.php:413
+#: elements/shopnex/values/template/config.php:429
+msgid "Subtitle Max Width"
+msgstr ""
+
+#: elements/shopnex/page-title/template/config.php:322
+msgid "Separator"
+msgstr ""
+
+#: elements/shopnex/page-title/template/config.php:333
+msgid "Show Separator"
+msgstr ""
+
+#: elements/shopnex/page-title/template/config.php:360
+msgid "Width"
+msgstr ""
+
+#: elements/shopnex/page-title/template/config.php:385
+msgid "Height"
+msgstr ""
+
+#: elements/shopnex/page-title/template/config.php:410
+msgid "Top Spacing"
+msgstr ""
+
+#: elements/shopnex/stats-strip/template/config.php:28
+msgid "Stats Strip"
+msgstr ""
+
+#: elements/shopnex/stats-strip/template/config.php:61
+msgid "Stats Items"
+msgstr ""
+
+#: elements/shopnex/stats-strip/template/config.php:71
+#: elements/shopnex/stats-strip/template/config.php:245
+msgid "Number"
+msgstr ""
+
+#: elements/shopnex/stats-strip/template/config.php:73
+msgid "8"
+msgstr ""
+
+#: elements/shopnex/stats-strip/template/config.php:75
+msgid "The main number value (e.g., 8, 24, 12, 100)"
+msgstr ""
+
+#: elements/shopnex/stats-strip/template/config.php:82
+msgid "Suffix / Accent Character"
+msgstr ""
+
+#: elements/shopnex/stats-strip/template/config.php:84
+msgid "+"
+msgstr ""
+
+#: elements/shopnex/stats-strip/template/config.php:86
+msgid "Optional suffix displayed in accent color (e.g., +, k, %). Leave empty for none."
+msgstr ""
+
+#: elements/shopnex/stats-strip/template/config.php:93
+#: elements/shopnex/stats-strip/template/config.php:317
+msgid "Label"
+msgstr ""
+
+#: elements/shopnex/stats-strip/template/config.php:95
+msgid "Years in fashion"
+msgstr ""
+
+#: elements/shopnex/stats-strip/template/config.php:103
+msgid "Stat Items"
+msgstr ""
+
+#: elements/shopnex/stats-strip/template/config.php:230
+msgid "Show Dividers Between Items"
+msgstr ""
+
+#: elements/shopnex/stats-strip/template/config.php:268
+msgid "Number Color"
+msgstr ""
+
+#: elements/shopnex/stats-strip/template/config.php:280
+msgid "Suffix / Accent Color"
+msgstr ""
+
+#: elements/shopnex/stats-strip/template/config.php:339
+msgid "Label Color"
+msgstr ""
+
+#: elements/shopnex/stats-strip/template/config.php:354
+msgid "Borders & Dividers"
+msgstr ""
+
+#: elements/shopnex/stats-strip/template/config.php:397
+msgid "Divider Width"
+msgstr ""
+
+#: elements/shopnex/stats-strip/template/config.php:419
+msgid "Divider Height (%)"
+msgstr ""
+
+#: elements/shopnex/team/template/config.php:28
+msgid "Team"
+msgstr ""
+
+#: elements/shopnex/team/template/config.php:71
+msgid "The People"
+msgstr ""
+
+#: elements/shopnex/team/template/config.php:81
+msgid "Meet our team"
+msgstr ""
+
+#: elements/shopnex/team/template/config.php:89
+#: elements/shopnex/team/template/config.php:380
+#: elements/shopnex/values/template/config.php:89
+#: elements/shopnex/values/template/config.php:396
+msgid "Section Subtitle"
+msgstr ""
+
+#: elements/shopnex/team/template/config.php:91
+msgid "A small, dedicated group of designers, stylists, and visionaries shaping the future of fashion."
+msgstr ""
+
+#: elements/shopnex/team/template/config.php:115
+#: elements/shopnex/team/template/config.php:156
+msgid "Team Members"
+msgstr ""
+
+#: elements/shopnex/team/template/config.php:125
+msgid "Avatar Image"
+msgstr ""
+
+#: elements/shopnex/team/template/config.php:136
+msgid "Name"
+msgstr ""
+
+#: elements/shopnex/team/template/config.php:138
+msgid "Team Member"
+msgstr ""
+
+#: elements/shopnex/team/template/config.php:146
+msgid "Role / Position"
+msgstr ""
+
+#: elements/shopnex/team/template/config.php:148
+msgid "Designer"
+msgstr ""
+
+#: elements/shopnex/team/template/config.php:237
+#: elements/shopnex/values/template/config.php:253
+msgid "Section Bottom Margin"
+msgstr ""
+
+#: elements/shopnex/team/template/config.php:460
+msgid "Avatar"
+msgstr ""
+
+#: elements/shopnex/team/template/config.php:468
+msgid "Avatar Background Color"
+msgstr ""
+
+#: elements/shopnex/team/template/config.php:480
+msgid "Avatar Border Radius"
+msgstr ""
+
+#: elements/shopnex/team/template/config.php:506
+msgid "Avatar Bottom Spacing"
+msgstr ""
+
+#: elements/shopnex/team/template/config.php:528
+msgid "Grayscale Filter"
+msgstr ""
+
+#: elements/shopnex/team/template/config.php:534
+msgid "Apply a subtle grayscale filter that is removed on hover."
+msgstr ""
+
+#: elements/shopnex/team/template/config.php:541
+msgid "Hover Zoom Effect"
+msgstr ""
+
+#: elements/shopnex/team/template/config.php:556
+#: elements/shopnex/values/template/config.php:476
+msgid "Card"
+msgstr ""
+
+#: elements/shopnex/team/template/config.php:564
+#: elements/shopnex/values/template/config.php:583
+msgid "Hover Lift Effect"
+msgstr ""
+
+#: elements/shopnex/team/template/config.php:579
+msgid "Member Name"
+msgstr ""
+
+#: elements/shopnex/team/template/config.php:601
+msgid "Name Color"
+msgstr ""
+
+#: elements/shopnex/team/template/config.php:638
+msgid "Member Role"
+msgstr ""
+
+#: elements/shopnex/team/template/config.php:660
+msgid "Role Color"
+msgstr ""
+
+#: elements/shopnex/team/template/view.php:53
+msgid "Team member"
+msgstr ""
+
+#: elements/shopnex/values/template/config.php:28
+msgid "Values"
+msgstr ""
+
+#: elements/shopnex/values/template/config.php:71
+msgid "Our Principles"
+msgstr ""
+
+#: elements/shopnex/values/template/config.php:81
+msgid "What guides us"
+msgstr ""
+
+#: elements/shopnex/values/template/config.php:91
+msgid "Three core values shape every decision we make — from the materials we choose to the partnerships we build."
+msgstr ""
+
+#: elements/shopnex/values/template/config.php:115
+#: elements/shopnex/values/template/config.php:170
+msgid "Value Cards"
+msgstr ""
+
+#: elements/shopnex/values/template/config.php:127
+msgid "🌿"
+msgstr ""
+
+#: elements/shopnex/values/template/config.php:129
+msgid "Enter an emoji, HTML entity, or icon class (e.g., 🌿, ✋, ◇, fas fa-leaf)"
+msgstr ""
+
+#: elements/shopnex/values/template/config.php:141
+msgid "Icon Class (Font Awesome)"
+msgstr ""
+
+#: elements/shopnex/values/template/config.php:151
+msgid "Sustainability First"
+msgstr ""
+
+#: elements/shopnex/values/template/config.php:161
+msgid "Every material is responsibly sourced. We use FSC-certified timber, natural oils, and recycled packaging."
+msgstr ""
+
+#: elements/shopnex/values/template/config.php:552
+msgid "Card Padding"
+msgstr ""
+
+#: elements/shopnex/values/template/config.php:571
+msgid "Hover Shadow Effect"
+msgstr ""
+
+#: elements/shopnex/values/template/config.php:640
+msgid "Icon Box Size"
+msgstr ""
+
+#: elements/shopnex/values/template/config.php:662
+msgid "Icon Bottom Spacing"
+msgstr ""
+
+#: elements/shopnex/values/template/config.php:684
+msgid "Icon Border Radius"
+msgstr ""
+
+#: elements/shopnex/values/template/config.php:772
+msgid "Card Description"
+msgstr ""
+
+#: elements/shopnex/widget-category.php:13
+msgid "Shopnex Free"
+msgstr ""
+
+#: inc/demo-importer/class-spiracle-content-importer.php:68
+msgid "Content XML file does not exist."
+msgstr ""
+
+#: inc/demo-importer/class-spiracle-content-importer.php:72
+msgid "Content XML file is not readable."
+msgstr ""
+
+#: inc/demo-importer/class-spiracle-customizer-importer.php:48
+msgid "Customizer DAT file does not exist."
+msgstr ""
+
+#: inc/demo-importer/class-spiracle-customizer-importer.php:52
+msgid "Customizer DAT file is not readable."
+msgstr ""
+
+#: inc/demo-importer/class-spiracle-customizer-importer.php:59
+msgid "Customizer DAT file is empty."
+msgstr ""
+
+#: inc/demo-importer/class-spiracle-customizer-importer.php:74
+msgid "Customizer DAT file contains invalid data."
+msgstr ""
+
+#: inc/demo-importer/class-spiracle-customizer-importer.php:79
+msgid "Customizer data is not in the expected format."
+msgstr ""
+
+#: inc/demo-importer/class-spiracle-demo-import.php:157
+msgid "Importing… Please do not close this page."
+msgstr ""
+
+#: inc/demo-importer/class-spiracle-demo-import.php:158
+#: inc/demo-importer/class-spiracle-demo-import.php:338
+msgid "Installing recommended plugins…"
+msgstr ""
+
+#: inc/demo-importer/class-spiracle-demo-import.php:159
+#: inc/demo-importer/class-spiracle-demo-import.php:342
+msgid "Importing content…"
+msgstr ""
+
+#: inc/demo-importer/class-spiracle-demo-import.php:160
+#: inc/demo-importer/class-spiracle-demo-import.php:346
+msgid "Importing widgets…"
+msgstr ""
+
+#: inc/demo-importer/class-spiracle-demo-import.php:161
+#: inc/demo-importer/class-spiracle-demo-import.php:350
+msgid "Importing customizer settings…"
+msgstr ""
+
+#: inc/demo-importer/class-spiracle-demo-import.php:162
+#: inc/demo-importer/class-spiracle-demo-import.php:354
+msgid "Running after-import setup…"
+msgstr ""
+
+#: inc/demo-importer/class-spiracle-demo-import.php:163
+msgid "Demo imported successfully!"
+msgstr ""
+
+#: inc/demo-importer/class-spiracle-demo-import.php:164
+msgid "Import failed."
+msgstr ""
+
+#: inc/demo-importer/class-spiracle-demo-import.php:165
+msgid "This will install required plugins, then import demo content, widgets, and customizer settings. Existing content may be duplicated. Continue?"
+msgstr ""
+
+#. translators: %s: Plugin name
+#: inc/demo-importer/class-spiracle-demo-import.php:166
+#, php-format
+msgid "Installing and activating %s…"
+msgstr ""
+
+#. translators: %s: Plugin name
+#: inc/demo-importer/class-spiracle-demo-import.php:167
+#: inc/demo-importer/class-spiracle-demo-import.php:284
+msgid "Active"
+msgstr ""
+
+#: inc/demo-importer/class-spiracle-demo-import.php:168
+#: inc/demo-importer/class-spiracle-demo-import.php:287
+msgid "Inactive"
+msgstr ""
+
+#: inc/demo-importer/class-spiracle-demo-import.php:169
+#: inc/demo-importer/class-spiracle-demo-import.php:290
+msgid "Not Installed"
+msgstr ""
+
+#: inc/demo-importer/class-spiracle-demo-import.php:190
+msgid "Select a demo and click Import to install recommended plugins, demo content, widgets, and customizer settings."
+msgstr ""
+
+#: inc/demo-importer/class-spiracle-demo-import.php:196
+msgid "No Demos Available"
+msgstr ""
+
+#: inc/demo-importer/class-spiracle-demo-import.php:197
+msgid "No demo configurations were found for the current theme. Please make sure the theme is compatible with Spiraclethemes Site Library."
+msgstr ""
+
+#. translators: %d: Demo number
+#: inc/demo-importer/class-spiracle-demo-import.php:203
+#: inc/theme-functions/colon-functions.php:29
+#: inc/theme-functions/crater-free-functions.php:28
+#: inc/theme-functions/krystal-functions.php:31
+#: inc/theme-functions/own-shop-functions.php:29
+#: inc/theme-functions/purea-magazine-functions.php:29
+#: inc/theme-functions/shopnex-functions.php:29
+#, php-format
+msgid "Demo %d"
+msgstr ""
+
+#: inc/demo-importer/class-spiracle-demo-import.php:248
+msgid "Widgets"
+msgstr ""
+
+#: inc/demo-importer/class-spiracle-demo-import.php:252
+msgid "Customizer"
+msgstr ""
+
+#: inc/demo-importer/class-spiracle-demo-import.php:260
+msgid "Required Plugins"
+msgstr ""
+
+#: inc/demo-importer/class-spiracle-demo-import.php:304
+msgid "Import Demo"
+msgstr ""
+
+#: inc/demo-importer/class-spiracle-demo-import.php:309
+msgid "Files Missing"
+msgstr ""
+
+#: inc/demo-importer/class-spiracle-demo-import.php:316
+msgid "Live Preview"
+msgstr ""
+
+#: inc/demo-importer/class-spiracle-demo-import.php:332
+msgid "Importing Demo"
+msgstr ""
+
+#: inc/demo-importer/class-spiracle-demo-import.php:362
+msgid "Visit Website"
+msgstr ""
+
+#: inc/demo-importer/class-spiracle-demo-import.php:365
+msgid "Close"
+msgstr ""
+
+#: inc/demo-importer/class-spiracle-demo-import.php:382
+msgid "File URL is empty."
+msgstr ""
+
+#: inc/demo-importer/class-spiracle-demo-import.php:387
+msgid "Only http:// and https:// URLs are allowed for file downloads."
+msgstr ""
+
+#: inc/demo-importer/class-spiracle-demo-import.php:392
+msgid "Invalid URL: missing host."
+msgstr ""
+
+#: inc/demo-importer/class-spiracle-demo-import.php:397
+msgid "Could not resolve download URL host."
+msgstr ""
+
+#: inc/demo-importer/class-spiracle-demo-import.php:415
+msgid "Downloads from private/internal networks are not allowed."
+msgstr ""
+
+#: inc/demo-importer/class-spiracle-demo-import.php:441
+#: inc/demo-importer/class-spiracle-demo-import.php:562
+#: inc/demo-importer/class-spiracle-demo-import.php:593
+#: inc/demo-importer/class-spiracle-demo-import.php:624
+msgid "Security check failed."
+msgstr ""
+
+#: inc/demo-importer/class-spiracle-demo-import.php:446
+#: inc/demo-importer/class-spiracle-demo-import.php:628
+msgid "You do not have sufficient permissions."
+msgstr ""
+
+#: inc/demo-importer/class-spiracle-demo-import.php:454
+msgid "Invalid demo selected."
+msgstr ""
+
+#: inc/demo-importer/class-spiracle-demo-import.php:475
+msgid "No content file to import, skipping."
+msgstr ""
+
+#: inc/demo-importer/class-spiracle-demo-import.php:486
+msgid "No widget file to import, skipping."
+msgstr ""
+
+#: inc/demo-importer/class-spiracle-demo-import.php:497
+msgid "No customizer file to import, skipping."
+msgstr ""
+
+#: inc/demo-importer/class-spiracle-demo-import.php:508
+msgid "Invalid import step."
+msgstr ""
+
+#. translators: 1: Plugin name 2: Error message
+#: inc/demo-importer/class-spiracle-demo-import.php:533
+#, php-format
+msgid "Plugin \"%1$s\": %2$s"
+msgstr ""
+
+#. translators: %s: Error messages
+#: inc/demo-importer/class-spiracle-demo-import.php:545
+#, php-format
+msgid "Some plugins could not be installed: %s"
+msgstr ""
+
+#: inc/demo-importer/class-spiracle-demo-import.php:552
+msgid "All recommended plugins installed and activated."
+msgstr ""
+
+#: inc/demo-importer/class-spiracle-demo-import.php:566
+#: inc/demo-importer/class-spiracle-plugin-installer.php:76
+msgid "You do not have permission to install plugins."
+msgstr ""
+
+#: inc/demo-importer/class-spiracle-demo-import.php:571
+#: inc/demo-importer/class-spiracle-demo-import.php:602
+msgid "Plugin slug is required."
+msgstr ""
+
+#: inc/demo-importer/class-spiracle-demo-import.php:576
+#: inc/demo-importer/class-spiracle-demo-import.php:607
+msgid "This plugin is not in the recommended plugins list."
+msgstr ""
+
+#: inc/demo-importer/class-spiracle-demo-import.php:597
+#: inc/demo-importer/class-spiracle-plugin-installer.php:175
+msgid "You do not have permission to activate plugins."
+msgstr ""
+
+#: inc/demo-importer/class-spiracle-demo-import.php:678
+msgid "Content imported successfully."
+msgstr ""
+
+#: inc/demo-importer/class-spiracle-demo-import.php:717
+msgid "Widgets imported successfully."
+msgstr ""
+
+#: inc/demo-importer/class-spiracle-demo-import.php:757
+msgid "Customizer settings imported successfully."
+msgstr ""
+
+#: inc/demo-importer/class-spiracle-demo-import.php:796
+msgid "After-import setup completed successfully."
+msgstr ""
+
+#. translators: %s: Plugin slug
+#: inc/demo-importer/class-spiracle-plugin-installer.php:85
+#, php-format
+msgid "%s is already installed."
+msgstr ""
+
+#. translators: %s: Plugin slug
+#: inc/demo-importer/class-spiracle-plugin-installer.php:122
+#, php-format
+msgid "Could not find plugin information for \"%s\" on WordPress.org."
+msgstr ""
+
+#. translators: %s: Plugin slug
+#: inc/demo-importer/class-spiracle-plugin-installer.php:141
+#, php-format
+msgid "Failed to install plugin \"%s\"."
+msgstr ""
+
+#. translators: %s: Plugin slug
+#: inc/demo-importer/class-spiracle-plugin-installer.php:158
+#, php-format
+msgid "Plugin \"%s\" installed successfully."
+msgstr ""
+
+#. translators: %s: Plugin slug
+#: inc/demo-importer/class-spiracle-plugin-installer.php:186
+#, php-format
+msgid "Plugin \"%s\" is not installed."
+msgstr ""
+
+#. translators: %s: Plugin slug
+#: inc/demo-importer/class-spiracle-plugin-installer.php:196
+#, php-format
+msgid "Plugin \"%s\" is already active."
+msgstr ""
+
+#. translators: %s: Plugin slug
+#: inc/demo-importer/class-spiracle-plugin-installer.php:212
+#, php-format
+msgid "Plugin \"%s\" activated successfully."
+msgstr ""
+
+#. translators: %s: Plugin slug
+#: inc/demo-importer/class-spiracle-plugin-installer.php:231
+#, php-format
+msgid "Plugin \"%s\" is already installed and active."
+msgstr ""
+
+#. translators: %s: Plugin slug
+#: inc/demo-importer/class-spiracle-plugin-installer.php:253
+#, php-format
+msgid "Plugin \"%s\" installed and activated successfully."
+msgstr ""
+
+#: inc/demo-importer/class-spiracle-widget-importer.php:27
+msgid "Widget WIE file does not exist."
+msgstr ""
+
+#: inc/demo-importer/class-spiracle-widget-importer.php:31
+msgid "Widget WIE file is not readable."
+msgstr ""
+
+#: inc/demo-importer/class-spiracle-widget-importer.php:38
+msgid "Widget WIE file is empty."
+msgstr ""
+
+#: inc/demo-importer/class-spiracle-widget-importer.php:44
+msgid "Widget WIE file contains invalid JSON."
+msgstr ""
+
+#: inc/demo-importer/class-spiracle-widget-importer.php:48
+msgid "Widget WIE file format is not valid."
+msgstr ""
+
+#: inc/demo-importer/parsers/class-wxr-parser.php:30
+msgid "File does not exist."
+msgstr ""
+
+#: inc/demo-importer/parsers/class-wxr-parser.php:81
+#: inc/demo-importer/parsers/class-wxr-parser.php:366
+#: inc/demo-importer/parsers/class-wxr-parser.php:401
+msgid "Empty or unreadable file."
+msgstr ""
+
+#: inc/demo-importer/parsers/class-wxr-parser.php:95
+msgid "Could not parse XML file."
+msgstr ""
+
+#: inc/theme-functions/blogson-functions.php:42
+#: inc/theme-functions/lawfiz-functions.php:41
+#: inc/theme-functions/legalblow-functions.php:41
+msgid "Demo 1"
+msgstr ""
+
+#: inc/theme-functions/blogson-functions.php:47
+#: inc/theme-functions/colon-functions.php:34
+#: inc/theme-functions/colon-plus-functions.php:33
+#: inc/theme-functions/crater-free-functions.php:33
+#: inc/theme-functions/krystal-business-functions.php:33
+#: inc/theme-functions/krystal-functions.php:36
+#: inc/theme-functions/krystal-lawyer-functions.php:33
+#: inc/theme-functions/krystal-shop-functions.php:33
+#: inc/theme-functions/lawfiz-functions.php:46
+#: inc/theme-functions/lawfiz-functions.php:55
+#: inc/theme-functions/legalblow-functions.php:46
+#: inc/theme-functions/legalblow-functions.php:55
+#: inc/theme-functions/mestore-functions.php:33
+#: inc/theme-functions/purea-fashion-functions.php:33
+#: inc/theme-functions/purea-magazine-functions.php:34
+#: inc/theme-functions/somalite-functions.php:33
+msgid "After you import this demo, you will have to change some menu links. Please check documentation for more information"
+msgstr ""
+
+#: inc/theme-functions/blogson-functions.php:156
+msgid "-- No select --"
+msgstr ""
+
+#: inc/theme-functions/blogson-functions.php:344
+msgid "Comments"
+msgstr ""
+
+#: inc/theme-functions/colon-plus-functions.php:28
+msgid "Colon Plus Demo"
+msgstr ""
+
+#: inc/theme-functions/krystal-business-functions.php:28
+msgid "Krystal Business Demo"
+msgstr ""
+
+#: inc/theme-functions/krystal-lawyer-functions.php:28
+msgid "Krystal Lawyer Demo"
+msgstr ""
+
+#: inc/theme-functions/krystal-shop-functions.php:28
+msgid "Krystal Shop Demo"
+msgstr ""
+
+#: inc/theme-functions/lawfiz-functions.php:50
+#: inc/theme-functions/legalblow-functions.php:50
+msgid "More Demos"
+msgstr ""
+
+#: inc/theme-functions/lawfiz-one-functions.php:28
+msgid "Lawfiz One Demo"
+msgstr ""
+
+#: inc/theme-functions/lawfiz-one-functions.php:33
+#: inc/theme-functions/own-shop-functions.php:34
+#: inc/theme-functions/own-shop-lite-functions.php:33
+#: inc/theme-functions/own-shop-trend-functions.php:33
+#: inc/theme-functions/own-shope-functions.php:33
+#: inc/theme-functions/own-store-functions.php:33
+#: inc/theme-functions/shopnex-functions.php:34
+msgid "After you import this demo, you will have to set up your menus and homepage. Please check documentation for more information."
+msgstr ""
+
+#: inc/theme-functions/mestore-functions.php:28
+msgid "MeStore Demo"
+msgstr ""
+
+#: inc/theme-functions/own-shop-functions.php:421
+#: inc/theme-functions/own-shop-lite-functions.php:417
+#: inc/theme-functions/own-shope-functions.php:417
+#: inc/theme-functions/own-store-functions.php:417
+msgid "post-image"
+msgstr ""
+
+#: inc/theme-functions/own-shop-functions.php:476
+#: inc/theme-functions/own-shop-lite-functions.php:472
+#: inc/theme-functions/own-shope-functions.php:472
+#: inc/theme-functions/own-store-functions.php:473
+msgid "Quick View"
+msgstr ""
+
+#: inc/theme-functions/own-shop-functions.php:507
+#: inc/theme-functions/own-shop-functions.php:626
+#: inc/theme-functions/own-shop-lite-functions.php:506
+#: inc/theme-functions/own-shop-lite-functions.php:625
+#: inc/theme-functions/own-shope-functions.php:506
+#: inc/theme-functions/own-shope-functions.php:625
+#: inc/theme-functions/own-store-functions.php:507
+#: inc/theme-functions/own-store-functions.php:626
+msgid "Product not found."
+msgstr ""
+
+#. translators: %s: Review count
+#: inc/theme-functions/own-shop-functions.php:554
+#: inc/theme-functions/own-shop-lite-functions.php:553
+#: inc/theme-functions/own-shope-functions.php:553
+#: inc/theme-functions/own-store-functions.php:554
+#, php-format
+msgid "(%s review)"
+msgid_plural "(%s reviews)"
+msgstr[0] ""
+msgstr[1] ""
+
+#: inc/theme-functions/own-shop-functions.php:568
+#: inc/theme-functions/own-shop-lite-functions.php:567
+#: inc/theme-functions/own-shope-functions.php:567
+#: inc/theme-functions/own-store-functions.php:568
+msgid "Quantity:"
+msgstr ""
+
+#: inc/theme-functions/own-shop-functions.php:582
+#: inc/theme-functions/own-shop-lite-functions.php:581
+#: inc/theme-functions/own-shope-functions.php:581
+#: inc/theme-functions/own-store-functions.php:582
+msgid "SKU:"
+msgstr ""
+
+#: inc/theme-functions/own-shop-functions.php:582
+#: inc/theme-functions/own-shop-lite-functions.php:581
+#: inc/theme-functions/own-shope-functions.php:581
+#: inc/theme-functions/own-store-functions.php:582
+msgid "N/A"
+msgstr ""
+
+#: inc/theme-functions/own-shop-functions.php:583
+#: inc/theme-functions/own-shop-lite-functions.php:582
+#: inc/theme-functions/own-shope-functions.php:582
+#: inc/theme-functions/own-store-functions.php:583
+msgid "Category:"
+msgstr ""
+
+#: inc/theme-functions/own-shop-functions.php:620
+#: inc/theme-functions/own-shop-lite-functions.php:619
+#: inc/theme-functions/own-shope-functions.php:619
+#: inc/theme-functions/own-store-functions.php:620
+msgid "Invalid product or quantity."
+msgstr ""
+
+#: inc/theme-functions/own-shop-functions.php:632
+#: inc/theme-functions/own-shop-lite-functions.php:631
+#: inc/theme-functions/own-shope-functions.php:631
+#: inc/theme-functions/own-store-functions.php:632
+msgid "Please select product options."
+msgstr ""
+
+#: inc/theme-functions/own-shop-functions.php:637
+#: inc/theme-functions/own-shop-lite-functions.php:636
+#: inc/theme-functions/own-shope-functions.php:636
+#: inc/theme-functions/own-store-functions.php:637
+msgid "Invalid variation selected."
+msgstr ""
+
+#: inc/theme-functions/own-shop-functions.php:645
+#: inc/theme-functions/own-shop-lite-functions.php:644
+#: inc/theme-functions/own-shope-functions.php:644
+#: inc/theme-functions/own-store-functions.php:645
+msgid "Sorry, this product is out of stock."
+msgstr ""
+
+#. translators: %s: Product name
+#: inc/theme-functions/own-shop-functions.php:651
+#: inc/theme-functions/own-shop-lite-functions.php:650
+#: inc/theme-functions/own-shope-functions.php:650
+#: inc/theme-functions/own-store-functions.php:651
+#, php-format
+msgid "Sorry, we do not have enough \"%s\" in stock to fulfill your order."
+msgstr ""
+
+#: inc/theme-functions/own-shop-functions.php:658
+#: inc/theme-functions/own-shop-lite-functions.php:657
+#: inc/theme-functions/own-shope-functions.php:657
+#: inc/theme-functions/own-store-functions.php:658
+msgid "Failed to add product to cart."
+msgstr ""
+
+#. translators: %s: Product name
+#: inc/theme-functions/own-shop-functions.php:667
+#: inc/theme-functions/own-shop-lite-functions.php:666
+#: inc/theme-functions/own-shope-functions.php:666
+#: inc/theme-functions/own-store-functions.php:667
+#, php-format
+msgid "\"%s\" has been added to your cart."
+msgstr ""
+
+#: inc/theme-functions/own-shop-lite-functions.php:28
+msgid "Own Shop Lite Demo"
+msgstr ""
+
+#: inc/theme-functions/own-shop-trend-functions.php:28
+msgid "Own Shop Trend Demo"
+msgstr ""
+
+#: inc/theme-functions/own-shope-functions.php:28
+msgid "Own Shope Demo"
+msgstr ""
+
+#: inc/theme-functions/own-store-functions.php:28
+msgid "Own Store Demo"
+msgstr ""
+
+#: inc/theme-functions/purea-fashion-functions.php:28
+msgid "Purea Fashion"
+msgstr ""
+
+#: inc/theme-functions/somalite-functions.php:28
+msgid "Demo Business"
+msgstr ""
+
+#. translators: %s: Theme name
+#: inc/widget/widget.php:34
+#, php-format
+msgid "%s Theme"
+msgstr ""
+
+#: inc/widget/widget.php:66
+msgid "You do not have permission to view this content."
+msgstr ""
+
+#: inc/widget/widget.php:83
+#: inc/widget/widget.php:93
+#: inc/widget/widget.php:109
+#: inc/widget/widget.php:129
+msgid "Special Discount"
+msgstr ""
+
+#: inc/widget/widget.php:84
+#: inc/widget/widget.php:94
+msgid "Unable to load discount info. Please try again later."
+msgstr ""
+
+#: inc/widget/widget.php:110
+msgid "Unable to load discount info."
+msgstr ""
+
+#: inc/widget/widget.php:135
+msgid "LIMITED TIME"
+msgstr ""
+
+#. translators: 1: Discount price, 2: Theme name
+#: inc/widget/widget.php:139
+#, php-format
+msgid "Unlock the Pro version for just $%1$s! Take advantage of our limited-time discount on %2$s."
+msgstr ""
+
+#: inc/widget/widget.php:145
+msgid "Get Pro Now"
+msgstr ""
+
+#: inc/widget/widget.php:153
+msgid "No special discount currently available."
+msgstr ""
+
+#: inc/widget/widget.php:173
+msgid "Stunning Custom Design"
+msgstr ""
+
+#: inc/widget/widget.php:174
+msgid "Make a lasting impression with a beautiful, modern website or redesign."
+msgstr ""
+
+#: inc/widget/widget.php:178
+msgid "Tailor-Made Features"
+msgstr ""
+
+#: inc/widget/widget.php:179
+msgid "We build exactly what your business needs – no fluff, just functionality."
+msgstr ""
+
+#: inc/widget/widget.php:183
+msgid "SEO-Optimized"
+msgstr ""
+
+#: inc/widget/widget.php:184
+msgid "Climb the search rankings and get discovered faster on Google."
+msgstr ""
+
+#: inc/widget/widget.php:188
+msgid "Blazing-Fast Speed"
+msgstr ""
+
+#: inc/widget/widget.php:189
+msgid "Say goodbye to slow loading. We make your site lightning quick!"
+msgstr ""
+
+#: inc/widget/widget.php:193
+msgid "Rock-Solid Security"
+msgstr ""
+
+#: inc/widget/widget.php:194
+msgid "Sleep easy knowing your website is shielded with top-notch protection."
+msgstr ""
+
+#: inc/widget/widget.php:198
+msgid "100% Mobile-Responsive"
+msgstr ""
+
+#: inc/widget/widget.php:199
+msgid "Your site will look perfect on every screen – phones, tablets, and desktops."
+msgstr ""
+
+#: inc/widget/widget.php:203
+msgid "Google Analytics Ready"
+msgstr ""
+
+#: inc/widget/widget.php:204
+msgid "Gain powerful insights and track every visitor with ease."
+msgstr ""
+
+#: inc/widget/widget.php:208
+msgid "Live Chat Integration"
+msgstr ""
+
+#: inc/widget/widget.php:209
+msgid "Connect instantly with your visitors and turn chats into conversions."
+msgstr ""
+
+#: inc/widget/widget.php:213
+msgid "SSL Renewal Support"
+msgstr ""
+
+#: inc/widget/widget.php:214
+msgid "We help you stay secure, always – no more expired certificates."
+msgstr ""
+
+#: inc/widget/widget.php:218
+msgid "Spam Shield Setup"
+msgstr ""
+
+#: inc/widget/widget.php:219
+msgid "Keep your site clean and junk-free with robust spam protection."
+msgstr ""
+
+#: inc/widget/widget.php:223
+msgid "30 Days Free Expert Support"
+msgstr ""
+
+#: inc/widget/widget.php:224
+msgid "We've got your back, even after launch – no extra cost!"
+msgstr ""
+
+#: inc/widget/widget.php:233
+msgid "Rocket"
+msgstr ""
+
+#: inc/widget/widget.php:235
+msgid "Design, Build or Revamp Your WordPress Website"
+msgstr ""
+
+#: inc/widget/widget.php:236
+msgid "Starting from"
+msgstr ""
+
+#. translators: %s: Theme name
+#: inc/widget/widget.php:258
+#, php-format
+msgid "Website Design/Revamp Inquiry - %s"
+msgstr ""
+
+#: inc/widget/widget.php:260
+msgid "Email Us to Get Started — $299"
+msgstr ""
+
+#: inc/widget/widget.php:262
+msgid "Limited Time Offer"
+msgstr ""
+
+#: inc/widget/widget.php:277
+msgid "News & Updates"
+msgstr ""
+
+#: inc/widget/widget.php:291
+#: inc/widget/widget.php:298
+msgid "Unable to load news. Please try again later."
+msgstr ""
+
+#: inc/widget/widget.php:305
+msgid "Unable to load news."
+msgstr ""
+
+#: inc/widget/widget.php:327
+msgid "NEW"
+msgstr ""
+
+#: inc/widget/widget.php:336
+msgid "No recent posts found."
+msgstr ""
+
+#. translators: 1: Translation URL, 2: Theme name
+#: inc/widget/widget.php:350
+#, php-format
+msgid "Help Us to Translate %2$s"
+msgstr ""
+
+#: inc/widget/widget.php:356
+msgid "Write a Review"
+msgstr ""
+
+#: spiraclethemes-site-library.php:218
+msgid "Ready to Launch Your Site?"
+msgstr ""
+
+#: spiraclethemes-site-library.php:219
+msgid "Kickstart your WordPress website with our free demo starter templates, tailored for this theme. Pick a design, import it, and make it yours — in minutes."
+msgstr ""
+
+#: spiraclethemes-site-library.php:221
+msgid "Start Importing Templates"
+msgstr ""
+
+#: spiraclethemes-site-library.php:319
+msgid "PRO"
+msgstr ""
+
+#. translators: %s: Theme Pro name
+#: spiraclethemes-site-library.php:365
+#, php-format
+msgid "Unlock the Full Power of %s"
+msgstr ""
+
+#: spiraclethemes-site-library.php:368
+msgid "Take your website to the next level with advanced customization options, premium layouts, priority support, and exclusive features designed to help you stand out."
+msgstr ""
+
+#: spiraclethemes-site-library.php:369
+msgid "$49"
+msgstr ""
+
+#: spiraclethemes-site-library.php:370
+msgid "$59"
+msgstr ""
+
+#: spiraclethemes-site-library.php:371
+msgid "/year"
+msgstr ""
+
+#: spiraclethemes-site-library.php:373
+msgid "Explore Pro Features"
+msgstr ""
+
+#: spiraclethemes-site-library.php:375
+msgid "Remind me later"
+msgstr ""
+
+#. translators: 1: Theme name with link, 2: Rating URL, 3: Rating link text, 4: Ignore URL, 5: Ignore link text
+#: spiraclethemes-site-library.php:433
+#, php-format
+msgid "Awesome, you've been using %s for over a week! Please consider giving us a 5-star review."
+msgstr ""
+
+#: spiraclethemes-site-library.php:437
+msgid "Ok, you deserved it!"
+msgstr ""
+
+#: spiraclethemes-site-library.php:439
+msgid "No, thanks"
+msgstr ""
+
+#: spiraclethemes-site-library.php:574
+msgid "Custom Website Design Service Inquiry"
+msgstr ""
+
+#: spiraclethemes-site-library.php:594
+msgid "Your Website, Designed & Launched in 7 Days"
+msgstr ""
+
+#: spiraclethemes-site-library.php:595
+msgid "No templates. No hassle. We design and set everything up for you — up to 5 custom pages for just $299. Limited to 3 clients per week."
+msgstr ""
+
+#: spiraclethemes-site-library.php:597
+msgid "Get Started →"
+msgstr ""
+
+#: spiraclethemes-site-library.php:599
+msgid "Dismiss"
+msgstr ""

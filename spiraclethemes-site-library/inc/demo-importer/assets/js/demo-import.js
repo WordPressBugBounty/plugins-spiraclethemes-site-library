@@ -100,6 +100,7 @@
 				demo: demoIndex,
 				step: step
 			},
+			dataType: 'json',
 			success: function (response) {
 				if (response.success) {
 					addLog(response.data.message, 'success');

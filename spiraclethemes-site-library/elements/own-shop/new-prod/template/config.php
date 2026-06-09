@@ -10,7 +10,7 @@ Use Elementor\Controls_Stack;
 
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
-class Own_Shop_NewProd extends Widget_Base {
+class Own_Shop_NewProd extends Widget_Base { // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedClassFound
 
 	public function get_name() {
 		return 'own-shop-elementor-newprod';
