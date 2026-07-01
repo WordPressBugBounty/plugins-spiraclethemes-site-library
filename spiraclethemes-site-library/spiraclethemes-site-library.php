@@ -3,7 +3,7 @@
  * Plugin Name:       Spiraclethemes Site Library
  * Plugin URI:        https://wordpress.org/plugins/spiraclethemes-site-library/
  * Description:       A plugin by Spiracle Themes that adds one-click demo import, theme customization, starter templates, and page builder support to its free themes.
- * Version:           1.6.1
+ * Version:           1.6.2
  * Author:            SpiracleThemes
  * Author URI:        https://spiraclethemes.com
  * License:           GPL-2.0+
@@ -43,7 +43,7 @@ class Spiraclethemes_Site_Library {
      *
      * @var string
      */
-    const VERSION = '1.6.1';
+    const VERSION = '1.6.2';
 
     /**
      * Allowed Spiraclethemes theme slugs.
@@ -73,6 +73,7 @@ class Spiraclethemes_Site_Library {
         'krystal-business',
         'krystal-shop',
         'shopnex',
+        'pawwell',
     ];
 
     /**
@@ -117,6 +118,7 @@ class Spiraclethemes_Site_Library {
         'krystal-business' => 'https://spiraclethemes.com/krystal-pro-addons/',
         'krystal-shop'     => 'https://spiraclethemes.com/krystal-pro-addons/',
         'shopnex'          => 'https://spiraclethemes.com/shopnex-pro-addons/',
+        'pawwell'          => 'https://spiraclethemes.com/pawwell-pro-addons/',
     ];
 
     /**
@@ -164,6 +166,7 @@ class Spiraclethemes_Site_Library {
         delete_user_meta( $user_id, 'spiraclethemes_sitelib_rating_ignore_notice' );
         delete_user_meta( $user_id, 'spiraclethemes_sitelib_training_ignore_notice' );
         delete_user_meta( $user_id, 'spiraclethemes_sitelib_custom_dev_ignore_notice' );
+        delete_user_meta( $user_id, 'spiraclethemes_sitelib_welcome_ignore_notice' );
 
         // Clean up plan notice meta keys.
         foreach ( self::NOTICE_SCHEDULE as $notice ) {
@@ -196,6 +199,8 @@ class Spiraclethemes_Site_Library {
             add_action( 'admin_init', [ $this, 'spiraclethemes_site_library_ignore_rating_notice' ] );
             add_action( 'admin_init', [ $this, 'spiraclethemes_site_library_ignore_49dollar_notices' ] );
             add_action( 'admin_init', [ $this, 'spiraclethemes_site_library_ignore_custom_dev_notice' ] );
+            add_action( 'wp_ajax_spiraclethemes_sitelib_dismiss_welcome', [ $this, 'spiraclethemes_site_library_dismiss_welcome_notice' ] );
+            add_action( 'admin_print_footer_scripts', [ $this, 'spiraclethemes_site_library_welcome_dismiss_script' ] );
         }
     }
 
@@ -401,12 +406,12 @@ class Spiraclethemes_Site_Library {
         $user_id    = get_current_user_id();
 
         // Show Import CTA during first 7 days.
-        if ( $days_since < 7 && ! empty( $this->notification ) ) {
-            AdminNotice::create( 'spiraclethemes-site-library-notice' )
-                ->persistentlyDismissible( AdminNotice::DISMISS_PER_SITE )
-                ->type( 'success' )
-                ->rawHtml( $this->notification )
-                ->show();
+        if ( $days_since < 7 && ! empty( $this->notification ) && ! get_user_meta( $user_id, 'spiraclethemes_sitelib_welcome_ignore_notice', true ) ) {
+            printf(
+                '<div id="spiraclethemes-site-library-notice" class="notice notice-success is-dismissible" data-nonce="%1$s">%2$s</div>',
+                esc_attr( wp_create_nonce( 'spiraclethemes_sitelib_welcome_dismiss' ) ),
+                $this->notification // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+            );
         }
 
         // Check if any $49/year notices have been shown.
@@ -559,6 +564,44 @@ class Spiraclethemes_Site_Library {
     }
 
     /**
+     * Handle AJAX dismissal of the welcome notice.
+     */
+    public function spiraclethemes_site_library_dismiss_welcome_notice() {
+        check_ajax_referer( 'spiraclethemes_sitelib_welcome_dismiss' );
+
+        if ( ! current_user_can( 'manage_options' ) ) {
+            wp_die( -1 );
+        }
+
+        add_user_meta( get_current_user_id(), 'spiraclethemes_sitelib_welcome_ignore_notice', true, true );
+        wp_die( 1 );
+    }
+
+    /**
+     * Output inline script to persistently dismiss the welcome notice.
+     */
+    public function spiraclethemes_site_library_welcome_dismiss_script() {
+        if ( get_user_meta( get_current_user_id(), 'spiraclethemes_sitelib_welcome_ignore_notice', true ) ) {
+            return;
+        }
+        ?>
+        <script>
+        (function(){
+            var notice = document.getElementById('spiraclethemes-site-library-notice');
+            if (!notice) { return; }
+            notice.addEventListener('click', function(e){
+                if (!e.target.classList.contains('notice-dismiss') && !e.target.closest('.notice-dismiss')) { return; }
+                var data = new FormData();
+                data.append('action', 'spiraclethemes_sitelib_dismiss_welcome');
+                data.append('_ajax_nonce', notice.getAttribute('data-nonce'));
+                navigator.sendBeacon && navigator.sendBeacon(ajaxurl, data) || fetch(ajaxurl, { method: 'POST', body: data, credentials: 'same-origin' });
+            });
+        })();
+        </script>
+        <?php
+    }
+
+    /**
      * Display the custom development service notice banner.
      * Shows a compact, eye-catching banner promoting the custom website service.
      */
@@ -592,7 +635,7 @@ class Spiraclethemes_Site_Library {
                 '</div>' .
             '</div>',
             esc_html__( 'Your Website, Designed & Launched in 7 Days', 'spiraclethemes-site-library' ),
-            esc_html__( 'No templates. No hassle. We design and set everything up for you — up to 5 custom pages for just $299. Limited to 3 clients per week.', 'spiraclethemes-site-library' ),
+            esc_html__( 'No templates. No hassle. We design and set everything up for you — up to 5 custom pages for just $399. Limited to 3 clients per week.', 'spiraclethemes-site-library' ),
             esc_url( $cta_url ),
             esc_html__( 'Get Started →', 'spiraclethemes-site-library' ),
             esc_url( $ignore_url ),

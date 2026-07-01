@@ -95,6 +95,11 @@ $spir_theme_files = [
         SPIR_SITE_LIBRARY_PATH . '/elements/shopnex/helper-functions.php',
         SPIR_SITE_LIBRARY_PATH . '/elements/shopnex/widget-category.php',
     ],
+    'pawwell'          => [
+        SPIR_SITE_LIBRARY_PATH . '/inc/theme-functions/pawwell-functions.php',
+        SPIR_SITE_LIBRARY_PATH . '/elements/pawwell/helper-functions.php',
+        SPIR_SITE_LIBRARY_PATH . '/elements/pawwell/widget-category.php',
+    ],
 ];
 
 // Load the appropriate files based on the current theme slug.

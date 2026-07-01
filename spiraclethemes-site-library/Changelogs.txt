@@ -1,6 +1,10 @@
 
 == Changelog ==
 
+== 1.6.2 ==
+- fixed the notice dismissal issue
+- Added pawwell demo
+
 == 1.6.1 ==
 - minor bug fixes
 

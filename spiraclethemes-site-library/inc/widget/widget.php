@@ -233,7 +233,7 @@ function spiraclethemes_site_library_render_services_section() {
     echo '<div class="ssl-services-header-icon"><img src="' . esc_url( $rocket_img ) . '" alt="' . esc_attr__( 'Rocket', 'spiraclethemes-site-library' ) . '" /></div>';
     echo '<div class="ssl-services-header-text">';
     echo '<h3>' . esc_html__( 'Design, Build or Revamp Your WordPress Website', 'spiraclethemes-site-library' ) . '</h3>';
-    echo '<span class="ssl-services-price">' . esc_html__( 'Starting from', 'spiraclethemes-site-library' ) . ' <strong>$299</strong></span>';
+    echo '<span class="ssl-services-price">' . esc_html__( 'Starting from', 'spiraclethemes-site-library' ) . ' <strong>$399</strong></span>';
     echo '</div>';
     echo '</div>';
 
@@ -257,7 +257,7 @@ function spiraclethemes_site_library_render_services_section() {
     /* translators: %s: Theme name */
     echo '<a href="mailto:support@spiraclethemes.com?subject=' . rawurlencode( sprintf( __( 'Website Design/Revamp Inquiry - %s', 'spiraclethemes-site-library' ), SPIR_SITE_LIBRARY_THEME_NAME ) ) . '" class="ssl-services-cta">';
     echo '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>';
-    echo '<span>' . esc_html__( 'Email Us to Get Started — $299', 'spiraclethemes-site-library' ) . '</span>';
+    echo '<span>' . esc_html__( 'Email Us to Get Started — $399', 'spiraclethemes-site-library' ) . '</span>';
     echo '</a>';
     echo '<span class="ssl-services-limited">' . esc_html__( 'Limited Time Offer', 'spiraclethemes-site-library' ) . '</span>';
     echo '</div>';
