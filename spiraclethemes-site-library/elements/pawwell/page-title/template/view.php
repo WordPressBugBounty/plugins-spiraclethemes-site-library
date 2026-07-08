@@ -27,7 +27,7 @@ $full_width_border = $settings['full_width_border'] ?? 'no';
 $border_color      = $settings['border_color'] ?? '#E8E2DA';
 $border_width      = isset( $settings['border_width']['size'] ) ? absint( $settings['border_width']['size'] ) : 1;
 
-// Border flags — mirror the products-grid pattern.
+// Border flags
 $wrap_class  = 'pawwell-pt pawwell-pt-' . esc_attr( $id );
 $wrap_class .= 'yes' === $show_border_top ? ' pawwell-pt-bt' : '';
 $wrap_class .= 'yes' === $show_border_bottom ? ' pawwell-pt-bb' : '';

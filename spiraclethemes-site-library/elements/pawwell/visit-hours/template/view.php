@@ -38,7 +38,7 @@ $day_names = [
 
 $has_map = ( 'yes' === $show_map && '2col' === $layout && ! empty( $map_embed ) );
 
-// Border flags — mirror the products-grid pattern.
+// Border flags
 $wrap_class  = 'pawwell-vh pawwell-vh-' . esc_attr( $id );
 $wrap_class .= $has_map ? ' pawwell-vh-has-map' : '';
 $wrap_class .= 'left' === $map_position ? ' pawwell-vh-map-left' : ' pawwell-vh-map-right';

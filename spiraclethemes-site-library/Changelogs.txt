@@ -1,6 +1,12 @@
 
 == Changelog ==
 
+== 1.6.4 ==
+- fixed the pawwell home hero mobile image issue
+
+== 1.6.3 ==
+- fixed the pawwell product add to cart issue
+
 == 1.6.2 ==
 - fixed the notice dismissal issue
 - Added pawwell demo

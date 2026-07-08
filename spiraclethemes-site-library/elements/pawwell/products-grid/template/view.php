@@ -26,7 +26,7 @@ $show_wishlist   = $pro_active ? ( $settings['show_wishlist'] ?? 'yes' ) : 'no';
 $show_quick_view = $pro_active ? ( $settings['show_quick_view'] ?? 'yes' ) : 'no';
 $show_compare    = $pro_active ? ( $settings['show_compare'] ?? 'yes' ) : 'no';
 
-// If Pro is active but a feature is disabled in Pro settings, hide the matching icon.
+// If Pro is active but a feature is disabled in Pro settings
 if ( $pro_active ) {
 	if ( ! pwpa_is_feature_enabled( 'wishlist' ) ) {
 		$show_wishlist = 'no';
@@ -54,7 +54,7 @@ $view_all_link     = ! empty( $view_all_url['url'] ) ? esc_url( $view_all_url['u
 $view_all_target   = ! empty( $view_all_url['is_external'] ) ? ' target="_blank"' : '';
 $view_all_nofollow = ! empty( $view_all_url['nofollow'] ) ? ' rel="nofollow"' : '';
 
-// Border flags — mirror the trust-strip pattern (CSS borders on the section + vw-breakout for full width).
+// Border flags
 $wrap_class  = 'pawwell-pg pawwell-pg-' . esc_attr( $id );
 $wrap_class .= 'yes' === $show_border_top ? ' pawwell-pg-bt' : '';
 $wrap_class .= 'yes' === $show_border_bottom ? ' pawwell-pg-bb' : '';
@@ -62,7 +62,8 @@ $wrap_class .= ( 'yes' === $show_border_top || 'yes' === $show_border_bottom ) &
 
 // SVG icons.
 $star_svg   = '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>';
-$zap_svg    = '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M13 2 3 14h7l-1 8 10-12h-7z"/></svg>';
+	$zap_svg    = '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M13 2 3 14h7l-1 8 10-12h-7z"/></svg>';
+	$check_svg  = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>';
 // Pro action icons (heart / eye / compare).
 $wish_svg     = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>';
 $qview_svg    = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>';
@@ -99,8 +100,20 @@ $compare_svg  = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fil
 			</div>
 		<?php else : ?>
 			<div class="pawwell-pg-grid">
+				<?php
+				// Product IDs currently in the cart (used for the persistent "Added to cart" state).
+				$cart_product_ids = array();
+				if ( function_exists( 'WC' ) && WC()->cart ) {
+					foreach ( WC()->cart->get_cart() as $cart_item ) {
+						if ( ! empty( $cart_item['product_id'] ) ) {
+							$cart_product_ids[ (int) $cart_item['product_id'] ] = true;
+						}
+					}
+				}
+				?>
 				<?php foreach ( $products as $product ) :
 					$product_id    = $product->get_id();
+					$in_cart       = isset( $cart_product_ids[ (int) $product_id ] );
 					$product_name  = $product->get_name();
 					$product_link  = $product->get_permalink();
 					$product_image = wp_get_attachment_image_url( $product->get_image_id(), 'woocommerce_single' );
@@ -161,7 +174,7 @@ $compare_svg  = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fil
 					$product_type   = $product->get_type();
 					$is_purchasable = $product->is_purchasable() && $product->is_in_stock();
 					?>
-					<article class="pawwell-pg-card">
+					<article class="pawwell-pg-card<?php echo $in_cart ? ' pawwell-pg-card--added' : ''; ?>">
 						<div class="pawwell-pg-media">
 							<a class="pawwell-pg-img-wrap" href="<?php echo esc_url( $product_link ); ?>">
 								<span class="pawwell-pg-img" style="aspect-ratio: <?php echo esc_attr( $image_ratio ); ?>;">
@@ -189,12 +202,17 @@ $compare_svg  = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fil
 								</div>
 							<?php endif; ?>
 
-							<?php if ( 'yes' === $show_quick_add && ! empty( $quick_add_text ) ) : ?>
-								<button type="button" class="pawwell-pg-quick-add" aria-label="<?php echo esc_attr( $quick_add_text ); ?>" data-product-id="<?php echo esc_attr( $product_id ); ?>" data-product-type="<?php echo esc_attr( $product_type ); ?>" data-product-url="<?php echo esc_url( $product_link ); ?>" data-purchasable="<?php echo $is_purchasable ? 'yes' : 'no'; ?>">
-									<?php echo $zap_svg; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
-									<span><?php echo esc_html( $quick_add_text ); ?></span>
-								</button>
-							<?php endif; ?>
+						<?php if ( 'yes' === $show_quick_add && ! empty( $quick_add_text ) ) :
+							$added_label = esc_html__( 'Added to cart', 'spiraclethemes-site-library' );
+							$qa_label    = $in_cart ? $added_label : $quick_add_text;
+							$qa_icon     = $in_cart ? $check_svg : $zap_svg;
+							$qa_classes  = 'pawwell-pg-quick-add' . ( $in_cart ? ' pawwell-pg-quick-added' : '' );
+							?>
+							<button type="button" class="<?php echo esc_attr( $qa_classes ); ?>" aria-label="<?php echo esc_attr( $qa_label ); ?>" data-product-id="<?php echo esc_attr( $product_id ); ?>" data-product-type="<?php echo esc_attr( $product_type ); ?>" data-product-url="<?php echo esc_url( $product_link ); ?>" data-purchasable="<?php echo $is_purchasable ? 'yes' : 'no'; ?>"<?php echo $in_cart ? ' data-pg-added="1"' : ''; ?>>
+								<?php echo $qa_icon; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+								<span><?php echo esc_html( $qa_label ); ?></span>
+							</button>
+						<?php endif; ?>
 						</div>
 
 						<div class="pawwell-pg-body">
@@ -445,8 +463,19 @@ $compare_svg  = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fil
 	.pawwell-pg-<?php echo esc_attr( $id ); ?> .pawwell-pg-card:hover .pawwell-pg-quick-add {
 		transform: translateY(0);
 	}
+	/* Keep the quick-add bar pinned open for products already in the cart. */
+	.pawwell-pg-<?php echo esc_attr( $id ); ?> .pawwell-pg-card--added .pawwell-pg-quick-add {
+		transform: translateY(0);
+	}
 	.pawwell-pg-<?php echo esc_attr( $id ); ?> .pawwell-pg-quick-add:hover {
 		background: #C45B3E;
+	}
+	.pawwell-pg-<?php echo esc_attr( $id ); ?> .pawwell-pg-quick-add.pawwell-pg-quick-added {
+		background: #7B8F6B;
+	}
+	.pawwell-pg-<?php echo esc_attr( $id ); ?> .pawwell-pg-quick-add:disabled {
+		cursor: wait;
+		opacity: 0.7;
 	}
 
 	/* Body */
@@ -545,6 +574,24 @@ $compare_svg  = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fil
 	}
 	var $grid = jQuery('.pawwell-pg-<?php echo esc_attr( $id ); ?>');
 
+	// WooCommerce AJAX add-to-cart endpoint (with working admin-ajax fallback).
+	var wcAddToCartUrl = '<?php echo esc_js( class_exists( "WC_AJAX" ) ? esc_url_raw( WC_AJAX::get_endpoint( "add_to_cart" ) ) : esc_url_raw( admin_url( "admin-ajax.php?action=woocommerce_add_to_cart" ) ) ); ?>';
+
+	// Visual feedback when an item is added to the cart
+	function showAddedFeedback(btn) {
+		if (btn.getAttribute('data-pg-added')) return;
+		btn.setAttribute('data-pg-added', '1');
+		var label = btn.querySelector('span');
+		var svg = btn.querySelector('svg');
+		btn.classList.add('pawwell-pg-quick-added');
+		if (svg) {
+			svg.innerHTML = '<polyline points="20 6 9 17 4 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>';
+		}
+		if (label) {
+			label.textContent = '<?php echo esc_js( esc_html__( 'Added to cart', 'spiraclethemes-site-library' ) ); ?>';
+		}
+	}
+
 	// Pro integration: delegate wishlist / quick view / compare clicks to the
 	// global functions exposed by PawWell Pro when it is active.
 	$grid.find('.pawwell-pg-wishlist-btn').on('click', function(e) {
@@ -583,16 +630,16 @@ $compare_svg  = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fil
 		}
 	});
 
-	// Quick add to cart (AJAX).
+	// Quick add to cart (AJAX)
 	$grid.find('.pawwell-pg-quick-add').on('click', function(e) {
 		e.preventDefault();
 		e.stopPropagation();
 
-		var btn = jQuery(this);
-		var productId = btn.data('product-id');
-		var productType = btn.data('product-type') || 'simple';
-		var productUrl = btn.data('product-url') || '';
-		var purchasable = btn.data('purchasable') !== 'no';
+		var btn = this;
+		var productId = btn.getAttribute('data-product-id');
+		var productType = btn.getAttribute('data-product-type') || 'simple';
+		var productUrl = btn.getAttribute('data-product-url') || '';
+		var purchasable = btn.getAttribute('data-purchasable') !== 'no';
 
 		if (!productId) return;
 
@@ -603,17 +650,48 @@ $compare_svg  = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fil
 		}
 		if (!purchasable) { return; }
 
-		var wcAddToCartUrl = '<?php echo esc_js( class_exists( "WC_AJAX" ) ? esc_url_raw( WC_AJAX::get_endpoint( "add_to_cart" ) ) : "" ); ?>';
+		btn.disabled = true;
 
-		jQuery.post(wcAddToCartUrl, {
-			product_id: productId,
-			quantity: 1
-		}, function(response) {
+		var params = new URLSearchParams();
+		params.append('product_id', productId);
+		params.append('quantity', 1);
+
+		fetch(wcAddToCartUrl, {
+			method: 'POST',
+			headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+			body: params.toString(),
+			credentials: 'same-origin'
+		}).then(function(response) {
+			if (!response.ok) throw new Error('HTTP ' + response.status);
+			var ct = response.headers.get('content-type') || '';
+			if (ct.indexOf('json') !== -1) {
+				return response.json().then(function(data) { return { json: true, data: data }; });
+			}
+			// Non-JSON (e.g. HTML redirect page) — product was still added to the cart.
+			return { json: false, data: null };
+		}).then(function(result) {
+			if (result.json && result.data && result.data.error) {
+				// Server signalled an error (e.g. options required) → go to product page.
+				if (result.data.url && productUrl) { window.location.href = productUrl; }
+				return;
+			}
+			// Success.
+			showAddedFeedback(btn);
+			if (typeof jQuery !== 'undefined') {
+				// Manually swap every registered fragment (cart count, drawer, totals…) so the
+				// header badge updates even without WooCommerce's own fragment handlers running.
+				if (result.json && result.data && result.data.fragments) {
+					jQuery.each(result.data.fragments, function(key, value) { jQuery(key).replaceWith(value); });
+				}
+				jQuery(document.body).trigger('wc_fragment_refresh');
+				jQuery(document.body).trigger('added_to_cart', [(result.json && result.data) ? result.data.fragments : null, (result.json && result.data) ? result.data.cart_hash : null, btn]);
+			}
+		}).catch(function() {
+			// Fallback: assume added and refresh fragments rather than bouncing away.
+			showAddedFeedback(btn);
 			jQuery(document.body).trigger('wc_fragment_refresh');
-			jQuery(document.body).trigger('added_to_cart', [response.fragments || null, response.cart_hash || null, btn[0]]);
-		}).fail(function() {
-			// Fallback: navigate to the product page.
-			if (productUrl) { window.location.href = productUrl; }
+		}).finally(function() {
+			btn.disabled = false;
 		});
 	});
 })();

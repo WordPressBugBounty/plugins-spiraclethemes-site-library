@@ -23,7 +23,7 @@ $full_width_border  = $settings['full_width_border'] ?? 'no';
 $border_color       = $settings['border_color'] ?? '#E8E2DA';
 $border_width       = isset( $settings['border_width']['size'] ) ? absint( $settings['border_width']['size'] ) : 1;
 
-// Border flags — CSS borders on the section + vw-breakout for full width.
+// Border flags
 $wrap_class  = 'pawwell-testi pawwell-testi-' . esc_attr( $id );
 $wrap_class .= 'yes' === $show_border_top ? ' pawwell-testi-bt' : '';
 $wrap_class .= 'yes' === $show_border_bottom ? ' pawwell-testi-bb' : '';

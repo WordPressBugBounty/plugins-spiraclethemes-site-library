@@ -52,7 +52,7 @@ if ( ! empty( $hero_title_accent ) ) {
 }
 ?>
 
-<section class="pawwell-hh pawwell-hh-<?php echo esc_attr( $id ); ?>">
+<section class="pawwell-hh pawwell-hh-<?php echo esc_attr( $id ); ?>" id="pawwell-hh-<?php echo esc_attr( $id ); ?>">
 	<div class="pawwell-hh-shapes">
 		<span class="pawwell-hh-blob pawwell-hh-blob-1"></span>
 		<span class="pawwell-hh-blob pawwell-hh-blob-2"></span>
@@ -495,7 +495,7 @@ if ( ! empty( $hero_title_accent ) ) {
 	/* Responsive */
 	@media (max-width: 1080px) {
 		.pawwell-hh-<?php echo esc_attr( $id ); ?> .pawwell-hh-content { gap: 40px; }
-		.pawwell-hh-<?php echo esc_attr( $id ); ?> .pawwell-hh-image-wrap { width: 380px; }
+		#pawwell-hh-<?php echo esc_attr( $id ); ?> .pawwell-hh-image-wrap { width: 380px; }
 		.pawwell-hh-<?php echo esc_attr( $id ); ?> .pawwell-hh-blob-1 { width: 440px; height: 440px; }
 		.pawwell-hh-<?php echo esc_attr( $id ); ?> .pawwell-hh-blob-2 { width: 380px; height: 380px; }
 	}
@@ -514,7 +514,7 @@ if ( ! empty( $hero_title_accent ) ) {
 		.pawwell-hh-<?php echo esc_attr( $id ); ?> .pawwell-hh-sub { margin-left: auto; margin-right: auto; }
 		.pawwell-hh-<?php echo esc_attr( $id ); ?> .pawwell-hh-ctas { justify-content: center; }
 		.pawwell-hh-<?php echo esc_attr( $id ); ?> .pawwell-hh-stats { justify-content: center; gap: 32px; }
-		.pawwell-hh-<?php echo esc_attr( $id ); ?> .pawwell-hh-image-wrap { width: 320px; margin: 0 auto; }
+		#pawwell-hh-<?php echo esc_attr( $id ); ?> .pawwell-hh-image-wrap { width: 320px; margin: 0 auto; }
 		.pawwell-hh-<?php echo esc_attr( $id ); ?> .pawwell-hh-right { width: fit-content; margin-inline: auto; }
 		.pawwell-hh-<?php echo esc_attr( $id ); ?> .pawwell-hh-float { padding: 10px 12px; gap: 10px; border-radius: 10px; }
 		.pawwell-hh-<?php echo esc_attr( $id ); ?> .pawwell-hh-float-icon { width: 32px; height: 32px; }
@@ -529,7 +529,7 @@ if ( ! empty( $hero_title_accent ) ) {
 	}
 	@media (max-width: 768px) {
 		.pawwell-hh-<?php echo esc_attr( $id ); ?> .pawwell-hh-content { padding: 48px 24px; }
-		.pawwell-hh-<?php echo esc_attr( $id ); ?> .pawwell-hh-image-wrap { width: 280px; }
+		#pawwell-hh-<?php echo esc_attr( $id ); ?> .pawwell-hh-image-wrap { width: 280px; }
 		.pawwell-hh-<?php echo esc_attr( $id ); ?> .pawwell-hh-eyebrow { margin-bottom: 20px; }
 		.pawwell-hh-<?php echo esc_attr( $id ); ?> .pawwell-hh-title { margin-bottom: 18px; }
 		.pawwell-hh-<?php echo esc_attr( $id ); ?> .pawwell-hh-sub { margin-bottom: 26px; }
@@ -537,7 +537,7 @@ if ( ! empty( $hero_title_accent ) ) {
 	}
 	@media (max-width: 640px) {
 		.pawwell-hh-<?php echo esc_attr( $id ); ?> .pawwell-hh-content { padding: 40px 20px; gap: 30px; }
-		.pawwell-hh-<?php echo esc_attr( $id ); ?> .pawwell-hh-image-wrap { width: 240px; }
+		#pawwell-hh-<?php echo esc_attr( $id ); ?> .pawwell-hh-image-wrap { width: 240px; }
 		.pawwell-hh-<?php echo esc_attr( $id ); ?> .pawwell-hh-float { padding: 8px 10px; gap: 8px; }
 		.pawwell-hh-<?php echo esc_attr( $id ); ?> .pawwell-hh-float-icon { width: 28px; height: 28px; }
 		.pawwell-hh-<?php echo esc_attr( $id ); ?> .pawwell-hh-float-icon i,
@@ -563,7 +563,7 @@ if ( ! empty( $hero_title_accent ) ) {
 	}
 	@media (max-width: 480px) {
 		.pawwell-hh-<?php echo esc_attr( $id ); ?> .pawwell-hh-content { padding: 32px 16px; }
-		.pawwell-hh-<?php echo esc_attr( $id ); ?> .pawwell-hh-image-wrap { width: 200px; }
+		#pawwell-hh-<?php echo esc_attr( $id ); ?> .pawwell-hh-image-wrap { width: 200px; }
 		.pawwell-hh-<?php echo esc_attr( $id ); ?> .pawwell-hh-float-top-right { top: 8px; right: -4px; }
 		.pawwell-hh-<?php echo esc_attr( $id ); ?> .pawwell-hh-float-bottom-left { bottom: 22px; left: -4px; }
 		.pawwell-hh-<?php echo esc_attr( $id ); ?> .pawwell-hh-float-bottom-right { bottom: -8px; right: 4px; }
@@ -574,7 +574,7 @@ if ( ! empty( $hero_title_accent ) ) {
 		.pawwell-hh-<?php echo esc_attr( $id ); ?> .pawwell-hh-stat-label { font-size: 12px; }
 	}
 	@media (max-width: 380px) {
-		.pawwell-hh-<?php echo esc_attr( $id ); ?> .pawwell-hh-image-wrap { width: 170px; }
+		#pawwell-hh-<?php echo esc_attr( $id ); ?> .pawwell-hh-image-wrap { width: 170px; }
 	}
 </style>
 

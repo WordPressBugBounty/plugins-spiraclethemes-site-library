@@ -32,7 +32,7 @@ $border_width       = isset( $settings['border_width']['size'] ) ? absint( $sett
 
 $is_reversed = ( 'right' === $layout );
 
-// Border flags — mirror the products-grid pattern.
+// Border flags
 $wrap_class  = 'pawwell-os pawwell-os-' . esc_attr( $id );
 $wrap_class .= 'yes' === $show_border_top ? ' pawwell-os-bt' : '';
 $wrap_class .= 'yes' === $show_border_bottom ? ' pawwell-os-bb' : '';
