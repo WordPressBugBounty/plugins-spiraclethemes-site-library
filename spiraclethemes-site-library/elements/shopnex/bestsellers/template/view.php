@@ -154,9 +154,8 @@ if ( ! class_exists( 'WooCommerce' ) ) {
                         $product_type = $product->get_type();
                         $is_purchasable = $product->is_purchasable() && $product->is_in_stock();
                         $in_cart = false;
-                        if ( function_exists( 'WC' ) ) {
-                            $cart_items = WC()->cart->get_cart();
-                            foreach ( $cart_items as $cart_item ) {
+                        if ( function_exists( 'WC' ) && WC()->cart ) {
+                            foreach ( WC()->cart->get_cart() as $cart_item ) {
                                 if ( $cart_item['product_id'] == $product_id ) {
                                     $in_cart = true;
                                     break;
