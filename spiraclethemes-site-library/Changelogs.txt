@@ -1,8 +1,11 @@
 
 == Changelog ==
 
+== 1.6.6 ==
+- Minor bug fixes
+
 == 1.6.5 ==
-- fixed elementor page issue
+- added shop zen demo
 
 == 1.6.4 ==
 - fixed the pawwell home hero mobile image issue

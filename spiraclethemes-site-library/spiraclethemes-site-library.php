@@ -3,7 +3,7 @@
  * Plugin Name:       Spiraclethemes Site Library
  * Plugin URI:        https://wordpress.org/plugins/spiraclethemes-site-library/
  * Description:       A plugin by Spiracle Themes that adds one-click demo import, theme customization, starter templates, and page builder support to its free themes.
- * Version:           1.6.5
+ * Version:           1.6.6
  * Author:            SpiracleThemes
  * Author URI:        https://spiraclethemes.com
  * License:           GPL-2.0+
@@ -74,6 +74,7 @@ class Spiraclethemes_Site_Library {
         'krystal-shop',
         'shopnex',
         'pawwell',
+        'shop-zen',
     ];
 
     /**
@@ -119,6 +120,7 @@ class Spiraclethemes_Site_Library {
         'krystal-shop'     => 'https://spiraclethemes.com/krystal-pro-addons/',
         'shopnex'          => 'https://spiraclethemes.com/shopnex-pro-addons/',
         'pawwell'          => 'https://spiraclethemes.com/pawwell-pro-addons/',
+        'shop-zen'         => 'https://spiraclethemes.com/shop-zen-pro-addons/',
     ];
 
     /**
@@ -143,13 +145,6 @@ class Spiraclethemes_Site_Library {
     private $theme_version;
 
     /**
-     * Admin notification HTML.
-     *
-     * @var string
-     */
-    private $notification;
-
-    /**
      * Activate plugin.
      */
     public function activate() {
@@ -166,7 +161,6 @@ class Spiraclethemes_Site_Library {
         delete_user_meta( $user_id, 'spiraclethemes_sitelib_rating_ignore_notice' );
         delete_user_meta( $user_id, 'spiraclethemes_sitelib_training_ignore_notice' );
         delete_user_meta( $user_id, 'spiraclethemes_sitelib_custom_dev_ignore_notice' );
-        delete_user_meta( $user_id, 'spiraclethemes_sitelib_welcome_ignore_notice' );
 
         // Clean up plan notice meta keys.
         foreach ( self::NOTICE_SCHEDULE as $notice ) {
@@ -192,57 +186,13 @@ class Spiraclethemes_Site_Library {
         $this->theme_version = $theme->get( 'Version' );
 
         if ( is_admin() && in_array( $this->theme_slug, self::ALLOWED_THEMES, true ) ) {
-            add_action( 'admin_init', [ $this, 'spiraclethemes_site_library_set_notification' ] );
             add_action( 'admin_notices', [ $this, 'spiraclethemes_site_library_display_welcome_notice' ] );
             add_action( 'admin_notices', [ $this, 'spiraclethemes_site_library_display_49dollar_notices' ] );
             add_action( 'admin_notices', [ $this, 'spiraclethemes_site_library_display_custom_dev_notice' ] );
             add_action( 'admin_init', [ $this, 'spiraclethemes_site_library_ignore_rating_notice' ] );
             add_action( 'admin_init', [ $this, 'spiraclethemes_site_library_ignore_49dollar_notices' ] );
             add_action( 'admin_init', [ $this, 'spiraclethemes_site_library_ignore_custom_dev_notice' ] );
-            add_action( 'wp_ajax_spiraclethemes_sitelib_dismiss_welcome', [ $this, 'spiraclethemes_site_library_dismiss_welcome_notice' ] );
-            add_action( 'admin_print_footer_scripts', [ $this, 'spiraclethemes_site_library_welcome_dismiss_script' ] );
         }
-    }
-
-    /**
-     * Set notification after init.
-     */
-    public function spiraclethemes_site_library_set_notification() {
-        $raw_html = sprintf(
-            '<div class="ssl-welcome-inner">' .
-                '<div class="ssl-welcome-icon">' .
-                    '<img src="%1$s" alt="" />' .
-                '</div>' .
-                '<div class="ssl-welcome-text">' .
-                    '<h3>%2$s</h3>' .
-                    '<p>%3$s</p>' .
-                    '<a href="%4$s" class="ssl-welcome-cta">%5$s</a>' .
-                '</div>' .
-            '</div>',
-            esc_url( SPIR_SITE_LIBRARY_URL . 'img/rocket.svg' ),
-            esc_html__( 'Ready to Launch Your Site?', 'spiraclethemes-site-library' ),
-            esc_html__( 'Kickstart your WordPress website with our free demo starter templates, tailored for this theme. Pick a design, import it, and make it yours — in minutes.', 'spiraclethemes-site-library' ),
-            esc_url( admin_url( 'themes.php?page=one-click-demo-import' ) ),
-            esc_html__( 'Start Importing Templates', 'spiraclethemes-site-library' )
-        );
-
-        $this->notification = wp_kses( $raw_html, [
-            'div' => [
-                'class' => [],
-            ],
-            'h3'  => [],
-            'p'   => [],
-            'a'   => [
-                'href'  => [],
-                'class' => [],
-                'target' => [],
-                'rel'   => [],
-            ],
-            'img' => [
-                'src' => [],
-                'alt' => [],
-            ],
-        ] );
     }
 
     /**
@@ -405,15 +355,6 @@ class Spiraclethemes_Site_Library {
         $days_since = $this->spiraclethemes_site_library_get_days_since_install();
         $user_id    = get_current_user_id();
 
-        // Show Import CTA during first 7 days.
-        if ( $days_since < 7 && ! empty( $this->notification ) && ! get_user_meta( $user_id, 'spiraclethemes_sitelib_welcome_ignore_notice', true ) ) {
-            printf(
-                '<div id="spiraclethemes-site-library-notice" class="notice notice-success is-dismissible" data-nonce="%1$s">%2$s</div>',
-                esc_attr( wp_create_nonce( 'spiraclethemes_sitelib_welcome_dismiss' ) ),
-                $this->notification // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-            );
-        }
-
         // Check if any $49/year notices have been shown.
         $should_show_rating = true;
         foreach ( self::NOTICE_SCHEDULE as $notice ) {
@@ -561,44 +502,6 @@ class Spiraclethemes_Site_Library {
      */
     public function spiraclethemes_site_library_ignore_rating_notice() {
         $this->spiraclethemes_site_library_handle_ignore_notice( 'wp_spiraclethemes_sitelib_rating_ignore', 'spiraclethemes_sitelib_rating_ignore_notice' );
-    }
-
-    /**
-     * Handle AJAX dismissal of the welcome notice.
-     */
-    public function spiraclethemes_site_library_dismiss_welcome_notice() {
-        check_ajax_referer( 'spiraclethemes_sitelib_welcome_dismiss' );
-
-        if ( ! current_user_can( 'manage_options' ) ) {
-            wp_die( -1 );
-        }
-
-        add_user_meta( get_current_user_id(), 'spiraclethemes_sitelib_welcome_ignore_notice', true, true );
-        wp_die( 1 );
-    }
-
-    /**
-     * Output inline script to persistently dismiss the welcome notice.
-     */
-    public function spiraclethemes_site_library_welcome_dismiss_script() {
-        if ( get_user_meta( get_current_user_id(), 'spiraclethemes_sitelib_welcome_ignore_notice', true ) ) {
-            return;
-        }
-        ?>
-        <script>
-        (function(){
-            var notice = document.getElementById('spiraclethemes-site-library-notice');
-            if (!notice) { return; }
-            notice.addEventListener('click', function(e){
-                if (!e.target.classList.contains('notice-dismiss') && !e.target.closest('.notice-dismiss')) { return; }
-                var data = new FormData();
-                data.append('action', 'spiraclethemes_sitelib_dismiss_welcome');
-                data.append('_ajax_nonce', notice.getAttribute('data-nonce'));
-                navigator.sendBeacon && navigator.sendBeacon(ajaxurl, data) || fetch(ajaxurl, { method: 'POST', body: data, credentials: 'same-origin' });
-            });
-        })();
-        </script>
-        <?php
     }
 
     /**

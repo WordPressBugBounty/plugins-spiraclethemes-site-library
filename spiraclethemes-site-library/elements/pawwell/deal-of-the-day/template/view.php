@@ -304,7 +304,11 @@ $circle_class = 'yes' === $show_circles ? ' pawwell-dod-banner--circles' : '';
 		var remaining = due - Date.now();
 		if (remaining <= 0) {
 			if (countdown) {
-				countdown.innerHTML = '<div class="pawwell-dod-expired">' + (expireMsg || '') + '</div>';
+				var expiredEl = document.createElement('div');
+				expiredEl.className = 'pawwell-dod-expired';
+				expiredEl.textContent = expireMsg || '';
+				countdown.innerHTML = '';
+				countdown.appendChild(expiredEl);
 			}
 			clearInterval(interval);
 			return;

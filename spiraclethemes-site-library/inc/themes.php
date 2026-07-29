@@ -100,6 +100,11 @@ $spir_theme_files = [
         SPIR_SITE_LIBRARY_PATH . '/elements/pawwell/helper-functions.php',
         SPIR_SITE_LIBRARY_PATH . '/elements/pawwell/widget-category.php',
     ],
+    'shop-zen'          => [
+        SPIR_SITE_LIBRARY_PATH . '/inc/theme-functions/shop-zen-functions.php',
+        SPIR_SITE_LIBRARY_PATH . '/elements/shop-zen/helper-functions.php',
+        SPIR_SITE_LIBRARY_PATH . '/elements/shop-zen/widget-category.php',
+    ],
 ];
 
 // Load the appropriate files based on the current theme slug.

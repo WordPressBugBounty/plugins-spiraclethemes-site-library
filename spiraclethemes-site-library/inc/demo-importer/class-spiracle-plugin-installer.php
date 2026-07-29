@@ -200,10 +200,26 @@ class Spiracle_Plugin_Installer {
 			);
 		}
 
+		global $wpdb;
+
+		$was_showing_errors = isset( $wpdb->show_errors ) ? (bool) $wpdb->show_errors : false;
+
+		if ( $was_showing_errors ) {
+			$wpdb->hide_errors();
+		}
+
 		$activated = activate_plugin( $plugin_path );
 
+		if ( $was_showing_errors ) {
+			$wpdb->show_errors();
+		}
+
 		if ( is_wp_error( $activated ) ) {
-			return $activated;
+			if ( 'unexpected_output' === $activated->get_error_code() && is_plugin_active( $plugin_path ) ) {
+				$activated = null;
+			} else {
+				return $activated;
+			}
 		}
 
 		return array(
