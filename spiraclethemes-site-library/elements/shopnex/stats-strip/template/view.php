@@ -1,7 +1,7 @@
 <?php
 // phpcs:disable WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound
 /**
- * Stats Strip Widget View for Shopnex Theme
+ * Stats Strip Widget
  *
  * @package SpiracleThemes_Site_Library
  */

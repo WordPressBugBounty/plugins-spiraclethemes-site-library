@@ -1,8 +1,7 @@
 <?php
 // phpcs:disable WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound
 /**
- * Home Hero Section - Frontend Render (Shop Zen)
- *
+ * Home Hero Section
  *
  * @package spiraclethemes-site-library
  */
@@ -108,9 +107,6 @@ if ( ! empty( $hero_title_accent ) ) {
 </section>
 
 <style>
-	/* Outer wrapper: full-bleed background. Width follows the host Elementor
-	   section/container so the hero is consistent in both full-width and boxed
-	   layouts. The background colour + dot pattern extend to the edges. */
 	.shopzen-hh-<?php echo esc_attr( $id ); ?> {
 		position: relative;
 		background: #F9F7F2;
@@ -128,14 +124,6 @@ if ( ! empty( $hero_title_accent ) ) {
 	.shopzen-hh-<?php echo esc_attr( $id ); ?> *,
 	.shopzen-hh-<?php echo esc_attr( $id ); ?> *::before,
 	.shopzen-hh-<?php echo esc_attr( $id ); ?> *::after { box-sizing: border-box; }
-
-	/* Inner content box: this is what matches the theme header/footer width
-	   (1240px). It is centered with margin auto so the hero content always
-	   sits in the same horizontal band as the header and footer regardless
-	   of whether the host Elementor container is boxed or full-width. The
-	   horizontal gutter lives INSIDE this box (same pattern the theme uses
-	   for its header/footer content containers) so the box edges line up
-	   exactly with the header/footer band. */
 	.shopzen-hh-<?php echo esc_attr( $id ); ?> .shopzen-hh-content {
 		position: relative;
 		z-index: 2;
@@ -144,8 +132,6 @@ if ( ! empty( $hero_title_accent ) ) {
 		width: 100%;
 		padding: 0 16px;
 	}
-
-	/* The centered hero content block (max 860px) */
 	.shopzen-hh-<?php echo esc_attr( $id ); ?> .shopzen-hh-center {
 		max-width: 860px;
 		margin: 0 auto;
@@ -294,9 +280,6 @@ if ( ! empty( $hero_title_accent ) ) {
 	.shopzen-hh-<?php echo esc_attr( $id ); ?> .shopzen-hh-btn-link:hover {
 		border-color: #1F2937;
 	}
-
-	/* Sale badge — positioned relative to the .shopzen-hh-content block so it
-	   aligns within the 1240px header/footer band in BOTH layout modes. */
 	.shopzen-hh-<?php echo esc_attr( $id ); ?> .shopzen-hh-sale-badge {
 		position: absolute;
 		top: 28px;

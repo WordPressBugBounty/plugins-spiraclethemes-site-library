@@ -1,9 +1,7 @@
 <?php
 // phpcs:disable WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound
 /**
- * Our Story Section - Frontend Render (Shop Zen)
- *
- * Two-column layout: image on one side, heading + paragraphs + inline stats on the other.
+ * Our Story Section
  *
  * @package spiraclethemes-site-library
  */

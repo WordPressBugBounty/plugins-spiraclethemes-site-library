@@ -1,7 +1,7 @@
 <?php
 // phpcs:disable WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound
 /**
- * Map Section Widget View for Shopnex Theme
+ * Map Section Widget
  *
  * @package SpiracleThemes_Site_Library
  */

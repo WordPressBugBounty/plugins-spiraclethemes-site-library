@@ -1,7 +1,7 @@
 <?php
 // phpcs:disable WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound
 /**
- * Why Choose Us - Frontend Render
+ * Why Choose Us
  *
  * @package spiraclethemes-site-library
  */

@@ -1,7 +1,7 @@
 <?php
 // phpcs:disable WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound
 /**
- * Contact Layout Widget View for Shopnex Theme
+ * Contact Layout Widget
  *
  * @package SpiracleThemes_Site_Library
  */
@@ -200,7 +200,6 @@ $has_sidebar = $show_card_visit || $show_card_contact || $show_card_hours;
     margin-bottom: 70px;
 }
 
-/* Form Wrapper */
 .shopnex-contact-<?php echo esc_attr( $widget_id ); ?> .shopnex-contact-form-wrapper {
     background-color: #FFFFFF;
     border-radius: 16px;
@@ -224,7 +223,6 @@ $has_sidebar = $show_card_visit || $show_card_contact || $show_card_hours;
     line-height: 1.5;
 }
 
-/* Form Grid */
 .shopnex-contact-<?php echo esc_attr( $widget_id ); ?> .shopnex-contact-form-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -280,7 +278,6 @@ $has_sidebar = $show_card_visit || $show_card_contact || $show_card_hours;
     line-height: 1.6;
 }
 
-/* Submit Row */
 .shopnex-contact-<?php echo esc_attr( $widget_id ); ?> .shopnex-contact-form-submit-row {
     margin-top: 24px;
     display: flex;

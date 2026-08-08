@@ -1,7 +1,7 @@
 <?php
 // phpcs:disable WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound
 /**
- * Home Hero Section - Frontend Render
+ * Home Hero Section
  *
  * @package spiraclethemes-site-library
  */

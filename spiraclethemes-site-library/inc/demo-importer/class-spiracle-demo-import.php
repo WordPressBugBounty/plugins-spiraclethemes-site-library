@@ -427,7 +427,27 @@ class Spiracle_Demo_Import {
 
 		require_once ABSPATH . 'wp-admin/includes/file.php';
 
+		// Pin DNS to the validated IP to prevent DNS-rebinding (TOCTOU) attacks.
+		// Without this, download_url() re-resolves the host independently and an
+		// attacker with a low-TTL DNS record could return a public IP on our
+		// gethostbyname() check above, then a private IP for the actual download.
+		$spir_dns_pin = null;
+		if ( ! $is_local && ! empty( $resolved_ip ) && function_exists( 'curl_init' ) ) {
+			$spir_dns_pin = function ( $handle ) use ( $host, $resolved_ip ) {
+				curl_setopt( $handle, CURLOPT_RESOLVE, array(
+					$host . ':80:'  . $resolved_ip,
+					$host . ':443:' . $resolved_ip,
+				) );
+			};
+			add_action( 'http_api_curl', $spir_dns_pin, 10, 1 );
+		}
+
 		$tmp = download_url( $url, 120 );
+
+		// Always remove the pin so it doesn't leak into other requests.
+		if ( $spir_dns_pin ) {
+			remove_action( 'http_api_curl', $spir_dns_pin, 10 );
+		}
 
 		if ( is_wp_error( $tmp ) ) {
 			return $tmp;
@@ -627,15 +647,20 @@ class Spiracle_Demo_Import {
 				header( 'Content-Type: application/json; charset=UTF-8' );
 			}
 
+			// Log the full error detail server-side for debugging.
+			if ( function_exists( 'error_log' ) ) {
+				error_log( sprintf(
+					'Spiraclethemes Demo Import fatal error: %s in %s on line %d',
+					$error['message'],
+					$error['file'],
+					$error['line']
+				) );
+			}
+
 			echo wp_json_encode( array(
 				'success' => false,
 				'data'    => array(
-					'message' => sprintf(
-						'Import error: %s in %s on line %d',
-						$error['message'],
-						basename( $error['file'] ),
-						$error['line']
-					),
+					'message' => esc_html__( 'A server error occurred during import. Please check your PHP error log for details.', 'spiraclethemes-site-library' ),
 				),
 			) );
 		} );

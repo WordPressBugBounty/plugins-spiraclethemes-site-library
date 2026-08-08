@@ -1,7 +1,7 @@
 <?php
 // phpcs:disable WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound
 /**
- * Shop by Category Section - Frontend Render
+ * Shop by Category Section
  *
  * @package spiraclethemes-site-library
  */
@@ -158,8 +158,6 @@ $columns         = $settings['columns'] ?? '3';
 		box-shadow: 0 12px 40px rgba(28, 28, 28, 0.08);
 		transform: translateY(-4px);
 	}
-
-	/* Card Link - overlay entire card */
 	.shopnex-categories-section .shopnex-category-card-link {
 		position: absolute;
 		inset: 0;
@@ -168,8 +166,6 @@ $columns         = $settings['columns'] ?? '3';
 		text-decoration: none;
 		color: inherit;
 	}
-
-	/* Card Image */
 	.shopnex-categories-section .shopnex-category-card-image {
 		width: 100%;
 		height: 100%;

@@ -1,7 +1,7 @@
 <?php
 // phpcs:disable WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound
 /**
- * Testimonials Section - Frontend Render (Shop Zen)
+ * Testimonials Section
  *
  * @package spiraclethemes-site-library
  */

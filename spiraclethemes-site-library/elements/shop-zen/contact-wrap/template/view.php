@@ -1,10 +1,7 @@
 <?php
 // phpcs:disable WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound
 /**
- * Contact Wrap Section - Frontend Render (Shop Zen)
- *
- * Two-panel contact layout: left = contact form card, right = info cards
- * stack (email, phone, chat, visit) plus optional map card.
+ * Contact Wrap Section
  *
  * @package spiraclethemes-site-library
  */

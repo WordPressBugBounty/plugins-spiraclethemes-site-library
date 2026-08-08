@@ -1,11 +1,7 @@
 <?php
 // phpcs:disable WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound
 /**
- * Products Grid Section - Frontend Render (Shop Zen)
- *
- * Supports WooCommerce source (best_sellers, featured, latest, top_rated, on_sale)
- * with graceful fallback to manual repeater products when WC is inactive or the
- * "Custom" product type is selected.
+ * Products Grid Section
  *
  * @package spiraclethemes-site-library
  */
@@ -463,7 +459,7 @@ $view_all_attr_str   = trim( $view_all_target . ' ' . $view_all_nofollow );
 		font-family: Inter, sans-serif;
 		text-decoration: none;
 	}
-	/* Remove any WC/theme underline from the current price (keeps old price strike-through). */
+	
 	.shopzen-pg-<?php echo esc_attr( $id ); ?> .shopzen-pg-price-now ins,
 	.shopzen-pg-<?php echo esc_attr( $id ); ?> .shopzen-pg-price-now .amount,
 	.shopzen-pg-<?php echo esc_attr( $id ); ?> .shopzen-pg-price del {

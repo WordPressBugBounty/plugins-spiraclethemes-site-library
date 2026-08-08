@@ -19,6 +19,27 @@ class Spiracle_Content_Importer {
 	const MAX_IMPORT_AUTHORS = 50;
 
 	/**
+	 * Private/internal IP address patterns blocked during attachment downloads.
+	 *
+	 * Mirrors the protection in Spiracle_Demo_Import::download_file() to prevent
+	 * SSRF attacks via malicious attachment URLs in imported WXR files.
+	 *
+	 * @var array
+	 */
+	const PRIVATE_IP_PATTERNS = [
+		'/^10\./',
+		'/^172\.(1[6-9]|2[0-9]|3[01])\./',
+		'/^192\.168\./',
+		'/^127\./',
+		'/^0\./',
+		'/^169\.254\./',
+		'/^::1$/',
+		'/^fc/',
+		'/^fd/',
+		'/^fe80:/',
+	];
+
+	/**
 	 * Mapping from old post IDs to new post IDs.
 	 *
 	 * @var array
@@ -618,6 +639,80 @@ class Spiracle_Content_Importer {
 	}
 
 	/**
+	 * Determine whether a host name refers to the local machine.
+	 *
+	 * Used by is_safe_remote_url() to allow local-dev attachment URLs
+	 * (e.g. site.local) while blocking external hosts that resolve to
+	 * private IPs.
+	 *
+	 * @param string $host Host name (no scheme, no port).
+	 * @return bool
+	 */
+	private function is_local_host( $host ) {
+		$local_patterns = [
+			'/\.local$/',
+			'/\.test$/',
+			'/\.dev$/',
+			'/\.localhost$/',
+			'/\.internal$/',
+			'/^localhost$/',
+			'/^127\./',
+			'/^10\./',
+			'/^172\.(1[6-9]|2[0-9]|3[01])\./',
+			'/^192\.168\./',
+		];
+
+		foreach ( $local_patterns as $pattern ) {
+			if ( preg_match( $pattern, $host ) ) {
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+	/**
+	 * Validate a remote URL before downloading to prevent SSRF.
+	 *
+	 * Allows http/https URLs whose host either is a recognised local
+	 * host (local-dev) or resolves to a public IP. Mirrors the guard in
+	 * Spiracle_Demo_Import::download_file().
+	 *
+	 * @param string $url The attachment URL to validate.
+	 * @return bool True if the URL is safe to fetch, false otherwise.
+	 */
+	private function is_safe_remote_url( $url ) {
+		$scheme = wp_parse_url( $url, PHP_URL_SCHEME );
+		if ( ! in_array( $scheme, [ 'http', 'https' ], true ) ) {
+			return false;
+		}
+
+		$host = wp_parse_url( $url, PHP_URL_HOST );
+		if ( ! $host ) {
+			return false;
+		}
+
+		// Local-dev hosts bypass the private-IP check, matching download_file().
+		if ( $this->is_local_host( $host ) ) {
+			return true;
+		}
+
+		$ip = gethostbyname( $host );
+		if ( $ip === $host ) {
+			// DNS resolution failed.
+			return false;
+		}
+
+		foreach ( self::PRIVATE_IP_PATTERNS as $pattern ) {
+			if ( preg_match( $pattern, $ip ) ) {
+				return false;
+			}
+		}
+
+		return true;
+	}
+
+	/**
 	 * Import a single attachment post.
 	 *
 	 * @param array $post Attachment post data.
@@ -648,6 +743,11 @@ class Spiracle_Content_Importer {
 		}
 
 		if ( empty( $attachment_url ) ) {
+			return;
+		}
+
+		// SSRF guard: reject attachment URLs pointing to private/internal hosts.
+		if ( ! $this->is_safe_remote_url( $attachment_url ) ) {
 			return;
 		}
 

@@ -1,7 +1,7 @@
 <?php
 // phpcs:disable WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound
 /**
- * Browse by Category - Frontend Render
+ * Browse by Category
  *
  * @package spiraclethemes-site-library
  */
@@ -97,7 +97,7 @@ $wrap_class .= ( 'yes' === $show_border_top || 'yes' === $show_border_bottom ) &
 	}
 	.pawwell-bc-<?php echo esc_attr( $id ); ?>.pawwell-bc-bt { border-top-width: <?php echo esc_attr( $border_width ); ?>px; }
 	.pawwell-bc-<?php echo esc_attr( $id ); ?>.pawwell-bc-bb { border-bottom-width: <?php echo esc_attr( $border_width ); ?>px; }
-	/* Full width: break out of any constrained parent to span the viewport edge-to-edge. */
+	
 	.pawwell-bc-<?php echo esc_attr( $id ); ?>.pawwell-bc-fullwidth {
 		width: 100vw;
 		margin-left: calc(50% - 50vw);

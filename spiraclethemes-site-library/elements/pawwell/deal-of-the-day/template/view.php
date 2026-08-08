@@ -1,7 +1,7 @@
 <?php
 // phpcs:disable WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound
 /**
- * Deal of the Day - Frontend Render
+ * Deal of the Day
  *
  * @package spiraclethemes-site-library
  */
@@ -124,7 +124,7 @@ $circle_class = 'yes' === $show_circles ? ' pawwell-dod-banner--circles' : '';
 	}
 	.pawwell-dod-<?php echo esc_attr( $id ); ?>.pawwell-dod-bt { border-top-width: <?php echo esc_attr( $border_width ); ?>px; }
 	.pawwell-dod-<?php echo esc_attr( $id ); ?>.pawwell-dod-bb { border-bottom-width: <?php echo esc_attr( $border_width ); ?>px; }
-	/* Full width: break out of any constrained parent to span the viewport edge-to-edge. */
+	
 	.pawwell-dod-<?php echo esc_attr( $id ); ?>.pawwell-dod-fullwidth {
 		width: 100vw;
 		margin-left: calc(50% - 50vw);

@@ -1,9 +1,7 @@
 <?php
 // phpcs:disable WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound
 /**
- * CTA Large Section - Frontend Render (Shop Zen)
- *
- * Dark rounded box with centered heading, subtext, and a white pill button with arrow.
+ * CTA Large Section
  *
  * @package spiraclethemes-site-library
  */

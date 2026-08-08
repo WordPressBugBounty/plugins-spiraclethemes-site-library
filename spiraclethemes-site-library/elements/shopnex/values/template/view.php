@@ -1,7 +1,7 @@
 <?php
 // phpcs:disable WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound
 /**
- * Values Widget View for Shopnex Theme
+ * Values Widget
  *
  * @package SpiracleThemes_Site_Library
  */

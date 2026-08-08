@@ -1,7 +1,7 @@
 <?php
 // phpcs:disable WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound
 /**
- * Page Hero Widget View for Shopnex Theme
+ * Page Hero Widget
  *
  * @package SpiracleThemes_Site_Library
  */

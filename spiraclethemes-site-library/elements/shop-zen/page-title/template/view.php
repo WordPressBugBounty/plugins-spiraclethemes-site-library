@@ -1,9 +1,7 @@
 <?php
 // phpcs:disable WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound
 /**
- * Page Title Section - Frontend Render (Shop Zen)
- *
- * Centered hero-style heading with pill, title (with highlight line), and subtext.
+ * Page Title Section
  *
  * @package spiraclethemes-site-library
  */

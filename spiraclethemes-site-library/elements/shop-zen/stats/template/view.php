@@ -1,9 +1,7 @@
 <?php
 // phpcs:disable WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound
 /**
- * Stats Section - Frontend Render (Shop Zen)
- *
- * Supports footer elements: avatars, star rating, icon badge, or none.
+ * Stats Section
  *
  * @package spiraclethemes-site-library
  */

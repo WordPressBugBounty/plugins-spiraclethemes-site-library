@@ -200,12 +200,9 @@ if ( ! class_exists( 'WooCommerce' ) ) {
 </div>
 
 <style>
-    /* ─── Bestsellers Section ─── */
     .shopnex-bestsellers-section {
         max-width: 100%;
     }
-
-    /* ─── Section Header ─── */
     .shopnex-section-header {
         text-align: center;
         margin-bottom: 50px;
@@ -355,7 +352,7 @@ if ( ! class_exists( 'WooCommerce' ) ) {
         color: #fff;
         box-shadow: 0 12px 40px rgba(28, 28, 28, 0.08);
     }
-    /* In-cart state: white background, black icon, stays persistent */
+    
     .shopnex-product-actions button.shopnex-add-to-cart-btn.in-cart {
         background: #fff;
         color: #1C1C1C;
@@ -365,8 +362,6 @@ if ( ! class_exists( 'WooCommerce' ) ) {
         background: #fff;
         color: #1C1C1C;
     }
-
-    /* ─── Product Info ─── */
     .shopnex-product-info {
         padding: 18px 16px;
     }

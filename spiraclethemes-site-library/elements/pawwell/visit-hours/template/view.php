@@ -1,7 +1,7 @@
 <?php
 // phpcs:disable WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound
 /**
- * Visit & Hours - Frontend Render
+ * Visit & Hours
  *
  * @package spiraclethemes-site-library
  */

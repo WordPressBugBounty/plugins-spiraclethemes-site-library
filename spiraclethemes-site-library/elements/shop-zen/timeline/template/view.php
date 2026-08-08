@@ -1,10 +1,7 @@
 <?php
 // phpcs:disable WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound
 /**
- * Timeline Section - Frontend Render (Shop Zen)
- *
- * Centered vertical line with alternating year/content items. Each item has a
- * year (right-aligned, with a center node) beside its title + description.
+ * Timeline Section
  *
  * @package spiraclethemes-site-library
  */

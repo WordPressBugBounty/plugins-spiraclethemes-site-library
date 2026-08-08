@@ -1,8 +1,7 @@
 <?php
 // phpcs:disable WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound
 /**
- * Features Section - Frontend Render (Shop Zen)
- *
+ * Features Section
  *
  * @package spiraclethemes-site-library
  */
@@ -56,10 +55,6 @@ $features = $settings['features'] ?? [];
 	.shopzen-feat-<?php echo esc_attr( $id ); ?> *,
 	.shopzen-feat-<?php echo esc_attr( $id ); ?> *::before,
 	.shopzen-feat-<?php echo esc_attr( $id ); ?> *::after { box-sizing: border-box; }
-
-	/* Wrap: matches the theme header/footer width (1240px), centered, with
-	   the gutter INSIDE the box (same pattern as header/footer content
-	   containers) so the bar edges line up with the content band. */
 	.shopzen-feat-<?php echo esc_attr( $id ); ?> .shopzen-feat-wrap {
 		position: relative;
 		z-index: 10;

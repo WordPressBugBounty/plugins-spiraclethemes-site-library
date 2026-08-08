@@ -1,7 +1,7 @@
 <?php
 // phpcs:disable WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound
 /**
- * Products Grid - Frontend Render
+ * Products Grid
  *
  * @package spiraclethemes-site-library
  */
@@ -258,7 +258,7 @@ $compare_svg  = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fil
 	}
 	.pawwell-pg-<?php echo esc_attr( $id ); ?>.pawwell-pg-bt { border-top-width: <?php echo esc_attr( $border_width ); ?>px; }
 	.pawwell-pg-<?php echo esc_attr( $id ); ?>.pawwell-pg-bb { border-bottom-width: <?php echo esc_attr( $border_width ); ?>px; }
-	/* Full width: break out of any constrained parent to span the viewport edge-to-edge. */
+	
 	.pawwell-pg-<?php echo esc_attr( $id ); ?>.pawwell-pg-fullwidth {
 		width: 100vw;
 		margin-left: calc(50% - 50vw);
@@ -320,7 +320,6 @@ $compare_svg  = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fil
 		gap: 24px;
 	}
 
-	/* Empty / fallback message */
 	.pawwell-pg-<?php echo esc_attr( $id ); ?> .pawwell-pg-empty {
 		text-align: center;
 		padding: 40px 0;
@@ -328,7 +327,6 @@ $compare_svg  = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fil
 		font-size: 15px;
 	}
 
-	/* Card */
 	.pawwell-pg-<?php echo esc_attr( $id ); ?> .pawwell-pg-card {
 		position: relative;
 		background: #fff;
@@ -346,7 +344,6 @@ $compare_svg  = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fil
 		border-color: transparent;
 	}
 
-	/* Media layer (image + badge + action icons + quick-add anchor here) */
 	.pawwell-pg-<?php echo esc_attr( $id ); ?> .pawwell-pg-media {
 		position: relative;
 		overflow: hidden;
@@ -371,7 +368,6 @@ $compare_svg  = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fil
 		transform: scale(1.07);
 	}
 
-	/* Badge */
 	.pawwell-pg-<?php echo esc_attr( $id ); ?> .pawwell-pg-badge {
 		position: absolute;
 		top: 16px;
@@ -387,7 +383,6 @@ $compare_svg  = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fil
 		text-transform: uppercase;
 	}
 
-	/* Pro action icon group (quick view / compare) */
 	.pawwell-pg-<?php echo esc_attr( $id ); ?> .pawwell-pg-actions {
 		position: absolute;
 		top: 16px;
@@ -463,7 +458,7 @@ $compare_svg  = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fil
 	.pawwell-pg-<?php echo esc_attr( $id ); ?> .pawwell-pg-card:hover .pawwell-pg-quick-add {
 		transform: translateY(0);
 	}
-	/* Keep the quick-add bar pinned open for products already in the cart. */
+
 	.pawwell-pg-<?php echo esc_attr( $id ); ?> .pawwell-pg-card--added .pawwell-pg-quick-add {
 		transform: translateY(0);
 	}

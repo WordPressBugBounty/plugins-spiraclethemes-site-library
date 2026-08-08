@@ -1,11 +1,6 @@
 /**
  * Spiraclethemes Site Library - Demo Import Admin JavaScript
  *
- * Handles the AJAX-based step-by-step import process including
- * plugin installation, content, widgets, customizer, and after-import setup.
- *
- * @package spiraclethemes-site-library
- * @subpackage inc/demo-importer
  */
 
 (function ($) {

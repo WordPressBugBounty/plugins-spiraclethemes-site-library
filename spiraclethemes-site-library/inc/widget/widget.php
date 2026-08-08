@@ -16,12 +16,6 @@ if ( ! defined( 'SPIR_SITE_LIBRARY_THEME_NAME' ) ) {
 if ( ! defined( 'SPIR_SITE_LIBRARY_THEME_SLUG' ) ) {
     define( 'SPIR_SITE_LIBRARY_THEME_SLUG', wp_get_theme()->get( 'TextDomain' ) );
 }
-if ( ! defined( 'SPIRACLETHEMES_POSTS_PER_PAGE' ) ) {
-    define( 'SPIRACLETHEMES_POSTS_PER_PAGE', 3 );
-}
-if ( ! defined( 'SPIRACLETHEMES_NEW_POST_DAYS' ) ) {
-    define( 'SPIRACLETHEMES_NEW_POST_DAYS', 7 );
-}
 if ( ! defined( 'HOUR_IN_SECONDS' ) ) {
     define( 'HOUR_IN_SECONDS', 3600 );
 }
@@ -44,56 +38,32 @@ function spiraclethemes_site_library_add_dashboard_widgets() {
  * Display dashboard widget content.
  */
 function spiraclethemes_site_library_display_dashboard_widget() {
-    $theme_slug = sanitize_key( wp_get_theme()->get( 'TextDomain' ) );
-    $theme_name = esc_html( wp_get_theme()->get( 'Name' ) );
-
     echo '<div class="ssl-dashboard-widget">';
-    spiraclethemes_site_library_render_discount_section( $theme_slug, $theme_name );
+    echo '<div class="ssl-widget-card">';
     spiraclethemes_site_library_render_services_section();
-    spiraclethemes_site_library_render_news_section( $theme_slug );
     spiraclethemes_site_library_render_footer_links();
+    echo '</div>';
     echo '</div>';
 }
 
 /**
- * Render discount section if enabled.
+ * Fetch and cache the remote discount XML, returning the parsed document.
  *
- * @param string $theme_slug Current theme slug.
- * @param string $theme_name Current theme name.
+ * @return SimpleXMLElement|false Parsed XML document, or false on failure.
  */
-function spiraclethemes_site_library_render_discount_section( $theme_slug, $theme_name ) {
-    if ( ! current_user_can( 'manage_options' ) ) {
-        echo '<p>' . esc_html__( 'You do not have permission to view this content.', 'spiraclethemes-site-library' ) . '</p>';
-        return;
-    }
-
+function spiraclethemes_site_library_get_discount_xml() {
     $cache_key = 'spiraclethemes_discount_data';
     $xml_body  = get_transient( $cache_key );
 
     if ( false === $xml_body || ! is_string( $xml_body ) || empty( $xml_body ) ) {
-        $api_url = esc_url_raw( 'https://api.spiraclethemes.com/discounts/disapi.php' );
+        $api_url  = esc_url_raw( 'https://api.spiraclethemes.com/discounts/disapi.php' );
         $response = wp_safe_remote_get( $api_url, [
             'timeout'   => 10,
             'sslverify' => true,
         ] );
 
-        if ( is_wp_error( $response ) ) {
-            echo '<div class="ssl-widget-section ssl-discount-section">';
-            echo '<div class="ssl-discount-header"><span class="ssl-discount-icon">%</span>';
-            echo '<h3>' . esc_html__( 'Special Discount', 'spiraclethemes-site-library' ) . '</h3></div>';
-            echo '<p class="ssl-discount-error">' . esc_html__( 'Unable to load discount info. Please try again later.', 'spiraclethemes-site-library' ) . '</p>';
-            echo '</div>';
-            return;
-        }
-
-        $response_code = wp_remote_retrieve_response_code( $response );
-        if ( 200 !== $response_code ) {
-            echo '<div class="ssl-widget-section ssl-discount-section">';
-            echo '<div class="ssl-discount-header"><span class="ssl-discount-icon">%</span>';
-            echo '<h3>' . esc_html__( 'Special Discount', 'spiraclethemes-site-library' ) . '</h3></div>';
-            echo '<p class="ssl-discount-error">' . esc_html__( 'Unable to load discount info. Please try again later.', 'spiraclethemes-site-library' ) . '</p>';
-            echo '</div>';
-            return;
+        if ( is_wp_error( $response ) || 200 !== wp_remote_retrieve_response_code( $response ) ) {
+            return false;
         }
 
         $xml_body = wp_remote_retrieve_body( $response );
@@ -104,59 +74,71 @@ function spiraclethemes_site_library_render_discount_section( $theme_slug, $them
     $xml = simplexml_load_string( $xml_body, 'SimpleXMLElement', LIBXML_NOENT | LIBXML_NONET | LIBXML_NOCDATA );
 
     if ( false === $xml ) {
-        echo '<div class="ssl-widget-section ssl-discount-section">';
-        echo '<div class="ssl-discount-header"><span class="ssl-discount-icon">%</span>';
-        echo '<h3>' . esc_html__( 'Special Discount', 'spiraclethemes-site-library' ) . '</h3></div>';
-        echo '<p class="ssl-discount-error">' . esc_html__( 'Unable to load discount info.', 'spiraclethemes-site-library' ) . '</p>';
-        echo '</div>';
         libxml_clear_errors();
-        return;
+        return false;
     }
 
-    $theme_discount = null;
-    $theme_url      = null;
+    libxml_clear_errors();
+    return $xml;
+}
+
+/**
+ * Fetch and cache discount data for a theme from the remote API.
+ *
+ * @param string $theme_slug Theme text-domain slug.
+ * @return array {
+ *     @type string|null $sale         Discount/sale value from the API.
+ *     @type string|null $purchase_url Purchase URL from the API.
+ * } Empty array when the API is unreachable, the XML is invalid, or the theme has no entry.
+ */
+function spiraclethemes_site_library_get_theme_discount( $theme_slug ) {
+    if ( empty( $theme_slug ) ) {
+        return [];
+    }
+
+    $xml = spiraclethemes_site_library_get_discount_xml();
+    if ( false === $xml ) {
+        return [];
+    }
+
     foreach ( $xml->theme as $theme ) {
         if ( (string) $theme->slug === $theme_slug ) {
-            $theme_discount = ! empty( $theme->sale ) ? (string) $theme->sale : null;
-            $theme_url      = ! empty( $theme->purchase_url ) ? (string) $theme->purchase_url : null;
-            break;
+            return [
+                'sale'         => ! empty( $theme->sale ) ? (string) $theme->sale : null,
+                'purchase_url' => ! empty( $theme->purchase_url ) ? (string) $theme->purchase_url : null,
+            ];
         }
     }
 
-    echo '<div class="ssl-widget-section ssl-discount-section">';
-    echo '<div class="ssl-discount-header">';
-    echo '<span class="ssl-discount-icon">&#37;</span>';
-    echo '<h3>' . esc_html__( 'Special Discount', 'spiraclethemes-site-library' ) . '</h3>';
-    echo '</div>';
+    return [];
+}
 
-    if ( $theme_discount && $theme_url ) {
-        echo '<div class="ssl-discount-body">';
-        echo '<div class="ssl-discount-offer">';
-        echo '<span class="ssl-discount-badge">' . esc_html__( 'LIMITED TIME', 'spiraclethemes-site-library' ) . '</span>';
-        echo '<p class="ssl-discount-text">';
-        printf(
-            /* translators: 1: Discount price, 2: Theme name */
-            esc_html__( 'Unlock the Pro version for just $%1$s! Take advantage of our limited-time discount on %2$s.', 'spiraclethemes-site-library' ),
-            esc_html( $theme_discount ),
-            esc_html( $theme_name )
-        );
-        echo '</p>';
-        echo '<a href="' . esc_url( $theme_url ) . '" target="_blank" class="ssl-discount-cta">';
-        echo '<span>' . esc_html__( 'Get Pro Now', 'spiraclethemes-site-library' ) . '</span>';
-        echo '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>';
-        echo '</a>';
-        echo '</div>';
-        echo '</div>';
-    } else {
-        echo '<div class="ssl-discount-body">';
-        echo '<div class="ssl-discount-empty">';
-        echo '<p>' . esc_html__( 'No special discount currently available.', 'spiraclethemes-site-library' ) . '</p>';
-        echo '</div>';
-        echo '</div>';
+/**
+ * Fetch the global custom-development service offer from the remote API.
+ *
+ * Reads the optional top-level <service> node from the discount XML.
+ *
+ * @return array {
+ *     @type string|null $headline    Service headline.
+ *     @type string|null $description Service description.
+ *     @type string|null $cta_url     Call-to-action URL.
+ *     @type string|null $price       Starting price for the service section.
+ * } Empty array when the API is unreachable, the XML is invalid, or no service entry exists.
+ */
+function spiraclethemes_site_library_get_service_offer() {
+    $xml = spiraclethemes_site_library_get_discount_xml();
+    if ( false === $xml || empty( $xml->service ) ) {
+        return [];
     }
-    echo '</div>';
 
-    libxml_clear_errors();
+    $service = $xml->service;
+
+    return [
+        'headline'    => ! empty( $service->headline ) ? (string) $service->headline : null,
+        'description' => ! empty( $service->description ) ? (string) $service->description : null,
+        'cta_url'     => ! empty( $service->cta_url ) ? (string) $service->cta_url : null,
+        'price'       => ! empty( $service->price ) ? (string) $service->price : null,
+    ];
 }
 
 /**
@@ -169,71 +151,38 @@ function spiraclethemes_site_library_render_services_section() {
     }
 
     $services = [
-        [
-            'title'   => __( 'Stunning Custom Design', 'spiraclethemes-site-library' ),
-            'desc'    => __( 'Make a lasting impression with a beautiful, modern website or redesign.', 'spiraclethemes-site-library' ),
-            'icon'    => 'design',
-        ],
-        [
-            'title'   => __( 'Tailor-Made Features', 'spiraclethemes-site-library' ),
-            'desc'    => __( 'We build exactly what your business needs – no fluff, just functionality.', 'spiraclethemes-site-library' ),
-            'icon'    => 'features',
-        ],
-        [
-            'title'   => __( 'SEO-Optimized', 'spiraclethemes-site-library' ),
-            'desc'    => __( 'Climb the search rankings and get discovered faster on Google.', 'spiraclethemes-site-library' ),
-            'icon'    => 'seo',
-        ],
-        [
-            'title'   => __( 'Blazing-Fast Speed', 'spiraclethemes-site-library' ),
-            'desc'    => __( 'Say goodbye to slow loading. We make your site lightning quick!', 'spiraclethemes-site-library' ),
-            'icon'    => 'speed',
-        ],
-        [
-            'title'   => __( 'Rock-Solid Security', 'spiraclethemes-site-library' ),
-            'desc'    => __( 'Sleep easy knowing your website is shielded with top-notch protection.', 'spiraclethemes-site-library' ),
-            'icon'    => 'security',
-        ],
-        [
-            'title'   => __( '100% Mobile-Responsive', 'spiraclethemes-site-library' ),
-            'desc'    => __( 'Your site will look perfect on every screen – phones, tablets, and desktops.', 'spiraclethemes-site-library' ),
-            'icon'    => 'mobile',
-        ],
-        [
-            'title'   => __( 'Google Analytics Ready', 'spiraclethemes-site-library' ),
-            'desc'    => __( 'Gain powerful insights and track every visitor with ease.', 'spiraclethemes-site-library' ),
-            'icon'    => 'analytics',
-        ],
-        [
-            'title'   => __( 'Live Chat Integration', 'spiraclethemes-site-library' ),
-            'desc'    => __( 'Connect instantly with your visitors and turn chats into conversions.', 'spiraclethemes-site-library' ),
-            'icon'    => 'chat',
-        ],
-        [
-            'title'   => __( 'SSL Renewal Support', 'spiraclethemes-site-library' ),
-            'desc'    => __( 'We help you stay secure, always – no more expired certificates.', 'spiraclethemes-site-library' ),
-            'icon'    => 'ssl',
-        ],
-        [
-            'title'   => __( 'Spam Shield Setup', 'spiraclethemes-site-library' ),
-            'desc'    => __( 'Keep your site clean and junk-free with robust spam protection.', 'spiraclethemes-site-library' ),
-            'icon'    => 'spam',
-        ],
-        [
-            'title'   => __( '30 Days Free Expert Support', 'spiraclethemes-site-library' ),
-            'desc'    => __( 'We\'ve got your back, even after launch – no extra cost!', 'spiraclethemes-site-library' ),
-            'icon'    => 'support',
-        ],
+        __( 'Stunning Custom Design', 'spiraclethemes-site-library' ),
+        __( 'Tailor-Made Features', 'spiraclethemes-site-library' ),
+        __( 'SEO-Optimized', 'spiraclethemes-site-library' ),
+        __( 'Blazing-Fast Speed', 'spiraclethemes-site-library' ),
+        __( 'Rock-Solid Security', 'spiraclethemes-site-library' ),
+        __( '100% Mobile-Responsive', 'spiraclethemes-site-library' ),
+        __( 'Google Analytics Ready', 'spiraclethemes-site-library' ),
+        __( 'Live Chat Integration', 'spiraclethemes-site-library' ),
+        __( 'SSL Renewal Support', 'spiraclethemes-site-library' ),
+        __( 'Spam Shield Setup', 'spiraclethemes-site-library' ),
+        __( '30 Days Free Expert Support', 'spiraclethemes-site-library' ),
     ];
 
     echo '<div class="ssl-widget-section ssl-services-section">';
+
+    // Pull the starting price dynamically from the remote API, fall back to default.
+    // Priority: explicit <price> node -> first $ amount in <description> -> default.
+    $service = spiraclethemes_site_library_get_service_offer();
+    $price   = '$399';
+    if ( ! empty( $service['price'] ) ) {
+        $price = $service['price'];
+    } elseif ( ! empty( $service['description'] ) && preg_match( '/\$[\d.,]+/', $service['description'], $matches ) ) {
+        $price = $matches[0];
+    }
 
     // Header.
     echo '<div class="ssl-services-header">';
     echo '<div class="ssl-services-header-icon"><img src="' . esc_url( $rocket_img ) . '" alt="' . esc_attr__( 'Rocket', 'spiraclethemes-site-library' ) . '" /></div>';
     echo '<div class="ssl-services-header-text">';
+    echo '<span class="ssl-services-kicker">' . esc_html__( 'From Idea to Live Site', 'spiraclethemes-site-library' ) . '</span>';
     echo '<h3>' . esc_html__( 'Design, Build or Revamp Your WordPress Website', 'spiraclethemes-site-library' ) . '</h3>';
-    echo '<span class="ssl-services-price">' . esc_html__( 'Starting from', 'spiraclethemes-site-library' ) . ' <strong>$399</strong></span>';
+    echo '<span class="ssl-services-price">' . esc_html__( 'Starting from', 'spiraclethemes-site-library' ) . ' <strong>' . esc_html( $price ) . '</strong></span>';
     echo '</div>';
     echo '</div>';
 
@@ -244,10 +193,7 @@ function spiraclethemes_site_library_render_services_section() {
         echo '<span class="ssl-service-check">';
         echo '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>';
         echo '</span>';
-        echo '<div class="ssl-service-text">';
-        echo '<strong>' . esc_html( $service['title'] ) . '</strong>';
-        echo '<span>' . esc_html( $service['desc'] ) . '</span>';
-        echo '</div>';
+        echo '<span class="ssl-service-text">' . esc_html( $service ) . '</span>';
         echo '</div>';
     }
     echo '</div>';
@@ -257,84 +203,13 @@ function spiraclethemes_site_library_render_services_section() {
     /* translators: %s: Theme name */
     echo '<a href="mailto:support@spiraclethemes.com?subject=' . rawurlencode( sprintf( __( 'Website Design/Revamp Inquiry - %s', 'spiraclethemes-site-library' ), SPIR_SITE_LIBRARY_THEME_NAME ) ) . '" class="ssl-services-cta">';
     echo '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>';
-    echo '<span>' . esc_html__( 'Email Us to Get Started — $399', 'spiraclethemes-site-library' ) . '</span>';
+    echo '<span>' . esc_html( sprintf(
+        /* translators: %s: Starting price */
+        __( 'Email Us to Get Started — %s', 'spiraclethemes-site-library' ),
+        $price
+    ) ) . '</span>';
     echo '</a>';
     echo '<span class="ssl-services-limited">' . esc_html__( 'Limited Time Offer', 'spiraclethemes-site-library' ) . '</span>';
-    echo '</div>';
-
-    echo '</div>';
-}
-
-/**
- * Render news section if enabled.
- */
-function spiraclethemes_site_library_render_news_section() {
-    echo '<div class="ssl-widget-section ssl-news-section">';
-    echo '<div class="ssl-news-header">';
-    echo '<span class="ssl-news-icon">';
-    echo '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>';
-    echo '</span>';
-    echo '<h3>' . esc_html__( 'News & Updates', 'spiraclethemes-site-library' ) . '</h3>';
-    echo '</div>';
-
-    $cache_key = 'spiraclethemes_news_posts';
-    $posts     = get_transient( $cache_key );
-
-    if ( false === $posts ) {
-        $api_url       = esc_url_raw( 'https://spiraclethemes.com/wp-json/wp/v2/posts?per_page=' . SPIRACLETHEMES_POSTS_PER_PAGE );
-        $response_posts = wp_safe_remote_get( $api_url, [
-            'timeout'   => 10,
-            'sslverify' => true,
-        ] );
-
-        if ( is_wp_error( $response_posts ) ) {
-            echo '<div class="ssl-news-list"><p class="ssl-news-error">' . esc_html__( 'Unable to load news. Please try again later.', 'spiraclethemes-site-library' ) . '</p></div>';
-            echo '</div>';
-            return;
-        }
-
-        $response_code = wp_remote_retrieve_response_code( $response_posts );
-        if ( 200 !== $response_code ) {
-            echo '<div class="ssl-news-list"><p class="ssl-news-error">' . esc_html__( 'Unable to load news. Please try again later.', 'spiraclethemes-site-library' ) . '</p></div>';
-            echo '</div>';
-            return;
-        }
-
-        $posts = json_decode( wp_remote_retrieve_body( $response_posts ), true );
-        if ( ! is_array( $posts ) ) {
-            echo '<div class="ssl-news-list"><p class="ssl-news-error">' . esc_html__( 'Unable to load news.', 'spiraclethemes-site-library' ) . '</p></div>';
-            echo '</div>';
-            return;
-        }
-
-        set_transient( $cache_key, $posts, HOUR_IN_SECONDS * 24 );
-    }
-
-    echo '<div class="ssl-news-list">';
-    if ( ! empty( $posts ) ) {
-        $seven_days_ago = strtotime( '-' . SPIRACLETHEMES_NEW_POST_DAYS . ' days' );
-
-        foreach ( $posts as $post ) {
-            if ( ! isset( $post['date'], $post['link'], $post['title']['rendered'] ) ) {
-                continue;
-            }
-
-            $post_date = strtotime( $post['date'] ?? '' );
-            $is_new    = ( false !== $post_date ) && ( $post_date > $seven_days_ago );
-
-            echo '<div class="ssl-news-item">';
-            if ( $is_new ) {
-                echo '<span class="ssl-news-badge">' . esc_html__( 'NEW', 'spiraclethemes-site-library' ) . '</span>';
-            }
-            echo '<a href="' . esc_url( $post['link'] ) . '" target="_blank">';
-            echo esc_html( $post['title']['rendered'] );
-            echo '<svg class="ssl-news-external" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>';
-            echo '</a>';
-            echo '</div>';
-        }
-    } else {
-        echo '<p class="ssl-news-error">' . esc_html__( 'No recent posts found.', 'spiraclethemes-site-library' ) . '</p>';
-    }
     echo '</div>';
 
     echo '</div>';

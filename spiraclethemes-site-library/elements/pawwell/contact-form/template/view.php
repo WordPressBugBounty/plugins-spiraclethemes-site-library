@@ -1,7 +1,7 @@
 <?php
 // phpcs:disable WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound
 /**
- * Contact Form - Frontend Render
+ * Contact Form
  *
  * @package spiraclethemes-site-library
  */
@@ -335,7 +335,6 @@ $wrap_class .= ( 'yes' === $show_border_top || 'yes' === $show_border_bottom ) &
 		margin-top: 8px;
 	}
 
-	/* Contact Form 7 field styling */
 	.pawwell-cf-<?php echo esc_attr( $id ); ?> .pawwell-cf-form-wrap .wpcf7-form-control:not(.wpcf7-submit) {
 		width: 100%;
 		padding: 14px 18px;
@@ -388,7 +387,6 @@ $wrap_class .= ( 'yes' === $show_border_top || 'yes' === $show_border_bottom ) &
 		box-shadow: 0 8px 24px rgba(196,91,62,0.35);
 	}
 
-	/* Placeholder in editor */
 	.pawwell-cf-<?php echo esc_attr( $id ); ?> .pawwell-cf-placeholder {
 		display: flex;
 		flex-direction: column;

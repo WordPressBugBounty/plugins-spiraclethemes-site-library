@@ -1,7 +1,7 @@
 <?php
 // phpcs:disable WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound
 /**
- * Trust Strip - Frontend Render
+ * Trust Strip
  *
  * @package spiraclethemes-site-library
  */

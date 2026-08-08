@@ -1,8 +1,7 @@
 <?php
 // phpcs:disable WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound
 /**
- * Categories Section - Frontend Render (Shop Zen)
- *
+ * Categories Section
  *
  * @package spiraclethemes-site-library
  */
@@ -130,8 +129,6 @@ $image_size_key = ! empty( $settings_obj['cat_image_size_size'] ) ? $settings_ob
 		margin: 0 auto;
 		line-height: 1.6em;
 	}
-
-	/* Wrap matches header/footer band (1240px, gutter inside). */
 	.shopzen-cat-<?php echo esc_attr( $id ); ?> .shopzen-cat-wrap {
 		position: relative;
 		max-width: 1280px;

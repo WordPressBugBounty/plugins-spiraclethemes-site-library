@@ -4,14 +4,9 @@
 jQuery(document).ready(function($) {
     'use strict';
 
-    // Move WordPress admin notices above the plugin section to prevent
-    // them from appearing inside the Spiraclethemes Site Library card.
     var $adminWrap = $('.ssl-admin-wrap');
     if ($adminWrap.length) {
-        // Collect notices from #wpbody-content direct children (outside .ssl-admin-wrap).
         var $notices = $('#wpbody-content').children('.notice, .updated, .error, .update-nag, .ssl-notice, .ssl-pro-upgrade-notice');
-        // Also find notices deeply nested inside .ssl-admin-wrap, but NOT inside .response-wrap
-        // (response-wrap notices are AJAX feedback that should remain inside the plugin section).
         $notices = $notices.add(
             $adminWrap.find('.notice, .updated, .error, .update-nag, .ssl-notice, .ssl-pro-upgrade-notice').not('.response-wrap .notice')
         );
@@ -30,8 +25,7 @@ jQuery(document).ready(function($) {
         }
     });
 
-    // Click handler for toggle slider — ensures the checkbox toggles
-    // even if CSS-only label association fails.
+    // Click handler for toggle slider
     $('.ssl-toggle-slider').on('click', function(e) {
         var $input = $(this).siblings('input[type="checkbox"]');
         if ($input.length && !$input.prop('disabled')) {
@@ -96,7 +90,6 @@ jQuery(document).ready(function($) {
                             .animate({ opacity: 1 }, 300)
                     );
                     // Reload the page after a short delay so the demo importer
-                    // module is loaded (or unloaded) based on the new setting.
                     setTimeout(function() {
                         window.location.reload();
                     }, 1200);

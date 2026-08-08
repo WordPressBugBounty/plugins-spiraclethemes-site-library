@@ -105,6 +105,11 @@ $spir_theme_files = [
         SPIR_SITE_LIBRARY_PATH . '/elements/shop-zen/helper-functions.php',
         SPIR_SITE_LIBRARY_PATH . '/elements/shop-zen/widget-category.php',
     ],
+    'shopbar'           => [
+        SPIR_SITE_LIBRARY_PATH . '/inc/theme-functions/shopbar-functions.php',
+        SPIR_SITE_LIBRARY_PATH . '/elements/shopbar/helper-functions.php',
+        SPIR_SITE_LIBRARY_PATH . '/elements/shopbar/widget-category.php',
+    ],
 ];
 
 // Load the appropriate files based on the current theme slug.

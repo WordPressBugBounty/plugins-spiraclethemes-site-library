@@ -1,10 +1,7 @@
 <?php
 // phpcs:disable WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound
 /**
- * CTA Lite Section - Frontend Render (Shop Zen)
- *
- * Reuses the visual design from the original newsletter section but repurposes
- * it as a call-to-action bar with primary + secondary buttons.
+ * CTA Lite Section
  *
  * @package spiraclethemes-site-library
  */

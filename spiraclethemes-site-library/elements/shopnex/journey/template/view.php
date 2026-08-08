@@ -1,7 +1,7 @@
 <?php
 // phpcs:disable WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound
 /**
- * Journey / Timeline Widget View for Shopnex Theme
+ * Journey / Timeline Widget
  *
  * @package SpiracleThemes_Site_Library
  */

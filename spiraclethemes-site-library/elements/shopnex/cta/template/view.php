@@ -1,7 +1,7 @@
 <?php
 // phpcs:disable WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound
 /**
- * CTA Widget View for Shopnex Theme
+ * CTA Widget View
  *
  * @package SpiracleThemes_Site_Library
  */

@@ -1,6 +1,9 @@
 
 == Changelog ==
 
+== 1.7.0 ==
+- Added new Get Started page
+
 == 1.6.6 ==
 - Minor bug fixes
 

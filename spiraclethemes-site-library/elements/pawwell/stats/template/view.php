@@ -1,7 +1,7 @@
 <?php
 // phpcs:disable WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound
 /**
- * Stats Banner - Frontend Render
+ * Stats Banner
  *
  * @package spiraclethemes-site-library
  */
