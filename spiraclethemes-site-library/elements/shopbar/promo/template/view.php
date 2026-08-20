@@ -267,19 +267,33 @@ $arrow_svg = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke
 	}
 	.shopbar-pm-<?php echo esc_attr( $id ); ?> .shopbar-pm-card:hover .shopbar-pm-media img { transform: scale(1.04); }
 
-	.shopbar-pm-media-hidden .shopbar-pm-content { flex: 1 1 100%; }
+	.shopbar-pm-media-hidden .shopbar-pm-<?php echo esc_attr( $id ); ?> .shopbar-pm-content { flex: 1 1 100%; }
 
-	/* ── Responsive ─────────────────────────────────────── */
+	/* ── Responsive ───────────────────────────────────────
+	*/
+	@media (max-width: 1024px) {
+		.shopbar-pm-<?php echo esc_attr( $id ); ?> .shopbar-pm-content { padding: 34px 30px !important; }
+		.shopbar-pm-<?php echo esc_attr( $id ); ?> .shopbar-pm-title { font-size: 30px !important; }
+		.shopbar-pm-<?php echo esc_attr( $id ); ?> .shopbar-pm-ghost { font-size: 150px !important; bottom: -32px; }
+	}
 	@media (max-width: 768px) {
-		.shopbar-pm-<?php echo esc_attr( $id ); ?> .shopbar-pm-card { flex-direction: column; min-height: 0; }
+		.shopbar-pm-<?php echo esc_attr( $id ); ?> .shopbar-pm-card { flex-direction: column !important; min-height: 0 !important; }
 		.shopbar-pm-<?php echo esc_attr( $id ); ?> .shopbar-pm-media {
-			flex: 0 0 auto;
-			width: 100%;
-			min-height: 240px;
+			flex: 0 0 auto !important;
+			width: 100% !important;
+			min-height: 220px;
 			order: -1 !important;
 		}
-		.shopbar-pm-<?php echo esc_attr( $id ); ?> .shopbar-pm-content { padding: 28px; }
-		.shopbar-pm-<?php echo esc_attr( $id ); ?> .shopbar-pm-title { font-size: 30px; }
-		.shopbar-pm-<?php echo esc_attr( $id ); ?> .shopbar-pm-ghost { font-size: 130px; bottom: -28px; right: -4px; }
+		.shopbar-pm-<?php echo esc_attr( $id ); ?> .shopbar-pm-content { padding: 26px 22px !important; }
+		.shopbar-pm-<?php echo esc_attr( $id ); ?> .shopbar-pm-title { font-size: 26px !important; }
+		.shopbar-pm-<?php echo esc_attr( $id ); ?> .shopbar-pm-price-now { font-size: 24px; }
+		.shopbar-pm-<?php echo esc_attr( $id ); ?> .shopbar-pm-price { margin-bottom: 20px; }
+		.shopbar-pm-<?php echo esc_attr( $id ); ?> .shopbar-pm-ghost { font-size: 110px !important; bottom: -24px; right: -4px; }
+	}
+	@media (max-width: 480px) {
+		.shopbar-pm-<?php echo esc_attr( $id ); ?> .shopbar-pm-media { min-height: 180px; }
+		.shopbar-pm-<?php echo esc_attr( $id ); ?> .shopbar-pm-title { font-size: 23px !important; }
+		.shopbar-pm-<?php echo esc_attr( $id ); ?> .shopbar-pm-ghost { display: none; }
+		.shopbar-pm-<?php echo esc_attr( $id ); ?> .shopbar-pm-btn { padding: 12px 22px; }
 	}
 </style>

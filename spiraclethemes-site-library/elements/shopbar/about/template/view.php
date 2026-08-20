@@ -217,21 +217,37 @@ $id = $this->get_id();
 	}
 	.shopbar-ab-<?php echo esc_attr( $id ); ?> .shopbar-ab-media:hover img { transform: scale(1.02); }
 
-	.shopbar-ab-media-hidden .shopbar-ab-content { flex: 1 1 100%; }
+	.shopbar-ab-media-hidden .shopbar-ab-<?php echo esc_attr( $id ); ?> .shopbar-ab-content { flex: 1 1 100%; }
 
-	/* ── Responsive ─────────────────────────────────────── */
+	/* ── Responsive ───────────────────────────────────────
+	*/
 	@media (max-width: 1024px) {
-		.shopbar-ab-<?php echo esc_attr( $id ); ?> .shopbar-ab-title { font-size: 38px; }
+		.shopbar-ab-<?php echo esc_attr( $id ); ?> .shopbar-ab-title { font-size: 38px !important; }
+		.shopbar-ab-<?php echo esc_attr( $id ); ?> .shopbar-ab-row { column-gap: 32px !important; }
+		.shopbar-ab-<?php echo esc_attr( $id ); ?> .shopbar-ab-media img { height: 380px !important; }
 	}
 	@media (max-width: 768px) {
-		.shopbar-ab-<?php echo esc_attr( $id ); ?> .shopbar-ab-row { flex-direction: column; align-items: stretch; }
-		.shopbar-ab-<?php echo esc_attr( $id ); ?> .shopbar-ab-media {
-			flex: 0 0 100%;
-			width: 100%;
-			order: -1 !important;
+		.shopbar-ab-<?php echo esc_attr( $id ); ?> .shopbar-ab-row {
+			flex-direction: column;
+			align-items: stretch;
+			column-gap: 0 !important;
+			padding-top: 44px !important;
+			padding-bottom: 44px !important;
 		}
-		.shopbar-ab-<?php echo esc_attr( $id ); ?> .shopbar-ab-media img { height: 300px; }
-		.shopbar-ab-<?php echo esc_attr( $id ); ?> .shopbar-ab-title { font-size: 30px; }
+		.shopbar-ab-<?php echo esc_attr( $id ); ?> .shopbar-ab-media {
+			flex: 0 0 100% !important;
+			width: 100% !important;
+			order: -1 !important;
+			margin-bottom: 26px;
+		}
+		.shopbar-ab-<?php echo esc_attr( $id ); ?> .shopbar-ab-media img { height: 300px !important; }
+		.shopbar-ab-<?php echo esc_attr( $id ); ?> .shopbar-ab-title { font-size: 30px !important; }
+		.shopbar-ab-<?php echo esc_attr( $id ); ?> .shopbar-ab-desc { max-width: 100% !important; }
 		.shopbar-ab-<?php echo esc_attr( $id ); ?> .shopbar-ab-content { gap: 14px; }
+		.shopbar-ab-<?php echo esc_attr( $id ); ?> .shopbar-ab-actions { gap: 10px; }
+	}
+	@media (max-width: 480px) {
+		.shopbar-ab-<?php echo esc_attr( $id ); ?> .shopbar-ab-media img { height: 240px !important; }
+		.shopbar-ab-<?php echo esc_attr( $id ); ?> .shopbar-ab-title { font-size: 26px !important; }
 	}
 </style>

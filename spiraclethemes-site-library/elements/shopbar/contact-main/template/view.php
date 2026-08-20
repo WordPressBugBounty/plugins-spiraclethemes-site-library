@@ -319,7 +319,7 @@ $full_width     = 'full' === ( $settings['content_max_width'] ?? '' );
 		display: flex;
 		flex-direction: column;
 	}
-	.shopbar-cm-<?php echo esc_attr( $id ); ?>.shopbar-cm-side-left .shopbar-cm-side  { order: -1; }
+	.shopbar-cm-side-left .shopbar-cm-<?php echo esc_attr( $id ); ?> .shopbar-cm-side { order: -1; }
 
 	/* Map */
 	.shopbar-cm-<?php echo esc_attr( $id ); ?> .shopbar-cm-map {
@@ -345,7 +345,7 @@ $full_width     = 'full' === ( $settings['content_max_width'] ?? '' );
 		border-bottom: 1px solid #F2F2F2;
 	}
 	.shopbar-cm-<?php echo esc_attr( $id ); ?> .shopbar-cm-hours-row:last-child { border-bottom: none; }
-	.shopbar-cm-hours-row--closed .shopbar-cm-hours-val { font-weight: 600; }
+	.shopbar-cm-<?php echo esc_attr( $id ); ?> .shopbar-cm-hours-row--closed .shopbar-cm-hours-val { font-weight: 600; }
 
 	/* Social */
 	.shopbar-cm-<?php echo esc_attr( $id ); ?> .shopbar-cm-social { text-align: center; }
@@ -364,14 +364,28 @@ $full_width     = 'full' === ( $settings['content_max_width'] ?? '' );
 	}
 	.shopbar-cm-<?php echo esc_attr( $id ); ?> .shopbar-cm-social-link:hover { transform: translateY(-3px); }
 
-	/* ── Responsive ────────────────────────────────────── */
+	/* ── Responsive ──────────────────────────────────────
+	*/
 	@media (max-width: 1024px) {
-		.shopbar-cm-<?php echo esc_attr( $id ); ?> .shopbar-cm-form { flex: 1 1 100%; }
-		.shopbar-cm-<?php echo esc_attr( $id ); ?> .shopbar-cm-side { flex: 1 1 100%; order: 0 !important; }
+		.shopbar-cm-<?php echo esc_attr( $id ); ?> .shopbar-cm-form { flex: 1 1 100% !important; }
+		.shopbar-cm-<?php echo esc_attr( $id ); ?> .shopbar-cm-side { flex: 1 1 100% !important; order: 0 !important; }
+		/* row-gap is what separates the stacked form/side cards (column-gap
+		   does not apply across wrapped flex lines and nothing set it before). */
+		.shopbar-cm-<?php echo esc_attr( $id ); ?> .shopbar-cm-row { row-gap: 32px; }
 		.shopbar-cm-<?php echo esc_attr( $id ); ?> .shopbar-cm-map { min-height: 320px; }
+		.shopbar-cm-<?php echo esc_attr( $id ); ?> .shopbar-cm-form { padding: 36px 32px !important; }
+	}
+	@media (max-width: 768px) {
+		.shopbar-cm-<?php echo esc_attr( $id ); ?> .shopbar-cm-inner { padding: 0 16px 48px !important; }
+		.shopbar-cm-<?php echo esc_attr( $id ); ?> .shopbar-cm-row { row-gap: 24px; }
+		.shopbar-cm-<?php echo esc_attr( $id ); ?> .shopbar-cm-form { padding: 28px 20px !important; }
+		.shopbar-cm-<?php echo esc_attr( $id ); ?> .shopbar-cm-hours,
+		.shopbar-cm-<?php echo esc_attr( $id ); ?> .shopbar-cm-social { padding: 22px 18px !important; }
+		.shopbar-cm-<?php echo esc_attr( $id ); ?> .shopbar-cm-map { min-height: 260px; }
 	}
 	@media (max-width: 600px) {
 		.shopbar-cm-<?php echo esc_attr( $id ); ?> .shopbar-cm-fields { grid-template-columns: 1fr; }
 		.shopbar-cm-<?php echo esc_attr( $id ); ?> .shopbar-cm-field--half { grid-column: auto; }
+		.shopbar-cm-<?php echo esc_attr( $id ); ?> .shopbar-cm-submit { width: 100%; }
 	}
 </style>

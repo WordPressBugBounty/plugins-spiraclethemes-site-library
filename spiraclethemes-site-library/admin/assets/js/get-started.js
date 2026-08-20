@@ -17,12 +17,12 @@
             }
         }
 
-        // Load missing theme screenshots from wordpress.org.
+        // Load theme screenshots from wordpress.org via AJAX
         $( '.ssl-theme-card-thumb' ).each( function() {
             var $thumb = $( this );
             var slug   = $thumb.data( 'theme-slug' );
 
-            if ( ! slug || $thumb.find( 'img' ).length ) {
+            if ( ! slug ) {
                 return;
             }
 
@@ -34,11 +34,17 @@
                     slug:   slug
                 }
             ).done( function( response ) {
-                if ( response && response.success && response.data && response.data.screenshot ) {
+                if ( ! response || ! response.success || ! response.data || ! response.data.screenshot ) {
+                    return;
+                }
+
+                var img = new Image();
+                img.onload = function() {
                     $thumb.empty().append(
                         $( '<img>' ).attr( 'src', response.data.screenshot ).attr( 'alt', slug )
                     );
-                }
+                };
+                img.src = response.data.screenshot;
             } );
         } );
 
@@ -60,7 +66,7 @@
                 ssl_get_started.ajax_url,
                 {
                     action: 'ssl_install_theme',
-                    nonce:  ssl_get_started.nonce,
+                    nonce:  ssl_get_started.install_nonce,
                     slug:   slug
                 }
             ).done( function( response ) {

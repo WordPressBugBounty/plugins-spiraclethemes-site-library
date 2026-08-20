@@ -18,6 +18,27 @@ if ( ! defined( 'ABSPATH' ) ) {
 class Spiracle_Demo_Import {
 
 	/**
+	 * Private/internal IP address patterns blocked during downloads.
+	 *
+	 * Mirrors the protection in Spiracle_Content_Importer to prevent
+	 * SSRF attacks via redirect or DNS rebinding.
+	 *
+	 * @var array
+	 */
+	private const PRIVATE_IP_PATTERNS = array(
+		'/^10\./',
+		'/^172\.(1[6-9]|2[0-9]|3[01])\./',
+		'/^192\.168\./',
+		'/^127\./',
+		'/^0\./',
+		'/^169\.254\./',
+		'/^::1$/',
+		'/^fc/',
+		'/^fd/',
+		'/^fe80:/',
+	);
+
+	/**
 	 * Registered demo configurations collected from pt-ocdi/import_files filter.
 	 *
 	 * @var array
@@ -405,48 +426,31 @@ class Spiracle_Demo_Import {
 				return new WP_Error( 'spiracle_unresolvable_host', esc_html__( 'Could not resolve download URL host.', 'spiraclethemes-site-library' ) );
 			}
 
-			$private_ip_patterns = array(
-				'/^10\./',
-				'/^172\.(1[6-9]|2[0-9]|3[01])\./',
-				'/^192\.168\./',
-				'/^127\./',
-				'/^0\./',
-				'/^169\.254\./',
-				'/^::1$/',
-				'/^fc/',
-				'/^fd/',
-				'/^fe80:/',
-			);
-
-			foreach ( $private_ip_patterns as $pattern ) {
-				if ( preg_match( $pattern, $resolved_ip ) ) {
-					return new WP_Error( 'spiracle_private_ip', esc_html__( 'Downloads from private/internal networks are not allowed.', 'spiraclethemes-site-library' ) );
-				}
+			if ( $this->is_private_ip( $resolved_ip ) ) {
+				return new WP_Error( 'spiracle_private_ip', esc_html__( 'Downloads from private/internal networks are not allowed.', 'spiraclethemes-site-library' ) );
 			}
 		}
 
 		require_once ABSPATH . 'wp-admin/includes/file.php';
 
-		// Pin DNS to the validated IP to prevent DNS-rebinding (TOCTOU) attacks.
-		// Without this, download_url() re-resolves the host independently and an
-		// attacker with a low-TTL DNS record could return a public IP on our
-		// gethostbyname() check above, then a private IP for the actual download.
-		$spir_dns_pin = null;
-		if ( ! $is_local && ! empty( $resolved_ip ) && function_exists( 'curl_init' ) ) {
-			$spir_dns_pin = function ( $handle ) use ( $host, $resolved_ip ) {
-				curl_setopt( $handle, CURLOPT_RESOLVE, array(
-					$host . ':80:'  . $resolved_ip,
-					$host . ':443:' . $resolved_ip,
-				) );
-			};
-			add_action( 'http_api_curl', $spir_dns_pin, 10, 1 );
+		// Validate + pin DNS on every request hop (including redirects) to
+		// prevent SSRF via redirect and DNS-rebinding (TOCTOU) attacks.
+		// Without pinning, the host is re-resolved independently by curl
+		// after every gethostbyname()-based check, so an attacker with a
+		// low-TTL DNS record could pass validation with a public IP and
+		// then serve a private IP for the actual download.
+		$spir_curl_guard = function ( $handle ) {
+			$this->guard_http_curl_handle( $handle );
+		};
+		if ( ! $is_local && function_exists( 'curl_init' ) ) {
+			add_action( 'http_api_curl', $spir_curl_guard, 10, 1 );
 		}
 
 		$tmp = download_url( $url, 120 );
 
-		// Always remove the pin so it doesn't leak into other requests.
-		if ( $spir_dns_pin ) {
-			remove_action( 'http_api_curl', $spir_dns_pin, 10 );
+		// Always remove the guard so it doesn't leak into other requests.
+		if ( ! $is_local && function_exists( 'curl_init' ) ) {
+			remove_action( 'http_api_curl', $spir_curl_guard, 10 );
 		}
 
 		if ( is_wp_error( $tmp ) ) {
@@ -454,6 +458,63 @@ class Spiracle_Demo_Import {
 		}
 
 		return $tmp;
+	}
+
+	/**
+	 * Check whether an IP address is private/internal.
+	 *
+	 * @param string $ip IP address string.
+	 * @return bool True if the IP is private or reserved.
+	 */
+	private function is_private_ip( $ip ) {
+		foreach ( self::PRIVATE_IP_PATTERNS as $pattern ) {
+			if ( preg_match( $pattern, $ip ) ) {
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+	/**
+	 * Validate and pin DNS for every HTTP request hop (including redirects)
+	 * while a demo file download is in flight.
+	 *
+	 * Registered on 'http_api_curl', which fires once per request hop. The
+	 * curl handle's URL is re-checked against the private-IP blocklist and
+	 * then pinned via CURLOPT_RESOLVE so that curl cannot re-resolve the
+	 * host to a different (e.g. private) address after validation.
+	 *
+	 * @param resource $handle The curl handle for the current hop.
+	 */
+	private function guard_http_curl_handle( $handle ) {
+		$hop_url  = curl_getinfo( $handle, CURLINFO_EFFECTIVE_URL );
+		$hop_host = ( is_string( $hop_url ) && '' !== $hop_url ) ? wp_parse_url( $hop_url, PHP_URL_HOST ) : '';
+
+		if ( ! $hop_host || ! preg_match( '/^[a-z0-9.\-]+\.[a-z]{2,}$/i', $hop_host ) ) {
+			// Empty or IP-literal/unusual hosts: let core's validation decide.
+			return;
+		}
+
+		if ( $this->is_local_host( $hop_host ) ) {
+			return;
+		}
+
+		$hop_ip = gethostbyname( $hop_host );
+		if ( $hop_ip === $hop_host || $this->is_private_ip( $hop_ip ) ) {
+			// Force a safe connection failure (TEST-NET-1 is unroutable).
+			curl_setopt( $handle, CURLOPT_CONNECTTIMEOUT_MS, 250 );
+			curl_setopt( $handle, CURLOPT_RESOLVE, array(
+				$hop_host . ':80:192.0.2.1',
+				$hop_host . ':443:192.0.2.1',
+			) );
+			return;
+		}
+
+		curl_setopt( $handle, CURLOPT_RESOLVE, array(
+			$hop_host . ':80:' . $hop_ip,
+			$hop_host . ':443:' . $hop_ip,
+		) );
 	}
 
 	private function resolve_local_file_path( $url ) {
@@ -485,7 +546,7 @@ class Spiracle_Demo_Import {
 		$real_base = realpath( ABSPATH );
 		$real_file = realpath( dirname( $absolute ) );
 
-		if ( $real_base && $real_file && 0 !== strpos( $real_file, $real_base ) ) {
+		if ( $real_base && $real_file && ! $this->is_path_within_base( $real_file, $real_base ) ) {
 			return '';
 		}
 
@@ -497,9 +558,22 @@ class Spiracle_Demo_Import {
 		$tmp_dir_real = realpath( $tmp_dir );
 		$file_real = realpath( $file );
 
-		if ( $tmp_dir_real && $file_real && 0 === strpos( $file_real, $tmp_dir_real ) ) {
+		if ( $tmp_dir_real && $file_real && $this->is_path_within_base( $file_real, $tmp_dir_real ) ) {
 			wp_delete_file( $file );
 		}
+	}
+
+	/**
+	 * Check that a resolved path is inside a base directory,
+	 * respecting the directory-separator boundary (prevents
+	 * sibling-directory prefix matches such as /base-evil).
+	 *
+	 * @param string $path Resolved absolute path.
+	 * @param string $base Resolved base directory (no trailing separator).
+	 * @return bool True if $path equals $base or is inside it.
+	 */
+	private function is_path_within_base( $path, $base ) {
+		return $path === $base || 0 === strpos( $path, $base . DIRECTORY_SEPARATOR );
 	}
 
 	private function is_local_host( $host ) {

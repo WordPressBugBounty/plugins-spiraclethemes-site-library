@@ -326,7 +326,7 @@ $compare_svg = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stro
 		color: var(--brand-dark, #1C1C1C);
 		margin: 0;
 	}
-	.shopbar-pg-<?php echo esc_attr( $id ); ?> .shopbar-pg-desc {
+	.shopbar-pg-<?php echo esc_attr( $id ); ?> .shopbar-pg-head .shopbar-pg-desc {
 		font-size: 15px;
 		line-height: 1.6;
 		color: var(--brand-text-muted, #9C9792);
@@ -460,8 +460,8 @@ $compare_svg = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stro
 		color: var(--pg-accent);
 	}
 
-	/* Description (clamped) */
-	.shopbar-pg-<?php echo esc_attr( $id ); ?> .shopbar-pg-desc {
+	/* Product short description */
+	.shopbar-pg-<?php echo esc_attr( $id ); ?> .shopbar-pg-info .shopbar-pg-desc {
 		font-size: 12.5px;
 		line-height: 1.45;
 		color: var(--brand-text-muted, #9C9792);

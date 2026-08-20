@@ -280,6 +280,111 @@ class Shopbar_Categories extends Widget_Base {
 		$this->end_controls_section();
 
 
+		// ─── Style: Section Header ──────────────────────────────────
+		$this->start_controls_section(
+			'section_style_header',
+			[
+				'label' => esc_html__( 'Section Header', 'spiraclethemes-site-library' ),
+				'tab' => Controls_Manager::TAB_STYLE,
+				'condition' => [ 'show_header' => 'yes' ],
+			]
+		);
+
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			[
+				'name' => 'header_eyebrow_typography',
+				'label' => esc_html__( 'Eyebrow Typography', 'spiraclethemes-site-library' ),
+				'selector' => '{{WRAPPER}} .shopbar-cg-eyebrow',
+				'fields_options' => [
+					'typography' => [ 'default' => 'yes' ],
+					'font_size' => [ 'default' => [ 'size' => 12.5 ] ],
+					'font_weight' => [ 'default' => 700 ],
+					'text_transform' => [ 'default' => 'uppercase' ],
+				],
+			]
+		);
+
+		$this->add_control(
+			'header_eyebrow_color',
+			[
+				'label' => esc_html__( 'Eyebrow Color', 'spiraclethemes-site-library' ),
+				'type' => Controls_Manager::COLOR,
+				'default' => '#B8977E',
+				'selectors' => [
+					'{{WRAPPER}} .shopbar-cg-eyebrow' => 'color: {{VALUE}};',
+				],
+			]
+		);
+
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			[
+				'name' => 'header_title_typography',
+				'label' => esc_html__( 'Title Typography', 'spiraclethemes-site-library' ),
+				'selector' => '{{WRAPPER}} .shopbar-cg-heading',
+				'fields_options' => [
+					'typography' => [ 'default' => 'yes' ],
+					'font_size' => [ 'default' => [ 'size' => 30 ] ],
+					'font_weight' => [ 'default' => 800 ],
+				],
+			]
+		);
+
+		$this->add_control(
+			'header_title_color',
+			[
+				'label' => esc_html__( 'Title Color', 'spiraclethemes-site-library' ),
+				'type' => Controls_Manager::COLOR,
+				'default' => '#1C1C1C',
+				'selectors' => [
+					'{{WRAPPER}} .shopbar-cg-heading' => 'color: {{VALUE}};',
+				],
+			]
+		);
+
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			[
+				'name' => 'header_desc_typography',
+				'label' => esc_html__( 'Description Typography', 'spiraclethemes-site-library' ),
+				'selector' => '{{WRAPPER}} .shopbar-cg-desc',
+				'fields_options' => [
+					'typography' => [ 'default' => 'yes' ],
+					'font_size' => [ 'default' => [ 'size' => 15 ] ],
+					'font_weight' => [ 'default' => 400 ],
+				],
+			]
+		);
+
+		$this->add_control(
+			'header_desc_color',
+			[
+				'label' => esc_html__( 'Description Color', 'spiraclethemes-site-library' ),
+				'type' => Controls_Manager::COLOR,
+				'default' => '#6B6560',
+				'selectors' => [
+					'{{WRAPPER}} .shopbar-cg-desc' => 'color: {{VALUE}};',
+				],
+			]
+		);
+
+		$this->add_responsive_control(
+			'header_spacing',
+			[
+				'label' => esc_html__( 'Header Bottom Spacing (px)', 'spiraclethemes-site-library' ),
+				'type' => Controls_Manager::SLIDER,
+				'range' => [ 'px' => [ 'min' => 0, 'max' => 100 ] ],
+				'default' => [ 'unit' => 'px', 'size' => 28 ],
+				'selectors' => [
+					'{{WRAPPER}} .shopbar-cg-head' => 'margin-bottom: {{SIZE}}{{UNIT}};',
+				],
+			]
+		);
+
+		$this->end_controls_section();
+
+
 		// ─── Style: Cards ───────────────────────────────────────────
 		$this->start_controls_section(
 			'section_style_card',

@@ -251,13 +251,17 @@ $arrow_svg = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke
 	}
 
 	@media (max-width: 1024px) {
+		.shopbar-cg-<?php echo esc_attr( $id ); ?> .shopbar-cg-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 		.shopbar-cg-<?php echo esc_attr( $id ); ?> .shopbar-cg-heading { font-size: 26px; }
 	}
 	@media (max-width: 768px) {
+		.shopbar-cg-<?php echo esc_attr( $id ); ?> .shopbar-cg-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 		.shopbar-cg-<?php echo esc_attr( $id ); ?> .shopbar-cg-head { margin-bottom: 22px; }
 		.shopbar-cg-<?php echo esc_attr( $id ); ?> .shopbar-cg-heading { font-size: 23px; }
 		.shopbar-cg-<?php echo esc_attr( $id ); ?> .shopbar-cg-media { height: 120px; }
 		.shopbar-cg-<?php echo esc_attr( $id ); ?> .shopbar-cg-card { padding: 0; }
-		.shopbar-cg-<?php echo esc_attr( $id ); ?> .shopbar-cg-media { height: 120px; }
+	}
+	@media (max-width: 480px) {
+		.shopbar-cg-<?php echo esc_attr( $id ); ?> .shopbar-cg-grid { grid-template-columns: repeat(1, minmax(0, 1fr)); }
 	}
 </style>

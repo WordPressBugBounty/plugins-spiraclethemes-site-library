@@ -115,7 +115,7 @@ if ( 'image' === $banner_bg_type ) {
 }
 ?>
 
-<section class="shopbar-hf shopbar-hf-<?php echo esc_attr( $id ); ?>">
+<section class="shopbar-hf shopbar-hf-<?php echo esc_attr( $id ); ?><?php echo ( 'yes' === $show_badge ) ? ' shopbar-hf--badge' : ''; ?>">
 	<div class="shopbar-hf-inner">
 		<div class="shopbar-hf-grid<?php echo ( 'yes' !== $show_sidebar ) ? ' shopbar-hf-grid--full' : ''; ?>">
 
@@ -137,7 +137,9 @@ if ( 'image' === $banner_bg_type ) {
 							?>
 							<li>
 								<a class="shopbar-hf-cat-link" href="<?php echo '' === trim( $cat_url ) ? '#' : esc_url( $cat_url ); ?>"<?php echo esc_attr( $cat_target ); // phpcs:ignore ?><?php echo ' ' . esc_attr( trim( $cat_nofollow ) ); ?>>
+								<?php if ( '' !== $cat_icon ) : ?>
 									<span class="shopbar-hf-cat-icon-wrap"><?php echo shopbar_hf_render_icon( $cat_icon, 18 ); // phpcs:ignore ?></span>
+								<?php endif; ?>
 									<span class="shopbar-hf-cat-label"><?php echo esc_html( $cat_label ); ?></span>
 								</a>
 							</li>
@@ -403,20 +405,56 @@ if ( 'image' === $banner_bg_type ) {
 		stroke-width: 1.5;
 	}
 
-	/* ── Responsive ── */
+	/* ── Responsive ──
+	*/
 	@media (max-width: 1024px) {
-		.shopbar-hf-<?php echo esc_attr( $id ); ?> .shopbar-hf-grid { flex-direction: column; }
-		.shopbar-hf-<?php echo esc_attr( $id ); ?> .shopbar-hf-sidebar { width: 100%; }
+		.shopbar-hf-<?php echo esc_attr( $id ); ?> .shopbar-hf-grid { flex-direction: column !important; align-items: stretch; }
+		.shopbar-hf-<?php echo esc_attr( $id ); ?> .shopbar-hf-sidebar { width: 100% !important; max-width: 100% !important; flex-shrink: 1 !important; }
+		/* Category list as a compact, wrapping chip row (no hidden/truncated items). */
+		.shopbar-hf-<?php echo esc_attr( $id ); ?> .shopbar-hf-cats {
+			display: flex;
+			flex-wrap: wrap;
+			align-items: center;
+			gap: 4px 8px;
+			padding: 0 12px 12px;
+		}
+		.shopbar-hf-<?php echo esc_attr( $id ); ?> .shopbar-hf-cats li { flex: 0 0 auto; }
+		.shopbar-hf-<?php echo esc_attr( $id ); ?> .shopbar-hf-cat-link { padding: 8px 12px; border-radius: 8px; }
+		.shopbar-hf-<?php echo esc_attr( $id ); ?> .shopbar-hf-cat--all {
+			margin-top: 0;
+			border-top: 0;
+			padding-top: 0;
+			border-left: 1px solid #F0EDE9;
+			margin-left: 2px;
+			padding-left: 8px;
+		}
+		.shopbar-hf-<?php echo esc_attr( $id ); ?> .shopbar-hf-sidebar-title { margin: 10px 18px 4px; }
 		.shopbar-hf-<?php echo esc_attr( $id ); ?> .shopbar-hf-text { max-width: 60%; padding: 36px 30px; }
-		.shopbar-hf-<?php echo esc_attr( $id ); ?> .shopbar-hf-title { font-size: 34px; }
+		.shopbar-hf-<?php echo esc_attr( $id ); ?> .shopbar-hf-title { font-size: 34px !important; }
 		.shopbar-hf-<?php echo esc_attr( $id ); ?> .shopbar-hf-decor { transform: scale(0.85); transform-origin: bottom right; }
 	}
 	@media (max-width: 768px) {
 		.shopbar-hf-<?php echo esc_attr( $id ); ?> .shopbar-hf-banner { min-height: 360px !important; }
-		.shopbar-hf-<?php echo esc_attr( $id ); ?> .shopbar-hf-text { max-width: 100%; padding: 30px 24px; }
-		.shopbar-hf-<?php echo esc_attr( $id ); ?> .shopbar-hf-title { font-size: 28px; }
-		.shopbar-hf-<?php echo esc_attr( $id ); ?> .shopbar-hf-badge { width: 76px; height: 76px; top: 16px; right: 16px; }
+		/* Override the inline max-width so the text block can use the full banner width. */
+		.shopbar-hf-<?php echo esc_attr( $id ); ?> .shopbar-hf-text { max-width: 100% !important; padding: 30px 24px; }
+		.shopbar-hf-<?php echo esc_attr( $id ); ?> .shopbar-hf-title { font-size: 28px !important; }
+		.shopbar-hf-<?php echo esc_attr( $id ); ?> .shopbar-hf-badge { width: 76px !important; height: 76px !important; top: 16px !important; right: 16px !important; }
 		.shopbar-hf-<?php echo esc_attr( $id ); ?> .shopbar-hf-badge strong { font-size: 18px; }
+		/* Keep the badge from covering the title once the text uses the full width. */
+		.shopbar-hf-<?php echo esc_attr( $id ); ?>.shopbar-hf--badge .shopbar-hf-text { padding-right: 108px; }
 		.shopbar-hf-<?php echo esc_attr( $id ); ?> .shopbar-hf-decor { display: none; }
+		/* On small screens the categories stack vertically, one full-width
+		   item per row (same structure as the desktop sidebar). */
+		.shopbar-hf-<?php echo esc_attr( $id ); ?> .shopbar-hf-cats { display: block; padding: 0; }
+		.shopbar-hf-<?php echo esc_attr( $id ); ?> .shopbar-hf-cats li { width: 100%; }
+		.shopbar-hf-<?php echo esc_attr( $id ); ?> .shopbar-hf-cat-link { width: 100%; padding: 11px 18px; border-radius: 0; white-space: normal; }
+		.shopbar-hf-<?php echo esc_attr( $id ); ?> .shopbar-hf-cat--all {
+			margin-top: 4px;
+			border-top: 1px solid #F0EDE9;
+			padding-top: 4px;
+			border-left: 0;
+			margin-left: 0;
+			padding-left: 0;
+		}
 	}
 </style>

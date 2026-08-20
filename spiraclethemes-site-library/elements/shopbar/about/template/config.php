@@ -433,6 +433,18 @@ class Shopbar_About extends Widget_Base {
 		);
 
 		$this->add_control(
+			'primary_border',
+			[
+				'label'     => esc_html__( 'Border Color', 'spiraclethemes-site-library' ),
+				'type'      => Controls_Manager::COLOR,
+				'default'   => '#1C1C1C',
+				'selectors' => [
+					'{{WRAPPER}} .shopbar-ab-btn--primary' => 'border-color: {{VALUE}};',
+				],
+			]
+		);
+
+		$this->add_control(
 			'primary_hover_bg',
 			[
 				'label'     => esc_html__( 'Hover Background', 'spiraclethemes-site-library' ),

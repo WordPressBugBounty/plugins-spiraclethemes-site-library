@@ -2,10 +2,10 @@
 
 Contributors: spiraclethemes
 Tags: spiraclethemes, demo, import, themes
-Stable tag: 1.7.0
+Stable tag: 1.7.2
 Requires at least: 5.0
 Requires PHP: 5.6
-Tested up to: 7.0
+Tested up to: 7.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -25,9 +25,7 @@ Follow these steps to get your website up and running with the Spiraclethemes Si
 
 3. **Pick your theme.** The Get Started page lists every theme supported by the plugin — ecommerce, blog, magazine, lawyer, and multipurpose website themes. If the theme is already installed, click **Activate**. If it is missing, click **Install** to install and activate it in one step.
 
-4. **Import demo content.** With a supported theme active, go to **Appearance > Import Demo Data**. Preview and select your desired demo, then click the import button. The plugin handles content, widgets, customizer settings, and recommended plugins for you.
-
-5. **Fine-tune your site.** Use the plugin settings page (**Spiraclethemes Site Library > Settings**) to configure demo import and other options, then customize your theme to match your brand.
+4. **Import demo content.** With a supported theme active, go to **Appearance > Demo Import**. Preview and select your desired demo, then click the import button. The plugin handles content, widgets, customizer settings, and recommended plugins for you.
 
 Need help? Contact Spiraclethemes support at http://support.spiraclethemes.com/.
 
@@ -35,7 +33,7 @@ Need help? Contact Spiraclethemes support at http://support.spiraclethemes.com/.
 
 The Spiraclethemes Site Library works with all of the following free themes. Activate one from the **Get Started** page to unlock one-click demo import and starter templates.
 
-* [Shopbar](https://wordpress.org/themes/shopbar/) — WooCommerce
+* [ShopBar](https://wordpress.org/themes/shopbar/) — WooCommerce
 * [Shop-zen](https://wordpress.org/themes/shop-zen/) — WooCommerce
 * [Pawwell](https://wordpress.org/themes/pawwell/) — Pet and veterinary
 * [Shopnex](https://wordpress.org/themes/shopnex/) — WooCommerce
@@ -58,7 +56,7 @@ The Spiraclethemes Site Library works with all of the following free themes. Act
 
 = Does this plugin work with any WordPress theme? =
 
-No, this plugin works only with themes developed by [Spiraclethemes](https://spiraclethemes.com/). See the [Supported Themes](#supported-themes) section for the full list.
+No, this plugin works only with themes developed by [Spiraclethemes](https://spiraclethemes.com/).
 
 = What happens when I import a demo? =
 

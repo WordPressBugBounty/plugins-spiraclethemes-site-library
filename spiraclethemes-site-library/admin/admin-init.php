@@ -28,7 +28,7 @@ class Spiraclethemes_site_library_Admin {
      *
      * @var string
      */
-    const VERSION = '1.6.1';
+    const VERSION = '1.6.2';
 
     /**
      * Default settings for the plugin.
@@ -111,7 +111,7 @@ class Spiraclethemes_site_library_Admin {
             );
         }
 
-        $supported_themes = spiraclethemes_site_library_get_allowed_themes();
+        $supported_themes = spiraclethemes_site_library_get_live_themes();
         $installed_themes = wp_get_themes();
         $active_slug      = get_option( 'stylesheet' );
 
@@ -124,23 +124,20 @@ class Spiraclethemes_site_library_Admin {
             $is_active    = ( $slug === $active_slug );
 
             if ( $is_installed ) {
-                $theme_obj  = $installed_themes[ $slug ];
-                $name       = $theme_obj->get( 'Name' );
-                $screenshot = $theme_obj->get_screenshot();
-                $button     = $is_active
+                $theme_obj = $installed_themes[ $slug ];
+                $name      = $theme_obj->get( 'Name' );
+                $button    = $is_active
                     ? '<span class="ssl-theme-card-badge">' . esc_html__( 'Active', 'spiraclethemes-site-library' ) . '</span>'
                     : '<a href="' . esc_url( wp_nonce_url( admin_url( 'themes.php?action=activate&stylesheet=' . $slug ), 'switch-theme_' . $slug ) ) . '" class="ssl-theme-card-cta">' . esc_html__( 'Activate', 'spiraclethemes-site-library' ) . '</a>';
             } else {
-                $name       = ucwords( str_replace( '-', ' ', $slug ) );
-                $screenshot = false;
-                $button     = '<button type="button" class="ssl-theme-card-cta ssl-theme-card-cta-ghost ssl-theme-install-btn" data-theme-slug="' . esc_attr( $slug ) . '">' . esc_html__( 'Install', 'spiraclethemes-site-library' ) . '</button>';
+                $name   = ucwords( str_replace( '-', ' ', $slug ) );
+                $button = '<button type="button" class="ssl-theme-card-cta ssl-theme-card-cta-ghost ssl-theme-install-btn" data-theme-slug="' . esc_attr( $slug ) . '">' . esc_html__( 'Install', 'spiraclethemes-site-library' ) . '</button>';
             }
 
             $theme_cards[] = [
-                'slug'       => $slug,
-                'name'       => $name,
-                'screenshot' => $screenshot,
-                'button'     => $button,
+                'slug'   => $slug,
+                'name'   => $name,
+                'button' => $button,
             ];
         }
         ?>
@@ -169,11 +166,8 @@ class Spiraclethemes_site_library_Admin {
                     <?php foreach ( $theme_cards as $card ) : ?>
                         <div class="ssl-theme-card <?php echo $card['slug'] === $active_slug ? 'ssl-theme-card-active' : ''; ?>">
                             <div class="ssl-theme-card-thumb" data-theme-slug="<?php echo esc_attr( $card['slug'] ); ?>">
-                                <?php if ( $card['screenshot'] ) : ?>
-                                    <img src="<?php echo esc_url( $card['screenshot'] ); ?>" alt="<?php echo esc_attr( $card['name'] ); ?>">
-                                <?php else : ?>
-                                    <span class="ssl-theme-card-name"><?php echo esc_html( $card['name'] ); ?></span>
-                                <?php endif; ?>
+                                <span class="ssl-theme-card-loader" aria-hidden="true"></span>
+                                <span class="ssl-theme-card-name"><?php echo esc_html( $card['name'] ); ?></span>
                             </div>
                             <div class="ssl-theme-card-info">
                                 <h3><?php echo esc_html( $card['name'] ); ?></h3>
@@ -220,6 +214,7 @@ class Spiraclethemes_site_library_Admin {
                 [
                     'ajax_url'      => esc_url_raw( admin_url( 'admin-ajax.php' ) ),
                     'nonce'         => wp_create_nonce( 'ssl_get_theme_screenshot_nonce' ),
+                    'install_nonce' => wp_create_nonce( 'ssl_install_theme_nonce' ),
                     'dashboard_url' => esc_url_raw( admin_url() ),
                 ]
             );
@@ -343,7 +338,7 @@ class Spiraclethemes_site_library_Admin {
      * AJAX handler that installs and activates a supported theme.
      */
     public function spiraclethemes_site_library_install_theme_ajax() {
-        check_ajax_referer( 'ssl_get_theme_screenshot_nonce', 'nonce' );
+        check_ajax_referer( 'ssl_install_theme_nonce', 'nonce' );
 
         if ( ! current_user_can( 'install_themes' ) || ! current_user_can( 'switch_themes' ) ) {
             wp_send_json_error( [ 'message' => esc_html__( 'Unauthorized user', 'spiraclethemes-site-library' ) ], 403 );

@@ -15,46 +15,49 @@ endif;
  *  Set Import files
  */
 
-if ( ! function_exists( 'spiraclethemes_site_library_krystal_set_import_files' ) ) :
-function spiraclethemes_site_library_krystal_set_import_files() {
+if ( ! function_exists( 'spiraclethemes_site_library_shopbar_set_import_files' ) ) :
+function spiraclethemes_site_library_shopbar_set_import_files() {
 
-    $returnArray = [];
-    $customOrder = [12, 11, 1, 2, 3, 4, 6, 7, 8, 5];
+    $returnArray = array();
+    for ($i = 1; $i <= 1; $i++) {
+        $customizer_shopnex_demo[$i] = spiraclethemes_site_library_api_data('shopbar', 'demo'.$i, 'customizer');
+        $widgets_shopnex_demo[$i] = spiraclethemes_site_library_api_data('shopbar', 'demo'.$i, 'widgets');
+        $content_shopnex_demo[$i] = spiraclethemes_site_library_api_data('shopbar', 'demo'.$i, 'content');
+        $image_shopnex_demo[$i] = spiraclethemes_site_library_api_data('shopbar', 'demo'.$i, 'image');
 
-    foreach ($customOrder as $i) {
-        $customizer_krystal_demo = spiraclethemes_site_library_api_data('krystal', 'demo' . $i, 'customizer');
-        $widgets_krystal_demo = spiraclethemes_site_library_api_data('krystal', 'demo' . $i, 'widgets');
-        $content_krystal_demo = spiraclethemes_site_library_api_data('krystal', 'demo' . $i, 'content');
-        $image_krystal_demo = spiraclethemes_site_library_api_data('krystal', 'demo' . $i, 'image');
-
-        $returnArray[] = [
+        $returnArray[] = array(
             'import_file_name'           => esc_html(sprintf( /* translators: %d: Demo number */ __('Demo %d', 'spiraclethemes-site-library'), $i)),
-            'import_file_url'            => $content_krystal_demo,
-            'import_widget_file_url'     => $widgets_krystal_demo,
-            'import_customizer_file_url' => $customizer_krystal_demo,
-            'import_preview_image_url'   => $image_krystal_demo,
-            'import_notice'              => esc_html__('After you import this demo, you will have to change some menu links. Please check documentation for more information', 'spiraclethemes-site-library'),
-            'preview_url'                => 'https://krystalwp.spiraclethemes.com/demo' . $i,
-        ];
+            'import_file_url'            => $content_shopnex_demo[$i],
+            'import_widget_file_url'     => $widgets_shopnex_demo[$i],
+            'import_customizer_file_url' => $customizer_shopnex_demo[$i],    
+            'import_preview_image_url'   => $image_shopnex_demo[$i],
+            'preview_url'                => 'https://shopwp.spiraclethemes.com/shopbar',
+        );
     }
-
     return $returnArray;
 }
 endif;
-add_filter( 'pt-ocdi/import_files', 'spiraclethemes_site_library_krystal_set_import_files' );
+add_filter( 'pt-ocdi/import_files', 'spiraclethemes_site_library_shopbar_set_import_files' );
 
 
-if ( ! function_exists( 'spiraclethemes_site_library_krystal_after_import_setup' ) ) :
-function spiraclethemes_site_library_krystal_after_import_setup( $selected_import ) {
-    //Assign menus to their locations
-    $main_menu = get_term_by( 'name', 'Primary', 'nav_menu' );
-    $menu_locations = array();
-    if ( $main_menu instanceof WP_Term ) {
-    	$menu_locations['primary'] = $main_menu->term_id;
-    }
-    if ( ! empty( $menu_locations ) ) {
-    	set_theme_mod( 'nav_menu_locations', $menu_locations );
-    }
+/**
+ *  After Import
+ */
+
+if ( ! function_exists( 'spiraclethemes_site_library_shopbar_after_import_setup' ) ) :
+function spiraclethemes_site_library_shopbar_after_import_setup( $selected_import ) {
+  //Assign menus to their locations
+  $main_menu = get_term_by( 'name', 'Primary', 'nav_menu' );
+  $cat_menu = get_term_by( 'name', 'Categories', 'nav_menu' );
+
+  $menu_locations = array();
+  if ( $main_menu instanceof WP_Term ) {
+  	$menu_locations['primary'] = $main_menu->term_id;
+    $menu_locations['category-header'] = $cat_menu->term_id;
+  }
+  if ( ! empty( $menu_locations ) ) {
+  	set_theme_mod( 'nav_menu_locations', $menu_locations );
+  }
 
     //Assign front & blog page
     $front_page_query = new WP_Query( array(
@@ -90,10 +93,10 @@ function spiraclethemes_site_library_krystal_after_import_setup( $selected_impor
     
 }
 endif;
-add_action( 'pt-ocdi/after_import', 'spiraclethemes_site_library_krystal_after_import_setup' );
+add_action( 'pt-ocdi/after_import', 'spiraclethemes_site_library_shopbar_after_import_setup' );
 
 
-function spiraclethemes_site_library_krystal_check_pro_plugin() {
+function spiraclethemes_site_library_shopbar_check_pro_plugin() {
     if ( ! function_exists( 'ocdi_register_plugins' ) ) :
         // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedFunctionFound
         function ocdi_register_plugins( $plugins ) {
@@ -103,6 +106,11 @@ function spiraclethemes_site_library_krystal_check_pro_plugin() {
                 [ 
                   'name'     => 'Elementor Website Builder',
                   'slug'     => 'elementor',
+                  'required' => true,
+                ],
+                [ 
+                  'name'     => 'WooCommerce',
+                  'slug'     => 'woocommerce',
                   'required' => true,
                 ],
                 [ 
@@ -117,4 +125,4 @@ function spiraclethemes_site_library_krystal_check_pro_plugin() {
     endif;
     add_filter( 'ocdi/register_plugins', 'ocdi_register_plugins' );
 }
-add_action( 'admin_init', 'spiraclethemes_site_library_krystal_check_pro_plugin' );
+add_action( 'admin_init', 'spiraclethemes_site_library_shopbar_check_pro_plugin' );

@@ -839,7 +839,7 @@ class Shopbar_Home_Featured extends Widget_Base {
 			[
 				'label' => esc_html__( 'Hover Background', 'spiraclethemes-site-library' ),
 				'type' => Controls_Manager::COLOR,
-				'default' => '#0072FF',
+				'default' => '#B8977E',
 				'selectors' => [
 					'{{WRAPPER}} .shopbar-hf-btn:hover' => 'background: {{VALUE}};',
 				],

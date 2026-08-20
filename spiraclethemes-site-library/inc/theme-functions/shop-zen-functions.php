@@ -49,10 +49,13 @@ function spiraclethemes_site_library_shop_zen_after_import_setup( $selected_impo
   //Assign menus to their locations
   $main_menu = get_term_by( 'name', 'Primary', 'nav_menu' );
 
-  set_theme_mod( 'nav_menu_locations', array(
-        'primary' => $main_menu->term_id
-      )
-  );
+  $menu_locations = array();
+  if ( $main_menu instanceof WP_Term ) {
+  	$menu_locations['primary'] = $main_menu->term_id;
+  }
+  if ( ! empty( $menu_locations ) ) {
+  	set_theme_mod( 'nav_menu_locations', $menu_locations );
+  }
 
     //Assign front & blog page
     $front_page_query = new WP_Query( array(
@@ -78,9 +81,13 @@ function spiraclethemes_site_library_shop_zen_after_import_setup( $selected_impo
     ) );
     $blog_page = ! empty( $blog_page_query->posts ) ? $blog_page_query->posts[0] : null;
 
-    update_option( 'show_on_front', 'page' );
-    update_option( 'page_on_front', $front_page->ID );    
-    update_option( 'page_for_posts', $blog_page->ID ); 
+    if ( $front_page instanceof WP_Post ) {
+    	update_option( 'show_on_front', 'page' );
+    	update_option( 'page_on_front', $front_page->ID );
+    }
+    if ( $blog_page instanceof WP_Post ) {
+    	update_option( 'page_for_posts', $blog_page->ID );
+    }
     
 }
 endif;

@@ -196,12 +196,21 @@ if ( empty( $features ) ) {
 		/* Single column: no separators needed. */
 		.shopbar-fb-<?php echo esc_attr( $id ); ?> .shopbar-fb-grid--dividers .shopbar-fb-item::after { display: none; }
 	}
-	/* Hide the separator after the last item in each row for the default
-	   column counts (4 desktop / 2 tablet). */
-	@media (min-width: 1025px) {
-		.shopbar-fb-<?php echo esc_attr( $id ); ?> .shopbar-fb-grid--dividers .shopbar-fb-item:nth-child(4n)::after { display: none; }
+	/* Tablet & mobile */
+	@media (max-width: 1024px) {
+		.shopbar-fb-<?php echo esc_attr( $id ); ?> .shopbar-fb-grid .shopbar-fb-item {
+			text-align: left;
+			justify-content: flex-start;
+		}
+		.shopbar-fb-<?php echo esc_attr( $id ); ?> .shopbar-fb-grid .shopbar-fb-item--vertical {
+			align-items: flex-start;
+		}
 	}
 	@media (min-width: 769px) and (max-width: 1024px) {
 		.shopbar-fb-<?php echo esc_attr( $id ); ?> .shopbar-fb-grid--dividers .shopbar-fb-item:nth-child(2n)::after { display: none; }
+	}
+	
+	@media (min-width: 1025px) {
+		.shopbar-fb-<?php echo esc_attr( $id ); ?> .shopbar-fb-grid--dividers .shopbar-fb-item:nth-child(4n)::after { display: none; }
 	}
 </style>

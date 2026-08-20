@@ -243,10 +243,7 @@ class Shopbar_Products_Grid extends Widget_Base {
 
 		/**
 		 * Pro features (Wishlist, Quick View, Compare) are supplied by the
-		 * shopbar-pro-addons plugin. They render as a top-left overlay on the
-		 * product image. Below we register a hidden flag so the panel and the
-		 * frontend can stay in sync, an upsell notice when the Pro plugin is
-		 * missing, and the three toggles when it is present.
+		 * shopbar-pro-addons plugin.
 		 */
 		$is_pro = $this->is_pro_active();
 
@@ -422,6 +419,20 @@ class Shopbar_Products_Grid extends Widget_Base {
 			]
 		);
 
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			[
+				'name' => 'header_desc_typography',
+				'label' => esc_html__( 'Description Typography', 'spiraclethemes-site-library' ),
+				'selector' => '{{WRAPPER}} .shopbar-pg-head .shopbar-pg-desc',
+				'fields_options' => [
+					'typography' => [ 'default' => 'yes' ],
+					'font_size' => [ 'default' => [ 'size' => 15 ] ],
+					'font_weight' => [ 'default' => 400 ],
+				],
+			]
+		);
+
 		$this->add_control(
 			'header_desc_color',
 			[
@@ -429,7 +440,7 @@ class Shopbar_Products_Grid extends Widget_Base {
 				'type' => Controls_Manager::COLOR,
 				'default' => '#9C9792',
 				'selectors' => [
-					'{{WRAPPER}} .shopbar-pg-desc' => 'color: {{VALUE}};',
+					'{{WRAPPER}} .shopbar-pg-head .shopbar-pg-desc' => 'color: {{VALUE}};',
 				],
 			]
 		);
@@ -695,6 +706,22 @@ class Shopbar_Products_Grid extends Widget_Base {
 			]
 		);
 
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			[
+				'name' => 'desc_typography',
+				'label' => esc_html__( 'Description Typography', 'spiraclethemes-site-library' ),
+				'selector' => '{{WRAPPER}} .shopbar-pg-info .shopbar-pg-desc',
+				'condition' => [ 'show_description' => 'yes' ],
+				'fields_options' => [
+					'typography' => [ 'default' => 'yes' ],
+					'font_size' => [ 'default' => [ 'size' => 12.5 ] ],
+					'font_weight' => [ 'default' => 400 ],
+					'line_height' => [ 'default' => [ 'unit' => 'em', 'size' => 1.45 ] ],
+				],
+			]
+		);
+
 		$this->add_control(
 			'desc_color',
 			[
@@ -703,7 +730,7 @@ class Shopbar_Products_Grid extends Widget_Base {
 				'default' => '#9C9792',
 				'condition' => [ 'show_description' => 'yes' ],
 				'selectors' => [
-					'{{WRAPPER}} .shopbar-pg-desc' => 'color: {{VALUE}};',
+					'{{WRAPPER}} .shopbar-pg-info .shopbar-pg-desc' => 'color: {{VALUE}};',
 				],
 			]
 		);

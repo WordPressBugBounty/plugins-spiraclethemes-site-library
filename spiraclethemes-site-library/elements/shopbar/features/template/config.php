@@ -195,6 +195,8 @@ class Shopbar_Features extends Widget_Base {
 				'label' => esc_html__( 'Alignment', 'spiraclethemes-site-library' ),
 				'type' => Controls_Manager::CHOOSE,
 				'default' => 'center',
+				'tablet_default' => 'start',
+				'mobile_default' => 'start',
 				'options' => [
 					'start'  => [ 'title' => esc_html__( 'Left', 'spiraclethemes-site-library' ),   'icon' => 'eicon-text-align-left' ],
 					'center' => [ 'title' => esc_html__( 'Center', 'spiraclethemes-site-library' ), 'icon' => 'eicon-text-align-center' ],

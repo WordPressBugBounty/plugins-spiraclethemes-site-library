@@ -296,21 +296,42 @@ $id = $this->get_id();
 	}
 
 	/* When the image is hidden, the content takes the full width. */
-	.shopbar-os-media-hidden .shopbar-os-content { flex: 1 1 100%; }
+	.shopbar-os-media-hidden .shopbar-os-<?php echo esc_attr( $id ); ?> .shopbar-os-content { flex: 1 1 100%; }
 
-	/* ── Responsive ─────────────────────────────────────── */
+	/* ── Responsive ───────────────────────────────────────
+	   Elementor emits its own per-widget rules (e.g. .elementor-2016 .elementor-element
+	   .elementor-element-XXXX .shopbar-os-title { font-size: 38px; }) with higher
+	   specificity than the base rules below, so responsive overrides need !important
+	   to actually take effect on tablet/mobile. */
 	@media (max-width: 1024px) {
-		.shopbar-os-<?php echo esc_attr( $id ); ?> .shopbar-os-title { font-size: 34px; }
+		.shopbar-os-<?php echo esc_attr( $id ); ?> .shopbar-os-title { font-size: 34px !important; }
+		.shopbar-os-<?php echo esc_attr( $id ); ?> .shopbar-os-row { column-gap: 32px !important; }
+		.shopbar-os-<?php echo esc_attr( $id ); ?> .shopbar-os-media img { height: 400px !important; }
 	}
 	@media (max-width: 768px) {
-		.shopbar-os-<?php echo esc_attr( $id ); ?> .shopbar-os-row { flex-direction: column; align-items: stretch; }
-		.shopbar-os-<?php echo esc_attr( $id ); ?> .shopbar-os-media {
-			flex: 0 0 100%;
-			width: 100%;
-			order: -1 !important;
+		.shopbar-os-<?php echo esc_attr( $id ); ?> .shopbar-os-row {
+			flex-direction: column;
+			align-items: stretch;
+			column-gap: 0 !important;
+			padding-top: 48px !important;
+			padding-bottom: 48px !important;
 		}
-		.shopbar-os-<?php echo esc_attr( $id ); ?> .shopbar-os-media img { height: 320px; }
-		.shopbar-os-<?php echo esc_attr( $id ); ?> .shopbar-os-title { font-size: 28px; }
-		.shopbar-os-<?php echo esc_attr( $id ); ?> .shopbar-os-row { padding-top: 48px; padding-bottom: 48px; }
+		.shopbar-os-<?php echo esc_attr( $id ); ?> .shopbar-os-media {
+			flex: 0 0 100% !important;
+			width: 100% !important;
+			order: -1 !important;
+			margin-bottom: 26px;
+		}
+		.shopbar-os-<?php echo esc_attr( $id ); ?> .shopbar-os-media img { height: 320px !important; }
+		.shopbar-os-<?php echo esc_attr( $id ); ?> .shopbar-os-title { font-size: 28px !important; }
+		.shopbar-os-<?php echo esc_attr( $id ); ?> .shopbar-os-desc { max-width: 100% !important; }
+		.shopbar-os-<?php echo esc_attr( $id ); ?> .shopbar-os-founder { margin-top: 22px; padding-top: 18px; }
+	}
+	@media (max-width: 480px) {
+		.shopbar-os-<?php echo esc_attr( $id ); ?> .shopbar-os-media img { height: 250px !important; }
+		.shopbar-os-<?php echo esc_attr( $id ); ?> .shopbar-os-title { font-size: 25px !important; }
+		.shopbar-os-<?php echo esc_attr( $id ); ?> .shopbar-os-badge { padding: 10px 14px; border-radius: 10px; }
+		.shopbar-os-<?php echo esc_attr( $id ); ?> .shopbar-os-badge-num { font-size: 20px; }
+		.shopbar-os-<?php echo esc_attr( $id ); ?> .shopbar-os-list li { font-size: 14px; }
 	}
 </style>

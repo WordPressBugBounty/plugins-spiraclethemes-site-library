@@ -703,13 +703,64 @@ class Spiracle_Content_Importer {
 			return false;
 		}
 
+		return ! $this->is_private_ip( $ip );
+	}
+
+	/**
+	 * Check whether an IP address is private/internal.
+	 *
+	 * @param string $ip IP address string.
+	 * @return bool True if the IP is private or reserved.
+	 */
+	private function is_private_ip( $ip ) {
 		foreach ( self::PRIVATE_IP_PATTERNS as $pattern ) {
 			if ( preg_match( $pattern, $ip ) ) {
-				return false;
+				return true;
 			}
 		}
 
-		return true;
+		return false;
+	}
+
+	/**
+	 * Validate and pin DNS for every HTTP request hop (including redirects)
+	 * while an attachment download is in flight.
+	 *
+	 * Registered on 'http_api_curl', which fires once per request hop. The
+	 * curl handle's URL is re-checked against the private-IP blocklist and
+	 * then pinned via CURLOPT_RESOLVE so that curl cannot re-resolve the
+	 * host to a different (e.g. private) address after validation.
+	 *
+	 * @param resource $handle The curl handle for the current hop.
+	 */
+	private function guard_http_curl_handle( $handle ) {
+		$hop_url  = curl_getinfo( $handle, CURLINFO_EFFECTIVE_URL );
+		$hop_host = ( is_string( $hop_url ) && '' !== $hop_url ) ? wp_parse_url( $hop_url, PHP_URL_HOST ) : '';
+
+		if ( ! $hop_host || ! preg_match( '/^[a-z0-9.\-]+\.[a-z]{2,}$/i', $hop_host ) ) {
+			// Empty or IP-literal/unusual hosts: let core's validation decide.
+			return;
+		}
+
+		if ( $this->is_local_host( $hop_host ) ) {
+			return;
+		}
+
+		$hop_ip = gethostbyname( $hop_host );
+		if ( $hop_ip === $hop_host || $this->is_private_ip( $hop_ip ) ) {
+			// Force a safe connection failure (TEST-NET-1 is unroutable).
+			curl_setopt( $handle, CURLOPT_CONNECTTIMEOUT_MS, 250 );
+			curl_setopt( $handle, CURLOPT_RESOLVE, [
+				$hop_host . ':80:192.0.2.1',
+				$hop_host . ':443:192.0.2.1',
+			] );
+			return;
+		}
+
+		curl_setopt( $handle, CURLOPT_RESOLVE, [
+			$hop_host . ':80:' . $hop_ip,
+			$hop_host . ':443:' . $hop_ip,
+		] );
 	}
 
 	/**
@@ -760,7 +811,20 @@ class Spiracle_Content_Importer {
 			}
 		}
 
+		// Pin DNS during the sideload so the host cannot be re-resolved to a
+		// private address between validation (above and in core) and fetch.
+		$spir_curl_guard = function ( $handle ) {
+			$this->guard_http_curl_handle( $handle );
+		};
+		if ( function_exists( 'curl_init' ) ) {
+			add_action( 'http_api_curl', $spir_curl_guard, 10, 1 );
+		}
+
 		$attach_id = media_sideload_image( $attachment_url, 0, $post_title, 'id' );
+
+		if ( function_exists( 'curl_init' ) ) {
+			remove_action( 'http_api_curl', $spir_curl_guard, 10 );
+		}
 
 		if ( is_wp_error( $attach_id ) ) {
 			$attach_data = array(
