@@ -1,6 +1,9 @@
 
 == Changelog ==
 
+== 1.7.3 ==
+- updated notices
+
 == 1.7.2 ==
 - Minor bug fixes
 

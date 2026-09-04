@@ -59,17 +59,17 @@
 }
 
 .ssl-toggle-switch input:checked + .ssl-toggle-slider {
-    background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
-    box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.15);
+    background: #171717;
+    box-shadow: none;
 }
 
 .ssl-toggle-switch input:checked + .ssl-toggle-slider::before {
     transform: translateX(20px);
-    box-shadow: 0 1px 4px rgba(79, 70, 229, 0.3);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
 }
 
 .ssl-toggle-switch input:focus + .ssl-toggle-slider {
-    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
+    box-shadow: 0 0 0 3px rgba(23, 23, 23, 0.12);
 }
 
 .ssl-toggle-switch input:disabled + .ssl-toggle-slider {

@@ -7,54 +7,53 @@
    CSS Variables — Design Tokens
    ======================================== */
 :root {
-    --ssl-primary: #0f172a;
-    --ssl-primary-light: #1e293b;
-    --ssl-accent: #6366f1;
-    --ssl-accent-hover: #4f46e5;
-    --ssl-accent-soft: rgba(99, 102, 241, 0.08);
-    --ssl-accent-glow: rgba(99, 102, 241, 0.12);
-    --ssl-accent-glow-strong: rgba(99, 102, 241, 0.25);
-    --ssl-success: #10b981;
-    --ssl-success-soft: rgba(16, 185, 129, 0.1);
-    --ssl-danger: #ef4444;
-    --ssl-warning: #f59e0b;
-    --ssl-text: #0f172a;
-    --ssl-text-secondary: #475569;
-    --ssl-text-muted: #94a3b8;
-    --ssl-border: #e2e8f0;
-    --ssl-border-light: #f1f5f9;
-    --ssl-bg: #f8fafc;
+    --ssl-primary: #171717;
+    --ssl-primary-light: #262626;
+    --ssl-accent: #171717;
+    --ssl-accent-hover: #000000;
+    --ssl-accent-soft: #f5f5f5;
+    --ssl-accent-glow: rgba(23, 23, 23, 0.04);
+    --ssl-accent-glow-strong: rgba(23, 23, 23, 0.12);
+    --ssl-success: #16a34a;
+    --ssl-success-soft: #f0fdf4;
+    --ssl-danger: #dc2626;
+    --ssl-warning: #d97706;
+    --ssl-text: #171717;
+    --ssl-text-secondary: #525252;
+    --ssl-text-muted: #a3a3a3;
+    --ssl-border: #e5e5e5;
+    --ssl-border-light: #f0f0f0;
+    --ssl-bg: #fafafa;
     --ssl-bg-white: #ffffff;
-    --ssl-radius: 16px;
-    --ssl-radius-sm: 10px;
+    --ssl-radius: 10px;
+    --ssl-radius-sm: 8px;
     --ssl-radius-xs: 6px;
-    --ssl-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.04);
-    --ssl-shadow: 0 1px 3px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04);
-    --ssl-shadow-md: 0 4px 16px -2px rgba(0, 0, 0, 0.06), 0 2px 6px -1px rgba(0, 0, 0, 0.03);
-    --ssl-shadow-lg: 0 12px 40px -8px rgba(0, 0, 0, 0.08), 0 4px 12px -2px rgba(0, 0, 0, 0.03);
-    --ssl-shadow-glow: 0 0 0 3px var(--ssl-accent-glow);
-    --ssl-transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-    --ssl-transition-slow: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    --ssl-shadow-sm: none;
+    --ssl-shadow: none;
+    --ssl-shadow-md: none;
+    --ssl-shadow-lg: none;
+    --ssl-shadow-glow: none;
+    --ssl-transition: all 0.15s ease;
+    --ssl-transition-slow: all 0.2s ease;
 }
 
 /* ========================================
    Page Wrapper
    ======================================== */
 .ssl-admin-wrap {
-    max-width: 1200px;
-    margin: 24px auto 48px;
-    animation: sslFadeIn 0.5s ease-out;
+    max-width: none;
+    margin: 20px 20px 48px;
+    animation: sslFadeIn 0.3s ease-out;
 }
 
 @keyframes sslFadeIn {
-    from { opacity: 0; transform: translateY(8px); }
-    to { opacity: 1; transform: translateY(0); }
+    from { opacity: 0; }
+    to { opacity: 1; }
 }
 
-/* Container for WordPress admin notices moved outside the plugin section */
 .ssl-external-notices {
-    max-width: 1200px;
-    margin: 24px auto 0;
+    max-width: none;
+    margin: 20px 20px 0;
 }
 
 .ssl-external-notices:empty {
@@ -73,7 +72,7 @@
     border-radius: var(--ssl-radius-sm);
     margin: 0;
     border-left: 4px solid;
-    box-shadow: var(--ssl-shadow-sm);
+    box-shadow: none;
 }
 
 .ssl-admin-wrap .response-wrap .notice-success {
@@ -85,69 +84,31 @@
 }
 
 /* ========================================
-   Hero Header — Animated Gradient Mesh
+   Page Header
    ======================================== */
 .ssl-hero-header {
-    background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 40%, #312e81 70%, #1e1b4b 100%);
-    border-radius: var(--ssl-radius) var(--ssl-radius) 0 0;
+    background: transparent;
     padding: 0;
-    position: relative;
-    overflow: hidden;
+    position: static;
+    overflow: visible;
 }
 
-.ssl-hero-header::before {
-    content: '';
-    position: absolute;
-    top: -60%;
-    right: -15%;
-    width: 500px;
-    height: 500px;
-    background: radial-gradient(circle, rgba(99, 102, 241, 0.2) 0%, transparent 65%);
-    border-radius: 50%;
-    pointer-events: none;
-    animation: sslPulseGlow 6s ease-in-out infinite alternate;
-}
-
+.ssl-hero-header::before,
 .ssl-hero-header::after {
-    content: '';
-    position: absolute;
-    bottom: -40%;
-    left: -8%;
-    width: 350px;
-    height: 350px;
-    background: radial-gradient(circle, rgba(16, 185, 129, 0.12) 0%, transparent 65%);
-    border-radius: 50%;
-    pointer-events: none;
-    animation: sslPulseGlow 8s ease-in-out infinite alternate-reverse;
-}
-
-@keyframes sslPulseGlow {
-    0% { transform: scale(1); opacity: 0.7; }
-    100% { transform: scale(1.15); opacity: 1; }
+    display: none;
 }
 
 .ssl-hero-inner {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
+    justify-content: space-between;
     gap: 18px;
-    padding: 32px 36px;
-    position: relative;
-    z-index: 1;
+    padding: 10px 2px 24px;
+    position: static;
 }
 
 .ssl-hero-icon {
-    width: 52px;
-    height: 52px;
-    background: rgba(99, 102, 241, 0.15);
-    border: 1px solid rgba(99, 102, 241, 0.2);
-    border-radius: 14px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-    color: #a5b4fc;
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
+    display: none;
 }
 
 .ssl-hero-text {
@@ -155,54 +116,49 @@
 }
 
 .ssl-hero-text h1 {
-    color: #fff;
+    color: var(--ssl-text);
     font-size: 21px;
-    font-weight: 700;
-    margin: 0 0 3px;
+    font-weight: 600;
+    margin: 0 0 6px;
     line-height: 1.3;
-    letter-spacing: -0.4px;
+    letter-spacing: -0.3px;
 }
 
 .ssl-hero-text p {
-    color: rgba(255, 255, 255, 0.5);
+    color: var(--ssl-text-secondary);
     font-size: 13px;
     margin: 0;
     font-weight: 400;
-    letter-spacing: 0.1px;
 }
 
 .ssl-hero-version {
     flex-shrink: 0;
+    padding-top: 6px;
+}
+
+form#ssl-settings .ssl-hero-header {
+    padding: 32px 40px 8px;
+}
+
+form#ssl-settings .ssl-hero-inner {
+    padding: 0;
 }
 
 .ssl-version-badge {
     display: inline-flex;
     align-items: center;
-    gap: 5px;
-    background: rgba(16, 185, 129, 0.12);
-    color: #6ee7b7;
+    background: var(--ssl-bg-white);
+    color: var(--ssl-text-secondary);
     font-size: 11px;
-    font-weight: 600;
-    padding: 5px 14px;
-    border-radius: 20px;
-    letter-spacing: 0.4px;
-    border: 1px solid rgba(16, 185, 129, 0.2);
-    backdrop-filter: blur(4px);
-    -webkit-backdrop-filter: blur(4px);
+    font-weight: 500;
+    padding: 3px 10px;
+    border-radius: 999px;
+    letter-spacing: 0.2px;
+    border: 1px solid var(--ssl-border);
 }
 
 .ssl-version-badge::before {
-    content: '';
-    width: 6px;
-    height: 6px;
-    background: #6ee7b7;
-    border-radius: 50%;
-    animation: sslDotPulse 2s ease-in-out infinite;
-}
-
-@keyframes sslDotPulse {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.4; }
+    display: none;
 }
 
 /* ========================================
@@ -210,16 +166,16 @@
    ======================================== */
 .ssl-get-started-content {
     background: var(--ssl-bg-white);
-    border: 1px solid var(--ssl-border-light);
-    border-radius: 0 0 var(--ssl-radius) var(--ssl-radius);
-    box-shadow: var(--ssl-shadow-lg);
-    padding: 32px 36px;
+    border: 1px solid var(--ssl-border);
+    border-radius: var(--ssl-radius);
+    box-shadow: none;
+    padding: 36px 40px 44px;
 }
 
 .ssl-get-started-content h2 {
     margin: 0 0 6px;
-    font-size: 18px;
-    font-weight: 700;
+    font-size: 16px;
+    font-weight: 600;
     color: var(--ssl-text);
 }
 
@@ -234,11 +190,11 @@
 .ssl-theme-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-    gap: 20px;
+    gap: 16px;
 }
 
 .ssl-theme-card {
-    background: var(--ssl-bg);
+    background: var(--ssl-bg-white);
     border: 1px solid var(--ssl-border);
     border-radius: var(--ssl-radius-sm);
     overflow: hidden;
@@ -246,14 +202,12 @@
 }
 
 .ssl-theme-card:hover {
-    transform: translateY(-3px);
-    box-shadow: var(--ssl-shadow-md);
-    border-color: var(--ssl-accent);
+    border-color: #d4d4d4;
 }
 
 .ssl-theme-card-thumb {
     height: 150px;
-    background: linear-gradient(135deg, var(--ssl-primary-light) 0%, var(--ssl-primary) 100%);
+    background: var(--ssl-accent-soft);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -272,11 +226,11 @@
     position: absolute;
     top: 50%;
     left: 50%;
-    width: 34px;
-    height: 34px;
-    margin: -17px 0 0 -17px;
-    border: 3px solid rgba(255, 255, 255, 0.2);
-    border-top-color: #fff;
+    width: 28px;
+    height: 28px;
+    margin: -14px 0 0 -14px;
+    border: 2px solid var(--ssl-border);
+    border-top-color: var(--ssl-text);
     border-radius: 50%;
     animation: sslLoaderSpin 0.8s linear infinite;
 }
@@ -286,9 +240,9 @@
 }
 
 .ssl-theme-card-name {
-    color: #fff;
-    font-size: 14px;
-    font-weight: 600;
+    color: var(--ssl-text-secondary);
+    font-size: 13px;
+    font-weight: 500;
     padding: 0 16px;
     text-align: center;
     z-index: 1;
@@ -299,7 +253,8 @@
     align-items: center;
     justify-content: space-between;
     gap: 12px;
-    padding: 14px 16px;
+    padding: 12px 14px;
+    border-top: 1px solid var(--ssl-border-light);
 }
 
 .ssl-theme-card-info h3 {
@@ -310,72 +265,70 @@
 }
 
 .ssl-theme-card-active {
-    border-color: var(--ssl-success);
-    box-shadow: 0 0 0 1px var(--ssl-success), var(--ssl-shadow-md);
+    border-color: var(--ssl-text);
 }
 
 .ssl-theme-card-badge {
     display: inline-flex;
     align-items: center;
-    gap: 5px;
-    padding: 7px 16px;
+    gap: 6px;
+    padding: 5px 12px;
     background: var(--ssl-success-soft);
     color: var(--ssl-success);
-    border-radius: 50px;
-    font-size: 12px;
-    font-weight: 700;
+    border: 1px solid rgba(22, 163, 74, 0.2);
+    border-radius: 999px;
+    font-size: 11.5px;
+    font-weight: 600;
     white-space: nowrap;
 }
 
 .ssl-theme-card-badge::before {
     content: '';
-    width: 7px;
-    height: 7px;
+    width: 6px;
+    height: 6px;
     background: var(--ssl-success);
     border-radius: 50%;
 }
 
 .ssl-theme-card-cta-ghost {
-    background: transparent;
-    border: 1px solid var(--ssl-accent);
-    color: var(--ssl-accent) !important;
+    background: var(--ssl-bg-white);
+    border: 1px solid var(--ssl-border);
+    color: var(--ssl-text) !important;
     box-shadow: none;
 }
 
 .ssl-theme-card-cta-ghost:hover {
     background: var(--ssl-accent-soft);
-    color: var(--ssl-accent-hover) !important;
-    border-color: var(--ssl-accent-hover);
+    color: var(--ssl-text) !important;
+    border-color: #d4d4d4;
     box-shadow: none;
-    transform: translateY(-1px);
 }
 
 .ssl-theme-card-cta {
     display: inline-flex;
     align-items: center;
-    padding: 8px 18px;
-    background: linear-gradient(135deg, var(--ssl-accent) 0%, #4f46e5 100%);
+    padding: 7px 16px;
+    background: var(--ssl-accent);
     color: #fff !important;
     border: none;
-    border-radius: 50px;
+    border-radius: var(--ssl-radius-xs);
     font-size: 12.5px;
-    font-weight: 600;
+    font-weight: 500;
     text-decoration: none !important;
     cursor: pointer;
     transition: var(--ssl-transition);
     white-space: nowrap;
-    box-shadow: 0 2px 10px var(--ssl-accent-glow-strong);
+    box-shadow: none;
 }
 
 .ssl-theme-card-cta:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 4px 16px var(--ssl-accent-glow-strong);
-    background: linear-gradient(135deg, #4f46e5 0%, var(--ssl-accent-hover) 100%);
+    background: var(--ssl-accent-hover);
     color: #fff !important;
+    box-shadow: none;
 }
 
 .ssl-theme-card-cta:active {
-    transform: translateY(0);
+    transform: none;
 }
 
 .ssl-get-started-empty {
@@ -397,14 +350,14 @@
 form#ssl-settings {
     background: var(--ssl-bg-white);
     border-radius: var(--ssl-radius);
-    box-shadow: var(--ssl-shadow-lg);
+    box-shadow: none;
     overflow: hidden;
     margin-top: 0;
-    border: 1px solid var(--ssl-border-light);
+    border: 1px solid var(--ssl-border);
 }
 
 /* ========================================
-   Tabs — Pill Navigation
+   Tabs — Underline Navigation
    ======================================== */
 .ssl-settings-tabs {
     padding: 0;
@@ -412,10 +365,10 @@ form#ssl-settings {
 
 .ssl-settings-tabs-list {
     display: flex;
-    gap: 4px;
+    gap: 24px;
     margin: 0;
-    padding: 12px 20px;
-    background: var(--ssl-bg);
+    padding: 0 40px;
+    background: var(--ssl-bg-white);
     border-bottom: 1px solid var(--ssl-border);
     list-style: none;
 }
@@ -427,33 +380,27 @@ form#ssl-settings {
 }
 
 .ssl-tab-list-item {
-    display: flex;
-    align-items: center;
-    gap: 7px;
-    padding: 9px 20px;
+    display: block;
+    padding: 15px 2px 13px;
     font-size: 13px;
     font-weight: 500;
     color: var(--ssl-text-secondary);
     text-decoration: none;
-    border-radius: 8px;
+    border-radius: 0;
     transition: var(--ssl-transition);
     white-space: nowrap;
-    border: 1px solid transparent;
+    border: none;
+    border-bottom: 2px solid transparent;
+    margin-bottom: -1px;
 }
 
 .ssl-tab-list-item svg {
-    opacity: 0.45;
-    transition: var(--ssl-transition);
-    flex-shrink: 0;
+    display: none;
 }
 
 .ssl-tab-list-item:hover {
-    color: var(--ssl-accent);
-    background: var(--ssl-accent-soft);
-}
-
-.ssl-tab-list-item:hover svg {
-    opacity: 0.75;
+    color: var(--ssl-text);
+    background: transparent;
 }
 
 .ssl-tab-list-item:focus {
@@ -461,34 +408,42 @@ form#ssl-settings {
     outline: none;
 }
 
-li.ui-state-active a.ssl-tab-list-item {
+.ssl-settings-tabs-list li a:focus-visible,
+.ssl-save-btn:focus-visible,
+.ssl-theme-card-cta:focus-visible {
+    outline: 2px solid var(--ssl-text);
+    outline-offset: 2px;
+}
+
+li.ui-state-active a.ssl-tab-list-item,
+li.ui-tabs-active a.ssl-tab-list-item {
     outline: none;
-    color: var(--ssl-accent);
-    background: var(--ssl-bg-white);
-    border: 1px solid var(--ssl-border);
-    box-shadow: var(--ssl-shadow-sm);
+    color: var(--ssl-text);
+    background: transparent;
+    border: none;
+    border-bottom: 2px solid var(--ssl-text);
+    box-shadow: none;
     font-weight: 600;
-    border-bottom-color: var(--ssl-bg-white);
 }
 
 li.ui-state-active a.ssl-tab-list-item svg {
-    opacity: 1;
+    display: none;
 }
 
 li.ui-state-default:not(.ui-state-active):hover a.ssl-tab-list-item {
-    background: var(--ssl-accent-soft);
-    color: var(--ssl-accent);
+    background: transparent;
+    color: var(--ssl-text);
 }
 
 /* Tab Content */
 .ssl-settings-tab {
-    padding: 32px;
-    animation: sslTabFadeIn 0.3s ease-out;
+    padding: 36px 40px 44px;
+    animation: sslTabFadeIn 0.2s ease-out;
 }
 
 @keyframes sslTabFadeIn {
-    from { opacity: 0; transform: translateY(4px); }
-    to { opacity: 1; transform: translateY(0); }
+    from { opacity: 0; }
+    to { opacity: 1; }
 }
 
 /* ========================================
@@ -497,101 +452,85 @@ li.ui-state-default:not(.ui-state-active):hover a.ssl-tab-list-item {
 .ssl-about-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 16px;
+    gap: 12px;
 }
 
 .ssl-about-card {
     background: var(--ssl-bg-white);
     border: 1px solid var(--ssl-border);
     border-radius: var(--ssl-radius-sm);
-    padding: 24px;
-    transition: var(--ssl-transition-slow);
+    padding: 22px;
+    transition: var(--ssl-transition);
     position: relative;
     overflow: hidden;
 }
 
 .ssl-about-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 3px;
-    background: transparent;
-    transition: var(--ssl-transition);
+    display: none;
 }
 
 .ssl-about-card:hover {
-    border-color: var(--ssl-accent);
-    box-shadow: var(--ssl-shadow-glow), var(--ssl-shadow-md);
-    transform: translateY(-2px);
+    border-color: #d4d4d4;
+    box-shadow: none;
+    transform: none;
 }
 
 .ssl-about-card:hover::before {
-    background: linear-gradient(90deg, var(--ssl-accent), #818cf8);
+    display: none;
 }
 
 .ssl-about-card-main {
     grid-column: 1 / -1;
-    background: linear-gradient(135deg, #fafbff 0%, #eef2ff 50%, #f0fdf4 100%);
-    border-color: #c7d2fe;
+    background: var(--ssl-bg-white);
+    border-color: var(--ssl-border);
 }
 
 .ssl-about-card-main:hover {
-    border-color: var(--ssl-accent);
+    border-color: #d4d4d4;
 }
 
 .ssl-about-card-main::before {
-    background: linear-gradient(90deg, var(--ssl-accent), #818cf8, var(--ssl-success)) !important;
+    display: none;
 }
 
 .ssl-about-card-icon {
-    width: 42px;
-    height: 42px;
-    background: var(--ssl-bg-white);
-    border-radius: 10px;
+    width: 38px;
+    height: 38px;
+    background: var(--ssl-accent-soft);
+    border-radius: var(--ssl-radius-sm);
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: 16px;
-    color: var(--ssl-accent);
-    box-shadow: var(--ssl-shadow);
-    border: 1px solid var(--ssl-border-light);
+    margin-bottom: 14px;
+    color: var(--ssl-text);
+    box-shadow: none;
+    border: none;
 }
 
 .ssl-about-card-main .ssl-about-card-icon {
-    background: rgba(99, 102, 241, 0.08);
-    color: var(--ssl-accent);
-    border-color: rgba(99, 102, 241, 0.15);
+    background: var(--ssl-accent-soft);
+    color: var(--ssl-text);
+    border: none;
 }
 
-.ssl-icon-import {
-    color: #10b981 !important;
-}
-
-.ssl-icon-templates {
-    color: #f59e0b !important;
-}
-
-.ssl-icon-customize {
-    color: #6366f1 !important;
-}
-
+.ssl-icon-import,
+.ssl-icon-templates,
+.ssl-icon-customize,
 .ssl-icon-builder {
-    color: #ec4899 !important;
+    color: var(--ssl-text) !important;
 }
 
 .ssl-about-card h3 {
     margin: 0 0 8px;
-    font-size: 17px;
-    font-weight: 700;
+    font-size: 16px;
+    font-weight: 600;
     color: var(--ssl-text);
-    letter-spacing: -0.3px;
+    letter-spacing: -0.2px;
 }
 
 .ssl-about-card h4 {
-    margin: 0 0 8px;
-    font-size: 14px;
+    margin: 0 0 6px;
+    font-size: 13.5px;
     font-weight: 600;
     color: var(--ssl-text);
 }
@@ -599,7 +538,7 @@ li.ui-state-default:not(.ui-state-active):hover a.ssl-tab-list-item {
 .ssl-about-card p {
     margin: 0;
     font-size: 13px;
-    line-height: 1.65;
+    line-height: 1.6;
     color: var(--ssl-text-secondary);
 }
 
@@ -607,23 +546,25 @@ li.ui-state-default:not(.ui-state-active):hover a.ssl-tab-list-item {
     display: inline-flex;
     align-items: center;
     gap: 6px;
-    margin-top: 16px;
+    margin-top: 14px;
     font-size: 13px;
-    font-weight: 600;
-    color: var(--ssl-accent);
-    text-decoration: none;
+    font-weight: 500;
+    color: var(--ssl-text);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    text-decoration-color: #d4d4d4;
     transition: var(--ssl-transition);
-    padding: 6px 14px;
-    border-radius: 6px;
-    background: var(--ssl-accent-soft);
-    border: 1px solid transparent;
+    padding: 0;
+    border-radius: 0;
+    background: transparent;
+    border: none;
 }
 
 .ssl-about-link:hover {
     color: var(--ssl-accent-hover);
-    background: var(--ssl-accent-glow);
-    border-color: rgba(99, 102, 241, 0.15);
-    gap: 8px;
+    background: transparent;
+    border: none;
+    text-decoration-color: var(--ssl-text);
 }
 
 /* ========================================
@@ -633,23 +574,21 @@ li.ui-state-default:not(.ui-state-active):hover a.ssl-tab-list-item {
     display: flex;
     align-items: flex-start;
     gap: 14px;
-    margin-bottom: 24px;
-    padding-bottom: 20px;
-    border-bottom: 1px solid var(--ssl-border);
+    margin-bottom: 22px;
+    padding-bottom: 18px;
+    border-bottom: 1px solid var(--ssl-border-light);
 }
 
 .ssl-section-header > svg {
-    color: var(--ssl-accent);
-    flex-shrink: 0;
-    margin-top: 2px;
+    display: none;
 }
 
 .ssl-section-header h3 {
-    margin: 0 0 4px;
-    font-size: 17px;
-    font-weight: 700;
+    margin: 0 0 3px;
+    font-size: 15px;
+    font-weight: 600;
     color: var(--ssl-text);
-    letter-spacing: -0.3px;
+    letter-spacing: -0.2px;
 }
 
 .ssl-section-desc {
@@ -659,7 +598,7 @@ li.ui-state-default:not(.ui-state-active):hover a.ssl-tab-list-item {
 }
 
 /* ========================================
-   System Info — Modern Table
+   System Info — Clean Table
    ======================================== */
 .ssl-system-info-container {
     padding: 0;
@@ -685,7 +624,7 @@ li.ui-state-default:not(.ui-state-active):hover a.ssl-tab-list-item {
 
 .ssl-system-info-table th,
 .ssl-system-info-table td {
-    padding: 11px 18px;
+    padding: 10px 18px;
     border: none;
     text-align: left;
     font-size: 13px;
@@ -694,7 +633,7 @@ li.ui-state-default:not(.ui-state-active):hover a.ssl-tab-list-item {
 
 .ssl-system-info-table th {
     background: transparent;
-    font-weight: 600;
+    font-weight: 500;
     color: var(--ssl-text);
     width: 35%;
 }
@@ -711,15 +650,15 @@ li.ui-state-default:not(.ui-state-active):hover a.ssl-tab-list-item {
 }
 
 .ssl-system-info-table tr:hover td {
-    background: var(--ssl-accent-soft);
-}
-
-.ssl-system-info-table tr:nth-child(odd) td {
     background: var(--ssl-bg);
 }
 
+.ssl-system-info-table tr:nth-child(odd) td {
+    background: var(--ssl-bg-white);
+}
+
 .ssl-system-info-table tr:nth-child(odd):hover td {
-    background: var(--ssl-accent-soft);
+    background: var(--ssl-bg);
 }
 
 .ssl-system-info-table tr:nth-child(even) td {
@@ -732,9 +671,9 @@ li.ui-state-default:not(.ui-state-active):hover a.ssl-tab-list-item {
     align-items: center;
     gap: 8px;
     font-size: 11px;
-    font-weight: 700;
+    font-weight: 600;
     text-transform: uppercase;
-    letter-spacing: 0.8px;
+    letter-spacing: 0.6px;
     color: var(--ssl-text-muted);
     padding: 4px 0;
 }
@@ -750,13 +689,13 @@ li.ui-state-default:not(.ui-state-active):hover a.ssl-tab-list-item {
     background: var(--ssl-bg);
     font-size: 11px;
     text-transform: uppercase;
-    letter-spacing: 0.8px;
+    letter-spacing: 0.6px;
     color: var(--ssl-text-muted);
     padding: 14px 18px;
 }
 
 /* ========================================
-   Settings Cards — Frosted Glass
+   Settings Cards
    ======================================== */
 .ssl-system-settings-container {
     display: flex;
@@ -775,44 +714,37 @@ li.ui-state-default:not(.ui-state-active):hover a.ssl-tab-list-item {
     justify-content: space-between;
     gap: 20px;
     padding: 20px 24px;
-    background: var(--ssl-bg);
+    background: var(--ssl-bg-white);
     border: 1px solid var(--ssl-border);
     border-radius: var(--ssl-radius-sm);
-    transition: var(--ssl-transition-slow);
+    transition: var(--ssl-transition);
     position: relative;
 }
 
 .ssl-setting-card::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    border-radius: var(--ssl-radius-sm);
-    opacity: 0;
-    transition: var(--ssl-transition);
-    pointer-events: none;
-    box-shadow: var(--ssl-shadow-glow), var(--ssl-shadow-md);
+    display: none;
 }
 
 .ssl-setting-card:hover {
-    border-color: rgba(99, 102, 241, 0.3);
+    border-color: #d4d4d4;
     background: var(--ssl-bg-white);
 }
 
 .ssl-setting-card:hover::after {
-    opacity: 1;
+    display: none;
 }
 
 .ssl-setting-card-header {
     display: flex;
     align-items: center;
-    gap: 16px;
+    gap: 14px;
     flex: 1;
 }
 
 .ssl-setting-icon {
-    width: 40px;
-    height: 40px;
-    border-radius: 10px;
+    width: 38px;
+    height: 38px;
+    border-radius: var(--ssl-radius-sm);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -820,13 +752,13 @@ li.ui-state-default:not(.ui-state-active):hover a.ssl-tab-list-item {
 }
 
 .ssl-setting-icon-import {
-    background: var(--ssl-success-soft);
-    color: #10b981;
+    background: var(--ssl-accent-soft);
+    color: var(--ssl-text);
 }
 
 .ssl-setting-info h4 {
-    margin: 0 0 3px;
-    font-size: 14px;
+    margin: 0 0 2px;
+    font-size: 13.5px;
     font-weight: 600;
     color: var(--ssl-text);
 }
@@ -847,7 +779,7 @@ li.ui-state-default:not(.ui-state-active):hover a.ssl-tab-list-item {
 
 .ssl-toggle-label {
     font-size: 11.5px;
-    font-weight: 600;
+    font-weight: 500;
     color: var(--ssl-text-muted);
     min-width: 60px;
     text-transform: uppercase;
@@ -855,12 +787,12 @@ li.ui-state-default:not(.ui-state-active):hover a.ssl-tab-list-item {
 }
 
 /* ========================================
-   Save Button — Gradient CTA
+   Save Button
    ======================================== */
 .ssl-save-settings-wrap {
-    margin-top: 28px;
-    padding-top: 24px;
-    border-top: 1px solid var(--ssl-border);
+    margin-top: 24px;
+    padding-top: 20px;
+    border-top: 1px solid var(--ssl-border-light);
     display: flex;
     justify-content: flex-end;
 }
@@ -869,51 +801,47 @@ li.ui-state-default:not(.ui-state-active):hover a.ssl-tab-list-item {
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    padding: 11px 32px;
-    background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
+    padding: 9px 24px;
+    background: var(--ssl-accent);
     color: #fff;
     border: none;
-    border-radius: var(--ssl-radius-sm);
-    font-size: 13.5px;
-    font-weight: 600;
+    border-radius: var(--ssl-radius-xs);
+    font-size: 13px;
+    font-weight: 500;
     cursor: pointer;
-    transition: var(--ssl-transition-slow);
-    box-shadow: 0 2px 8px rgba(99, 102, 241, 0.3), 0 1px 2px rgba(99, 102, 241, 0.2);
+    transition: var(--ssl-transition);
+    box-shadow: none;
     position: relative;
     overflow: hidden;
 }
 
 .ssl-save-btn::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(135deg, rgba(255,255,255,0.15) 0%, transparent 50%);
-    opacity: 0;
-    transition: var(--ssl-transition);
+    display: none;
 }
 
 .ssl-save-btn:hover {
-    box-shadow: 0 6px 20px rgba(99, 102, 241, 0.35), 0 2px 6px rgba(99, 102, 241, 0.2);
-    transform: translateY(-1px);
+    background: var(--ssl-accent-hover);
+    box-shadow: none;
+    transform: none;
 }
 
 .ssl-save-btn:hover::before {
-    opacity: 1;
+    display: none;
 }
 
 .ssl-save-btn:active {
-    transform: translateY(0);
-    box-shadow: 0 1px 4px rgba(99, 102, 241, 0.3);
+    transform: none;
+    box-shadow: none;
 }
 
 .ssl-save-btn.ssl-saving {
-    opacity: 0.7;
+    opacity: 0.6;
     cursor: wait;
     pointer-events: none;
 }
 
 .ssl-save-btn:disabled {
-    opacity: 0.5;
+    opacity: 0.4;
     cursor: not-allowed;
 }
 
@@ -986,8 +914,9 @@ li.ui-state-default:not(.ui-state-active):hover a.ssl-tab-list-item {
     }
 
     .ssl-hero-inner {
-        padding: 24px 20px;
+        padding: 2px 2px 16px;
         flex-wrap: wrap;
+        align-items: flex-start;
     }
 
     .ssl-hero-text h1 {
@@ -995,18 +924,18 @@ li.ui-state-default:not(.ui-state-active):hover a.ssl-tab-list-item {
     }
 
     .ssl-settings-tabs-list {
-        padding: 10px 12px;
+        padding: 0 16px;
         overflow-x: auto;
-        gap: 2px;
+        gap: 18px;
     }
 
     .ssl-tab-list-item {
-        padding: 8px 14px;
+        padding: 13px 2px 11px;
         font-size: 12.5px;
     }
 
     .ssl-settings-tab {
-        padding: 20px 16px;
+        padding: 20px 16px 24px;
     }
 
     .ssl-about-grid {

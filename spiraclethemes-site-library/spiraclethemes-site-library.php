@@ -3,7 +3,7 @@
  * Plugin Name:       Spiraclethemes Site Library
  * Plugin URI:        https://wordpress.org/plugins/spiraclethemes-site-library/
  * Description:       A plugin by Spiracle Themes that adds one-click demo import, theme customization, starter templates, and page builder support to its free themes.
- * Version:           1.7.2
+ * Version:           1.7.3
  * Author:            SpiracleThemes
  * Author URI:        https://spiraclethemes.com
  * License:           GPL-2.0+
@@ -43,7 +43,7 @@ class Spiraclethemes_Site_Library {
      *
      * @var string
      */
-    const VERSION = '1.7.0';
+    const VERSION = '1.7.4';
 
     /**
      * Notice schedule for plan notices.
@@ -96,7 +96,6 @@ class Spiraclethemes_Site_Library {
         delete_option( 'spiraclethemes_sitelib_install_date' );
         delete_user_meta( $user_id, 'spiraclethemes_sitelib_rating_ignore_notice' );
         delete_user_meta( $user_id, 'spiraclethemes_sitelib_training_ignore_notice' );
-        delete_user_meta( $user_id, 'spiraclethemes_sitelib_custom_dev_ignore_notice' );
         delete_user_meta( $user_id, 'spiraclethemes_sitelib_theme_required_ignore_notice' );
 
         // Clean up plan notice meta keys.
@@ -127,10 +126,8 @@ class Spiraclethemes_Site_Library {
             if ( in_array( $this->theme_slug, spiraclethemes_site_library_get_allowed_themes(), true ) ) {
                 add_action( 'admin_notices', [ $this, 'spiraclethemes_site_library_display_welcome_notice' ] );
                 add_action( 'admin_notices', [ $this, 'spiraclethemes_site_library_display_49dollar_notices' ] );
-                add_action( 'admin_notices', [ $this, 'spiraclethemes_site_library_display_custom_dev_notice' ] );
                 add_action( 'admin_init', [ $this, 'spiraclethemes_site_library_ignore_rating_notice' ] );
                 add_action( 'admin_init', [ $this, 'spiraclethemes_site_library_ignore_49dollar_notices' ] );
-                add_action( 'admin_init', [ $this, 'spiraclethemes_site_library_ignore_custom_dev_notice' ] );
             } else {
                 add_action( 'admin_notices', [ $this, 'spiraclethemes_site_library_display_theme_required_notice' ] );
                 add_action( 'admin_init', [ $this, 'spiraclethemes_site_library_ignore_theme_required_notice' ] );
@@ -145,7 +142,6 @@ class Spiraclethemes_Site_Library {
         if ( '1' === get_option( 'ssl_enable_demo_import' ) ) {
             require_once SPIR_SITE_LIBRARY_PATH . '/inc/themes.php';
         }
-        require_once SPIR_SITE_LIBRARY_PATH . '/inc/widget/widget.php';
         require_once SPIR_SITE_LIBRARY_PATH . '/admin/admin-init.php';
         require_once SPIR_SITE_LIBRARY_PATH . '/admin/includes/system-info.php';
         require_once SPIR_SITE_LIBRARY_PATH . '/admin/includes/system-settings.php';
@@ -221,22 +217,16 @@ class Spiraclethemes_Site_Library {
     }
 
     /**
-     * Get theme-specific pricing URL.
+     * Get the Pro pricing page URL.
      *
      * @return string
      */
     private function spiraclethemes_site_library_get_theme_pricing_url() {
-        $pricing_urls = spiraclethemes_site_library_get_pricing_urls();
-
-        if ( isset( $pricing_urls[ $this->theme_slug ] ) ) {
-            return esc_url( $pricing_urls[ $this->theme_slug ] );
-        }
-
-        return '';
+        return esc_url( spiraclethemes_site_library_get_pricing_url() );
     }
 
     /**
-     * Build the upgrade notice message with professional layout.
+     * Build the upgrade notice message
      *
      * @param int    $days        Days after install for this notice.
      * @param string $ignore_param URL parameter for dismissal.
@@ -246,29 +236,11 @@ class Spiraclethemes_Site_Library {
         $pricing_url = $this->spiraclethemes_site_library_get_theme_pricing_url();
         $ignore_url  = esc_url( wp_nonce_url( admin_url( 'themes.php?' . $ignore_param . '=0' ), $ignore_param . '_nonce' ) );
 
-        // Pull the discount value dynamically from the remote API (cached).
-        $discount = spiraclethemes_site_library_get_theme_discount( $this->theme_slug );
-
-        // Prefer the API purchase URL when available, fall back to local pricing URL.
-        if ( ! empty( $discount['purchase_url'] ) ) {
-            $pricing_url = esc_url( $discount['purchase_url'] );
-        }
-
-        // Build the dynamic "% OFF" badge when a sale value is provided.
-        $discount_html = '';
-        if ( ! empty( $discount['sale'] ) ) {
-            $discount_value = preg_replace( '/[^0-9]/', '', (string) $discount['sale'] );
-            if ( '' !== $discount_value ) {
-                $discount_html = sprintf(
-                    '<div class="ssl-upgrade-discount">' .
-                        '<span class="ssl-discount-percent">%1$s%%</span>' .
-                        '<span class="ssl-discount-label">%2$s</span>' .
-                    '</div>',
-                    esc_html( $discount_value ),
-                    esc_html__( 'OFF', 'spiraclethemes-site-library' )
-                );
-            }
-        }
+        $headline = sprintf(
+            /* translators: %s: Theme name */
+            __( 'Get %1$s Pro + Every Other Pro Theme & Plugin — from $9/month or $49 lifetime', 'spiraclethemes-site-library' ),
+            $this->theme_name
+        );
 
         $raw_html = sprintf(
             '<div class="ssl-upgrade-text">' .
@@ -277,17 +249,15 @@ class Spiraclethemes_Site_Library {
                 '<p>%4$s</p>' .
             '</div>' .
             '<div class="ssl-upgrade-actions">' .
-                '%5$s' .
-                '<a href="%6$s" target="_blank" rel="noopener" class="ssl-upgrade-cta">%7$s</a>' .
-                '<a href="%8$s" class="ssl-remind-later">%9$s</a>' .
+                '<a href="%5$s" target="_blank" rel="noopener" class="ssl-upgrade-cta">%6$s</a>' .
+                '<a href="%7$s" class="ssl-remind-later">%8$s</a>' .
             '</div>',
-            esc_html__( 'Love building it yourself?', 'spiraclethemes-site-library' ),
-            esc_html__( 'Your Website, Without Limits', 'spiraclethemes-site-library' ),
-            esc_html( spiraclethemes_site_library_get_theme_product_name( $this->theme_slug ) ),
-            esc_html__( 'Your vision deserves more than the ordinary. With premium layouts, advanced customization, and priority support, Pro gives you the freedom to craft something truly yours — and a website your visitors will never forget.', 'spiraclethemes-site-library' ),
-            $discount_html,
+            esc_html__( 'One plan, every pro theme & plugin', 'spiraclethemes-site-library' ),
+            esc_html( $headline ),
+            esc_html__( 'All-Access Bundle', 'spiraclethemes-site-library' ),
+            esc_html__( 'One plan unlocks the entire catalogue — all current and future Pro themes and plugins. Choose Pro Monthly for $9/month or own it forever with Pro Lifetime at a single $49 payment. Use your license on up to 3 different sites. Cancel anytime.', 'spiraclethemes-site-library' ),
             esc_url( $pricing_url ),
-            esc_html__( 'Explore Pro Features', 'spiraclethemes-site-library' ),
+            esc_html__( 'See Pricing & Upgrade', 'spiraclethemes-site-library' ),
             esc_url( $ignore_url ),
             esc_html__( 'Remind me later', 'spiraclethemes-site-library' )
         );
@@ -317,7 +287,7 @@ class Spiraclethemes_Site_Library {
         $days_since = $this->spiraclethemes_site_library_get_days_since_install();
         $user_id    = get_current_user_id();
 
-        // Check if any $49/year notices have been shown.
+        // Check if any Pro plan notices have been shown.
         $should_show_rating = true;
         foreach ( self::NOTICE_SCHEDULE as $notice ) {
             if ( $days_since >= $notice['days'] ) {
@@ -329,7 +299,7 @@ class Spiraclethemes_Site_Library {
             }
         }
 
-        // Show rating notice after 7 days if no $49/year notices have been shown.
+        // Show rating notice after 7 days if no Pro plan notices have been shown.
         if ( $should_show_rating && $days_since >= 7 && $this->spiraclethemes_site_library_should_display_notice( 'spiraclethemes_sitelib_rating_ignore_notice', 7 ) ) {
             $theme_info_url = esc_url( admin_url( 'themes.php' ) );
             $rating_url     = esc_url( 'https://wordpress.org/support/theme/' . $this->theme_slug . '/reviews/' );
@@ -382,7 +352,7 @@ class Spiraclethemes_Site_Library {
     }
 
     /**
-     * Display $49/year plan notices based on schedule.
+     * Display Pro plan notices based on schedule.
      */
     public function spiraclethemes_site_library_display_49dollar_notices() {
         $days_since = $this->spiraclethemes_site_library_get_days_since_install();
@@ -423,7 +393,7 @@ class Spiraclethemes_Site_Library {
     }
 
     /**
-     * Handle dismissal of $49/year plan notices.
+     * Handle dismissal of Pro plan notices.
      */
     public function spiraclethemes_site_library_ignore_49dollar_notices() {
         if ( ! current_user_can( 'manage_options' ) || ! isset( $_GET['wp_spiraclethemes_sitelib_49dollar_ignore'] ) || ! isset( $_GET['_wpnonce'] ) ) {
@@ -497,80 +467,6 @@ class Spiraclethemes_Site_Library {
     }
 
     /**
-     * Display the custom development service notice banner.
-     */
-    public function spiraclethemes_site_library_display_custom_dev_notice() {
-        $user_id = get_current_user_id();
-
-        // Check if dismissed by this user.
-        if ( get_user_meta( $user_id, 'spiraclethemes_sitelib_custom_dev_ignore_notice', true ) ) {
-            return;
-        }
-
-        $ignore_url = esc_url( wp_nonce_url( admin_url( 'themes.php?wp_spiraclethemes_sitelib_custom_dev_ignore=0' ), 'wp_spiraclethemes_sitelib_custom_dev_ignore_nonce' ) );
-
-        // Pull service dynamically from the remote API, fall back to defaults.
-        $service = spiraclethemes_site_library_get_service_offer();
-
-        $headline = ! empty( $service['headline'] )
-            ? $service['headline']
-            : __( 'Your Website, Designed & Launched in 7 Days', 'spiraclethemes-site-library' );
-
-        $description = ! empty( $service['description'] )
-            ? $service['description']
-            : __( 'No templates. No hassle. We design and set everything up for you — up to 5 custom pages for just $399. Limited to 3 clients per week.', 'spiraclethemes-site-library' );
-
-        $cta_url = ! empty( $service['cta_url'] )
-            ? esc_url( $service['cta_url'] )
-            : esc_url( 'mailto:support@spiraclethemes.com?subject=' . rawurlencode( __( 'Custom Website Design Service Inquiry', 'spiraclethemes-site-library' ) ) );
-
-        $raw_html = sprintf(
-            '<div class="ssl-custom-dev-inner">' .
-                '<div class="ssl-custom-dev-icon-wrap">' .
-                    '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">' .
-                        '<path d="M12 2L2 7l10 5 10-5-10-5z"/>' .
-                        '<path d="M2 17l10 5 10-5"/>' .
-                        '<path d="M2 12l10 5 10-5"/>' .
-                    '</svg>' .
-                '</div>' .
-                '<div class="ssl-custom-dev-content">' .
-                    '<p class="ssl-custom-dev-headline">%1$s</p>' .
-                    '<p class="ssl-custom-dev-sub">%2$s</p>' .
-                '</div>' .
-                '<div class="ssl-custom-dev-actions">' .
-                    '<a href="%3$s" class="ssl-custom-dev-cta">%4$s</a>' .
-                    '<a href="%5$s" class="ssl-custom-dev-dismiss">%6$s</a>' .
-                '</div>' .
-            '</div>',
-            esc_html( $headline ),
-            esc_html( $description ),
-            esc_url( $cta_url ),
-            esc_html__( 'Get Started →', 'spiraclethemes-site-library' ),
-            esc_url( $ignore_url ),
-            esc_html__( 'Dismiss', 'spiraclethemes-site-library' )
-        );
-
-        $allowed_html = [
-            'div' => [ 'class' => [] ],
-            'p'   => [ 'class' => [] ],
-            'a'   => [ 'href' => [], 'class' => [], 'target' => [], 'rel' => [] ],
-            'svg' => [ 'width' => [], 'height' => [], 'viewbox' => [], 'viewBox' => [], 'fill' => [], 'stroke' => [], 'stroke-width' => [], 'stroke-linecap' => [], 'stroke-linejoin' => [], 'xmlns' => [] ],
-            'path' => [ 'd' => [], 'fill' => [], 'stroke' => [] ],
-        ];
-
-        echo '<div class="notice ssl-custom-dev-notice">';
-        echo wp_kses( $raw_html, $allowed_html );
-        echo '</div>';
-    }
-
-    /**
-     * Handle dismissal of the custom development service notice.
-     */
-    public function spiraclethemes_site_library_ignore_custom_dev_notice() {
-        $this->spiraclethemes_site_library_handle_ignore_notice( 'wp_spiraclethemes_sitelib_custom_dev_ignore', 'spiraclethemes_sitelib_custom_dev_ignore_notice' );
-    }
-
-    /**
      * Display a notice guiding the user to install/activate a supported theme
      * when the plugin is active but no supported theme is running.
      */
@@ -593,22 +489,26 @@ class Spiraclethemes_Site_Library {
         $ignore_url      = esc_url( wp_nonce_url( admin_url( 'themes.php?wp_spiraclethemes_sitelib_theme_required_ignore=0' ), 'wp_spiraclethemes_sitelib_theme_required_ignore_nonce' ) );
 
         $raw_html = sprintf(
-            '<div class="ssl-theme-required-inner">' .
-                '<div class="ssl-theme-required-icon">' .
-                    '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">' .
+            '<div class="ssl-upgrade-inner">' .
+                '<div class="ssl-upgrade-badge ssl-upgrade-badge-icon">' .
+                    '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">' .
                         '<path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>' .
                         '<path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>' .
                     '</svg>' .
                 '</div>' .
-                '<div class="ssl-theme-required-content">' .
-                    '<p class="ssl-theme-required-headline">%1$s</p>' .
-                    '<p class="ssl-theme-required-sub">%2$s</p>' .
+                '<div class="ssl-upgrade-content">' .
+                    '<div class="ssl-upgrade-text">' .
+                        '<span class="ssl-upgrade-kicker">%1$s</span>' .
+                        '<h3>%2$s</h3>' .
+                        '<p>%3$s</p>' .
+                    '</div>' .
                 '</div>' .
-                '<div class="ssl-theme-required-actions">' .
-                    '<a href="%3$s" class="ssl-theme-required-cta">%4$s</a>' .
-                    '<a href="%5$s" class="ssl-theme-required-dismiss">%6$s</a>' .
+                '<div class="ssl-upgrade-actions">' .
+                    '<a href="%4$s" class="ssl-upgrade-cta">%5$s</a>' .
+                    '<a href="%6$s" class="ssl-remind-later">%7$s</a>' .
                 '</div>' .
             '</div>',
+            esc_html__( 'Get Started', 'spiraclethemes-site-library' ),
             esc_html__( 'Activate a compatible theme to get started with Spiraclethemes Site Library', 'spiraclethemes-site-library' ),
             esc_html__( 'This plugin adds one-click demo import, starter templates, and customization for Spiraclethemes themes. Head to the Get Started page to activate a compatible theme.', 'spiraclethemes-site-library' ),
             esc_url( $get_started_url ),
@@ -618,14 +518,16 @@ class Spiraclethemes_Site_Library {
         );
 
         $allowed_html = [
-            'div' => [ 'class' => [] ],
-            'p'   => [ 'class' => [] ],
-            'a'   => [ 'href' => [], 'class' => [], 'target' => [], 'rel' => [] ],
-            'svg' => [ 'width' => [], 'height' => [], 'viewbox' => [], 'viewBox' => [], 'fill' => [], 'stroke' => [], 'stroke-width' => [], 'stroke-linecap' => [], 'stroke-linejoin' => [], 'xmlns' => [] ],
-            'path' => [ 'd' => [], 'fill' => [], 'stroke' => [] ],
+            'div'   => [ 'class' => [] ],
+            'span'  => [ 'class' => [] ],
+            'h3'    => [ 'class' => [] ],
+            'p'     => [ 'class' => [] ],
+            'a'     => [ 'href' => [], 'class' => [], 'target' => [], 'rel' => [] ],
+            'svg'   => [ 'width' => [], 'height' => [], 'viewbox' => [], 'viewBox' => [], 'fill' => [], 'stroke' => [], 'stroke-width' => [], 'stroke-linecap' => [], 'stroke-linejoin' => [], 'xmlns' => [] ],
+            'path'  => [ 'd' => [], 'fill' => [], 'stroke' => [] ],
         ];
 
-        echo '<div class="notice ssl-theme-required-notice">';
+        echo '<div class="notice updated ssl-theme-required-notice">';
         echo wp_kses( $raw_html, $allowed_html );
         echo '</div>';
     }

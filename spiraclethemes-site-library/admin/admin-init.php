@@ -192,11 +192,12 @@ class Spiraclethemes_site_library_Admin {
             return;
         }
 
+        $admin_css_path = SPIR_SITE_LIBRARY_PATH . '/admin/assets/css/admin.css';
         wp_enqueue_style(
             'ssl-admin',
             plugins_url( '/assets/css/admin.css', __FILE__ ),
             [],
-            self::VERSION
+            (string) filemtime( $admin_css_path )
         );
 
         // Load the theme screenshot loader on the Get Started page.
@@ -221,11 +222,12 @@ class Spiraclethemes_site_library_Admin {
             return;
         }
 
+        $toggle_css_path = SPIR_SITE_LIBRARY_PATH . '/admin/assets/css/toggle-switch.css';
         wp_enqueue_style(
             'ssl-toggle-switch',
             plugins_url( '/assets/css/toggle-switch.css', __FILE__ ),
             [],
-            self::VERSION
+            (string) filemtime( $toggle_css_path )
         );
         wp_enqueue_script(
             'ssl-admin-plugin-settings-js',
@@ -414,16 +416,9 @@ class Spiraclethemes_site_library_Admin {
             <form action="" method="POST" id="ssl-settings" name="ssl-settings">
                 <?php wp_nonce_field( self::NONCE_NAME, self::NONCE_NAME ); ?>
 
-                <!-- Hero Header -->
+                <!-- Page Header -->
                 <div class="ssl-hero-header">
                     <div class="ssl-hero-inner">
-                        <div class="ssl-hero-icon">
-                            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M12 2L2 7l10 5 10-5-10-5z"/>
-                                <path d="M2 17l10 5 10-5"/>
-                                <path d="M2 12l10 5 10-5"/>
-                            </svg>
-                        </div>
                         <div class="ssl-hero-text">
                             <h1><?php esc_html_e( 'Spiraclethemes Site Library', 'spiraclethemes-site-library' ); ?></h1>
                             <p><?php esc_html_e( 'One-click demo import, starter templates & theme customization', 'spiraclethemes-site-library' ); ?></p>
@@ -439,19 +434,16 @@ class Spiraclethemes_site_library_Admin {
                     <ul class="ssl-settings-tabs-list">
                         <li>
                             <a class="ssl-tab-list-item" href="#ssl-about">
-                                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
                                 <?php esc_html_e( 'About', 'spiraclethemes-site-library' ); ?>
                             </a>
                         </li>
                         <li>
                             <a class="ssl-tab-list-item" href="#ssl-info">
-                                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
                                 <?php esc_html_e( 'System Info', 'spiraclethemes-site-library' ); ?>
                             </a>
                         </li>
                         <li>
                             <a class="ssl-tab-list-item" href="#ssl-settings-panel">
-                                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
                                 <?php esc_html_e( 'Settings', 'spiraclethemes-site-library' ); ?>
                             </a>
                         </li>
@@ -505,7 +497,6 @@ class Spiraclethemes_site_library_Admin {
                     <!-- System Info Tab -->
                     <div id="ssl-info" class="ssl-settings-tab">
                         <div class="ssl-section-header">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
                             <div>
                                 <h3><?php esc_html_e( 'System Information', 'spiraclethemes-site-library' ); ?></h3>
                                 <p class="ssl-section-desc"><?php esc_html_e( 'System setup information useful for debugging purposes.', 'spiraclethemes-site-library' ); ?></p>
@@ -517,7 +508,6 @@ class Spiraclethemes_site_library_Admin {
                     <!-- Settings Tab -->
                     <div id="ssl-settings-panel" class="ssl-settings-tab">
                         <div class="ssl-section-header">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
                             <div>
                                 <h3><?php esc_html_e( 'Plugin Settings', 'spiraclethemes-site-library' ); ?></h3>
                                 <p class="ssl-section-desc"><?php esc_html_e( 'Configure plugin features and behavior.', 'spiraclethemes-site-library' ); ?></p>
