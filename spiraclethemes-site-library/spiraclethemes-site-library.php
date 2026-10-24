@@ -3,7 +3,7 @@
  * Plugin Name:       Spiraclethemes Site Library
  * Plugin URI:        https://wordpress.org/plugins/spiraclethemes-site-library/
  * Description:       A plugin by Spiracle Themes that adds one-click demo import, theme customization, starter templates, and page builder support to its free themes.
- * Version:           1.7.3
+ * Version:           1.7.4
  * Author:            SpiracleThemes
  * Author URI:        https://spiraclethemes.com
  * License:           GPL-2.0+
@@ -18,16 +18,16 @@ if ( ! defined( 'WPINC' ) ) {
 }
 
 // Define constants.
-$spir_constants = [
+$spiraclethemes_site_library_constants = [
     'SPIR_SITE_LIBRARY_FILE'    => __FILE__,
     'SPIR_SITE_LIBRARY_URL'     => plugins_url( '/', __FILE__ ),
     'SPIR_SITE_LIBRARY_DIR_URL' => plugin_dir_url( __FILE__ ),
     'SPIR_SITE_LIBRARY_PATH'    => plugin_dir_path( __FILE__ ),
 ];
 
-foreach ( $spir_constants as $spir_key => $spir_value ) { 
-    if ( ! defined( $spir_key ) ) {
-        define( $spir_key, $spir_value );
+foreach ( $spiraclethemes_site_library_constants as $spiraclethemes_site_library_constant_name => $spiraclethemes_site_library_constant_value ) {
+    if ( ! defined( $spiraclethemes_site_library_constant_name ) ) {
+        define( $spiraclethemes_site_library_constant_name, $spiraclethemes_site_library_constant_value ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.VariableConstantNameFound -- Names come from the prefixed allow-list above.
     }
 }
 
@@ -238,7 +238,7 @@ class Spiraclethemes_Site_Library {
 
         $headline = sprintf(
             /* translators: %s: Theme name */
-            __( 'Get %1$s Pro + Every Other Pro Theme & Plugin — from $9/month or $49 lifetime', 'spiraclethemes-site-library' ),
+            __( 'Get %1$s Pro + Every Other Pro Theme & Plugin — from $9', 'spiraclethemes-site-library' ),
             $this->theme_name
         );
 
@@ -255,7 +255,7 @@ class Spiraclethemes_Site_Library {
             esc_html__( 'One plan, every pro theme & plugin', 'spiraclethemes-site-library' ),
             esc_html( $headline ),
             esc_html__( 'All-Access Bundle', 'spiraclethemes-site-library' ),
-            esc_html__( 'One plan unlocks the entire catalogue — all current and future Pro themes and plugins. Choose Pro Monthly for $9/month or own it forever with Pro Lifetime at a single $49 payment. Use your license on up to 3 different sites. Cancel anytime.', 'spiraclethemes-site-library' ),
+            esc_html__( 'One plan unlocks the entire catalogue — all current and future Pro themes and plugins. Choose a monthly or forever plan starting from $9. Use your license on up to 3 different sites. Cancel anytime.', 'spiraclethemes-site-library' ),
             esc_url( $pricing_url ),
             esc_html__( 'See Pricing & Upgrade', 'spiraclethemes-site-library' ),
             esc_url( $ignore_url ),
@@ -476,7 +476,7 @@ class Spiraclethemes_Site_Library {
         }
 
         // Don't show on the Get Started page itself.
-        if ( isset( $_GET['page'] ) && 'ssl-get-started' === sanitize_key( wp_unslash( $_GET['page'] ) ) ) {
+        if ( isset( $_GET['page'] ) && 'ssl-get-started' === sanitize_key( wp_unslash( $_GET['page'] ) ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Read-only admin page check; no data is processed or saved.
             return;
         }
 

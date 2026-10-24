@@ -488,7 +488,7 @@ class Spiracle_Demo_Import {
 	 * @param resource $handle The curl handle for the current hop.
 	 */
 	private function guard_http_curl_handle( $handle ) {
-		$hop_url  = curl_getinfo( $handle, CURLINFO_EFFECTIVE_URL );
+		$hop_url  = curl_getinfo( $handle, CURLINFO_EFFECTIVE_URL ); // phpcs:ignore WordPress.WP.AlternativeFunctions.curl_curl_getinfo -- Operating on WP core's own curl handle via the http_api_curl hook; wp_remote_get() cannot pin DNS per hop.
 		$hop_host = ( is_string( $hop_url ) && '' !== $hop_url ) ? wp_parse_url( $hop_url, PHP_URL_HOST ) : '';
 
 		if ( ! $hop_host || ! preg_match( '/^[a-z0-9.\-]+\.[a-z]{2,}$/i', $hop_host ) ) {
@@ -503,15 +503,15 @@ class Spiracle_Demo_Import {
 		$hop_ip = gethostbyname( $hop_host );
 		if ( $hop_ip === $hop_host || $this->is_private_ip( $hop_ip ) ) {
 			// Force a safe connection failure (TEST-NET-1 is unroutable).
-			curl_setopt( $handle, CURLOPT_CONNECTTIMEOUT_MS, 250 );
-			curl_setopt( $handle, CURLOPT_RESOLVE, array(
+			curl_setopt( $handle, CURLOPT_CONNECTTIMEOUT_MS, 250 ); // phpcs:ignore WordPress.WP.AlternativeFunctions.curl_curl_setopt -- Pinning WP core's curl handle via http_api_curl.
+			curl_setopt( $handle, CURLOPT_RESOLVE, array( // phpcs:ignore WordPress.WP.AlternativeFunctions.curl_curl_setopt -- Pinning WP core's curl handle via http_api_curl.
 				$hop_host . ':80:192.0.2.1',
 				$hop_host . ':443:192.0.2.1',
 			) );
 			return;
 		}
 
-		curl_setopt( $handle, CURLOPT_RESOLVE, array(
+		curl_setopt( $handle, CURLOPT_RESOLVE, array( // phpcs:ignore WordPress.WP.AlternativeFunctions.curl_curl_setopt -- Pinning WP core's curl handle via http_api_curl.
 			$hop_host . ':80:' . $hop_ip,
 			$hop_host . ':443:' . $hop_ip,
 		) );
@@ -609,7 +609,7 @@ class Spiracle_Demo_Import {
 	 */
 	public function ajax_run_import() {
 		ob_start();
-		@ini_set( 'display_errors', 0 );
+		@ini_set( 'display_errors', 0 ); // phpcs:ignore PluginCheck.CodeAnalysis.PHPErrorReporting.IniDirectiveDisplay_errors, Squiz.PHP.DiscouragedFunctions.Discouraged -- Prevents PHP notices from corrupting the JSON import response.
 
 		$this->register_shutdown_handler();
 
@@ -633,7 +633,7 @@ class Spiracle_Demo_Import {
 		}
 
 		if ( function_exists( 'set_time_limit' ) && false === strpos( ini_get( 'disable_functions' ), 'set_time_limit' ) ) {
-			@set_time_limit( 1800 );
+			@set_time_limit( 1800 ); // phpcs:ignore Squiz.PHP.DiscouragedFunctions.Discouraged -- Demo imports can exceed default limits.
 		}
 
 		if ( function_exists( 'wp_raise_memory_limit' ) ) {
@@ -642,7 +642,7 @@ class Spiracle_Demo_Import {
 			$current = wp_convert_hr_to_bytes( ini_get( 'memory_limit' ) );
 			$needed  = 512 * MB_IN_BYTES;
 			if ( $current < $needed ) {
-				@ini_set( 'memory_limit', '512M' );
+				@ini_set( 'memory_limit', '512M' ); // phpcs:ignore Squiz.PHP.DiscouragedFunctions.Discouraged -- Fallback when wp_raise_memory_limit() is unavailable.
 			}
 		}
 
@@ -723,7 +723,7 @@ class Spiracle_Demo_Import {
 
 			// Log the full error detail server-side for debugging.
 			if ( function_exists( 'error_log' ) ) {
-				error_log( sprintf(
+				error_log( sprintf( // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log -- Server-side logging of fatal import errors.
 					'Spiraclethemes Demo Import fatal error: %s in %s on line %d',
 					$error['message'],
 					$error['file'],

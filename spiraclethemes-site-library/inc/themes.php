@@ -14,7 +14,7 @@ if ( ! defined( 'WPINC' ) ) {
  *
  * Maps theme slugs to their corresponding function and element files.
  */
-$spir_theme_files = [
+$spiraclethemes_site_library_theme_files = [
     'own-shop'         => [
         SPIR_SITE_LIBRARY_PATH . '/inc/theme-functions/own-shop-functions.php',
         SPIR_SITE_LIBRARY_PATH . '/elements/own-shop/helper-functions.php',
@@ -113,10 +113,10 @@ $spir_theme_files = [
 ];
 
 // Load the appropriate files based on the current theme slug.
-if ( isset( $spir_theme_files[ $this->theme_slug ] ) ) {
-    foreach ( $spir_theme_files[ $this->theme_slug ] as $spir_file ) {
-        if ( file_exists( $spir_file ) ) {
-            require_once $spir_file;
+if ( isset( $spiraclethemes_site_library_theme_files[ $this->theme_slug ] ) ) {
+    foreach ( $spiraclethemes_site_library_theme_files[ $this->theme_slug ] as $spiraclethemes_site_library_theme_file ) {
+        if ( file_exists( $spiraclethemes_site_library_theme_file ) ) {
+            require_once $spiraclethemes_site_library_theme_file;
         }
     }
 }

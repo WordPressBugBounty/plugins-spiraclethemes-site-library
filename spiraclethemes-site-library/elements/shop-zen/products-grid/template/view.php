@@ -177,7 +177,7 @@ $view_all_attr_str   = trim( $view_all_target . ' ' . $view_all_nofollow );
 			$badge_class = 'shopzen-pg-badge' . ( 'new' === $badge_type ? ' new' : '' );
 			?>
 
-			<<?php echo esc_html( $card_tag ); ?> class="shopzen-pg-product"<?php echo $card_attrs; ?>>
+			<<?php echo esc_html( $card_tag ); ?> class="shopzen-pg-product"<?php echo $card_attrs; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- href escaped via esc_url, target/nofollow via esc_attr. ?>>
 				<div class="shopzen-pg-img">
 					<?php if ( ! empty( $img_id ) ) :
 						echo wp_get_attachment_image( absint( $img_id ), $image_size_key, false, [ 'class' => 'shopzen-pg-img-el', 'alt' => esc_attr( $alt ) ] );

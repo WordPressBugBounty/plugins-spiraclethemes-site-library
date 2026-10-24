@@ -56,7 +56,7 @@ $image_size_key = ! empty( $settings_obj['cat_image_size_size'] ) ? $settings_ob
 				$alt = ! empty( $image['alt'] ) ? $image['alt'] : $label;
 				?>
 
-				<<?php echo esc_html( $card_tag ); ?> class="shopzen-cat-card"<?php echo $card_attrs; ?>>
+				<<?php echo esc_html( $card_tag ); ?> class="shopzen-cat-card"<?php echo $card_attrs; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- href escaped via esc_url, target/nofollow via esc_attr. ?>>
 					<?php if ( ! empty( $img_id ) ) :
 						echo wp_get_attachment_image( absint( $img_id ), $image_size_key, false, [ 'class' => 'shopzen-cat-img', 'alt' => esc_attr( $alt ) ] );
 					elseif ( ! empty( $img_url ) ) : ?>

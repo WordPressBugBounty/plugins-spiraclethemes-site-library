@@ -274,7 +274,7 @@ Shop_Zen_Elementor_Extension::instance();
  * @return bool True when the wishlist feature can be used, false otherwise.
  */
 if ( ! function_exists( 'shopzen_is_wishlist_available' ) ) {
-	function shopzen_is_wishlist_available() {
+	function shopzen_is_wishlist_available() { // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedFunctionFound -- Public helper name kept for backwards compatibility.
 		return function_exists( 'szpa_is_feature_enabled' ) && szpa_is_feature_enabled( 'wishlist' );
 	}
 }

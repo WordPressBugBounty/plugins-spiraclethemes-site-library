@@ -208,11 +208,11 @@ if ( 'image' === $banner_bg_type ) {
 						printf(
 							'<span class="shopbar-hf-decor-item" style="bottom:%2$dpx;right:%3$dpx;opacity:%4$.2f;transform:scale(%5$.2f) rotate(%6$ddeg)">%1$s</span>',
 							shopbar_hf_render_icon( $d_icon, $d_size ), // phpcs:ignore
-							$d_bottom,
-							$d_right,
-							( $decor_opacity * $d_op ),
-							$decor_size,
-							$d_rot
+							esc_attr( $d_bottom ),
+							esc_attr( $d_right ),
+							esc_attr( $decor_opacity * $d_op ),
+							esc_attr( $decor_size ),
+							esc_attr( $d_rot )
 						);
 					}
 					?>

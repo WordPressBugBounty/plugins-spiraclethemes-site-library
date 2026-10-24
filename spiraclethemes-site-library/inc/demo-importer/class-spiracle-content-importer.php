@@ -319,17 +319,30 @@ class Spiracle_Content_Importer {
 				}
 			}
 
+			$old_term_id = isset( $cat['term_id'] ) ? absint( $cat['term_id'] ) : 0;
+
 			$existing = get_term_by( 'slug', $category_nicename, 'category' );
 			if ( $existing ) {
+				if ( $old_term_id && $old_term_id !== (int) $existing->term_id ) {
+					$this->term_id_map[ $old_term_id ] = (int) $existing->term_id;
+				}
 				continue;
 			}
 
-			wp_insert_category( array(
+			$new_term_id = wp_insert_category( array(
 				'cat_name'             => $cat_name,
 				'category_nicename'    => $category_nicename,
 				'category_parent'      => $parent_id,
 				'category_description' => $category_description,
 			) );
+
+			if ( is_wp_error( $new_term_id ) || empty( $new_term_id ) ) {
+				continue;
+			}
+
+			if ( $old_term_id && $old_term_id !== (int) $new_term_id ) {
+				$this->term_id_map[ $old_term_id ] = (int) $new_term_id;
+			}
 		}
 	}
 
@@ -347,14 +360,27 @@ class Spiracle_Content_Importer {
 
 			$tag_slug = isset( $tag['tag_slug'] ) ? $tag['tag_slug'] : sanitize_title( $tag_name );
 
+			$old_term_id = isset( $tag['term_id'] ) ? absint( $tag['term_id'] ) : 0;
+
 			$existing = get_term_by( 'slug', $tag_slug, 'post_tag' );
 			if ( $existing ) {
+				if ( $old_term_id && $old_term_id !== (int) $existing->term_id ) {
+					$this->term_id_map[ $old_term_id ] = (int) $existing->term_id;
+				}
 				continue;
 			}
 
-			wp_insert_term( $tag_name, 'post_tag', array(
+			$result = wp_insert_term( $tag_name, 'post_tag', array(
 				'slug' => $tag_slug,
 			) );
+
+			if ( is_wp_error( $result ) ) {
+				continue;
+			}
+
+			if ( $old_term_id && $old_term_id !== (int) $result['term_id'] ) {
+				$this->term_id_map[ $old_term_id ] = (int) $result['term_id'];
+			}
 		}
 	}
 
@@ -734,7 +760,7 @@ class Spiracle_Content_Importer {
 	 * @param resource $handle The curl handle for the current hop.
 	 */
 	private function guard_http_curl_handle( $handle ) {
-		$hop_url  = curl_getinfo( $handle, CURLINFO_EFFECTIVE_URL );
+		$hop_url  = curl_getinfo( $handle, CURLINFO_EFFECTIVE_URL ); // phpcs:ignore WordPress.WP.AlternativeFunctions.curl_curl_getinfo -- Operating on WP core's own curl handle via the http_api_curl hook; wp_remote_get() cannot pin DNS per hop.
 		$hop_host = ( is_string( $hop_url ) && '' !== $hop_url ) ? wp_parse_url( $hop_url, PHP_URL_HOST ) : '';
 
 		if ( ! $hop_host || ! preg_match( '/^[a-z0-9.\-]+\.[a-z]{2,}$/i', $hop_host ) ) {
@@ -749,15 +775,15 @@ class Spiracle_Content_Importer {
 		$hop_ip = gethostbyname( $hop_host );
 		if ( $hop_ip === $hop_host || $this->is_private_ip( $hop_ip ) ) {
 			// Force a safe connection failure (TEST-NET-1 is unroutable).
-			curl_setopt( $handle, CURLOPT_CONNECTTIMEOUT_MS, 250 );
-			curl_setopt( $handle, CURLOPT_RESOLVE, [
+			curl_setopt( $handle, CURLOPT_CONNECTTIMEOUT_MS, 250 ); // phpcs:ignore WordPress.WP.AlternativeFunctions.curl_curl_setopt -- Pinning WP core's curl handle via http_api_curl.
+			curl_setopt( $handle, CURLOPT_RESOLVE, [ // phpcs:ignore WordPress.WP.AlternativeFunctions.curl_curl_setopt -- Pinning WP core's curl handle via http_api_curl.
 				$hop_host . ':80:192.0.2.1',
 				$hop_host . ':443:192.0.2.1',
 			] );
 			return;
 		}
 
-		curl_setopt( $handle, CURLOPT_RESOLVE, [
+		curl_setopt( $handle, CURLOPT_RESOLVE, [ // phpcs:ignore WordPress.WP.AlternativeFunctions.curl_curl_setopt -- Pinning WP core's curl handle via http_api_curl.
 			$hop_host . ':80:' . $hop_ip,
 			$hop_host . ':443:' . $hop_ip,
 		] );
